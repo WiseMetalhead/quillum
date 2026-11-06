@@ -1,0 +1,86 @@
+.mobileLibraryActionBackdrop {
+  position: fixed;
+  z-index: 1100;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgb(var(--color-shadow-rgb) / 0.48);
+  backdrop-filter: blur(3px);
+  animation: mobileLibraryBackdropIn 160ms ease-out;
+}
+
+.mobileLibraryActionSheet {
+  width: min(100%, 520px);
+  max-height: calc(100dvh - 24px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  border: 1px solid var(--color-border);
+  border-bottom: 0;
+  border-radius: 18px 18px 0 0;
+  background: var(--color-surface);
+  box-shadow: 0 -22px 56px rgb(var(--color-shadow-rgb) / 0.24);
+  transform: translateY(var(--library-sheet-drag, 0px));
+  transition: transform 180ms ease-out;
+  animation: mobileLibrarySheetIn 220ms ease-out;
+}
+
+.mobileLibraryActionSheet.dragging { transition: none; }
+.mobileLibraryActionBackdrop.closing { animation: mobileLibraryBackdropOut 180ms ease-in forwards; }
+.mobileLibraryActionSheet.closing { pointer-events: none; animation: mobileLibrarySheetOut 180ms ease-in forwards; }
+
+.mobileLibraryActionHandle {
+  height: 25px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  cursor: grab;
+  touch-action: none;
+}
+
+.mobileLibraryActionHandle:active { cursor: grabbing; }
+.mobileLibraryActionHandle span { width: 38px; height: 4px; border-radius: 999px; background: var(--color-border-strong); }
+.mobileLibraryActionHeader { min-height: 48px; display: grid; place-items: center; padding: 0 18px 10px; border-bottom: 1px solid var(--color-border); }
+.mobileLibraryActionHeader h2 { min-width: 0; margin: 0; overflow: hidden; color: var(--color-text-primary); font-size: 16px; line-height: 1.35; text-align: center; text-overflow: ellipsis; white-space: nowrap; }
+.mobileLibraryActionTopContent { padding: 10px 12px 4px; }
+.mobileLibraryActionList { min-height: 0; display: grid; padding: 8px 12px 12px; overflow-y: auto; overscroll-behavior: contain; }
+
+button.mobileLibraryAction {
+  width: 100%;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 11px 12px;
+  border: 0;
+  border-radius: 9px;
+  color: var(--color-text-secondary-strong);
+  background: transparent;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 650;
+  text-align: left;
+  cursor: pointer;
+}
+
+.mobileLibraryAction svg { width: 21px; height: 21px; flex: 0 0 auto; }
+button.mobileLibraryAction:disabled { opacity: 0.58; cursor: wait; }
+button.mobileLibraryAction:focus-visible { background: var(--color-action-surface); outline: 2px solid var(--color-action-border); outline-offset: -2px; }
+button.mobileLibraryAction.selected { color: var(--color-action-primary-hover); background: var(--color-action-surface); }
+button.mobileLibraryAction.danger { margin-top: 6px; border-top: 1px solid var(--color-border); border-radius: 0 0 9px 9px; color: var(--color-danger); }
+
+@keyframes mobileLibraryBackdropIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes mobileLibraryBackdropOut { from { opacity: 1; } to { opacity: 0; } }
+@keyframes mobileLibrarySheetIn { from { transform: translateY(100%); } to { transform: translateY(var(--library-sheet-drag, 0px)); } }
+@keyframes mobileLibrarySheetOut { from { transform: translateY(var(--library-sheet-drag, 0px)); } to { transform: translateY(100%); } }
+
+@media (max-width: 520px) and (hover: hover) and (pointer: fine) {
+  button.mobileLibraryAction:hover { color: var(--color-action-primary-hover); background: var(--color-action-surface); }
+  button.mobileLibraryAction.danger:hover { color: var(--color-danger); background: var(--color-danger-surface); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobileLibraryActionBackdrop, .mobileLibraryActionSheet { animation: none; transition: none !important; }
+}

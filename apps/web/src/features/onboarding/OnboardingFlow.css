@@ -1,0 +1,170 @@
+.onboardingBackdrop {
+  position: fixed;
+  z-index: 90;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 54px minmax(0, 760px) 54px;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 28px;
+  background: var(--color-overlay);
+}
+
+.onboardingDialog {
+  grid-column: 2;
+  width: 100%;
+  max-height: min(760px, calc(100dvh - 56px));
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  background: var(--color-surface);
+  box-shadow: 0 28px 80px rgb(var(--color-shadow-rgb) / 0.28);
+}
+
+.onboardingDesktopNav,
+.onboardingDesktopNavPlaceholder {
+  width: 54px;
+  height: 54px;
+}
+
+.onboardingDesktopNav {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 50%;
+  color: var(--color-text-secondary-strong);
+  background: var(--color-surface);
+  box-shadow: 0 12px 32px rgb(var(--color-shadow-rgb) / 0.2);
+  cursor: pointer;
+}
+
+.onboardingDesktopBack,
+.onboardingDesktopNavPlaceholder { grid-column: 1; grid-row: 1; }
+.onboardingDesktopNext { grid-column: 3; grid-row: 1; color: var(--color-text-on-accent); border-color: var(--color-action-primary); background: var(--color-action-primary); }
+.onboardingDesktopNav:hover { color: var(--color-action-primary); border-color: var(--color-action-border); background: var(--color-action-surface); }
+.onboardingDesktopNext:hover { color: var(--color-text-on-accent); background: var(--color-action-primary-hover); }
+.onboardingDesktopNav:focus-visible { outline: 3px solid rgb(var(--color-focus-ring-rgb) / 0.28); outline-offset: 3px; }
+.onboardingDesktopNav:disabled { opacity: 0.55; cursor: not-allowed; }
+.onboardingDesktopNav svg { width: 24px; height: 24px; }
+
+.onboardingProgress {
+  padding: 20px 28px 16px;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.onboardingProgress > span {
+  color: var(--color-text-muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.onboardingProgress > div {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.onboardingProgress i {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--color-border);
+}
+
+.onboardingProgress i.active { background: var(--color-action-primary); }
+
+.onboardingContent {
+  max-height: calc(min(760px, 100dvh - 56px) - 77px);
+  overflow-y: auto;
+  padding: 36px 42px 32px;
+}
+
+.onboardingHeader { margin-bottom: 28px; text-align: center; }
+.onboardingHeaderImage {
+  width: 104px;
+  height: 104px;
+  display: block;
+  margin: 0 auto 18px;
+  object-fit: contain;
+}
+.onboardingHeader h1 { margin: 0; color: var(--color-text-strong); font-size: clamp(26px, 4vw, 36px); line-height: 1.15; outline: none; }
+.onboardingHeader p { max-width: 580px; margin: 12px auto 0; color: var(--color-text-secondary); line-height: 1.55; }
+
+.onboardingForm { display: grid; gap: 20px; }
+.onboardingForm label { display: grid; gap: 8px; color: var(--color-text-secondary-strong); font-size: 13px; font-weight: 700; }
+.onboardingForm label > input {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 13px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 9px;
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+}
+.onboardingForm label > input:focus { border-color: var(--color-focus-ring); outline: 3px solid rgb(var(--color-focus-ring-rgb) / 0.18); }
+.onboardingForm .customSelect { width: 100%; }
+.onboardingForm .customSelectButton { width: 100%; min-height: 44px; }
+
+.onboardingThemeOptions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.onboardingThemeOptions button {
+  width: 100%;
+  min-width: 0;
+  min-height: 138px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 12px;
+  padding: 18px;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  color: var(--color-text-secondary);
+  background: var(--color-surface-raised);
+  cursor: pointer;
+}
+.onboardingThemeOptions button:hover { border-color: var(--color-action-border-subtle); background: var(--color-action-surface); }
+.onboardingThemeOptions button.selected { border-color: var(--color-action-border); color: var(--color-action-primary); background: var(--color-action-surface); box-shadow: 0 0 0 2px rgb(var(--color-action-primary-rgb) / 0.12); }
+.onboardingThemeImage { width: 76px; height: 76px; display: block; object-fit: contain; }
+
+.onboardingResourceGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.onboardingResourceGrid label:first-child { grid-column: 1 / -1; }
+
+.onboardingMobileActions { display: none; }
+
+.onboardingFinish { display: grid; justify-items: center; text-align: center; }
+.onboardingFinishIcon { width: 92px; height: 92px; display: grid; place-items: center; border-radius: 50%; color: var(--color-action-primary); background: var(--color-action-surface); }
+.onboardingFinishIcon svg { width: 48px; height: 48px; }
+.onboardingFinish > p { max-width: 540px; margin: 24px 0 4px; color: var(--color-text-secondary); font-size: 17px; line-height: 1.65; }
+.onboardingFinish .notice { width: 100%; margin-top: 20px; text-align: left; }
+.onboardingFinish .onboardingMobileActions { width: 100%; }
+
+@media (max-width: 640px) {
+  .onboardingBackdrop { display: block; padding: 0; background: var(--color-surface); }
+  .onboardingDesktopNav,
+  .onboardingDesktopNavPlaceholder { display: none; }
+  .onboardingDialog { width: 100%; height: 100dvh; max-height: none; border: 0; border-radius: 0; box-shadow: none; }
+  .onboardingProgress { padding: 18px 20px 14px; }
+  .onboardingContent { max-height: calc(100dvh - 69px); padding: 28px 20px 108px; }
+  .onboardingHeader { margin-bottom: 24px; }
+  .onboardingHeaderImage { width: 80px; height: 80px; margin-bottom: 14px; }
+  .onboardingThemeOptions { grid-template-columns: 1fr; }
+  .onboardingThemeOptions button { min-height: 84px; grid-template-columns: auto 1fr; justify-items: start; padding: 0 24px; }
+  .onboardingThemeImage { width: 60px; height: 60px; }
+  .onboardingResourceGrid { grid-template-columns: 1fr; }
+  .onboardingResourceGrid label:first-child { grid-column: auto; }
+  .onboardingMobileActions {
+    position: fixed;
+    z-index: 92;
+    right: 20px;
+    bottom: max(20px, env(safe-area-inset-bottom));
+    left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 12px;
+    background: var(--color-surface);
+  }
+  .onboardingMobileActions button { min-height: 42px; padding: 0 14px; border-radius: 9px; font-weight: 700; }
+}

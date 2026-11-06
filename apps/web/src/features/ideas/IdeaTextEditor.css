@@ -1,0 +1,235 @@
+.ideasTextEditor {
+  width: min(720px, calc(100vw - 48px));
+  height: min(680px, calc(100dvh - 48px));
+}
+
+.ideasTextEditor .standardDialogContent {
+  min-height: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto auto;
+  overflow: hidden;
+}
+
+.ideasTextTitleLine {
+  min-width: 0;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+}
+
+.ideasTextTitleInput {
+  width: 100%;
+  min-width: 0;
+  height: 34px;
+  padding: 5px 7px;
+  overflow: hidden;
+  border: 1px solid var(--color-action-border);
+  border-radius: 5px;
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 750;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  outline: 2px solid var(--color-action-surface-strong);
+}
+
+.ideasTextTitleInput:focus {
+  border-color: var(--color-action-border);
+  outline: 2px solid var(--color-action-surface-strong);
+  outline-offset: 0;
+}
+
+.ideasTextTitleInput::placeholder { color: var(--color-text-subtle); opacity: 1; }
+
+button.ideasTextTitleButton {
+  min-width: 0;
+  max-width: 100%;
+  padding: 5px 7px;
+  overflow: hidden;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  color: var(--color-text-primary);
+  background: transparent;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 750;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: text;
+}
+
+button.ideasTextTitleButton:hover { border-color: var(--color-border); background: var(--color-canvas-subtle); }
+
+.ideasTextFields {
+  min-height: 0;
+  display: flex;
+  padding: 20px 22px 12px;
+}
+
+.ideasTextBodyField {
+  width: 100%;
+  min-height: 0;
+  display: flex;
+}
+
+.ideasTextFields textarea {
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  min-height: 240px;
+  padding: 14px;
+  resize: none;
+  border: 1px solid var(--color-border);
+  border-radius: 9px;
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+  font: inherit;
+  font-weight: 400;
+  line-height: 1.55;
+  outline: none;
+}
+
+.ideasTextFields textarea:focus {
+  border-color: var(--color-action-primary);
+  box-shadow: 0 0 0 2px var(--color-action-border-subtle);
+}
+
+.ideasTextSaveState {
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 22px 10px;
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+.ideasTextSaveState.saved { color: var(--color-success); }
+.ideasTextSaveState.dirty,
+.ideasTextSaveState.saving { color: var(--color-info-600); }
+.ideasTextSaveState.error { color: var(--color-danger); }
+.ideasTextSaveState svg { width: 17px; height: 17px; flex: 0 0 auto; }
+.ideasTextSaveState button { margin-left: auto; padding: 5px 8px; border: 1px solid currentColor; border-radius: 7px; color: inherit; background: transparent; cursor: pointer; font-size: 11px; font-weight: 700; }
+
+.ideasTextEditorActions,
+.ideasTextEditor .standardDialogContent > .ideasTextEditorActions {
+  position: static;
+  min-height: 64px;
+  justify-content: flex-end;
+  gap: 9px;
+  margin: 0;
+  padding: 12px 18px;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.ideasTextEditorActionGroup {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.ideasTextEditorActionGroup button {
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+
+.ideasTextEditorActionGroup button:first-child { margin-right: auto; }
+.ideasTextEditorActionGroup svg { width: 17px; height: 17px; }
+.ideasTextEditorMobileSaveStatus { display: none; }
+
+.ideasTargetBackdrop { z-index: 1120; }
+.ideasTargetDialog { width: min(100%, 520px); }
+.ideasTargetList { min-height: 180px; max-height: min(62dvh, 520px); display: grid; align-content: start; gap: 5px; padding: 10px; overflow-y: auto; }
+.ideasTargetOption { width: 100%; min-height: 56px; display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 9px 10px; border: 0; border-radius: 9px; color: var(--color-text-secondary-strong); background: transparent; text-align: left; cursor: pointer; }
+.ideasTargetOption:hover:not(:disabled),
+.ideasTargetOption:focus-visible { color: var(--color-action-primary-hover); background: var(--color-action-surface); outline: none; }
+.ideasTargetOption:disabled { opacity: .6; cursor: wait; }
+.ideasTargetOption > svg { width: 21px; height: 21px; }
+.ideasTargetOption > span { min-width: 0; display: grid; gap: 3px; }
+.ideasTargetOption strong,
+.ideasTargetOption small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ideasTargetOption strong { color: var(--color-text-primary); font-size: 13px; }
+.ideasTargetOption small { color: var(--color-text-muted); font-size: 11px; font-weight: 500; }
+.ideasTargetLoading { min-height: 180px; }
+.ideasTargetEmpty { margin: 0; padding: 34px 18px; color: var(--color-text-muted); text-align: center; font-size: 13px; }
+
+@media (max-width: 520px) {
+  .ideasTextEditorBackdrop.mobileFullViewBackdrop {
+    position: fixed;
+    z-index: 19;
+    inset: var(--app-header-height) 0 0;
+    display: block;
+  }
+
+  .ideasTextEditor {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .ideasTextEditor > header {
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr) 52px;
+    align-items: center;
+    justify-content: stretch;
+    gap: 0;
+  }
+
+  .ideasTextTitleLine { grid-column: 2; justify-content: center; }
+  .ideasTextTitleInput { height: 38px; padding: 6px 8px; border-radius: 7px; font-size: 16px; text-align: center; }
+  button.ideasTextTitleButton { width: 100%; max-width: 100%; padding: 6px 8px; font-size: 16px; text-align: center; }
+
+  .ideasTextEditor .standardDialogContent { height: 100%; }
+  .ideasTextFields { padding: 0; }
+  .ideasTextFields textarea { min-height: 160px; padding: 18px 16px; border: 0; border-radius: 0; background: var(--color-surface); }
+  .ideasTextFields textarea:focus { border: 0; box-shadow: none; }
+  .ideasTextSaveState { display: none; }
+  .ideasTextEditorActions,
+  .ideasTextEditor .standardDialogContent > .ideasTextEditorActions {
+    min-height: 58px;
+    align-items: center;
+    gap: 5px;
+    padding: 7px 8px calc(7px + env(safe-area-inset-bottom, 0px));
+    background: rgb(var(--color-surface-rgb) / .96);
+    box-shadow: 0 -10px 24px rgb(var(--color-shadow-rgb) / 7%);
+    backdrop-filter: blur(14px);
+  }
+  .ideasTextEditorActionGroup { width: auto; gap: 5px; }
+  .ideasTextEditorActionGroup button,
+  .ideasTextEditor .standardDialogContent > .ideasTextEditorActions .ideasTextEditorActionGroup button {
+    width: 36px;
+    min-width: 36px;
+    height: 36px;
+    min-height: 36px;
+    flex: 0 0 36px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 7px;
+    color: var(--color-text-secondary-strong);
+    background: transparent;
+    cursor: pointer;
+  }
+  .ideasTextEditorActionGroup button:first-child { margin-right: 0; color: var(--color-danger); }
+  .ideasTextEditorActionGroup button:hover:not(:disabled) { color: var(--color-action-primary-hover); background: var(--color-action-surface); }
+  .ideasTextEditorActionGroup button:first-child:hover:not(:disabled) { color: var(--color-danger); background: var(--color-danger-surface); }
+  .ideasTextEditorActionGroup button:disabled { opacity: .5; cursor: wait; }
+  .ideasTextEditorActionGroup button span { display: none; }
+  .ideasTextEditorActionGroup svg { width: 20px; height: 20px; }
+  .ideasTextEditorMobileSaveStatus { display: block; margin-left: auto; }
+  .ideasTextEditorMobileSaveStatus button.boardsSaveStatusButton { width: 36px; height: 36px; }
+  .ideasTextEditorMobileSaveStatus .boardsSaveStatusButton svg { width: 20px; height: 20px; }
+  .ideasTextEditorMobileSaveStatus .boardsSaveStatusPopover { top: auto; right: 0; bottom: calc(100% + 8px); left: auto; }
+  .mobileLibraryActionBackdrop.ideasTargetBackdrop { z-index: 1120; }
+  .ideasTargetLoading { min-height: 120px; }
+}

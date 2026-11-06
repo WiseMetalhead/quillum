@@ -1,0 +1,26 @@
+.responsiveConfirmationBackdrop {
+  z-index: 1110;
+}
+
+.responsiveConfirmationCopy {
+  display: grid;
+  gap: 8px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.responsiveConfirmationCopy p {
+  margin: 0;
+}
+
+@media (min-width: 521px) {
+  .responsiveConfirmationDialog {
+    width: min(100%, 480px);
+  }
+}
+
+@media (max-width: 520px) {
+  .responsiveConfirmationDialog .manuscriptDeleteBody {
+    padding: 10px 16px 18px;
+  }
+}

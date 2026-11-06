@@ -1,0 +1,122 @@
+@import "./styles/shell.css";
+@import "./features/auth/AuthViews.css";
+@import "./styles/shared.css";
+@import "./styles/responsive.css";
+@import "./features/auth/AuthOverrides.css";
+@import "./features/shared/ActionDialog.css";
+@import "./features/shared/DialogPrimitives.css";
+
+.appRouteLoadingState {
+  min-height: min(60vh, 520px);
+}
+
+.manuscriptDashboardWorkspace .appRouteLoadingState {
+  min-height: calc(100dvh - var(--app-header-height));
+  background: transparent;
+}
+
+.ideasWorkspace {
+  height: calc(100dvh - var(--app-header-height));
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.ideasWorkspace .workspaceInner {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  min-height: 0;
+}
+
+@media (min-width: 861px) {
+  .manuscriptLibraryWorkspace,
+  .feedWorkspace {
+    height: calc(100dvh - var(--app-header-height));
+    min-height: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .manuscriptLibraryWorkspace .workspaceInner,
+  .feedWorkspace .workspaceInner {
+    height: 100%;
+  }
+
+  .workspaceHomeWorkspace .appRouteLoadingState,
+  .manuscriptLibraryWorkspace .appRouteLoadingState,
+  .feedWorkspace .appRouteLoadingState,
+  .ideasWorkspace .appRouteLoadingState {
+    height: 100%;
+    min-height: 0;
+    background: transparent;
+  }
+}
+
+.cookieConsent {
+  position: fixed;
+  z-index: 40;
+  right: 24px;
+  bottom: calc(24px + var(--cookie-footer-offset, 0px));
+  width: min(560px, calc(100vw - 48px));
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface);
+  box-shadow: 0 18px 44px rgb(var(--color-shadow-rgb) / 0.2);
+}
+
+.cookieConsentIcon {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  color: var(--color-action-primary);
+}
+
+.cookieConsent p {
+  flex: 1 1 auto;
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.cookieConsent button {
+  height: 34px;
+  flex: 0 0 auto;
+  padding: 0 11px;
+  border: 0;
+  border-radius: 7px;
+  color: var(--color-text-on-accent);
+  background: var(--color-action-primary);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.cookieConsent button:hover {
+  background: var(--color-action-primary-hover);
+}
+
+@media (max-width: 640px) {
+  .cookieConsent {
+    right: 16px;
+    bottom: calc(16px + var(--cookie-footer-offset, 0px));
+    width: calc(100vw - 32px);
+    align-items: flex-start;
+  }
+
+  .toastRegion {
+    right: 16px;
+    width: calc(100vw - 32px);
+  }
+
+  .cookieConsent button {
+    margin-top: 2px;
+  }
+}

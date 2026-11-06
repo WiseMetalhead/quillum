@@ -1,0 +1,50 @@
+.boardsSaveStatus {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+button.boardsSaveStatusButton {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 7px;
+  color: var(--color-success);
+  background: transparent;
+  cursor: pointer;
+}
+
+button.boardsSaveStatusButton:hover { background: var(--color-success-surface); }
+button.boardsSaveStatusButton.dirty,
+button.boardsSaveStatusButton.saving { color: var(--color-info-600); }
+button.boardsSaveStatusButton.error { color: var(--color-danger); }
+.boardsSaveStatusButton svg { width: 17px; height: 17px; }
+
+.boardsSaveStatusPopover {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 230px;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 9px;
+  color: var(--color-text-secondary-strong);
+  background: var(--color-surface);
+  box-shadow: 0 14px 34px rgb(var(--color-shadow-rgb) / 14%);
+}
+
+.boardsSaveStatusPopover > svg { width: 22px; height: 22px; color: currentColor; }
+.boardsSaveStatusPopover > div { min-width: 0; display: grid; gap: 3px; }
+.boardsSaveStatusPopover strong { font-size: 12px; }
+.boardsSaveStatusPopover span { color: var(--color-text-muted); font-size: 10px; line-height: 1.4; }
+.boardsSaveStatusPopover button { width: max-content; margin-top: 6px; padding: 5px 8px; border: 1px solid currentColor; border-radius: 6px; color: inherit; background: transparent; cursor: pointer; font: inherit; font-size: 10px; font-weight: 750; }
+.boardsSaveStatusPopover button:hover { border-color: var(--color-danger); color: var(--color-text-on-accent); background: var(--color-danger); }
+.boardsSaveStatus:has(.dirty) .boardsSaveStatusPopover,
+.boardsSaveStatus:has(.saving) .boardsSaveStatusPopover { color: var(--color-info-600); }
+.boardsSaveStatus:has(.error) .boardsSaveStatusPopover { color: var(--color-danger); }

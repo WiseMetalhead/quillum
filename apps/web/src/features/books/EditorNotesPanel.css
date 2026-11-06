@@ -1,0 +1,494 @@
+.editorNotesPanel,
+.editorNoteForm {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface);
+}
+
+.editorNotesHeader {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.editorNotesScope { grid-template-columns: 1fr 1fr; }
+
+button.editorAddNoteButton {
+  width: 100%;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 0;
+  border-radius: 7px;
+  color: var(--color-text-on-accent);
+  background: var(--color-action-primary);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button.editorAddNoteButton:hover { background: var(--color-action-primary-hover); }
+button.editorAddNoteButton svg { width: 15px; height: 15px; }
+
+.editorNotesSearchBlock {
+  padding: 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.editorNotesSearch {
+  height: 34px;
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr) 22px;
+  align-items: center;
+  gap: 7px;
+  padding: 0 7px 0 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 7px;
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+}
+
+.editorNotesSearch:focus-within {
+  border-color: var(--color-action-border);
+  box-shadow: 0 0 0 2px rgb(var(--color-focus-ring-rgb) / 20%);
+}
+
+.editorNotesSearch > svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+}
+
+.editorNotesSearch input {
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  color: var(--color-text-secondary-strong);
+  background: transparent;
+  font: inherit;
+  font-size: 12px;
+  outline: 0;
+}
+
+.editorNotesSearch button {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 5px;
+  color: var(--color-text-subtle);
+  background: transparent;
+}
+
+.editorNotesSearch button:hover { color: var(--color-text-secondary-strong); background: var(--color-surface-subtle); }
+.editorNotesSearch button svg { width: 13px; height: 13px; }
+
+.editorNotesList {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 12px;
+  scrollbar-gutter: stable;
+}
+
+.editorNoteCard {
+  --note-color: #dbeafe;
+  width: 100%;
+  display: grid;
+  gap: 9px;
+  margin-bottom: 12px;
+  padding: 12px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--note-color), var(--color-text-subtle) 35%);
+  border-radius: 9px;
+  color: var(--color-text-secondary-strong);
+  background: color-mix(in srgb, var(--note-color), var(--color-surface) 78%);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.editorNoteCard[data-color="yellow"] { --note-color: var(--color-warning-border); }
+.editorNoteCard[data-color="blue"] { --note-color: #bfdbfe; }
+.editorNoteCard[data-color="green"] { --note-color: var(--color-success-border); }
+.editorNoteCard[data-color="purple"] { --note-color: #ddd6fe; }
+.editorNoteCard[data-color="orange"] { --note-color: var(--color-warning-border); }
+.editorNoteCard[data-color="pink"] { --note-color: #fbcfe8; }
+.editorNoteCard[data-color="gray"] { --note-color: var(--color-border); }
+.editorNoteCard:hover { border-color: color-mix(in srgb, var(--note-color), var(--color-text-secondary) 45%); box-shadow: 0 8px 18px rgb(var(--color-shadow-rgb) / 7%); }
+.editorNoteCard:focus-visible { outline: 2px solid var(--color-focus-ring); outline-offset: 1px; }
+
+.editorNoteCardTitle {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+}
+
+.editorNoteCardTitle strong {
+  overflow: hidden;
+  color: var(--color-text-primary);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.editorNoteCardTitle > span {
+  min-width: 18px;
+  min-height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  color: var(--color-action-primary);
+}
+
+.editorNoteCardTitle svg {
+  width: 14px;
+  height: 14px;
+}
+
+.editorNoteCardImage {
+  display: block;
+  overflow: hidden;
+  border: 1px solid rgb(var(--color-surface-rgb) / 72%);
+  border-radius: 7px;
+  background: rgb(var(--color-surface-rgb) / 42%);
+}
+
+.editorNoteCardImage img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.editorAudioNoteCardPreview { min-height: 58px; display: grid; grid-template-columns: 26px minmax(0, 1fr); align-items: center; gap: 8px; padding: 5px 8px; border: 1px solid rgb(var(--color-surface-rgb) / 72%); border-radius: 7px; color: var(--color-action-primary); background: rgb(var(--color-surface-rgb) / 42%); }
+.editorAudioNoteCardPreview > svg { width: 22px; height: 22px; }
+.editorAudioNoteCardPreview .audioWaveform { height: 38px; }
+
+.editorAudioNoteDetail { height: 100%; min-height: 0; display: flex; flex-direction: column; gap: 18px; padding: 12px; overflow-y: auto; background: var(--color-surface); }
+.editorAudioNoteDetail > header { display: grid; grid-template-columns: 32px minmax(0, 1fr); align-items: center; gap: 9px; }
+.editorAudioNoteDetail > header > button { width: 32px; height: 32px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 7px; color: var(--color-text-muted); background: transparent; cursor: pointer; }
+.editorAudioNoteDetail > header > button:hover { color: var(--color-action-primary-hover); background: var(--color-action-surface); }
+.editorAudioNoteDetail > header svg { width: 18px; height: 18px; }
+.editorAudioNoteDetail h2 { margin: 0; overflow: hidden; color: var(--color-text-primary); font-size: 13px; text-overflow: ellipsis; white-space: nowrap; }
+.editorAudioNoteDetail header span { color: var(--color-text-muted); font-size: 10px; }
+.editorAudioNotePlayer { display: grid; place-items: center; min-height: 190px; padding: 22px 14px; border-radius: 9px; background: transparent; }
+.editorAudioNoteDetail > .audioTranscriptionPanel { width: 100%; gap: 12px; padding: 12px; }
+.editorAudioNoteDetail > .audioTranscriptionPanel.hasText { row-gap: 14px; }
+.editorAudioNoteDetail > .audioTranscriptionPanel .audioTranscriptionHeader { gap: 8px; }
+.editorAudioNoteDetail > .audioTranscriptionPanel .audioTranscriptionHeader strong { font-size: 12px; font-weight: 700; }
+.editorAudioNoteDetail > .audioTranscriptionPanel .audioTranscriptionHeader svg { width: 16px; height: 16px; }
+.editorAudioNoteDetail > .audioTranscriptionPanel .audioTranscriptionHeader small { padding: 2px 6px; font-size: 9px; }
+.editorAudioNoteDetail > .audioTranscriptionPanel .audioTranscriptionText p { color: var(--color-text-secondary-strong); font-size: 12px; font-weight: 400; line-height: 1.55; }
+.editorAudioNoteDetail > .audioTranscriptionPanel .audioTranscriptionProgress,
+.editorAudioNoteDetail > .audioTranscriptionPanel .audioTranscriptionFailure,
+.editorAudioNoteDetail > .audioTranscriptionPanel .audioTranscriptionError { font-size: 11px; }
+.editorAudioNoteDetail dl { display: grid; gap: 9px; margin: 0; }
+.editorAudioNoteDetail dl div { display: flex; justify-content: space-between; gap: 12px; color: var(--color-text-muted); font-size: 11px; }
+.editorAudioNoteDetail dd { margin: 0; color: var(--color-text-secondary-strong); }
+button.editorAudioOpenBoards { min-height: 38px; display: flex; align-items: center; justify-content: center; gap: 7px; margin-top: auto; padding: 8px 12px; border: 1px solid var(--color-action-primary); border-radius: 7px; color: var(--color-text-on-accent); background: var(--color-action-primary); font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; }
+button.editorAudioOpenBoards svg { width: 17px; height: 17px; }
+
+.editorNoteCardContent {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+}
+
+.editorNoteCardContent p {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.editorNoteCardContent p + p { margin-top: 5px; }
+.editorNoteCardContent ul { margin: 4px 0; padding-left: 18px; }
+.editorNoteCardContent li { padding-left: 1px; }
+.editorNoteCardContent ul.noteTaskList { padding-left: 0; list-style: none; }
+.editorNoteCardContent ul.noteTaskList li { display: flex; align-items: flex-start; gap: 5px; padding-left: 0; }
+.editorNoteCardContent .noteTaskCheck { width: 12px; height: 12px; flex: 0 0 auto; margin-top: 3px; border: 1px solid var(--color-text-subtle); border-radius: 3px; color: var(--color-text-on-accent); background: transparent; font-size: 9px; line-height: 10px; text-align: center; }
+.editorNoteCardContent ul.noteTaskList li.checked .noteTaskCheck { border-color: var(--color-action-primary); background: var(--color-action-primary); }
+.editorNoteCardContent ul.noteTaskList li.checked > span:last-child { color: var(--color-text-muted); text-decoration: line-through; text-decoration-thickness: 1px; }
+.editorNoteCardContent strong { color: var(--color-text-secondary-strong); font-weight: 750; }
+.editorNoteCardContent em { font-style: italic; }
+.editorNoteCardContent s { text-decoration-thickness: 1px; }
+
+.editorNoteCardMeta {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--color-text-muted);
+  font-size: 9px;
+}
+
+.editorNoteCardMeta > span {
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.editorNoteCardMeta i {
+  padding: 3px 6px;
+  border: 1px solid color-mix(in srgb, var(--tag-color), var(--color-text-muted) 20%);
+  border-radius: 4px;
+  color: color-mix(in srgb, var(--tag-color), var(--color-text-primary) 70%);
+  background: color-mix(in srgb, var(--tag-color), var(--color-surface) 62%);
+  font-style: normal;
+}
+
+.editorNoteCardMeta time { white-space: nowrap; }
+
+.editorNotesState {
+  flex: 1 1 auto;
+  display: grid;
+  place-items: center;
+  padding: 24px 18px;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.editorNoteFormHeader {
+  min-height: 54px;
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.editorNoteFormHeader button {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 7px;
+  color: var(--color-text-muted);
+  background: transparent;
+}
+
+.editorNoteFormHeader button:hover { color: var(--color-action-primary-hover); background: var(--color-action-surface); }
+.editorNoteFormHeader svg { width: 17px; height: 17px; }
+
+.editorNoteHeaderTitle {
+  min-width: 0;
+  height: 32px;
+  padding: 0 2px;
+  border: 0;
+  border-radius: 6px;
+  color: var(--color-text-primary);
+  background: transparent;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 750;
+  outline: 0;
+}
+
+.editorNoteHeaderTitle::placeholder { color: var(--color-text-subtle); }
+.editorNoteHeaderTitle:focus { background: var(--color-action-surface); box-shadow: inset 0 0 0 1px var(--color-action-border-subtle); }
+
+button.editorNoteHeaderTitleButton {
+  width: 100%;
+  min-width: 0;
+  height: 32px;
+  display: block;
+  padding: 0 2px;
+  overflow: hidden;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: var(--color-text-primary);
+  background: transparent;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 750;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: text;
+}
+
+button.editorNoteHeaderTitleButton:hover {
+  border-color: var(--color-border);
+  color: var(--color-text-primary);
+  background: var(--color-canvas-subtle);
+}
+
+.editorNoteFormHeader .editorNoteSaveButton {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  margin-left: 2px;
+  padding: 0;
+  border-left: 1px solid var(--color-border);
+  border-radius: 0;
+  color: var(--color-info-600);
+}
+
+.editorNoteFormHeader .editorNoteSaveButton.saved { color: var(--color-success); }
+.editorNoteFormHeader .editorNoteSaveButton.dirty,
+.editorNoteFormHeader .editorNoteSaveButton.saving { color: var(--color-info-600); }
+.editorNoteFormHeader .editorNoteSaveButton.error { color: var(--color-danger); }
+.editorNoteFormHeader .editorNoteSaveButton.saving svg { animation: editorSaveSpin 1.1s linear infinite; }
+
+@keyframes editorSaveSpin { to { transform: rotate(360deg); } }
+
+.editorNoteFormBody {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0 12px 18px;
+}
+
+.editorNoteFormatBar {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.editorNoteFormatBar button {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  color: var(--color-text-strong);
+  background: transparent;
+  cursor: pointer;
+}
+
+.editorNoteFormatBar button:hover { background: var(--color-surface-subtle); }
+.editorNoteFormatBar button.active { color: var(--color-action-primary-hover); background: var(--color-action-surface); }
+.editorNoteFormatBar button:disabled { opacity: .5; cursor: wait; }
+.editorNoteFormatBar > span { width: 1px; height: 24px; margin: 0 3px; background: var(--color-border-subtle); }
+.editorNoteFormatBar svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.editorNoteFormatBar svg.mingcuteToolbarIcon { width: 14px; height: 14px; stroke: none; }
+.editorNoteFormatBar svg circle { fill: currentColor; stroke: none; }
+
+.editorNoteForm .tiptap {
+  width: 100%;
+  min-height: 170px;
+  padding: 13px 14px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 7px;
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+  font-size: 13px;
+  line-height: 1.6;
+  outline: 0;
+}
+
+.editorNoteForm .tiptap:focus { border-color: var(--color-focus-ring); }
+.editorNoteForm .tiptap p { margin: 0 0 .7em; }
+.editorNoteForm .tiptap ul { margin: 0 0 .7em; padding-left: 22px; }
+.editorNoteForm .tiptap ul[data-type="taskList"] { display: grid; gap: 5px; padding-left: 0; list-style: none; }
+.editorNoteForm .tiptap ul[data-type="taskList"] > li[data-checked] { display: flex; align-items: flex-start; gap: 8px; list-style: none; }
+.editorNoteForm .tiptap ul[data-type="taskList"] > li[data-checked] > label { width: auto; flex: 0 0 auto; display: flex; align-items: center; gap: 0; margin-top: 3px; color: inherit; font-size: inherit; cursor: pointer; }
+.editorNoteForm .tiptap ul[data-type="taskList"] > li[data-checked] > label input { width: 15px; height: 15px; flex: 0 0 auto; margin: 0; padding: 0; border: 0; border-radius: 3px; accent-color: var(--color-action-primary); box-shadow: none; cursor: pointer; }
+.editorNoteForm .tiptap ul[data-type="taskList"] > li[data-checked] > label span { display: none; }
+.editorNoteForm .tiptap ul[data-type="taskList"] > li[data-checked] > div { min-width: 0; flex: 1 1 auto; }
+.editorNoteForm .tiptap ul[data-type="taskList"] > li[data-checked] > div p { margin: 0; }
+.editorNoteForm .tiptap ul[data-type="taskList"] > li[data-checked="true"] > div { color: var(--color-text-muted); text-decoration: line-through; text-decoration-thickness: 1px; }
+.editorNoteForm .tiptap figure { max-width: 100%; margin: 12px auto; }
+.editorNoteForm .tiptap figure.ProseMirror-selectednode { border-radius: 8px; outline: 2px solid var(--color-action-primary); outline-offset: 3px; }
+.editorNoteForm .tiptap figure img { display: block; max-width: 100%; max-height: 220px; margin: auto; border-radius: 7px; object-fit: contain; }
+.editorNoteForm .tiptap figcaption { color: var(--color-text-muted); font-size: 10px; text-align: center; }
+
+.editorNoteSection { margin-top: 16px; }
+.editorNoteSection h3 { margin: 0 0 10px; color: var(--color-text-strong); font-size: 12px; font-weight: 650; }
+.editorNoteSection .customSelectButton { width: 100%; min-height: 34px; height: 34px; padding: 0 9px; border: 1px solid var(--color-border); border-radius: 6px; color: var(--color-text-secondary); background: var(--color-surface); font-size: 11px; }
+
+.editorNoteColors { display: flex; flex-wrap: wrap; gap: 12px; }
+.editorNoteColors button { width: 26px; height: 26px; padding: 0; border: 1px solid transparent; border-radius: 50%; cursor: pointer; }
+.editorNoteColors button.active { outline: 2px solid var(--color-action-primary); outline-offset: 2px; }
+.editorNoteColors .yellow { border-color: var(--color-warning-border); background: var(--color-warning-surface); }
+.editorNoteColors .blue { border-color: #bfdbfe; background: #dbeafe; }
+.editorNoteColors .green { border-color: var(--color-success-border); background: var(--color-success-surface); }
+.editorNoteColors .purple { border-color: #ddd6fe; background: #ede9fe; }
+.editorNoteColors .orange { border-color: var(--color-warning-border); background: #ffedd5; }
+.editorNoteColors .pink { border-color: #fbcfe8; background: #fce7f3; }
+.editorNoteColors .gray { border-color: var(--color-border); background: var(--color-surface-subtle); }
+
+.editorNoteTagChoices { display: flex; flex-wrap: wrap; gap: 7px; }
+.editorNoteTagChoices label { position: relative; cursor: pointer; }
+.editorNoteTagChoices input { position: absolute; width: 1px; height: 1px; margin: 0; opacity: 0; pointer-events: none; }
+.editorNoteTagChoices span { display: inline-flex; min-height: 27px; align-items: center; padding: 0 9px; border: 1px solid var(--color-border); border-radius: 5px; color: var(--color-text-muted); background: var(--color-surface); font-size: 11px; font-weight: 650; }
+.editorNoteTagChoices input:checked + span { border-color: color-mix(in srgb, var(--tag-color), var(--color-action-primary) 25%); color: var(--color-action-primary-hover); background: color-mix(in srgb, var(--tag-color), var(--color-surface) 78%); }
+
+.editorNoteAddTagButton,
+.editorNoteInlineCreate button {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 5px;
+  color: var(--color-text-secondary);
+  background: var(--color-surface);
+  cursor: pointer;
+}
+
+.editorNoteAddTagButton:hover,
+.editorNoteInlineCreate button:hover:not(:disabled) { border-color: var(--color-action-border-subtle); color: var(--color-action-primary-hover); background: var(--color-action-surface); }
+.editorNoteAddTagButton svg,
+.editorNoteInlineCreate svg { width: 15px; height: 15px; }
+
+.editorNoteInlineCreate { display: flex; gap: 8px; margin-top: 8px; }
+.editorNoteInlineCreate input { min-width: 0; height: 30px; flex: 1; padding: 0 9px; border: 1px solid var(--color-border); border-radius: 6px; font-size: 11px; }
+.editorNoteInlineCreate button:disabled { color: var(--color-border-strong); cursor: not-allowed; }
+
+.editorNoteOptions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.editorNoteOptions button {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 7px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  color: var(--color-text-secondary-strong);
+  background: var(--color-surface);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.editorNoteOptions button:hover { border-color: var(--color-action-border-subtle); color: var(--color-action-primary-hover); background: var(--color-action-surface); }
+.editorNoteOptions button.active { border-color: var(--color-action-border); color: var(--color-action-primary-hover); background: var(--color-action-surface); }
+.editorNoteOptions svg { width: 16px; height: 16px; }

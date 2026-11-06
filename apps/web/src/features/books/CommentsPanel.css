@@ -1,0 +1,707 @@
+.commentsPanel {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.commentsPanelHeader {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.commentFilters {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 3px;
+  border-radius: 7px;
+  background: var(--color-surface-subtle);
+}
+
+.commentFilters button,
+.addCommentButton,
+.primaryCommentButton,
+.replyComposer button,
+.resolveCommentButton,
+.commentDeleteActions button {
+  border: 0;
+  border-radius: 6px;
+  font: inherit;
+}
+
+.commentFilters button {
+  padding: 7px 9px;
+  color: var(--color-text-muted);
+  background: transparent;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.commentFilters button:hover { background: rgb(var(--color-surface-rgb) / 55%); }
+
+.commentFilters button.active {
+  color: var(--color-action-primary-hover);
+  background: var(--color-surface);
+  box-shadow: 0 1px 4px rgb(var(--color-shadow-rgb) / 0.08);
+  font-weight: 700;
+}
+
+.addCommentButton,
+.primaryCommentButton {
+  padding: 8px 12px;
+  color: var(--color-text-on-accent);
+  background: var(--color-action-primary);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.addCommentButton {
+  width: 100%;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.addCommentButton:hover:not(:disabled) { background: var(--color-action-primary-hover); }
+.addCommentButton svg { width: 15px; height: 15px; }
+
+.commentComposer {
+  display: grid;
+  gap: 10px;
+  margin: 12px 12px 0;
+  padding: 12px;
+  border: 1px solid var(--color-action-border);
+  border-radius: 9px;
+  background: var(--color-surface);
+  box-shadow: 0 8px 20px rgb(var(--color-action-primary-rgb) / 0.08);
+}
+
+.commentComposer textarea,
+.commentEditForm textarea,
+.replyComposer textarea {
+  width: 100%;
+  height: 88px;
+  min-height: 72px;
+  overflow-y: auto;
+  resize: none;
+  padding: 8px 9px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 6px;
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.commentComposer > div,
+.commentEditForm > div,
+.replyComposerActions,
+.commentDeleteActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.commentComposer > div button,
+.commentEditForm > div button,
+.replyComposerActions button {
+  padding: 7px 10px;
+  border: 0;
+  border-radius: 6px;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.primaryCommentButton { cursor: pointer; }
+.primaryCommentButton:hover:not(:disabled) { background: var(--color-action-primary-hover); }
+
+.commentCardList {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 12px;
+}
+
+.commentsEmptyState {
+  display: grid;
+  gap: 7px;
+  padding: 24px 12px;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.commentsEmptyState strong {
+  color: var(--color-text-secondary-strong);
+  font-size: 13px;
+}
+
+.commentCard {
+  display: grid;
+  gap: 11px;
+  margin-bottom: 12px;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-surface);
+  box-shadow: 0 3px 10px rgb(var(--color-shadow-rgb) / 0.04);
+  cursor: pointer;
+}
+
+.commentCard.active {
+  border-color: var(--color-focus-ring);
+  box-shadow: 0 0 0 2px var(--color-action-surface-strong);
+}
+
+.commentCard blockquote,
+.commentComposer blockquote {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 8px 10px;
+  overflow: hidden;
+  border-left: 3px solid var(--color-warning);
+  border-radius: 0 5px 5px 0;
+  color: var(--color-text-secondary);
+  background: var(--color-warning-surface);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.commentCard blockquote span,
+.commentComposer blockquote span {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.commentCard blockquote.detached,
+.commentComposer blockquote.detached {
+  border-left-color: var(--color-text-subtle);
+  background: var(--color-canvas-subtle);
+}
+
+.commentCard blockquote strong,
+.commentComposer blockquote strong {
+  color: var(--color-warning-strong);
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.commentAuthorRow {
+  position: relative;
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+}
+
+.commentAvatar {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 50%;
+  color: var(--color-text-on-accent);
+  background: linear-gradient(145deg, var(--color-action-primary), var(--color-brand-500));
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.commentAvatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.commentAuthorDetails {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.commentAuthorDetails strong {
+  overflow: hidden;
+  color: var(--color-text-primary);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.commentAuthorDetails time {
+  color: var(--color-text-subtle);
+  font-size: 10px;
+}
+
+.commentMenu {
+  position: relative;
+}
+
+.commentHeaderActions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+button.commentMenuButton {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  padding: 5px;
+  border: 0;
+  border-radius: 5px;
+  color: var(--color-text-muted);
+  background: transparent;
+  cursor: pointer;
+}
+
+button.commentMenuButton:hover:not(:disabled) {
+  color: var(--color-text-secondary-strong);
+  background: var(--color-surface-subtle);
+}
+
+button.commentMenuButton svg {
+  width: 18px;
+  height: 18px;
+}
+
+.commentMenuPopover {
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + 4px);
+  right: 0;
+  min-width: 110px;
+  display: grid;
+  padding: 4px;
+  border: 1px solid var(--color-border);
+  border-radius: 7px;
+  background: var(--color-surface);
+  box-shadow: 0 10px 24px rgb(var(--color-shadow-rgb) / 0.14);
+}
+
+.commentMenuPopover button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 9px;
+  border: 0;
+  border-radius: 4px;
+  color: var(--color-text-secondary-strong);
+  background: transparent;
+  font: inherit;
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.commentMenuPopover button svg { width: 15px; height: 15px; flex: 0 0 auto; }
+.commentMenuPopover button:hover { background: var(--color-surface-subtle); }
+.commentMenuPopover button.danger {
+  color: var(--color-danger);
+}
+.commentMenuPopover button.danger:hover { background: var(--color-danger-surface); }
+
+.commentBody {
+  margin: 0;
+  color: var(--color-text-secondary-strong);
+  font-size: 13px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+
+.commentReply {
+  display: grid;
+  gap: 8px;
+  margin-left: 22px;
+  padding: 11px 0 0 12px;
+  border-top: 1px solid var(--color-surface-subtle);
+  border-left: 2px solid var(--color-border);
+}
+
+.commentEditForm,
+.commentsPanel .replyComposer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 7px;
+  margin-top: 0;
+}
+
+.replyComposer textarea {
+  height: 54px;
+  min-height: 54px;
+}
+
+button.resolveCommentButton {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  padding: 5px;
+  border: 0;
+  border-radius: 5px;
+  color: var(--color-action-primary);
+  background: transparent;
+  cursor: pointer;
+}
+
+button.resolveCommentButton:hover:not(:disabled) {
+  background: var(--color-action-surface);
+}
+
+button.resolveCommentButton svg {
+  width: 18px;
+  height: 18px;
+}
+
+.commentsPanel button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.commentComposer textarea:focus,
+.commentEditForm textarea:focus,
+.replyComposer textarea:focus {
+  border-color: var(--color-action-border);
+  outline: 2px solid var(--color-action-surface-strong);
+  outline-offset: 0;
+}
+
+@media (max-width: 520px) {
+  .mobileCommentsBackdrop.mobileFullViewBackdrop { z-index: 1000; }
+  .mobileCommentDetailBackdrop.mobileFullViewBackdrop { z-index: 1010; }
+
+  .mobileCommentsView.mobileFullView,
+  .mobileCommentDetailView.mobileFullView {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    overflow: hidden;
+  }
+
+  .mobileCommentsView > header,
+  .mobileCommentDetailView > header {
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-surface);
+  }
+
+  .mobileCommentsBody,
+  .mobileCommentDetailBody {
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: var(--color-surface);
+  }
+
+  .mobileCommentsEmpty {
+    min-height: 100%;
+    display: grid;
+    place-content: center;
+    gap: 7px;
+    padding: 28px 24px;
+    color: var(--color-text-muted);
+    font-size: 12px;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .mobileCommentsEmpty strong {
+    color: var(--color-text-secondary-strong);
+    font-size: 13px;
+  }
+
+  .mobileCommentList {
+    margin: 0;
+    padding: 4px 12px 24px;
+    list-style: none;
+  }
+
+  .mobileCommentList li + li { border-top: 1px solid var(--color-border-subtle); }
+
+  button.mobileCommentRow {
+    width: 100%;
+    min-height: 72px;
+    display: grid;
+    align-content: center;
+    justify-items: start;
+    gap: 5px;
+    padding: 13px 10px;
+    border: 0;
+    border-radius: 0;
+    color: var(--color-text-primary);
+    background: transparent;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  button.mobileCommentRow > strong {
+    max-width: 100%;
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 1.35;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  button.mobileCommentRow > span {
+    display: -webkit-box;
+    max-width: 100%;
+    overflow: hidden;
+    color: var(--color-text-muted);
+    font-size: 12px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  button.mobileCommentRow > small {
+    color: var(--color-warning-strong);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  button.mobileCommentRow:focus-visible {
+    border-radius: 8px;
+    background: var(--color-action-surface);
+    outline: 2px solid var(--color-action-border);
+    outline-offset: -2px;
+  }
+
+  button.mobileCommentRow:disabled { cursor: wait; opacity: .55; }
+
+  .mobileCommentsBottomBar,
+  .mobileCommentDetailBottomBar {
+    min-height: 59px;
+    display: grid;
+    gap: 8px;
+    padding: 7px max(10px, env(safe-area-inset-right, 0px)) calc(7px + env(safe-area-inset-bottom, 0px)) max(10px, env(safe-area-inset-left, 0px));
+    border-top: 1px solid var(--color-border);
+    background: rgb(var(--color-surface-rgb) / 96%);
+    box-shadow: 0 -10px 24px rgb(var(--color-shadow-rgb) / 7%);
+    backdrop-filter: blur(14px);
+  }
+
+  .mobileCommentsBottomBar { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .mobileCommentDetailBottomBar {
+    grid-auto-flow: column;
+    grid-auto-columns: 46px;
+    justify-content: center;
+  }
+
+  .mobileCommentsBottomBar button,
+  .mobileCommentDetailBottomBar button {
+    min-width: 0;
+    min-height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 7px 10px;
+    border: 0;
+    border-radius: 8px;
+    color: var(--color-text-muted);
+    background: transparent;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .mobileCommentsBottomBar button.active {
+    color: var(--color-action-primary-hover);
+    background: var(--color-action-surface);
+  }
+
+  .mobileCommentDetailBottomBar button {
+    width: 46px;
+    padding: 0;
+    color: var(--color-action-primary);
+  }
+
+  .mobileCommentsBottomBar button svg,
+  .mobileCommentDetailBottomBar button svg { width: 20px; height: 20px; }
+  .mobileCommentsBottomBar button:disabled,
+  .mobileCommentDetailBottomBar button:disabled { opacity: .5; cursor: wait; }
+  .mobileCommentDetailBottomBar button:focus-visible,
+  .mobileCommentsBottomBar button:focus-visible {
+    background: var(--color-action-surface);
+    outline: 2px solid var(--color-action-border);
+    outline-offset: -2px;
+  }
+
+  .mobileCommentDetailBody {
+    display: grid;
+    align-content: start;
+    gap: 16px;
+    padding: 16px 16px 28px;
+  }
+
+  button.mobileCommentHeaderActionsButton {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    justify-self: end;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    color: var(--color-text-secondary-strong);
+    background: transparent;
+    cursor: pointer;
+  }
+
+  button.mobileCommentHeaderActionsButton svg { width: 22px; height: 22px; }
+  button.mobileCommentHeaderActionsButton:disabled { opacity: .5; cursor: wait; }
+  button.mobileCommentHeaderActionsButton.active {
+    color: var(--color-action-primary-hover);
+    background: var(--color-action-surface);
+  }
+  button.mobileCommentHeaderActionsButton:focus-visible {
+    color: var(--color-action-primary-hover);
+    background: var(--color-action-surface);
+    outline: 2px solid var(--color-action-border);
+    outline-offset: -2px;
+  }
+
+  .mobileCommentDetailBody blockquote,
+  .mobileCommentForm blockquote {
+    display: grid;
+    gap: 5px;
+    margin: 0;
+    padding: 10px 12px;
+    border-left: 3px solid var(--color-warning);
+    border-radius: 0 6px 6px 0;
+    color: var(--color-text-secondary);
+    background: var(--color-warning-surface);
+    font-size: 12px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+  }
+
+  .mobileCommentForm blockquote { max-height: 18dvh; overflow-y: auto; }
+
+  .mobileCommentDetailBody blockquote.detached {
+    border-left-color: var(--color-text-subtle);
+    background: var(--color-canvas-subtle);
+  }
+
+  .mobileCommentDetailBody blockquote strong {
+    color: var(--color-warning-strong);
+    font-size: 10px;
+    text-transform: uppercase;
+  }
+
+  .mobileCommentMessage {
+    display: grid;
+    gap: 10px;
+    padding: 0 2px;
+  }
+
+  .mobileCommentMessage > p {
+    margin: 0;
+    color: var(--color-text-secondary-strong);
+    font-size: 14px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+  }
+
+  .mobileCommentReplies {
+    display: grid;
+    gap: 0;
+    margin-top: 2px;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .mobileCommentMessage.reply {
+    padding: 16px 2px;
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .mobileCommentAuthor {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 9px;
+  }
+
+  .mobileCommentAuthor .commentAvatar { width: 34px; height: 34px; }
+  .mobileCommentAuthor > span:nth-child(2) { min-width: 0; display: grid; gap: 2px; }
+  .mobileCommentAuthor strong {
+    overflow: hidden;
+    color: var(--color-text-primary);
+    font-size: 13px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .mobileCommentAuthor time { color: var(--color-text-subtle); font-size: 10px; }
+
+  .mobileCommentAuthor > button {
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    color: var(--color-text-muted);
+    background: transparent;
+  }
+
+  .mobileCommentAuthor > button svg { width: 19px; height: 19px; }
+
+  .mobileCommentForm,
+  .mobileCommentDelete {
+    display: grid;
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .mobileCommentForm textarea {
+    width: 100%;
+    min-height: 116px;
+    padding: 10px 12px;
+    resize: none;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 8px;
+    color: var(--color-text-primary);
+    background: var(--color-surface);
+    font: inherit;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .mobileCommentForm textarea:focus {
+    border-color: var(--color-action-border);
+    outline: 2px solid var(--color-action-border);
+    outline-offset: 1px;
+  }
+
+  .mobileCommentForm footer,
+  .mobileCommentDelete footer {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin: 2px -16px -16px;
+    padding: 16px 16px calc(16px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--color-border);
+  }
+
+  .mobileCommentForm footer button,
+  .mobileCommentDelete footer button { width: 100%; min-width: 0; }
+  .mobileCommentDelete p { margin: 0; color: var(--color-text-secondary-strong); font-size: 14px; line-height: 1.55; }
+}

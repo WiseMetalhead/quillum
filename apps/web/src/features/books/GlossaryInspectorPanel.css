@@ -1,0 +1,486 @@
+.glossaryInspector {
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  gap: 0;
+  background: var(--color-surface);
+}
+
+.glossaryInspector button,
+.glossaryInspector input,
+.glossaryInspectorReader button {
+  font: inherit;
+}
+
+.glossaryInspector > .inspectorEmptyState {
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.glossaryInspector > .glossaryInspectorLoading {
+  min-height: 180px;
+  overflow: hidden;
+}
+
+.glossaryInspectorSegments {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  margin: 12px 12px 0;
+  padding: 3px;
+  border-radius: 8px;
+  background: var(--color-surface-subtle);
+}
+
+.glossaryInspectorSegments button {
+  height: 32px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 6px;
+  color: var(--color-text-muted);
+  background: transparent;
+  font-size: 11px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.glossaryInspectorSegments button:hover {
+  color: var(--color-text-secondary-strong);
+}
+
+.glossaryInspectorSegments button.active {
+  color: var(--color-action-primary);
+  background: var(--color-surface);
+  box-shadow: 0 1px 3px rgb(var(--color-shadow-rgb) / 10%);
+}
+
+.glossaryInspectorFilters {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+}
+
+.glossaryInspectorSearch {
+  height: 34px;
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr);
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  padding: 0 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 7px;
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+}
+
+.glossaryInspectorSearch:focus-within {
+  border-color: var(--color-action-border);
+  box-shadow: 0 0 0 2px rgb(var(--color-focus-ring-rgb) / 20%);
+}
+
+.glossaryInspectorSearch svg {
+  width: 15px;
+  height: 15px;
+}
+
+.glossaryInspectorSearch input {
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  color: var(--color-text-secondary-strong);
+  background: transparent;
+  font: inherit;
+  font-size: 12px;
+  outline: 0;
+}
+
+.glossaryInspectorFilters > .customSelect {
+  width: 100%;
+}
+
+.glossaryInspectorFilters .customSelectButton {
+  min-height: 34px;
+  height: 34px;
+  padding: 0 30px 0 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 7px;
+  color: var(--color-text-secondary);
+  background: var(--color-surface);
+  font: inherit;
+  font-size: 11px;
+}
+
+.glossaryInspectorFilters .customSelectButton:focus-visible {
+  border-color: var(--color-action-border);
+  outline: 2px solid rgb(var(--color-focus-ring-rgb) / 20%);
+}
+
+.glossaryInspectorResults {
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0 12px 16px;
+}
+
+.glossaryInspectorGroup + .glossaryInspectorGroup {
+  margin-top: 15px;
+}
+
+.glossaryInspectorGroup > h3 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 7px;
+  padding: 0 2px;
+  color: var(--color-text-secondary-strong);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.glossaryInspectorGroup > h3 span {
+  color: var(--color-text-subtle);
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.glossaryInspectorCards {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+}
+
+.glossaryInspectorCards article {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 30px;
+  gap: 5px;
+  align-items: center;
+  padding: 7px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.glossaryInspectorCards article:hover {
+  border-color: var(--color-action-border-subtle);
+  box-shadow: 0 5px 14px rgb(var(--color-shadow-rgb) / 5%);
+}
+
+.glossaryInspectorOpen {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 9px;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  color: var(--color-text-secondary-strong);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.glossaryInspectorOpen img,
+.glossaryInspectorThumbnailPlaceholder {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.glossaryInspectorThumbnailPlaceholder {
+  display: grid !important;
+  place-items: center;
+  color: var(--color-text-subtle);
+  background: var(--color-surface-subtle);
+}
+
+.glossaryInspectorThumbnailPlaceholder svg {
+  width: 19px;
+  height: 19px;
+  overflow: visible;
+}
+
+.glossaryInspectorOpen span,
+.glossaryInspectorOpen strong,
+.glossaryInspectorOpen small {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.glossaryInspectorOpen strong {
+  font-size: 12px;
+}
+
+.glossaryInspectorOpen small {
+  margin-top: 3px;
+  color: var(--color-text-muted);
+  font-size: 10px;
+}
+
+.glossaryInspectorCards article > button:last-child {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  color: var(--color-text-subtle);
+  background: transparent;
+  cursor: pointer;
+}
+
+.glossaryInspectorCards article > button:last-child:hover,
+.glossaryInspectorCards article > button.linked {
+  color: var(--color-action-primary);
+  background: var(--color-action-surface);
+}
+
+.glossaryInspectorCards article > button:last-child svg {
+  width: 16px;
+  height: 16px;
+}
+
+.glossaryInspectorReader {
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 12px;
+  background: var(--color-surface);
+}
+
+.glossaryInspectorBack {
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+  padding: 0 7px;
+  border: 0;
+  border-radius: 6px;
+  color: var(--color-text-secondary);
+  background: transparent;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.glossaryInspectorBack:hover {
+  color: var(--color-action-primary);
+  background: var(--color-action-surface);
+}
+
+.glossaryInspectorBack svg {
+  width: 14px;
+  height: 14px;
+}
+
+.glossaryInspectorReader > header {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface-raised);
+}
+
+.glossaryInspectorReader > header img,
+.glossaryInspectorReaderPlaceholder {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.glossaryInspectorReaderPlaceholder {
+  display: grid;
+  place-items: center;
+  color: var(--color-text-subtle);
+  background: var(--color-surface-subtle);
+}
+
+.glossaryInspectorReaderPlaceholder svg {
+  width: 23px;
+  height: 23px;
+  overflow: visible;
+}
+
+.glossaryInspectorReader h3 {
+  margin: 0;
+  color: var(--color-text-strong);
+  font-size: 14px;
+}
+
+.glossaryInspectorReader header p {
+  display: -webkit-box;
+  margin: 4px 0 0;
+  overflow: hidden;
+  color: var(--color-text-muted);
+  font-size: 11px;
+  line-height: 1.4;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.glossaryInspectorToc {
+  display: grid;
+  gap: 2px;
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text-secondary-strong);
+  font-size: 11px;
+}
+
+.glossaryInspectorToc strong {
+  margin-bottom: 4px;
+}
+
+.glossaryInspectorToc button {
+  min-width: 0;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  overflow: hidden;
+  border: 0;
+  color: var(--color-text-muted);
+  background: transparent;
+  font-size: 10px;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.glossaryInspectorToc button:hover {
+  color: var(--color-action-primary);
+}
+
+.glossaryInspectorReader .glossaryDocument {
+  min-width: 0;
+  margin: 10px 0 0;
+  border-radius: 8px;
+}
+
+.glossaryInspectorReader .glossaryTiptap {
+  min-width: 0;
+  min-height: 0;
+  padding: 14px;
+  overflow-wrap: anywhere;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.glossaryInspectorReader .glossaryTiptap .tableWrapper {
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+.glossaryInspectorReader .glossaryTiptap table {
+  min-width: 420px;
+}
+
+.glossaryInspectorReader .glossaryCallout {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+}
+
+.glossaryInspectorReader .glossaryCalloutIcon {
+  display: grid;
+  place-items: center;
+  color: var(--color-info-600);
+}
+
+.glossaryInspectorReader .glossaryCalloutIcon svg {
+  width: 17px;
+  height: 17px;
+}
+
+.glossaryInspectorReader .glossaryCalloutContent {
+  min-width: 0;
+}
+
+.glossaryInspectorReader .glossaryCalloutContent > :first-child {
+  margin-top: 0;
+}
+
+.glossaryInspectorReader .glossaryCalloutContent > :last-child {
+  margin-bottom: 0;
+}
+
+.glossaryInspectorReader .glossaryCallout[data-kind='attention'] .glossaryCalloutIcon,
+.glossaryInspectorReader .glossaryCallout[data-kind='note'] .glossaryCalloutIcon {
+  color: var(--color-warning);
+}
+
+.glossaryInspectorReader .glossaryCallout[data-kind='warning'] .glossaryCalloutIcon {
+  color: var(--color-danger);
+}
+
+.glossaryInspectorReader .glossaryCallout[data-kind='check'] .glossaryCalloutIcon,
+.glossaryInspectorReader .glossaryCallout[data-kind='tip'] .glossaryCalloutIcon {
+  color: var(--color-success-strong);
+}
+
+.glossaryInspectorReader .glossaryIllustration {
+  max-width: 100%;
+}
+
+.glossaryInspectorReader .glossaryIllustration img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+.glossaryInspectorOutgoing {
+  margin-top: 12px;
+}
+
+.glossaryInspectorOutgoing h4 {
+  margin: 0 0 5px;
+  color: var(--color-text-secondary-strong);
+  font-size: 11px;
+}
+
+.glossaryInspectorOutgoing button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 6px;
+  border: 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+  color: var(--color-text-secondary-strong);
+  background: transparent;
+  font-size: 11px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.glossaryInspectorOutgoing button:hover {
+  color: var(--color-action-primary);
+  background: var(--color-surface-raised);
+}
+
+.glossaryInspectorOutgoing small {
+  overflow: hidden;
+  color: var(--color-text-muted);
+  font-size: 9px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

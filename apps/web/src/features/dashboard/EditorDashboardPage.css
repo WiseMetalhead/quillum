@@ -1,0 +1,148 @@
+.editorWorkspaceHome {
+  width: 100%;
+  min-width: 0;
+}
+
+.editorWorkspaceHero {
+  position: relative;
+  isolation: isolate;
+  min-height: clamp(420px, 58vh, 620px);
+  display: grid;
+  place-items: center;
+  padding: clamp(40px, 7vw, 76px) clamp(24px, 6vw, 72px) clamp(78px, 10vw, 112px);
+  overflow: hidden;
+  background: var(--color-canvas);
+  text-align: center;
+}
+
+.editorWorkspaceHero::before,
+.editorWorkspaceHero::after {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  content: '';
+  pointer-events: none;
+  clip-path: inset(0);
+}
+
+.editorWorkspaceHero::before {
+  background: url('/workspace-background.webp') 55% 52% / cover no-repeat;
+  filter: blur(18px) saturate(0.82);
+  opacity: 0.42;
+  transform: scale(1.04);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 58%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 58%, transparent 100%);
+}
+
+.editorWorkspaceHero::after {
+  background:
+    linear-gradient(180deg, rgb(5 11 18 / 24%) 0%, rgb(5 11 18 / 34%) 56%, rgb(5 11 18 / 60%) 100%),
+    linear-gradient(90deg, rgb(5 11 18 / 52%) 0%, rgb(5 11 18 / 13%) 50%, rgb(5 11 18 / 46%) 100%),
+    url('/workspace-background.webp') 55% 52% / cover no-repeat;
+  -webkit-mask-image: radial-gradient(ellipse 80% 72% at 50% 25%, #000 0%, #000 58%, transparent 100%);
+  mask-image: radial-gradient(ellipse 80% 72% at 50% 25%, #000 0%, #000 58%, transparent 100%);
+}
+
+.editorWorkspaceHero:has(.workspaceSearchResults) {
+  overflow: visible;
+}
+
+.editorWorkspaceHeroCopy {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 680px);
+  min-width: 0;
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+}
+
+.editorWorkspaceHero h1,
+.editorWorkspaceHero p {
+  margin: 0;
+}
+
+.editorWorkspaceHero h1 {
+  color: #fff;
+  font-size: clamp(34px, 4.4vw, 54px);
+  font-weight: 500;
+  line-height: 1.08;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+.editorWorkspaceHero p {
+  max-width: 580px;
+  color: rgb(255 255 255 / 74%);
+  font-size: clamp(14px, 1.25vw, 17px);
+  line-height: 1.6;
+  text-wrap: balance;
+}
+
+.editorWorkspaceHero .workspaceSearchHost {
+  width: min(100%, 520px);
+  margin-top: 10px;
+  text-align: left;
+}
+
+.editorWorkspaceHomeWorkspace {
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: calc(100dvh - var(--app-header-height));
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.editorWorkspaceHomeWorkspace .workspaceInner {
+  width: 100%;
+  min-width: 0;
+}
+
+@media (min-width: 861px) {
+  .workspace.editorWorkspaceHomeWorkspace {
+    height: calc(100dvh - var(--app-header-height));
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .editorWorkspaceHomeWorkspace .workspaceInner,
+  .editorWorkspaceHome,
+  .editorWorkspaceHero {
+    height: 100%;
+    min-height: 0;
+  }
+}
+
+@media (max-width: 860px) {
+  .editorWorkspaceHero {
+    min-height: clamp(400px, 56vh, 520px);
+    padding: 48px 24px 88px;
+  }
+
+  .editorWorkspaceHero::before,
+  .editorWorkspaceHero::after {
+    background-position: 61% 52%;
+  }
+}
+
+@media (max-width: 520px) {
+  .editorWorkspaceHero {
+    min-height: clamp(390px, 54vh, 470px);
+    padding: 38px 18px 76px;
+  }
+
+  .editorWorkspaceHero::before,
+  .editorWorkspaceHero::after {
+    background-position: 66% 52%;
+  }
+
+  .editorWorkspaceHero::after {
+    -webkit-mask-image: radial-gradient(ellipse 102% 78% at 50% 22%, #000 0%, #000 56%, transparent 100%);
+    mask-image: radial-gradient(ellipse 102% 78% at 50% 22%, #000 0%, #000 56%, transparent 100%);
+  }
+
+  .editorWorkspaceHero h1 {
+    font-size: clamp(31px, 9vw, 40px);
+  }
+}

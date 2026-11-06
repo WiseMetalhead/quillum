@@ -1,0 +1,84 @@
+.servicePageWorkspace {
+  height: calc(100dvh - var(--app-header-height));
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.servicePageWorkspace .workspaceInner {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  min-height: 0;
+}
+
+.servicePageLayout {
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+}
+
+.servicePageContentScroller {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.servicePageArticle {
+  width: min(100% - 32px, 860px);
+  margin: 0 auto;
+  padding: 48px 0 64px;
+}
+
+.servicePageDocumentHeader {
+  margin-bottom: 34px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.servicePageDocumentHeader h1 {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: clamp(28px, 4vw, 42px);
+  line-height: 1.15;
+}
+
+.servicePageDocumentHeader p {
+  margin: 10px 0 0;
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+.servicePageMarkdown {
+  color: var(--color-text-primary);
+  font-size: 16px;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+
+.servicePageMarkdown > :first-child { margin-top: 0; }
+.servicePageMarkdown > :last-child { margin-bottom: 0; }
+.servicePageMarkdown h1 { margin: 0 0 28px; font-size: clamp(28px, 4vw, 42px); line-height: 1.15; }
+.servicePageMarkdown h2 { margin: 36px 0 14px; font-size: 24px; line-height: 1.25; }
+.servicePageMarkdown h3 { margin: 28px 0 12px; font-size: 19px; line-height: 1.3; }
+.servicePageMarkdown h4,
+.servicePageMarkdown h5,
+.servicePageMarkdown h6 { margin: 24px 0 10px; font-size: 16px; }
+.servicePageMarkdown p,
+.servicePageMarkdown ul,
+.servicePageMarkdown ol,
+.servicePageMarkdown blockquote,
+.servicePageMarkdown pre { margin: 0 0 18px; }
+.servicePageMarkdown ul,
+.servicePageMarkdown ol { padding-left: 28px; }
+.servicePageMarkdown blockquote { padding: 2px 0 2px 18px; border-left: 3px solid var(--color-action-border); color: var(--color-text-secondary); }
+.servicePageMarkdown a { color: var(--color-action-primary); }
+.servicePageMarkdown code { font-family: var(--font-mono, monospace); }
+.servicePageMarkdown pre { overflow-x: auto; padding: 16px; border-radius: 8px; background: var(--color-canvas-subtle); }
+.servicePageMarkdown hr { margin: 32px 0; border: 0; border-top: 1px solid var(--color-border); }
+
+@media (max-width: 520px) {
+  .servicePageArticle { width: min(100% - 28px, 860px); padding: 30px 0 44px; }
+  .servicePageDocumentHeader { margin-bottom: 26px; padding-bottom: 18px; }
+}

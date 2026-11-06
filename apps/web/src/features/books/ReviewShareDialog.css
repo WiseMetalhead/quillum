@@ -1,0 +1,633 @@
+.reviewShareDialog {
+  width: min(100%, 780px);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.reviewShareDialog .mobileDialogBack {
+  display: none;
+}
+
+.reviewShareDialogBody {
+  min-height: 0;
+  display: grid;
+  gap: 20px;
+  overflow-y: auto;
+  padding: 0 24px 24px;
+}
+
+.reviewShareCreate,
+.reviewShareList {
+  display: grid;
+  gap: 14px;
+}
+
+.reviewShareModes {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.reviewShareScopes {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px;
+  border: 0;
+}
+
+.reviewShareScopes input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.reviewShareScopes legend {
+  grid-column: 1 / -1;
+  margin-bottom: 7px;
+  padding: 0;
+  color: var(--color-text-secondary-strong);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.reviewShareScopes label {
+  position: relative;
+  display: grid;
+  gap: 5px;
+  min-height: 74px;
+  padding: 13px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 9px;
+  background: var(--color-surface);
+  cursor: pointer;
+}
+
+.reviewShareScopes label:has(input:checked) {
+  border-color: var(--color-focus-ring);
+  background: var(--color-action-surface);
+}
+
+.reviewShareAuthorDisplay {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  border: 0;
+}
+
+.reviewShareAuthorDisplay legend {
+  grid-column: 1 / -1;
+  margin-bottom: 7px;
+  color: var(--color-text-secondary-strong);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.reviewShareAuthorDisplay label {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 46px;
+  padding: 10px 13px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 9px;
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.reviewShareAuthorDisplay input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.reviewShareAuthorDisplay label:has(input:checked) {
+  border-color: var(--color-focus-ring);
+  background: var(--color-action-surface);
+  color: var(--color-text-primary);
+}
+
+.reviewShareScopes span,
+.reviewShareList li > div {
+  display: grid;
+  gap: 3px;
+}
+
+.reviewShareScopes small,
+.reviewShareList small,
+.reviewShareList p {
+  color: var(--color-text-muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.reviewShareLoading { min-height: 96px; }
+
+.reviewShareScopes strong,
+.reviewShareList strong {
+  color: var(--color-text-primary);
+  font-size: 13px;
+}
+
+.reviewShareFields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.reviewShareFields label {
+  display: grid;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.reviewShareFields input,
+.reviewShareNewLink input {
+  height: 40px;
+  min-width: 0;
+  padding: 0 10px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+.reviewShareNewLink {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+}
+
+.reviewShareList h3 {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-weight: 750;
+}
+
+.reviewShareList ul {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+  list-style: none;
+}
+
+.reviewShareList li {
+  min-width: 0;
+  min-height: 48px;
+  padding: 6px 8px 6px 10px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+}
+
+.reviewShareListActions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 0 0 auto;
+  flex-wrap: nowrap;
+}
+
+@media (max-width: 680px) {
+  .reviewShareFields {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .dialogBackdrop.mobileFullViewBackdrop.reviewShareDialogBackdrop {
+    z-index: 1300;
+    top: var(--app-header-height);
+    overflow: hidden;
+    padding: 0;
+    background: transparent;
+    backdrop-filter: none;
+  }
+
+  .reviewShareDialog.mobileFullView {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 0;
+    border-radius: 0;
+    background: var(--color-surface);
+    box-shadow: none;
+    backface-visibility: hidden;
+    transform: translate3d(100%, 0, 0);
+    transition: transform 220ms ease-out;
+    will-change: transform;
+  }
+
+  .reviewShareDialogBackdrop.open .reviewShareDialog {
+    transform: translate3d(0, 0, 0);
+  }
+
+  .reviewShareDialogBackdrop.closing .reviewShareDialog {
+    pointer-events: none;
+    transform: translate3d(100%, 0, 0);
+    transition-timing-function: ease-in;
+  }
+
+  .reviewShareDialog.mobileFullView > header {
+    min-height: 56px;
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr) 52px;
+    align-items: center;
+    gap: 0;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .reviewShareDialog .mobileDialogBack {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--color-text-primary);
+  }
+
+  .reviewShareDialog .mobileDialogBack svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .reviewShareDialog .mobileDialogHeaderCopy {
+    min-width: 0;
+    grid-column: 2;
+  }
+
+  .reviewShareDialog .mobileDialogHeaderCopy h2 {
+    overflow: hidden;
+    margin: 0;
+    font-size: 16px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .reviewShareDialog .dialogClose {
+    display: none;
+  }
+
+  .reviewShareDialogBody {
+    min-height: 0;
+    flex: 1 1 auto;
+    display: grid;
+    align-content: start;
+    gap: 0;
+    overflow-y: auto;
+    padding: 8px 16px calc(24px + env(safe-area-inset-bottom, 0px));
+    overscroll-behavior: contain;
+  }
+
+  .reviewShareDialog button.reviewShareMobileCreateLink,
+  button.reviewShareMobileSettingLink {
+    width: 100%;
+    min-height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 13px 10px;
+    border: 0;
+    border-bottom: 1px solid var(--color-border-subtle);
+    border-radius: 0;
+    color: var(--color-text-secondary-strong);
+    background: transparent;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .reviewShareDialog button.reviewShareMobileCreateLink {
+    border-bottom: 0;
+    color: var(--color-text-primary);
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .reviewShareDialog button.reviewShareMobileCreateLink > svg,
+  button.reviewShareMobileSettingLink > svg {
+    width: 20px;
+    height: 20px;
+    flex: 0 0 auto;
+    color: var(--color-text-muted);
+  }
+
+  button.reviewShareMobileSettingLink > span {
+    min-width: 0;
+    display: grid;
+    gap: 4px;
+  }
+
+  button.reviewShareMobileSettingLink strong {
+    color: var(--color-text-primary);
+    font-size: 14px;
+    line-height: 1.3;
+  }
+
+  button.reviewShareMobileSettingLink small {
+    overflow: hidden;
+    color: var(--color-text-muted);
+    font-size: 12px;
+    line-height: 1.4;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .reviewShareDialog button.reviewShareMobileCreateLink:focus-visible,
+  button.reviewShareMobileSettingLink:focus-visible {
+    border-radius: 8px;
+    background: var(--color-action-surface);
+    outline: 2px solid var(--color-action-border);
+    outline-offset: -2px;
+  }
+
+  .reviewShareMobileList {
+    display: grid;
+    gap: 0;
+    margin-top: 12px;
+    padding-top: 14px;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .reviewShareMobileList h3 {
+    margin: 0;
+    padding: 0 10px 8px;
+    color: var(--color-text-primary);
+    font-size: 12px;
+    font-weight: 750;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+
+  .reviewShareMobileList > p {
+    margin: 0;
+    padding: 14px 10px;
+    color: var(--color-text-muted);
+    font-size: 13px;
+  }
+
+  .reviewShareMobileList ul {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .reviewShareMobileListItem {
+    min-width: 0;
+    min-height: 62px;
+    display: grid;
+    align-content: center;
+    gap: 4px;
+    padding: 11px 10px;
+    border-bottom: 1px solid var(--color-border-subtle);
+    color: var(--color-text-secondary-strong);
+    background: transparent;
+    -webkit-touch-callout: none;
+    user-select: none;
+  }
+
+  .reviewShareMobileListItem strong {
+    color: var(--color-text-primary);
+    font-size: 14px;
+  }
+
+  .reviewShareMobileListItem small {
+    color: var(--color-text-muted);
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .reviewShareMobileListItem:focus-visible {
+    border-radius: 8px;
+    background: var(--color-action-surface);
+    outline: 2px solid var(--color-action-border);
+    outline-offset: -2px;
+  }
+
+  .standardDialogBackdrop.reviewShareCreateMobileBackdrop.mobileFullViewBackdrop {
+    z-index: 1400;
+    top: var(--app-header-height);
+    overflow: hidden;
+    padding: 0;
+    background: transparent;
+    backdrop-filter: none;
+  }
+
+  .standardActionDialog.reviewShareCreateMobileDialog {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    backface-visibility: hidden;
+    transform: translate3d(100%, 0, 0);
+    transition: transform 220ms ease-out;
+    will-change: transform;
+  }
+
+  .reviewShareCreateMobileBackdrop.open .reviewShareCreateMobileDialog { transform: translate3d(0, 0, 0); }
+  .reviewShareCreateMobileBackdrop.closing .reviewShareCreateMobileDialog {
+    pointer-events: none;
+    transform: translate3d(100%, 0, 0);
+    transition-timing-function: ease-in;
+  }
+
+  .standardActionDialog.reviewShareCreateMobileDialog > header {
+    min-height: 56px;
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr) 52px;
+    align-items: center;
+    gap: 0;
+    padding: 8px 10px;
+  }
+
+  .reviewShareCreateMobileDialog > header > div { min-width: 0; grid-column: 2; }
+  .reviewShareCreateMobileDialog > header h2 {
+    overflow: hidden;
+    margin: 0;
+    font-size: 16px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .reviewShareCreateMobileDialog .standardDialogMobileBack,
+  .reviewShareCreateMobileDialog .standardDialogMobilePrimary { display: grid; }
+  .reviewShareCreateMobileDialog .standardDialogClose { display: none; }
+  .reviewShareCreateMobileDialog .standardDialogContent { overflow-y: auto; }
+  .reviewShareMobileCreateBody { display: grid; padding: 8px 12px 24px; }
+
+  .reviewShareCreateMobileDialog button.standardDialogMobileBack,
+  .reviewShareCreateMobileDialog button.standardDialogMobilePrimary {
+    width: 40px;
+    height: 40px;
+    min-height: 40px;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+  }
+
+  .reviewShareCreateMobileDialog button.standardDialogMobileBack {
+    grid-column: 1;
+    color: var(--color-text-primary);
+  }
+
+  .reviewShareCreateMobileDialog button.standardDialogMobilePrimary {
+    grid-column: 3;
+    color: var(--color-action-primary);
+  }
+
+  .reviewShareCreateMobileDialog button.standardDialogMobileBack svg,
+  .reviewShareCreateMobileDialog button.standardDialogMobilePrimary svg { width: 21px; height: 21px; }
+  .reviewShareCreateMobileDialog button.standardDialogMobileBack:disabled,
+  .reviewShareCreateMobileDialog button.standardDialogMobilePrimary:disabled { opacity: .45; cursor: not-allowed; }
+
+  .mobileLibraryActionBackdrop.reviewShareFieldSheetBackdrop,
+  .mobileLibraryActionBackdrop.reviewShareActionsSheetBackdrop { z-index: 1500; }
+
+  .reviewShareChoicePlaceholder {
+    width: 21px;
+    height: 21px;
+    flex: 0 0 21px;
+  }
+
+  .reviewShareMobileSheetField {
+    display: grid;
+    gap: 7px;
+    padding: 4px;
+    color: var(--color-text-secondary-strong);
+    font-size: 12px;
+    font-weight: 650;
+  }
+
+  .reviewShareMobileSheetField input {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reviewShareDialog.mobileFullView,
+    .standardActionDialog.reviewShareCreateMobileDialog { transition: none; }
+  }
+}
+
+.reviewShareDialog .spaceButton {
+  min-height: 38px;
+  padding: 8px 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.reviewShareDialog .spaceButton.iconOnly {
+  width: 32px;
+  min-width: 32px;
+  height: 32px;
+  min-height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  color: var(--color-text-muted);
+  background: transparent;
+}
+
+.reviewShareDialog .spaceButton.iconOnly:hover:not(:disabled) {
+  color: var(--color-action-primary);
+  background: var(--color-action-surface);
+}
+
+.reviewShareDialog .spaceButton.iconOnly.danger {
+  color: var(--color-danger-strong);
+}
+
+.reviewShareDialog .spaceButton.iconOnly.danger:hover:not(:disabled) {
+  background: var(--color-danger-surface);
+}
+
+.reviewShareDialog .spaceButton.iconOnly svg {
+  width: 16px;
+  height: 16px;
+}
+
+.reviewShareDialog .spaceButton:hover:not(:disabled) {
+  border-color: var(--color-action-border-subtle);
+  background: var(--color-action-surface);
+}
+
+.reviewShareDialog .spaceButton.active {
+  border-color: var(--color-action-primary);
+  background: var(--color-action-surface);
+  color: var(--color-action-primary-hover);
+}
+
+.reviewShareDialog .spaceButton.primary {
+  width: 100%;
+  border-color: var(--color-action-primary);
+  background: var(--color-action-primary);
+  color: var(--color-text-on-accent);
+}
+
+.reviewShareDialog .spaceButton.primary:hover:not(:disabled) {
+  background: var(--color-action-primary-hover);
+}
+
+.reviewShareDialog .spaceButton:disabled {
+  opacity: 0.58;
+  cursor: not-allowed;
+}
+
+.reviewShareDialog input {
+  box-sizing: border-box;
+}
+
+.reviewShareFields {
+  align-items: end;
+}
+
+.reviewShareList {
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+.reviewShareList li .spaceButton {
+  flex: 0 0 auto;
+}

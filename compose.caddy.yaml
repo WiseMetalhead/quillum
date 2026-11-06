@@ -1,0 +1,23 @@
+services:
+  caddy:
+    image: docker.io/library/caddy:2-alpine@sha256:ae5e525ca6773b0a4ce579c774cb39b3147e1576084139229517bdbcfe3ed812
+    restart: unless-stopped
+    environment:
+      QUILLUM_DOMAIN: ${QUILLUM_DOMAIN:?Укажите QUILLUM_DOMAIN в .env.production}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro,Z
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      gateway:
+        condition: service_healthy
+    networks:
+      - frontend
+
+volumes:
+  caddy_data:
+  caddy_config:

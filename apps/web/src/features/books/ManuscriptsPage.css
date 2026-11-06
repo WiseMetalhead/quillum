@@ -1,0 +1,2733 @@
+@import "./ManuscriptExportDialog.css";
+
+.manuscriptsPage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  overflow: hidden;
+  color: var(--color-text-strong);
+  background: var(--color-surface);
+}
+
+.mobileLibraryBottomBar,
+.mobileLibraryQueryControls {
+  display: none;
+}
+
+.manuscriptLibrarySidebar {
+  min-width: 0;
+  padding: 14px 18px 24px;
+  overflow-y: auto;
+  border-right: 1px solid var(--color-border);
+  background: var(--color-surface-raised);
+}
+
+.manuscriptLibraryNavigation {
+  display: grid;
+  gap: 1px;
+}
+
+.manuscriptLibraryNavigation button,
+button.manuscriptLibraryDrawer {
+  width: 100%;
+  height: 40px;
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 7px;
+  color: var(--color-text-secondary-strong);
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.manuscriptLibraryNavigation button:hover,
+button.manuscriptLibraryDrawer:hover {
+  color: var(--color-action-primary-hover);
+  background: var(--color-canvas);
+}
+
+.manuscriptLibraryNavigation button.active {
+  color: var(--color-action-primary);
+  background: var(--color-action-surface);
+}
+
+.manuscriptLibraryNavigation svg,
+.manuscriptLibraryDrawer svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.manuscriptLibraryNavigation small {
+  min-width: 22px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  color: var(--color-text-muted);
+  background: var(--color-canvas);
+  font-size: 11px;
+  font-weight: 650;
+  line-height: 18px;
+  text-align: center;
+}
+
+.manuscriptLibraryNavigation button.active small {
+  color: var(--color-action-primary);
+  background: var(--color-action-surface-strong);
+}
+
+.manuscriptLibrarySidebar hr {
+  width: 100%;
+  margin: 14px 0 15px;
+  border: 0;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+button.manuscriptLibraryDrawer {
+  grid-template-columns: 18px minmax(0, 1fr);
+}
+
+.newManuscript {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+button.newManuscriptButton,
+button.emptyCreateButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border: 1px solid var(--color-action-primary);
+  color: var(--color-text-on-accent);
+  background: var(--color-action-primary);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button.newManuscriptButton {
+  min-height: 40px;
+  padding: 8px 11px 8px 14px;
+  border-radius: 7px;
+  box-shadow: 0 8px 18px rgb(var(--color-action-primary-rgb) / 0.14);
+}
+
+button.newManuscriptButton:hover,
+button.emptyCreateButton:hover {
+  border-color: var(--color-action-primary-hover);
+  background: var(--color-action-primary-hover);
+}
+
+.newManuscriptButton svg,
+.emptyCreateButton svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.newManuscriptButton svg:last-child {
+  width: 17px;
+  height: 17px;
+  margin-left: 2px;
+  transition: transform 160ms ease;
+}
+
+.newManuscriptButton svg.open {
+  transform: rotate(180deg);
+}
+
+.newManuscriptMenu {
+  position: absolute;
+  z-index: 12;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 290px;
+  padding: 8px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-surface);
+  box-shadow: 0 18px 42px rgb(var(--color-shadow-rgb) / 0.14);
+}
+
+.newManuscriptMenu button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px;
+  border: 0;
+  border-radius: 7px;
+  color: var(--color-text-primary);
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.newManuscriptMenu button:hover {
+  background: var(--color-canvas-subtle);
+}
+
+.newManuscriptMenuIcon {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  color: var(--color-action-primary);
+}
+
+.newManuscriptMenuIcon svg {
+  width: 21px;
+  height: 21px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.newManuscriptMenu button > span:last-child {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+}
+
+.newManuscriptMenu strong {
+  font-size: 14px;
+}
+
+.newManuscriptMenu small {
+  color: var(--color-text-muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.manuscriptPanel {
+  min-width: 0;
+  min-height: 0;
+  max-width: 100%;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  overflow: hidden;
+  background: var(--color-surface);
+}
+
+.manuscriptToolbar {
+  min-height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 10px 24px 10px 28px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.manuscriptToolbar > h1 {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  color: var(--color-text-primary);
+  font-size: 20px;
+  font-weight: 750;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.manuscriptToolbar button.newManuscriptButton {
+  height: 34px;
+  min-height: 34px;
+  gap: 6px;
+  padding: 0 10px;
+  font-size: 12px;
+  line-height: 1;
+  box-shadow: none;
+}
+
+.manuscriptToolbar .newManuscriptButton svg {
+  width: 15px;
+  height: 15px;
+}
+
+.manuscriptToolbar .newManuscriptButton svg:last-child {
+  width: 14px;
+  height: 14px;
+  margin-left: 0;
+}
+
+.manuscriptCategories {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px;
+  border-radius: 10px;
+  background: var(--color-surface-subtle);
+}
+
+button.manuscriptCategory {
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 11px;
+  border: 0;
+  border-radius: 8px;
+  color: var(--color-text-muted);
+  background: transparent;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button.manuscriptCategory:hover {
+  color: var(--color-text-secondary-strong);
+  background: var(--color-border);
+}
+
+button.manuscriptCategory.active {
+  color: var(--color-action-primary-hover);
+  background: var(--color-surface);
+  box-shadow: 0 1px 4px rgb(var(--color-shadow-rgb) / 0.1);
+}
+
+.manuscriptCategory svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.manuscriptCount {
+  min-width: 23px;
+  height: 23px;
+  display: grid;
+  place-items: center;
+  padding: 0 6px;
+  border-radius: 999px;
+  color: var(--color-action-primary);
+  background: var(--color-action-surface-strong);
+  font-size: 12px;
+}
+
+.manuscriptControls {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+button.manuscriptDrawerButton {
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 7px;
+  color: var(--color-text-secondary-strong);
+  background: var(--color-surface);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button.manuscriptDrawerButton:hover {
+  border-color: var(--color-action-border);
+  color: var(--color-action-primary-hover);
+  background: var(--color-action-surface);
+}
+
+.manuscriptDrawerButton svg {
+  width: 19px;
+  height: 19px;
+}
+
+.manuscriptSearch,
+.manuscriptSort {
+  position: relative;
+}
+
+.manuscriptSearch svg,
+.manuscriptSort svg {
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  transform: translateY(-50%);
+  fill: none;
+  stroke: var(--color-text-subtle);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+.manuscriptSearch svg { left: 10px; }
+.manuscriptSort svg { right: 10px; }
+
+.manuscriptSearch input,
+.manuscriptSort .customSelectButton {
+  height: 34px;
+  min-height: 34px;
+  border: 1px solid var(--color-border);
+  border-radius: 7px;
+  color: var(--color-text-secondary-strong);
+  background: var(--color-surface);
+  font: inherit;
+  font-size: 12px;
+}
+
+.manuscriptSearch input {
+  width: 250px;
+  padding: 0 10px 0 32px;
+}
+
+.manuscriptSearch input::placeholder { color: var(--color-text-subtle); }
+
+.manuscriptSort .customSelectButton {
+  min-width: 160px;
+  padding: 0 10px;
+  appearance: none;
+  cursor: pointer;
+}
+
+.manuscriptList {
+  min-width: 0;
+  min-height: 420px;
+  display: grid;
+  place-items: center;
+  padding: 48px 24px;
+  overflow: auto;
+  background: var(--color-surface-raised);
+}
+
+.manuscriptList.hasItems {
+  min-height: 420px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr));
+  align-content: start;
+  align-items: stretch;
+  gap: 14px;
+  padding: 18px;
+  overflow: auto;
+}
+
+.booksLoading {
+  min-height: 220px;
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+@media (min-width: 861px) {
+  .manuscriptList > .booksLoading {
+    height: 100%;
+    min-height: 0;
+    place-self: stretch;
+    background: transparent;
+  }
+}
+
+.dialogLoadingState { min-height: 180px; }
+
+.booksEmptyState {
+  max-width: 390px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.booksEmptyState.compact h2 { margin-bottom: 7px; }
+
+.booksEmptyState.compact .booksEmptyIcon {
+  width: 44px;
+  height: 44px;
+  margin-bottom: 14px;
+}
+
+.booksEmptyState.compact .booksEmptyIcon svg {
+  width: 38px;
+  height: 38px;
+}
+
+.booksEmptyIcon {
+  width: 84px;
+  height: 84px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 18px;
+  color: var(--color-action-primary);
+}
+
+.booksEmptyIcon svg {
+  width: 54px;
+  height: 54px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.oneShotCover > svg {
+  width: 31px;
+  height: 31px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.booksEmptyState h2 {
+  margin-bottom: 8px;
+  color: var(--color-text-primary);
+  font-size: 20px;
+}
+
+.booksEmptyState p {
+  margin-bottom: 20px;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+}
+
+button.emptyCreateButton {
+  padding: 9px 14px;
+  border-radius: 7px;
+}
+
+.emptyCreateActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 9px;
+}
+
+button.emptyCreateButton.secondary {
+  border-color: var(--color-action-border-subtle);
+  color: var(--color-action-primary);
+  background: var(--color-surface);
+}
+
+button.emptyCreateButton.secondary:hover {
+  border-color: var(--color-action-border);
+  color: var(--color-action-primary-hover);
+  background: var(--color-action-surface);
+}
+
+.oneShotCard {
+  position: relative;
+  width: 100%;
+  height: 190px;
+  overflow: visible;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-surface);
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.oneShotCard:hover {
+  border-color: var(--color-action-border-subtle);
+  box-shadow: 0 10px 24px rgb(var(--color-shadow-rgb) / 0.07);
+}
+
+.oneShotCardOpen {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 16px;
+  padding: 12px;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+}
+
+button.oneShotCardOpen { cursor: pointer; }
+
+.oneShotCover {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 7px;
+  color: var(--color-action-primary);
+  background: var(--color-brand-100);
+}
+
+.oneShotCover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.oneShotCardBody {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 4px 0;
+}
+
+.manuscriptCardBadges {
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.oneShotKind {
+  margin-bottom: 10px;
+  padding: 3px 7px;
+  border-radius: 999px;
+  color: var(--color-action-primary-hover);
+  background: var(--color-action-surface);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.manuscriptCardBadges .oneShotKind,
+.seriesBookMeta .oneShotKind {
+  margin-bottom: 0;
+}
+
+.oneShotCard h2 {
+  max-width: 100%;
+  display: -webkit-box;
+  margin-bottom: 7px;
+  overflow: hidden;
+  color: var(--color-text-primary);
+  font-size: 16px;
+  line-height: 1.35;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.editorManuscriptAuthor {
+  min-width: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: -2px 0 7px;
+  color: var(--color-text-secondary-strong);
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.editorManuscriptAuthorAvatar {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  overflow: hidden;
+  border-radius: 50%;
+  color: var(--color-action-primary-hover);
+  background: var(--color-action-surface-strong);
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.editorManuscriptAuthorAvatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.editorManuscriptAuthorName {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.editorAccessDialog {
+  width: min(100%, 620px);
+}
+
+.editorAccessLoading {
+  min-height: 220px;
+}
+
+.editorAccessScrollBody {
+  min-height: 220px;
+}
+
+.editorAccessContent,
+.editorAccessGranted {
+  display: grid;
+  gap: 14px;
+}
+
+.editorAccessGrantField {
+  min-width: 0;
+}
+
+.editorAccessGrantField .customSelectButton {
+  width: 100%;
+  min-height: 40px;
+}
+
+button.editorAccessRevoke {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 8px 12px;
+  border: 1px solid var(--color-action-primary);
+  border-radius: 7px;
+  color: var(--color-text-on-accent);
+  background: var(--color-action-primary);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.editorAccessGrantButton svg,
+.editorAccessRevoke svg {
+  width: 18px;
+  height: 18px;
+}
+
+.editorAccessGranted {
+  padding-top: 14px;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.editorAccessGranted h3 {
+  color: var(--color-text-primary);
+  font-size: 14px;
+}
+
+.editorAccessGrantedList {
+  display: grid;
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 9px;
+  background: var(--color-border-subtle);
+}
+
+.editorAccessEditorRow {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 11px;
+  padding: 10px;
+  background: var(--color-surface);
+}
+
+.editorAccessAvatar {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 50%;
+  color: var(--color-action-primary-hover);
+  background: var(--color-action-surface-strong);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.editorAccessAvatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.editorAccessEditorRow > div {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.editorAccessEditorRow strong,
+.editorAccessEditorRow small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.editorAccessEditorRow strong {
+  color: var(--color-text-primary);
+  font-size: 13px;
+}
+
+.editorAccessEditorRow small,
+.editorAccessHint {
+  color: var(--color-text-muted);
+  font-size: 11px;
+}
+
+.editorAccessHint {
+  margin: 0;
+  line-height: 1.5;
+}
+
+button.editorAccessRevoke {
+  border-color: var(--color-danger-border);
+  color: var(--color-danger);
+  background: transparent;
+}
+
+button.editorAccessRevoke:hover:not(:disabled) {
+  background: var(--color-danger-surface);
+}
+
+.editorAccessRevoke:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.oneShotCard p {
+  width: 100%;
+  display: -webkit-box;
+  margin-bottom: 12px;
+  overflow: hidden;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  line-height: 1.45;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+@media (min-width: 521px) {
+  .oneShotCard.series .oneShotCardBody {
+    overflow: hidden;
+  }
+
+  .oneShotCard.series .manuscriptCardBadges,
+  .oneShotCard.series h2,
+  .oneShotCard.series .seriesBookCount,
+  .oneShotCard.series time {
+    flex-shrink: 0;
+  }
+
+  .oneShotCard.series p {
+    height: 38px;
+    min-height: 38px;
+    max-height: 38px;
+    flex: 0 0 38px;
+    margin-bottom: 6px;
+    line-height: 19px;
+    -webkit-line-clamp: 2;
+  }
+
+  .oneShotCard.series .manuscriptCardBadges {
+    margin-bottom: 8px;
+  }
+
+  .oneShotCard.series h2,
+  .oneShotCard.series .seriesBookCount {
+    margin-bottom: 6px;
+  }
+}
+
+.oneShotCard time {
+  margin-top: auto;
+  color: var(--color-text-subtle);
+  font-size: 11px;
+}
+
+.seriesBookCount {
+  margin-bottom: 8px;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.manuscriptCardMenu {
+  position: absolute;
+  z-index: 4;
+  top: 10px;
+  right: 10px;
+}
+
+button.manuscriptCardMenuButton {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 7px;
+  color: var(--color-text-muted);
+  background: rgb(var(--color-surface-rgb) / 0.94);
+  cursor: pointer;
+}
+
+button.manuscriptCardMenuButton:hover { color: var(--color-text-primary); background: var(--color-canvas-subtle); }
+
+.manuscriptCardMenuButton svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+}
+
+.manuscriptCardMenuPopover {
+  position: absolute;
+  z-index: 5;
+  top: calc(100% + 5px);
+  right: 0;
+  width: 184px;
+  padding: 5px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+  box-shadow: 0 14px 32px rgb(var(--color-shadow-rgb) / 0.16);
+}
+
+.manuscriptCardMenuPopover button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 9px;
+  border: 0;
+  border-radius: 6px;
+  color: var(--color-text-secondary-strong);
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.manuscriptCardMenuPopover button svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+}
+
+.manuscriptCardMenuPopover button:hover { background: var(--color-surface-subtle); }
+.manuscriptCardMenuPopover button:disabled { opacity: 0.58; cursor: wait; }
+.manuscriptCardMenuPopover button.danger { color: var(--color-danger); }
+.manuscriptCardMenuPopover button.danger:hover { background: var(--color-danger-surface); }
+
+@media (min-width: 521px) {
+  .newManuscriptMenu,
+  .manuscriptCardMenuPopover {
+    transform-origin: top right;
+    animation: manuscriptPopoverIn 150ms cubic-bezier(.2, .8, .2, 1) both;
+  }
+}
+
+@keyframes manuscriptPopoverIn {
+  from { opacity: 0; transform: translateY(-5px) scale(.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes mobileLibraryCategoryMenuIn {
+  from { opacity: 0; transform: translateY(6px) scale(.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes mobileLibraryCreateMenuIn {
+  from { opacity: 0; transform: translate(-50%, 6px) scale(.98); }
+  to { opacity: 1; transform: translate(-50%, 0) scale(1); }
+}
+
+@keyframes mobileCreationStepFromRight {
+  from { opacity: 0; transform: translate3d(32px, 0, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes mobileCreationStepFromLeft {
+  from { opacity: 0; transform: translate3d(-32px, 0, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes mobileCreationTitleForward {
+  from { opacity: 0; transform: translateX(12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes mobileCreationTitleBack {
+  from { opacity: 0; transform: translateX(-12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .newManuscriptMenu,
+  .manuscriptCardMenuPopover,
+  .mobileManuscriptCategoryMenu,
+  .mobileNewManuscriptMenu,
+  .mobileCreationStep,
+  .mobileCreationTitle {
+    animation: none;
+    transition: none !important;
+  }
+}
+
+.manuscriptDrawerDialog {
+  width: min(100%, 680px);
+  height: min(620px, calc(100dvh - 48px));
+}
+
+.manuscriptDrawerDialog .standardDialogContent {
+  overflow: hidden;
+}
+
+.drawerLoading {
+  height: 100%;
+}
+
+.drawerItems {
+  height: 100%;
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  padding: 18px;
+  overflow-y: auto;
+}
+
+.drawerItem {
+  position: relative;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 9px;
+  background: var(--color-surface);
+}
+
+.drawerItemIcon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  color: var(--color-action-primary);
+}
+
+.drawerItemIcon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.drawerItemBody {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.drawerItemBody strong {
+  overflow: hidden;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.drawerItemBody > span {
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+.drawerItemActions {
+  display: flex;
+  gap: 6px;
+}
+
+.drawerItemActions button {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 7px;
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  cursor: pointer;
+}
+
+.drawerItemActions button:hover:not(:disabled) {
+  border-color: var(--color-action-border);
+  color: var(--color-action-primary-hover);
+  background: var(--color-action-surface);
+}
+
+.drawerItemActions button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+.drawerItemActions svg {
+  width: 19px;
+  height: 19px;
+}
+
+.drawerItemMenu {
+  display: none;
+}
+
+.drawerEmpty {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  text-align: center;
+}
+
+.drawerEmpty > svg {
+  width: 52px;
+  height: 52px;
+  margin-bottom: 14px;
+  color: var(--color-action-primary);
+}
+
+.drawerEmpty strong {
+  margin-bottom: 6px;
+  color: var(--color-text-primary);
+  font-size: 17px;
+}
+
+.drawerEmpty p {
+  max-width: 390px;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.createOneShotDialog.importDialog {
+  width: min(100%, 980px);
+}
+
+.manuscriptGenrePicker {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.manuscriptGenrePicker legend {
+  margin-bottom: 8px;
+  color: var(--color-text-secondary-strong);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.manuscriptGenrePicker legend em {
+  margin-left: 6px;
+  color: var(--color-text-subtle);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.manuscriptGenreToggle {
+  width: 100%;
+  min-height: 43px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 12px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 9px;
+  background: var(--color-surface);
+  color: var(--color-text-secondary-strong);
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.manuscriptGenreToggle:hover,
+.manuscriptGenreToggle:focus-visible {
+  border-color: var(--color-action-border);
+  background: var(--color-action-surface);
+  outline: none;
+}
+
+.manuscriptGenreToggle > span:last-child {
+  color: var(--color-action-primary);
+  font-size: 18px;
+  line-height: 1;
+}
+
+.manuscriptGenrePanel {
+  display: grid;
+  gap: 7px;
+  padding: 8px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-canvas-subtle);
+}
+
+.manuscriptGenrePanel > input {
+  width: 100%;
+  height: 36px;
+  padding: 7px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+  font: inherit;
+  font-size: 13px;
+}
+
+.manuscriptGenrePanel > input:focus {
+  border-color: var(--color-action-border);
+  outline: 2px solid var(--color-action-border);
+  outline-offset: 1px;
+}
+
+.manuscriptGenreOptions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 3px;
+  max-height: 132px;
+  overflow: auto;
+  padding: 2px;
+}
+
+.manuscriptGenreOptions label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  padding: 4px 5px;
+  border-radius: 6px;
+  font-size: 11px;
+  line-height: 1.25;
+  cursor: pointer;
+}
+
+.manuscriptGenreOptions label:hover { background: var(--color-surface-hover); }
+
+.manuscriptGenreOptions input {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 auto;
+  margin: 0;
+  accent-color: var(--color-action-primary);
+}
+
+.manuscriptGenreOptions span { min-width: 0; overflow-wrap: anywhere; }
+
+@media (max-width: 620px) {
+  .manuscriptGenreOptions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.bookTemplatePicker {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.bookTemplatePicker legend {
+  grid-column: 1 / -1;
+  margin-bottom: 7px;
+  color: var(--color-text-secondary-strong);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.bookTemplatePicker label {
+  position: relative;
+  display: grid;
+  gap: 5px;
+  padding: 13px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+.bookTemplatePicker label.selected { border-color: var(--color-focus-ring); background: var(--color-action-surface); }
+.bookTemplatePicker input { position: absolute; opacity: 0; pointer-events: none; }
+.bookTemplatePicker strong { color: var(--color-text-primary); font-size: 13px; }
+.bookTemplatePicker small { color: var(--color-text-muted); font-size: 12px; line-height: 1.4; }
+
+.coverPicker {
+  position: relative;
+  min-height: 126px;
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+  padding: 14px;
+  border: 1px dashed var(--color-action-border-subtle);
+  border-radius: 10px;
+  background: var(--color-action-surface);
+}
+
+.coverPicker > img,
+.coverPickerIcon {
+  width: 72px;
+  height: 96px;
+  border-radius: 6px;
+}
+
+.coverPicker > img { object-fit: cover; }
+
+.coverPickerIcon {
+  display: grid;
+  place-items: center;
+  color: var(--color-action-primary);
+  background: var(--color-action-surface-strong);
+}
+
+.coverPickerIcon svg {
+  width: 28px;
+  height: 28px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.coverPicker > div {
+  min-width: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.coverPicker > div > strong {
+  overflow: hidden;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.coverPicker > div > small { color: var(--color-text-muted); font-size: 12px; line-height: 1.4; }
+
+.coverPickerActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.coverFileButton,
+button.removeCoverButton {
+  padding: 7px 10px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 6px;
+  color: var(--color-text-secondary-strong);
+  background: var(--color-surface);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.coverFileButton input { display: none; }
+
+button.removeCoverButton {
+  border-color: transparent;
+  color: var(--color-danger);
+  background: transparent;
+}
+
+button.dialogImportButton {
+  min-height: 39px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: auto;
+  padding: 8px 13px;
+  border: 1px solid var(--color-action-border-subtle);
+  border-radius: 7px;
+  color: var(--color-action-primary);
+  background: var(--color-surface);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button.dialogImportButton:hover {
+  color: var(--color-action-primary-hover);
+  background: var(--color-action-surface);
+}
+
+button.dialogImportButton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.dialogImportButton svg {
+  width: 18px;
+  height: 18px;
+}
+
+.importStep {
+  min-width: 0;
+  display: grid;
+  gap: 18px;
+}
+
+.importCallout {
+  border: 1px solid var(--color-warning-border);
+  border-radius: 9px;
+  color: var(--color-warning-text);
+  background: var(--color-warning-surface);
+}
+
+.importCallout summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 13px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.importCallout summary svg {
+  width: 18px;
+  height: 18px;
+}
+
+.importCallout > ul {
+  margin: 0;
+  padding: 0 13px 13px 31px;
+  color: var(--color-warning-text);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.importCallout li + li {
+  margin-top: 5px;
+}
+
+.importDropZone {
+  min-height: 190px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 8px;
+  padding: 24px;
+  border: 1px dashed var(--color-action-border);
+  border-radius: 11px;
+  color: var(--color-text-secondary);
+  background: var(--color-action-surface);
+  text-align: center;
+  transition: border-color 160ms ease, background 160ms ease;
+}
+
+.importDropZone.active {
+  border-color: var(--color-action-primary);
+  background: var(--color-action-surface-strong);
+}
+
+.importDropZone > svg {
+  width: 46px;
+  height: 46px;
+  margin-bottom: 4px;
+  color: var(--color-action-primary);
+}
+
+.importDropZone > strong {
+  color: var(--color-text-primary);
+  font-size: 16px;
+}
+
+.importDropZone > span {
+  font-size: 13px;
+}
+
+.importDropZone > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 8px;
+}
+
+.importDropZone button,
+.importStructure header button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 11px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 7px;
+  color: var(--color-text-secondary-strong);
+  background: var(--color-surface);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.importDropZone button svg,
+.importStructure header button svg {
+  width: 17px;
+  height: 17px;
+}
+
+.importStructure,
+.importUnrecognized {
+  display: grid;
+  gap: 10px;
+}
+
+.importStructure > header,
+.importUnrecognized > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.importStructure header > div {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.importStructure h3,
+.importUnrecognized h3 {
+  color: var(--color-text-primary);
+  font-size: 15px;
+}
+
+.importStructure header span,
+.importUnrecognized header span {
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+.importTree,
+.importUnrecognized {
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 9px;
+  background: var(--color-surface);
+}
+
+.importTree > p {
+  margin: 0;
+  padding: 24px;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.importTreeRow {
+  min-height: 52px;
+  display: grid;
+  grid-template-columns: 24px 20px minmax(140px, 1fr) minmax(120px, 180px) 30px 30px 30px;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px 7px calc(10px + var(--import-depth, 0) * 24px);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.importTreeRow:hover {
+  background: var(--color-canvas-subtle);
+}
+
+.importTreeRow.unrecognized {
+  background: var(--color-warning-surface);
+}
+
+.importTreeRow.drop-before {
+  box-shadow: inset 0 2px var(--color-action-primary);
+}
+
+.importTreeRow.drop-inside {
+  background: var(--color-action-surface-strong);
+  box-shadow: inset 3px 0 var(--color-action-primary);
+}
+
+.importTreeRow.drop-after {
+  box-shadow: inset 0 -2px var(--color-action-primary);
+}
+
+.importTreeRow > svg {
+  width: 19px;
+  height: 19px;
+  color: var(--color-action-primary);
+}
+
+.importDragHandle {
+  width: 24px;
+  height: 28px;
+  display: grid;
+  grid-template-columns: repeat(2, 3px);
+  grid-template-rows: repeat(3, 3px);
+  place-content: center;
+  gap: 3px;
+  margin-right: 3px;
+  border-radius: 6px;
+  cursor: grab;
+}
+
+.importDragHandle:hover {
+  background: var(--color-surface-subtle);
+}
+
+.importDragHandle:active {
+  cursor: grabbing;
+}
+
+.importDragHandle i {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--color-text-subtle);
+}
+
+.importNodeText {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.importNodeText input {
+  min-width: 0;
+  padding: 3px 5px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  color: var(--color-text-primary);
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.importNodeText input:focus {
+  border-color: var(--color-action-border);
+  outline: 0;
+  background: var(--color-surface);
+}
+
+.importNodeText small {
+  overflow: hidden;
+  padding-inline: 5px;
+  color: var(--color-text-subtle);
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.importParentSelect {
+  min-width: 0;
+}
+
+.importParentSelect .customSelectButton {
+  min-height: 31px;
+  height: 31px;
+  padding: 4px 7px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  color: var(--color-text-secondary);
+  background: var(--color-surface);
+  font: inherit;
+  font-size: 11px;
+}
+
+button.importRowAction {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  color: var(--color-text-muted);
+  background: transparent;
+  cursor: pointer;
+}
+
+button.importRowAction:hover {
+  background: var(--color-border);
+}
+
+button.importRowAction.danger {
+  color: var(--color-danger);
+}
+
+.importRowAction svg {
+  width: 16px;
+  height: 16px;
+}
+
+.importUnrecognized {
+  padding: 12px;
+  border-color: var(--color-warning-border);
+  background: var(--color-action-surface);
+}
+
+.importUnrecognized .importTreeRow {
+  border: 1px solid var(--color-warning-border);
+  border-radius: 7px;
+}
+
+.seriesToolbarIdentity {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.seriesToolbarIdentity h1 {
+  max-width: 320px;
+  overflow: hidden;
+  color: var(--color-text-primary);
+  font-size: 18px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+button.seriesBackButton {
+  height: 34px;
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+  padding: 0 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 7px;
+  color: var(--color-text-secondary-strong);
+  background: var(--color-surface);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button.seriesBackButton:hover {
+  border-color: var(--color-action-border-subtle);
+  color: var(--color-action-primary-hover);
+  background: var(--color-action-surface);
+}
+
+.seriesBackButton svg,
+.seriesNewBookButton svg {
+  width: 15px;
+  height: 15px;
+}
+
+.seriesBookList {
+  min-width: 0;
+  min-height: 420px;
+  display: grid;
+  place-items: center;
+  gap: 14px;
+  padding: 48px 18px;
+  overflow: auto;
+  background: var(--color-surface-raised);
+}
+
+.seriesBookList.hasItems {
+  min-height: 0;
+  place-items: stretch;
+  align-content: start;
+  grid-auto-rows: max-content;
+  padding: 18px;
+}
+
+.seriesUnnumberedBooks {
+  display: grid;
+  gap: 12px;
+  margin-top: 8px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border);
+}
+
+.seriesUnnumberedBooks > h2 {
+  color: var(--color-text-secondary-strong);
+  font-size: 16px;
+}
+
+.seriesUnnumberedBookList {
+  display: grid;
+  gap: 14px;
+}
+
+.seriesBookCard {
+  position: relative;
+  min-height: 178px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-surface);
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.seriesBookCard:hover {
+  border-color: var(--color-action-border-subtle);
+  box-shadow: 0 10px 24px rgb(var(--color-shadow-rgb) / 0.07);
+}
+
+button.seriesBookCardOpen {
+  width: 100%;
+  min-height: 176px;
+  display: grid;
+  grid-template-columns: 108px minmax(0, 1fr);
+  gap: 18px;
+  padding: 12px 58px 12px 12px;
+  border: 0;
+  border-radius: inherit;
+  color: inherit;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.seriesBookCover {
+  min-height: 152px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 7px;
+  color: var(--color-action-primary);
+  background: var(--color-brand-100);
+}
+
+.seriesBookCover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.seriesBookCover svg {
+  width: 31px;
+  height: 31px;
+}
+
+.seriesBookBody {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 5px 0;
+}
+
+.seriesBookMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.seriesBookBody h2 {
+  margin-bottom: 7px;
+  overflow: hidden;
+  color: var(--color-text-primary);
+  font-size: 17px;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.seriesBookBody p {
+  max-width: 780px;
+  display: -webkit-box;
+  margin-bottom: 12px;
+  overflow: hidden;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  line-height: 1.5;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.seriesBookBody time {
+  margin-top: auto;
+  color: var(--color-text-subtle);
+  font-size: 11px;
+}
+
+@media (min-width: 521px) {
+  .manuscriptLibraryWorkspace {
+    height: calc(100dvh - var(--app-header-height));
+    min-height: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .manuscriptLibraryWorkspace .workspaceInner {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    min-height: 0;
+  }
+}
+
+@media (max-width: 1180px) {
+  .manuscriptsPage {
+    grid-template-columns: 230px minmax(0, 1fr);
+  }
+
+  .manuscriptSearch input {
+    width: 210px;
+  }
+}
+
+@media (max-width: 800px) {
+  .manuscriptsPage {
+    grid-template-columns: 72px minmax(0, 1fr);
+  }
+
+  .manuscriptLibrarySidebar {
+    padding: 14px 10px 24px;
+  }
+
+  .manuscriptLibraryNavigation button,
+  button.manuscriptLibraryDrawer {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .manuscriptLibraryNavigation button span,
+  .manuscriptLibraryNavigation button small,
+  .manuscriptLibraryDrawer span {
+    display: none;
+  }
+
+  .manuscriptToolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .manuscriptControls {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .manuscriptSearch {
+    min-width: 180px;
+    flex: 1 1 220px;
+  }
+
+  .manuscriptSort {
+    flex: 1 1 160px;
+  }
+
+  .manuscriptSearch input,
+  .manuscriptSort .customSelect { width: 100%; }
+
+  .newManuscript { margin-left: auto; }
+  .manuscriptList,
+  .manuscriptList.hasItems { min-height: 340px; }
+  .seriesToolbarIdentity {
+    width: 100%;
+  }
+  .seriesToolbarIdentity h1 {
+    max-width: none;
+  }
+  .importTreeRow {
+    grid-template-columns: 24px 18px minmax(120px, 1fr) 30px;
+  }
+  .importParentSelect,
+  .importTreeRow .importRowAction:not(.danger) {
+    display: none;
+  }
+}
+
+@media (max-width: 680px) {
+  .manuscriptDrawerDialog {
+    height: min(620px, calc(100dvh - 20px));
+  }
+}
+
+@media (max-width: 520px) {
+  .workspace:has(> .workspaceInner > .manuscriptsPage) {
+    padding: 0;
+    background: var(--color-surface-raised);
+  }
+
+  .workspace:has(> .workspaceInner > .manuscriptsPage) > .workspaceInner {
+    width: 100%;
+    min-height: calc(100dvh - var(--app-header-height));
+    background: var(--color-surface-raised);
+  }
+
+  .manuscriptPanel {
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .manuscriptsPage {
+    width: 100%;
+    height: auto;
+    min-height: calc(100dvh - var(--app-header-height));
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    overflow: visible;
+    padding-bottom: calc(82px + env(safe-area-inset-bottom, 0px));
+    background: var(--color-surface-raised);
+  }
+
+  .manuscriptLibrarySidebar {
+    display: none;
+  }
+
+  .manuscriptLibraryMain {
+    width: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+    background: var(--color-surface-raised);
+  }
+
+  .manuscriptsPage:not(.seriesPage) .manuscriptToolbar,
+  .seriesToolbar .manuscriptControls,
+  button.seriesBackButton {
+    display: none;
+  }
+
+  .seriesToolbar {
+    min-height: 52px;
+    display: block;
+    padding: 14px 16px;
+  }
+
+  .seriesToolbarIdentity,
+  .seriesToolbarIdentity h1 {
+    width: 100%;
+  }
+
+  .seriesToolbarIdentity h1 {
+    max-width: none;
+    overflow: hidden;
+    margin: 0;
+    font-size: 17px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .mobileLibraryBottomBar {
+    position: fixed;
+    z-index: 18;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: block;
+    padding:
+      9px max(12px, env(safe-area-inset-right, 0px))
+      calc(9px + env(safe-area-inset-bottom, 0px))
+      max(12px, env(safe-area-inset-left, 0px));
+    border-top: 1px solid var(--color-border);
+    background: rgb(var(--color-surface-rgb) / 0.94);
+    box-shadow: 0 -12px 30px rgb(var(--color-shadow-rgb) / 0.09);
+    backdrop-filter: blur(16px);
+  }
+
+  .mobileLibraryBottomBarSurface {
+    position: relative;
+    width: min(100%, 520px);
+    min-width: 0;
+    min-height: 54px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    align-items: center;
+    gap: 2px;
+  }
+
+  .mobileManuscriptCategorySelector,
+  .mobileNewManuscript {
+    position: relative;
+    min-width: 0;
+  }
+
+  .mobileNewManuscript {
+    display: grid;
+    place-items: center;
+  }
+
+  button.mobileManuscriptCategoryTrigger,
+  button.mobileLibraryBarButton,
+  button.mobileLibraryQueryButton {
+    width: 46px;
+    height: 46px;
+    min-height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    color: var(--color-text-secondary-strong);
+    background: transparent;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  button.mobileManuscriptCategoryTrigger.active,
+  button.mobileLibraryQueryButton.active {
+    color: var(--color-action-primary-hover);
+    background: var(--color-action-surface);
+  }
+
+  .mobileManuscriptCategoryTrigger > span,
+  .mobileManuscriptCategoryTrigger > small,
+  .mobileManuscriptCategoryTrigger > svg:last-child {
+    display: none;
+  }
+
+  .mobileManuscriptCategoryTrigger svg,
+  .mobileLibraryBarButton svg,
+  .mobileLibraryQueryButton svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .mobileManuscriptCategoryMenu {
+    position: absolute;
+    z-index: 2;
+    bottom: calc(100% + 17px);
+    left: 0;
+    width: calc(100vw - 24px);
+    display: grid;
+    gap: 2px;
+    padding: 6px;
+    border: 1px solid var(--color-border);
+    border-radius: 9px;
+    background: var(--color-surface);
+    box-shadow: 0 16px 36px rgb(var(--color-shadow-rgb) / 0.16);
+    transform-origin: bottom left;
+    animation: mobileLibraryCategoryMenuIn 170ms cubic-bezier(.2, .8, .2, 1) both;
+  }
+
+  .mobileManuscriptCategoryMenu button {
+    width: 100%;
+    min-height: 40px;
+    display: grid;
+    grid-template-columns: 20px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 10px;
+    padding: 0 10px;
+    border: 0;
+    border-radius: 7px;
+    color: var(--color-text-secondary-strong);
+    background: transparent;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .mobileManuscriptCategoryMenu button.active {
+    color: var(--color-action-primary);
+    background: var(--color-action-surface);
+  }
+
+  .mobileManuscriptCategoryMenu button:hover {
+    color: var(--color-action-primary-hover);
+    background: var(--color-canvas);
+  }
+
+  .mobileManuscriptCategoryMenu svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  button.mobileLibraryCreateButton {
+    width: 58px;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 1px solid var(--color-action-primary);
+    border-radius: 999px;
+    color: var(--color-text-on-accent);
+    background: var(--color-action-primary);
+    box-shadow: 0 9px 22px rgb(var(--color-action-primary-rgb) / 0.28);
+    cursor: pointer;
+  }
+
+  .mobileLibraryCreateButton svg {
+    width: 25px;
+    height: 25px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.9;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .mobileNewManuscriptMenu {
+    top: auto;
+    right: auto;
+    bottom: calc(100% + 17px);
+    left: 50%;
+    width: min(310px, calc(100vw - 24px));
+    transform: translateX(-50%);
+    transform-origin: bottom center;
+    animation: mobileLibraryCreateMenuIn 170ms cubic-bezier(.2, .8, .2, 1) both;
+  }
+
+  .mobileLibraryQueryControls {
+    min-width: 0;
+    display: grid;
+    grid-column: 4 / span 2;
+  }
+
+  .mobileLibraryQueryButtons {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2px;
+  }
+
+  button.mobileLibraryQueryButton {
+    width: 46px;
+  }
+
+  .mobileLibraryQueryPanel {
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 17px);
+    left: 0;
+    min-width: 0;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(4px);
+    transition: max-height 180ms ease, opacity 150ms ease, transform 180ms ease;
+  }
+
+  .mobileLibraryQueryPanel.open {
+    max-height: 58px;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .mobileLibraryQueryPanelInner {
+    padding: 7px;
+    border: 1px solid var(--color-border);
+    border-radius: 11px;
+    background: var(--color-surface);
+    box-shadow: 0 16px 36px rgb(var(--color-shadow-rgb) / 0.16);
+  }
+
+  .mobileLibrarySearchField,
+  .mobileLibrarySortField {
+    position: relative;
+    display: block;
+    min-width: 0;
+  }
+
+  .mobileLibrarySearchField input,
+  .mobileLibrarySortField .customSelectButton {
+    width: 100%;
+    height: 42px;
+    min-width: 0;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    color: var(--color-text-secondary-strong);
+    background: var(--color-surface);
+    font: inherit;
+    font-size: 13px;
+  }
+
+  .mobileLibrarySearchField input {
+    padding: 8px 12px 8px 39px;
+  }
+
+  .mobileLibrarySortField .customSelectButton {
+    padding: 8px 12px;
+    appearance: none;
+  }
+
+  .mobileLibrarySearchField input:focus,
+  .mobileLibrarySortField .customSelectButton:focus-visible {
+    border-color: var(--color-action-border);
+    outline: 2px solid var(--color-action-border);
+    outline-offset: -2px;
+  }
+
+  .mobileLibrarySearchField > svg,
+  .mobileLibrarySortField > svg {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    width: 18px;
+    height: 18px;
+    color: var(--color-text-subtle);
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  .mobileLibrarySearchField > svg { left: 12px; }
+  .mobileLibrarySortField > svg { right: 12px; }
+
+  .mobileSeriesBottomBarSurface > .mobileSeriesBackButton {
+    grid-column: 1 / span 2;
+    justify-self: center;
+  }
+
+  .mobileSeriesBottomBarSurface > .mobileLibraryCreateButton {
+    grid-column: 3;
+    justify-self: center;
+  }
+
+  .manuscriptList,
+  .seriesBookList,
+  .seriesBookList.hasItems {
+    flex: 1 0 auto;
+    min-width: 0;
+    min-height: 0;
+    padding: 12px;
+    overflow: visible;
+  }
+
+  .manuscriptList.hasItems {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: stretch;
+    gap: 0;
+    padding: 0 10px;
+  }
+
+  .oneShotCard {
+    height: auto;
+    min-height: 164px;
+    border: 0;
+    border-bottom: 1px solid var(--color-border);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .oneShotCard:last-child {
+    border-bottom: 0;
+  }
+
+  .oneShotCard:hover {
+    border-color: var(--color-border);
+    box-shadow: none;
+  }
+
+  .oneShotCardOpen {
+    min-height: 162px;
+    grid-template-columns: 112px minmax(0, 1fr);
+    gap: 12px;
+    padding: 10px;
+    border-radius: 0;
+  }
+
+  .editorAvailableLibrary .mobileLibraryBottomBarSurface {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .editorAvailableLibrary .mobileManuscriptCategorySelector {
+    display: grid;
+    place-items: center;
+  }
+
+  .editorAvailableLibrary .mobileLibraryQueryControls {
+    grid-column: 2 / span 2;
+  }
+
+  .editorAccessContent {
+    gap: 18px;
+  }
+
+  .editorAccessEditorRow {
+    grid-template-columns: 38px minmax(0, 1fr) 42px;
+  }
+
+  button.editorAccessRevoke {
+    width: 40px;
+    padding: 0;
+  }
+
+  .editorAccessRevoke span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    clip-path: inset(50%);
+  }
+
+  .oneShotCover {
+    min-height: 142px;
+  }
+
+  .manuscriptCardBadges,
+  .seriesBookMeta {
+    padding-right: 30px;
+  }
+
+  .oneShotCard h2,
+  .seriesBookBody h2 {
+    width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .oneShotCard p {
+    -webkit-line-clamp: 2;
+  }
+
+  .manuscriptCardMenu {
+    top: 8px;
+    right: 8px;
+  }
+
+  .manuscriptCardMenuPopover {
+    display: none;
+  }
+
+  button.manuscriptCardMenuButton:hover {
+    color: var(--color-text-muted);
+    background: rgb(var(--color-surface-rgb) / 0.94);
+  }
+
+  button.manuscriptCardMenuButton.active {
+    border-color: var(--color-action-border-subtle);
+    color: var(--color-action-primary-hover);
+    background: var(--color-action-surface);
+  }
+
+  .emptyCreateActions {
+    display: none;
+  }
+
+  .seriesPage .booksEmptyState > button.emptyCreateButton {
+    display: none;
+  }
+
+  .seriesToolbarIdentity {
+    width: 100%;
+    min-width: 0;
+    display: block;
+  }
+
+  .seriesToolbarIdentity h1 {
+    min-width: 0;
+    max-width: none;
+    font-size: 17px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .seriesBookList.hasItems {
+    gap: 0;
+    padding: 0 10px;
+  }
+
+  .seriesUnnumberedBookList {
+    gap: 0;
+  }
+
+  .seriesBookCard {
+    min-height: 164px;
+    border: 0;
+    border-bottom: 1px solid var(--color-border);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .seriesBookList > .seriesBookCard:last-of-type,
+  .seriesUnnumberedBookList > .seriesBookCard:last-child {
+    border-bottom: 0;
+  }
+
+  .seriesBookCard:hover {
+    border-color: var(--color-border);
+    box-shadow: none;
+  }
+
+  button.seriesBookCardOpen {
+    min-height: 162px;
+    grid-template-columns: 112px minmax(0, 1fr);
+    gap: 12px;
+    padding: 10px;
+    border-radius: 0;
+  }
+
+  .seriesBookCover {
+    min-height: 142px;
+  }
+
+  .seriesBookBody h2 {
+    display: -webkit-box;
+    white-space: normal;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .bookTemplatePicker,
+  .coverPicker,
+  .coverPicker > div,
+  .importStep,
+  .importStructure,
+  .importUnrecognized {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .mobileCreationStep.enterFromRight {
+    animation: mobileCreationStepFromRight 220ms ease-out both;
+  }
+
+  .mobileCreationStep.enterFromLeft {
+    animation: mobileCreationStepFromLeft 220ms ease-out both;
+  }
+
+  .mobileCreationTitle.forward {
+    animation: mobileCreationTitleForward 180ms ease-out both;
+  }
+
+  .mobileCreationTitle.back {
+    animation: mobileCreationTitleBack 180ms ease-out both;
+  }
+
+  .manuscriptDrawerDialog.mobileFullView {
+    height: 100%;
+  }
+
+  .manuscriptDrawerDialog.mobileFullView .standardDialogContent {
+    min-height: 0;
+  }
+  .coverPicker { grid-template-columns: 56px minmax(0, 1fr); }
+  .coverPicker > img,
+  .coverPickerIcon { width: 56px; height: 76px; }
+
+  .coverPickerActions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .coverFileButton,
+  button.removeCoverButton {
+    width: 100%;
+    min-width: 0;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 10px;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .mobileFullViewForm .coverPicker {
+    min-height: 0;
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    gap: 14px;
+    padding: 18px 16px;
+    text-align: center;
+  }
+
+  .mobileFullViewForm .coverPicker > img,
+  .mobileFullViewForm .coverPickerIcon {
+    width: 132px;
+    height: 176px;
+    border-radius: 8px;
+  }
+
+  .mobileFullViewForm .coverPickerIcon svg {
+    width: 38px;
+    height: 38px;
+  }
+
+  .mobileFullViewForm .coverPicker > div {
+    width: 100%;
+    justify-items: center;
+  }
+
+  .mobileFullViewForm .coverPicker > div > strong,
+  .mobileFullViewForm .coverPicker > div > small {
+    max-width: 290px;
+    text-align: center;
+  }
+
+  .mobileFullViewForm .coverPickerActions {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .mobileFullViewForm .coverFileButton,
+  .mobileFullViewForm button.removeCoverButton {
+    width: auto;
+    min-width: 104px;
+    min-height: 38px;
+  }
+
+  .bookTemplatePicker {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .bookTemplatePicker legend {
+    grid-column: auto;
+  }
+
+  .createOneShotDialog form > footer.dialogThreeActionFooter {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .createOneShotDialog form > footer.dialogThreeActionFooter.mobileCreationFooter {
+    display: none;
+  }
+
+  .dialogThreeActionFooter button {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .importStructure > header,
+  .importUnrecognized > header {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .importDropZone {
+    min-width: 0;
+    padding: 18px 12px;
+  }
+
+  .importDropZone > div {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .importDropZone button {
+    width: 100%;
+    min-width: 0;
+    justify-content: center;
+    white-space: normal;
+  }
+
+  .importTreeRow,
+  .importUnrecognized .importTreeRow {
+    grid-template-columns: 20px 18px minmax(0, 1fr) 30px;
+    gap: 6px;
+    padding-right: 8px;
+    padding-left: calc(8px + var(--import-depth, 0) * 8px);
+  }
+
+  .importNodeText input {
+    width: 100%;
+  }
+
+  .drawerItems {
+    gap: 0;
+    padding: 0 10px;
+  }
+
+  .drawerItem {
+    min-height: 70px;
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 12px;
+    padding: 10px 48px 10px 10px;
+    border: 0;
+    border-bottom: 1px solid var(--color-border);
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .drawerItem:last-child {
+    border-bottom: 0;
+  }
+
+  .drawerItemIcon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .drawerItemBody strong {
+    white-space: normal;
+  }
+
+  .drawerItemActions {
+    display: none;
+  }
+
+  .drawerItemMenu {
+    display: block;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+  }
+}
+
+@media (max-width: 520px) and (hover: hover) and (pointer: fine) {
+  button.mobileManuscriptCategoryTrigger:hover,
+  button.mobileLibraryBarButton:hover,
+  button.mobileLibraryQueryButton:hover {
+    color: var(--color-action-primary-hover);
+    background: var(--color-action-surface);
+  }
+
+  button.mobileLibraryCreateButton:hover {
+    border-color: var(--color-action-primary-hover);
+    background: var(--color-action-primary-hover);
+  }
+
+  button.manuscriptCardMenuButton:hover {
+    color: var(--color-text-primary);
+    background: var(--color-canvas-subtle);
+  }
+
+  button.editManuscriptBack:hover,
+  button.editManuscriptSave:hover {
+    color: var(--color-action-primary-hover);
+    background: var(--color-action-surface);
+  }
+}

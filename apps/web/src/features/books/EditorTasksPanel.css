@@ -1,0 +1,75 @@
+.editorTasks {
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.editorTasksHeader {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.editorTasks .plannerTaskStatusFilters {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  padding: 3px;
+  border-radius: 7px;
+  background: var(--color-surface-subtle);
+}
+
+.editorTasks .plannerTaskStatusFilters button {
+  padding: 7px 6px;
+  border: 0;
+  border-radius: 6px;
+  color: var(--color-text-muted);
+  background: transparent;
+  font-size: 12px;
+}
+
+.editorTasks .plannerTaskStatusFilters button:hover {
+  border-color: transparent;
+  background: rgb(var(--color-surface-rgb) / 55%);
+}
+
+.editorTasks .plannerTaskStatusFilters button.active {
+  color: var(--color-action-primary-hover);
+  background: var(--color-surface);
+  box-shadow: 0 1px 4px rgb(var(--color-shadow-rgb) / 0.08);
+}
+
+.editorTasks button.plannerAddTask {
+  width: 100%;
+  height: 36px;
+  justify-content: center;
+  border-radius: 7px;
+  font-size: 12px;
+}
+
+.editorTasks .plannerTaskFilters { padding: 10px 12px; }
+.editorTasks .plannerTaskSelectFilters { grid-template-columns: 1fr; }
+.editorTasks .plannerTaskSelectFilters .customSelectButton { min-height: 34px; height: 34px; font-size: 11px; }
+.editorTasks .plannerTaskList { padding: 0; }
+
+.editorTasksState {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  text-align: center;
+}
+
+.commentDeleteActions button {
+  padding: 8px 12px;
+}
+
+.dangerCommentButton {
+  color: var(--color-text-on-accent);
+  background: var(--color-danger);
+}

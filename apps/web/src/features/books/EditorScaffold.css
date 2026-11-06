@@ -1,0 +1,252 @@
+.editorScaffold {
+  --inspector-rail-width: 56px;
+  --inspector-rail-button-size: 42px;
+  position: relative;
+  height: calc(100dvh - var(--app-header-height));
+  min-height: 0;
+  display: grid;
+  grid-template-columns:
+    var(--contents-panel-width, 280px)
+    6px
+    minmax(800px, 1fr)
+    var(--inspector-rail-width);
+  overflow: hidden;
+  background: var(--color-surface);
+}
+
+.editorScaffold.inspectorOpen {
+  grid-template-columns:
+    var(--contents-panel-width, 280px)
+    6px
+    minmax(800px, 1fr)
+    6px
+    var(--inspector-panel-width, 340px)
+    var(--inspector-rail-width);
+}
+
+.editorOfflineBanner {
+  position: absolute;
+  z-index: 18;
+  top: 10px;
+  left: 50%;
+  max-width: min(680px, calc(100% - 32px));
+  padding: 10px 16px;
+  border: 1px solid var(--color-warning);
+  border-radius: 8px;
+  color: var(--color-warning-text);
+  background: var(--color-warning-surface);
+  box-shadow: 0 8px 24px rgb(var(--color-shadow-rgb) / 14%);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  transform: translateX(-50%);
+}
+
+.editorOfflineBanner.syncing {
+  border-color: var(--color-info-300);
+  color: var(--color-info-700);
+  background: var(--color-info-50);
+}
+
+.editorOfflineBanner.conflict,
+.editorOfflineBanner.local-error {
+  border-color: var(--color-danger);
+  color: var(--color-danger-text);
+  background: var(--color-danger-surface);
+}
+
+.editorScaffold.offlineMode .contentsPanel,
+.editorScaffold.offlineMode .inspectorPanel,
+.editorScaffold.offlineMode .editorPanelResizer {
+  opacity: 0.52;
+}
+
+.editorScaffold.offlineMode .editorPanelResizer {
+  cursor: default;
+  pointer-events: none;
+}
+
+.editorPanelResizer {
+  position: relative;
+  z-index: 8;
+  width: 6px;
+  height: 100%;
+  cursor: col-resize;
+  touch-action: none;
+  background: var(--color-surface);
+  outline: none;
+}
+
+.editorPanelResizer::after {
+  content: "";
+  position: absolute;
+  inset: 0 2px;
+  background: var(--color-border);
+  transition: background-color 120ms ease, box-shadow 120ms ease;
+}
+
+.editorPanelResizer:hover::after,
+.editorPanelResizer:focus-visible::after,
+body.resizingEditorPanels .editorPanelResizer::after {
+  background: var(--color-focus-ring);
+  box-shadow: 0 0 0 1px var(--color-action-border-subtle);
+}
+
+body.resizingEditorPanels,
+body.resizingEditorPanels * {
+  cursor: col-resize !important;
+  user-select: none !important;
+}
+
+.contentsPanel,
+.inspectorPanel {
+  min-width: 0;
+  height: 100%;
+  overflow-y: auto;
+  background: var(--color-surface-raised);
+}
+
+.inspectorPanel {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  overflow: hidden;
+  border-left: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.inspectorRail {
+  position: relative;
+  z-index: 10;
+  grid-column: -2 / -1;
+  width: var(--inspector-rail-width);
+  min-width: var(--inspector-rail-width);
+  max-width: var(--inspector-rail-width);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 6px;
+  border-left: 1px solid var(--color-border);
+  background: var(--color-surface-raised);
+  box-sizing: border-box;
+}
+
+.inspectorRail button {
+  position: relative;
+  width: var(--inspector-rail-button-size);
+  min-width: var(--inspector-rail-button-size);
+  max-width: var(--inspector-rail-button-size);
+  height: var(--inspector-rail-button-size);
+  min-height: var(--inspector-rail-button-size);
+  flex: 0 0 var(--inspector-rail-button-size);
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 9px;
+  color: var(--color-text-muted);
+  background: transparent;
+  cursor: pointer;
+}
+
+.inspectorRail button:hover,
+.inspectorRail button:focus-visible {
+  color: var(--color-action-primary-hover);
+  background: var(--color-surface-subtle);
+  outline: none;
+}
+
+.inspectorRail button.active {
+  color: var(--color-action-primary-hover);
+  background: var(--color-action-surface);
+}
+
+.inspectorRail button.active::before {
+  content: "";
+  position: absolute;
+  top: 7px;
+  bottom: 7px;
+  left: -6px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--color-action-primary);
+}
+
+.inspectorRail button svg {
+  width: 22px;
+  height: 22px;
+}
+
+.editorScaffold.offlineMode .inspectorRail button {
+  opacity: 0.58;
+}
+
+.inspectorToolHeader {
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px 10px 16px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.inspectorToolHeader > div {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.inspectorToolHeader h2 {
+  margin: 0;
+  overflow: hidden;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-weight: 750;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.inspectorToolHeader svg {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  color: var(--color-action-primary);
+}
+
+.inspectorToolHeader button {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  padding: 0;
+  border: 0;
+  border-radius: 7px;
+  color: var(--color-text-muted);
+  background: transparent;
+  cursor: pointer;
+}
+
+.inspectorToolHeader button:hover,
+.inspectorToolHeader button:focus-visible {
+  color: var(--color-action-primary-hover);
+  background: var(--color-surface-subtle);
+  outline: none;
+}
+
+.inspectorToolHeader button svg {
+  width: 18px;
+  height: 18px;
+  color: currentColor;
+}
+
+.inspectorPanelBody {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.editorContentsBackdrop { display: none; }

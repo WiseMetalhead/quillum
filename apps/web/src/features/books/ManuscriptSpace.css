@@ -1,0 +1,12 @@
+@import "./ManuscriptDashboard.css";
+@import "./EditorScaffold.css";
+@import "./BookNavigator.css";
+@import "./DocumentEditor.css";
+@import "./InspectorShared.css";
+@import "./VersionsPanel.css";
+@import "./CommentsPanel.css";
+@import "./EditorNotesPanel.css";
+@import "./EditorTasksPanel.css";
+@import "./ManuscriptResponsive.css";
+@import "./ReviewShareDialog.css";
+@import "./ManuscriptExportDialog.css";

@@ -1,0 +1,16 @@
+services:
+  init-volumes: &local-build
+    build:
+      context: .
+      args:
+        QUILLUM_VERSION: ${QUILLUM_VERSION:-1.0.0}
+    pull_policy: build
+  migrate: *local-build
+  api: *local-build
+  realtime: *local-build
+  collaboration: *local-build
+  worker: *local-build
+  beat: *local-build
+  gateway: *local-build
+  model-init: *local-build
+  transcription: *local-build

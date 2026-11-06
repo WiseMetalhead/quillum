@@ -1,0 +1,29 @@
+{
+  "name": "quillum",
+  "version": "1.0.0",
+  "license": "AGPL-3.0-or-later",
+  "author": "@WiseMetalhead and Quillum contributors",
+  "private": true,
+  "workspaces": [
+    "apps/web",
+    "apps/collaboration",
+    "packages/editor-schema"
+  ],
+  "devDependencies": {
+    "minimatch": "11.0.1"
+  },
+  "overrides": {
+    "minimatch": "$minimatch"
+  },
+  "scripts": {
+    "collaboration:dev": "npm --workspace apps/collaboration run dev",
+    "collaboration:start": "npm --workspace apps/collaboration run start",
+    "collaboration:test": "npm --workspace apps/collaboration run test",
+    "web:dev": "npm --workspace apps/web run dev",
+    "web:build": "npm --workspace apps/web run build",
+    "web:lint": "npm --workspace apps/web run lint",
+    "api:check": "cd apps/api && uv run python manage.py check",
+    "api:migrate": "cd apps/api && uv run python manage.py migrate"
+  }
+}
+

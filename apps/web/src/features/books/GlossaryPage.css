@@ -1,0 +1,3302 @@
+.glossaryPage {
+  --glossary-border: var(--color-border);
+  position: relative;
+  isolation: isolate;
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  overflow: hidden;
+  color: var(--color-text-strong);
+  background: var(--color-surface);
+}
+
+.glossarySidebarBackdrop,
+.glossarySidebar > button.glossaryMobileSidebarClose,
+.glossaryMobileBottomBar { display: none; }
+
+.glossaryDocumentState { min-height: 240px; }
+
+.glossaryPage button,
+.glossaryPage input,
+.glossaryPage .customSelectButton,
+.glossaryPage textarea {
+  font: inherit;
+}
+
+.glossarySidebar {
+  min-width: 0;
+  padding: 14px 18px 24px;
+  overflow-y: auto;
+  border-right: 1px solid var(--glossary-border);
+  background: var(--color-surface-raised);
+}
+
+.glossarySidebar > button,
+.glossaryCategoryList > div > button {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 7px;
+  color: var(--color-text-secondary-strong);
+  background: transparent;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.glossarySidebar > button:hover,
+.glossaryCategoryList > div > button:hover {
+  color: var(--color-action-primary-hover);
+  background: var(--color-canvas);
+}
+
+.glossarySidebar button svg {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  stroke-width: 1.5;
+}
+
+.glossarySidebar > button.active,
+.glossaryCategoryList > div.active {
+  color: var(--color-action-primary);
+  background: var(--color-action-surface);
+}
+
+.glossaryCategoryList > div.active > button {
+  color: var(--color-action-primary);
+}
+
+.glossaryCategoryList {
+  display: grid;
+  gap: 1px;
+}
+
+.glossaryCategoryList > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 32px;
+  border-radius: 7px;
+}
+
+.glossaryCategoryList > div > button:first-child {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.glossaryCategoryList .categoryAction {
+  width: 30px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  opacity: 0;
+}
+
+.glossaryCategoryList .categoryAction svg {
+  width: 15px;
+  height: 15px;
+}
+
+.glossaryCategoryList > div:hover .categoryAction,
+.glossaryCategoryList .categoryAction:focus-visible {
+  opacity: 1;
+}
+
+.glossarySidebar .newCategory {
+  height: 36px;
+  justify-content: center;
+  margin-top: 10px;
+  border: 1px dashed var(--color-border-strong);
+  color: var(--color-text-secondary);
+  font-size: 12px;
+}
+
+.glossarySidebar .manageCategories {
+  height: 34px;
+  margin-top: 2px;
+  color: var(--color-text-muted);
+  font-size: 11px;
+  font-weight: 550;
+}
+
+.glossarySidebar hr {
+  width: 100%;
+  margin: 14px 0 15px;
+  border: 0;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.glossarySidebar small {
+  display: block;
+  margin: 0 10px 7px;
+  color: var(--color-text-muted);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.glossaryMain {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  overflow: hidden;
+  background: var(--color-surface);
+}
+
+.glossaryHeader {
+  min-height: 74px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 10px 24px 10px 28px;
+  border-bottom: 1px solid var(--glossary-border);
+}
+
+.glossaryHeaderCopy {
+  min-width: 180px;
+}
+
+.glossaryHeader h1 {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 20px;
+  font-weight: 750;
+  line-height: 1.2;
+}
+
+.glossaryHeader p {
+  max-width: 420px;
+  margin: 4px 0 0;
+  overflow: hidden;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.glossarySeriesScope {
+  display: block;
+  margin-top: 3px;
+  color: var(--color-action-primary-hover);
+  font-size: 10px;
+}
+
+.glossaryHeaderActions {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 7px;
+}
+
+.glossaryHeader .primary,
+.glossaryArticleActions button,
+.glossaryToolbar button,
+.glossaryToolbar .customSelectButton,
+.glossaryLayoutSwitch button {
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary-strong);
+  background: var(--color-surface);
+  cursor: pointer;
+}
+
+.glossaryHeader .primary {
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 11px;
+  border: 0;
+  border-radius: 7px;
+  color: var(--color-text-on-accent);
+  background: var(--color-action-primary);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.glossaryHeader .primary:hover {
+  background: var(--color-action-primary-hover);
+}
+
+.glossaryHeader .primary svg {
+  width: 15px;
+  height: 15px;
+}
+
+.glossarySearch {
+  width: min(250px, 24vw);
+  height: 32px;
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr);
+  align-items: center;
+  gap: 6px;
+  padding: 0 9px;
+  border: 1px solid var(--color-border);
+  border-radius: 7px;
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+}
+
+.glossarySearch:focus-within {
+  border-color: var(--color-action-border);
+  box-shadow: 0 0 0 2px rgb(var(--color-focus-ring-rgb) / 20%);
+}
+
+.glossarySearch svg {
+  width: 14px;
+  height: 14px;
+}
+
+.glossarySearch input {
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  color: var(--color-text-secondary-strong);
+  background: transparent;
+  font-size: 11px;
+  outline: 0;
+}
+
+.glossaryHeaderActions > .customSelect {
+  width: 138px;
+}
+
+.glossaryHeaderActions .customSelectButton {
+  min-height: 34px;
+  height: 34px;
+  padding: 0 30px 0 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 7px;
+  color: var(--color-text-secondary);
+  background: var(--color-surface);
+  font-size: 11px;
+}
+
+.glossaryLayoutSwitch {
+  display: flex;
+}
+
+.glossaryLayoutSwitch button {
+  width: 36px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border-radius: 0;
+}
+
+.glossaryLayoutSwitch button:first-child {
+  border-radius: 7px 0 0 7px;
+}
+
+.glossaryLayoutSwitch button:last-child {
+  margin-left: -1px;
+  border-radius: 0 7px 7px 0;
+}
+
+.glossaryLayoutSwitch button svg {
+  width: 15px;
+  height: 15px;
+  opacity: .9;
+}
+
+.glossaryLayoutSwitch button:hover,
+.glossaryLayoutSwitch button.active {
+  z-index: 1;
+  color: var(--color-action-primary);
+  border-color: var(--color-action-border);
+  background: var(--color-action-surface);
+}
+
+.glossaryAlphabet {
+  min-height: 50px;
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 0 28px;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.glossaryAlphabet button {
+  position: relative;
+  min-width: 18px;
+  padding: 0 2px;
+  border: 0;
+  color: var(--color-text-muted);
+  background: transparent;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.glossaryAlphabet button:hover,
+.glossaryAlphabet button.active {
+  color: var(--color-action-primary);
+}
+
+.glossaryAlphabet button.active::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  border-radius: 2px 2px 0 0;
+  background: var(--color-action-primary);
+  content: '';
+}
+
+.glossaryResults {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  background: var(--color-surface-raised);
+}
+
+.glossaryCards {
+  display: grid;
+  gap: 12px;
+  padding: 8px 24px 32px 28px;
+}
+
+.glossaryCards.grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.glossaryCards.list {
+  grid-template-columns: 1fr;
+}
+
+.glossaryCards article {
+  min-width: 0;
+  min-height: 112px;
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr) 30px;
+  gap: 13px;
+  align-items: center;
+  padding: 13px;
+  border: 1px solid var(--color-border);
+  border-radius: 9px;
+  background: var(--color-surface);
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgb(var(--color-shadow-rgb) / 3%);
+}
+
+.glossaryCards article:hover {
+  border-color: var(--color-action-border-subtle);
+  box-shadow: 0 7px 18px rgb(var(--color-shadow-rgb) / 6%);
+}
+
+.glossaryCards article > img,
+.glossaryCards article > .glossaryThumbnailPlaceholder {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.glossaryThumbnailPlaceholder {
+  display: grid;
+  place-items: center;
+  color: var(--color-text-subtle);
+  background: var(--color-surface-subtle);
+}
+
+.glossaryThumbnailPlaceholder svg {
+  width: 30px;
+  height: 30px;
+}
+
+.glossaryCardText {
+  min-width: 0;
+}
+
+.glossaryCardText h2 {
+  margin: 0 0 4px;
+  overflow: hidden;
+  color: var(--color-text-strong);
+  font-size: 14px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.glossaryCardText p {
+  display: -webkit-box;
+  margin: 0 0 8px;
+  overflow: hidden;
+  color: var(--color-text-muted);
+  font-size: 11px;
+  line-height: 1.45;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.glossaryCardText small {
+  color: var(--color-text-subtle);
+  font-size: 9px;
+}
+
+.glossaryCards article > button {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  color: var(--color-text-subtle);
+  background: transparent;
+  cursor: pointer;
+}
+
+.glossaryCards article > button:hover,
+.glossaryCards article > button.active {
+  color: var(--color-action-primary);
+  background: var(--color-action-surface);
+}
+
+.glossaryCards article > button svg {
+  width: 17px;
+  height: 17px;
+}
+
+.glossaryEmpty {
+  min-height: 0;
+  flex: 1 1 auto;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  padding: 40px;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.glossaryEmpty > svg {
+  width: 38px;
+  height: 38px;
+  margin-bottom: 16px;
+  color: var(--color-action-primary);
+}
+
+.glossaryEmpty h2 {
+  margin: 0 0 8px;
+  color: var(--color-text-secondary-strong);
+  font-size: 17px;
+}
+
+.glossaryEmpty p {
+  max-width: 360px;
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.glossaryPagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 24px 28px;
+  color: var(--color-text-muted);
+  font-size: 11px;
+}
+
+.glossaryPagination button {
+  min-height: 30px;
+  padding: 0 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  color: var(--color-text-secondary);
+  background: var(--color-surface);
+  cursor: pointer;
+}
+
+.glossaryPagination button:disabled {
+  opacity: .45;
+  cursor: default;
+}
+
+.glossaryArticlePage {
+  position: relative;
+  box-sizing: border-box;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  color: var(--color-text-strong);
+  background: var(--color-surface);
+}
+
+.glossaryArticleMobileHeader,
+.glossaryArticleMobileToolbar,
+.glossaryArticleMobileInfoBackdrop {
+  display: none;
+}
+
+.glossaryMobileContextTray {
+  display: contents;
+}
+
+.glossaryArticlePage button,
+.glossaryArticlePage input,
+.glossaryArticlePage .customSelectButton,
+.glossaryArticlePage textarea {
+  font: inherit;
+}
+
+.glossaryBack {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  padding: 0;
+  border: 0;
+  border-radius: 7px;
+  color: var(--color-text-secondary);
+  background: transparent;
+  cursor: pointer;
+}
+
+.glossaryBack:hover {
+  color: var(--color-action-primary);
+  background: var(--color-action-surface);
+}
+
+.glossaryBack svg {
+  width: 18px;
+  height: 18px;
+}
+
+.glossaryArticleColumns {
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr) 300px;
+  overflow: hidden;
+}
+
+.glossaryArticleContents,
+.glossaryArticleMain,
+.glossaryLinkedPanel {
+  min-width: 0;
+  min-height: 0;
+}
+
+.glossaryArticleContents {
+  overflow-y: auto;
+  border-right: 1px solid var(--glossary-border, var(--color-border));
+  background: var(--color-surface-raised);
+}
+
+.glossaryArticleContents > header {
+  min-height: 62px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--glossary-border, var(--color-border));
+}
+
+.glossaryArticleContents h2 {
+  margin: 0;
+  overflow: hidden;
+  color: var(--color-text-primary);
+  font-size: 16px;
+  font-weight: 750;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.glossaryArticleMain {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  overflow: hidden;
+  background: var(--color-canvas-subtle);
+}
+
+.glossaryArticleIntro {
+  min-height: 82px;
+  display: grid;
+  grid-template-columns: 62px minmax(0, 1fr) auto;
+  gap: 13px;
+  align-items: center;
+  padding: 10px 18px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.glossaryArticleIntro > img,
+.glossaryArticleIntro > .glossaryThumbnailPlaceholder {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.glossaryArticleIntro small {
+  color: var(--color-text-subtle);
+  font-size: 9px;
+}
+
+.glossaryThumbnailEditor {
+  position: relative;
+  width: 62px;
+  height: 62px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.glossaryThumbnailEditor > img,
+.glossaryThumbnailEditor > .glossaryThumbnailPlaceholder {
+  width: 62px;
+  height: 62px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.glossaryThumbnailEditMark {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--color-text-on-accent);
+  background: rgb(var(--color-shadow-rgb) / 48%);
+  opacity: 0;
+  transition: opacity .15s ease;
+}
+
+.glossaryThumbnailEditor:hover .glossaryThumbnailEditMark,
+.glossaryThumbnailEditor:focus-visible .glossaryThumbnailEditMark {
+  opacity: 1;
+}
+
+.glossaryThumbnailEditMark svg {
+  width: 20px;
+  height: 20px;
+}
+
+.glossaryArticleIdentity {
+  min-width: 0;
+  display: grid;
+  align-content: center;
+  gap: 3px;
+}
+
+.glossaryArticleTitleRow {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.glossaryArticleTitleRow h1 {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  color: var(--color-text-primary);
+  font-size: 20px;
+  font-weight: 750;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.glossaryTitleDivider {
+  width: 1px;
+  height: 24px;
+  flex: 0 0 auto;
+  background: var(--color-border);
+}
+
+.glossaryHeaderSaveStatus {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+}
+
+.glossaryArticleActions {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.glossaryArticleActions button {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border-radius: 7px;
+}
+
+.glossaryArticleActions button:hover,
+.glossaryArticleActions button.active {
+  color: var(--color-action-primary);
+  border-color: var(--color-action-border);
+  background: var(--color-action-surface);
+}
+
+.glossaryArticleActions button svg {
+  width: 16px;
+  height: 16px;
+}
+
+.glossaryArticleActionMenu {
+  position: relative;
+}
+
+.glossaryArticleActionPopover {
+  position: absolute;
+  z-index: 15;
+  top: calc(100% + 6px);
+  right: 0;
+  width: 186px;
+  display: grid;
+  padding: 5px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+  box-shadow: 0 9px 24px rgb(var(--color-shadow-rgb) / 14%);
+}
+
+.glossaryArticleActionPopover button {
+  width: 100%;
+  height: auto;
+  min-height: 31px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  justify-content: flex-start;
+  padding: 7px 8px;
+  border: 0;
+  border-radius: 5px;
+  color: var(--color-text-secondary-strong);
+  background: transparent;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.25;
+  text-align: left;
+}
+
+.glossaryArticleActionPopover button:hover:not(:disabled) {
+  color: var(--color-text-secondary-strong);
+  background: var(--color-surface-subtle);
+}
+
+.glossaryArticleActionPopover button.danger {
+  color: var(--color-danger-strong);
+}
+
+.glossaryArticleActionPopover button.danger:hover:not(:disabled) {
+  color: var(--color-danger-strong);
+  background: var(--color-danger-surface);
+}
+
+.glossaryArticleActionPopover button svg {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 auto;
+}
+
+.glossaryToc {
+  display: grid;
+  gap: 2px;
+  padding: 12px 10px 24px;
+  color: var(--color-text-secondary);
+  background: transparent;
+  font-size: 11px;
+}
+
+.glossaryToc button {
+  min-height: 34px;
+  padding-top: 7px;
+  padding-right: 10px;
+  padding-bottom: 7px;
+  border: 0;
+  border-radius: 6px;
+  color: var(--color-text-muted);
+  background: transparent;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+}
+
+.glossaryToc button:hover {
+  color: var(--color-action-primary);
+  background: var(--color-action-surface);
+}
+
+.glossaryDocument {
+  position: relative;
+  min-height: 0;
+  margin: 0;
+  overflow-y: auto;
+  border: 0;
+  border-radius: 0;
+  background: var(--color-surface);
+}
+
+.glossaryToolbar {
+  position: sticky;
+  top: 0;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 52px;
+  padding: 7px 14px;
+  border-bottom: 1px solid var(--color-border);
+  border-radius: 0;
+  background: var(--color-surface);
+}
+
+.glossaryToolbar button {
+  min-width: 34px;
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 9px;
+  border: 0;
+  border-radius: 6px;
+  color: var(--color-text-secondary-strong);
+  background: transparent;
+  font-size: 13px;
+}
+
+.glossaryToolbar button:not(:disabled):hover {
+  color: var(--color-action-primary);
+  background: var(--color-surface-subtle);
+}
+
+.glossaryToolbar button.active {
+  color: var(--color-action-primary-hover);
+  background: var(--color-action-surface);
+}
+
+.glossaryToolbar button:disabled {
+  opacity: .45;
+  cursor: default;
+}
+
+.glossaryToolbar svg {
+  width: 15px;
+  height: 15px;
+}
+
+.glossaryToolbar svg.mingcuteToolbarIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.glossaryFormatSelector,
+.glossarySaveStatus {
+  position: relative;
+}
+
+.glossaryToolbar .glossaryFormatSelectorButton {
+  min-width: 132px;
+  justify-content: space-between;
+  border: 1px solid var(--color-border);
+}
+
+.glossaryFormatDropdown {
+  position: absolute;
+  z-index: 12;
+  top: calc(100% + 7px);
+  left: 0;
+  width: 190px;
+  display: grid;
+  gap: 2px;
+  padding: 6px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+  box-shadow: 0 16px 36px rgb(var(--color-shadow-rgb) / 14%);
+}
+
+.glossaryFormatDropdown button {
+  width: 100%;
+  justify-content: flex-start;
+  padding: 8px 10px;
+  text-align: left;
+}
+
+.glossaryFormatDropdown .heading1 { font-size: 18px; font-weight: 800; }
+.glossaryFormatDropdown .heading2 { font-size: 16px; font-weight: 750; }
+.glossaryFormatDropdown .heading3 { font-size: 14px; font-weight: 700; }
+.glossaryFormatDropdown .heading4 { font-size: 13px; font-weight: 700; }
+.glossaryFormatDropdown .heading5 { font-size: 12px; font-weight: 700; }
+
+.glossaryToolbarDivider {
+  width: 1px;
+  height: 24px;
+  flex: 0 0 auto;
+  margin: 0 5px;
+  background: var(--color-border);
+}
+
+.glossaryToolbarSpacer {
+  min-width: 8px;
+  flex: 1 1 auto;
+}
+
+.glossarySaveStatus {
+  position: relative;
+}
+
+.glossarySaveStatusButton {
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  min-height: 30px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border: 0;
+  color: var(--color-success);
+  background: transparent;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.glossarySaveStatusButton.dirty,
+.glossarySaveStatusButton.saving {
+  color: var(--color-info-600);
+}
+
+.glossarySaveStatusButton.offline,
+.glossarySaveStatusButton.conflict,
+.glossarySaveStatusButton.local-error {
+  color: var(--color-danger);
+}
+
+.glossarySavePopover {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 230px;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 9px;
+  color: var(--color-text-secondary-strong);
+  background: var(--color-surface);
+  box-shadow: 0 14px 34px rgb(var(--color-shadow-rgb) / 14%);
+}
+
+.glossarySavePopover > svg {
+  width: 22px;
+  height: 22px;
+  color: currentColor;
+}
+
+.glossarySavePopover > div { min-width: 0; display: grid; gap: 3px; }
+.glossarySavePopover strong { font-size: 12px; }
+.glossarySavePopover span { color: var(--color-text-muted); font-size: 10px; line-height: 1.4; }
+.glossarySaveStatus:has(.dirty) .glossarySavePopover,
+.glossarySaveStatus:has(.saving) .glossarySavePopover { color: var(--color-info-600); }
+.glossarySaveStatus:has(.offline) .glossarySavePopover,
+.glossarySaveStatus:has(.conflict) .glossarySavePopover,
+.glossarySaveStatus:has(.local-error) .glossarySavePopover { color: var(--color-danger); }
+
+.glossaryConflict {
+  display: flex;
+  gap: 8px;
+  margin: 10px;
+  padding: 12px;
+  border: 1px solid var(--color-warning-border);
+  border-radius: 8px;
+  background: var(--color-warning-surface);
+}
+
+.glossaryConflict button {
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  color: var(--color-text-secondary);
+  background: var(--color-surface);
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.glossaryConflict button:last-child {
+  color: var(--color-text-on-accent);
+  border-color: var(--color-action-primary);
+  background: var(--color-action-primary);
+}
+
+.glossaryContextToolbar {
+  position: sticky;
+  z-index: 5;
+  top: 52px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 7px 12px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+  box-shadow: 0 4px 12px rgb(var(--color-shadow-rgb) / 4%);
+}
+
+.glossaryContextToolbar input {
+  height: 30px;
+  padding: 4px 8px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--color-surface);
+  color: var(--color-text-secondary-strong);
+  font: inherit;
+  font-size: 12px;
+}
+
+.glossaryContextToolbar button {
+  min-width: 34px;
+  min-height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 5px 9px;
+  border: 0;
+  border-radius: 6px;
+  color: var(--color-text-secondary-strong);
+  background: transparent;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.glossaryContextToolbar button:not(:disabled):hover {
+  color: var(--color-action-primary);
+  background: var(--color-surface-subtle);
+}
+
+.glossaryContextToolbar button.active {
+  color: var(--color-action-primary-hover);
+  background: var(--color-action-surface);
+}
+
+.glossaryContextToolbar button:disabled {
+  opacity: .45;
+  cursor: default;
+}
+
+.glossaryContextToolbar button svg {
+  width: 15px;
+  height: 15px;
+}
+
+.glossaryLinkToolbar > input {
+  width: min(360px, 50vw);
+}
+
+.glossaryArticleSearch {
+  position: relative;
+  width: min(360px, 50vw);
+}
+
+.glossaryArticleSearch > input {
+  width: 100%;
+}
+
+.glossaryArticleSearchResults {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  right: 0;
+  z-index: 5;
+  display: grid;
+  max-height: 180px;
+  overflow-y: auto;
+  padding: 4px;
+  border: 1px solid var(--color-border);
+  border-radius: 7px;
+  background: var(--color-surface);
+  box-shadow: 0 12px 28px rgb(var(--color-shadow-rgb) / 14%);
+}
+
+.glossaryArticleSearchResults button {
+  justify-content: flex-start;
+  min-height: 30px;
+  overflow: hidden;
+  padding: 5px 8px;
+  border: 0;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.glossaryArticleSearchResults > span {
+  padding: 7px 8px;
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+.glossaryIllustrationToolbar {
+  display: grid;
+  grid-template-columns: minmax(140px, 1fr) minmax(180px, 1.4fr) auto;
+  align-items: end;
+}
+
+.glossaryIllustrationToolbar label {
+  display: grid;
+  min-width: 0;
+  gap: 3px;
+  color: var(--color-text-secondary);
+  font-size: 11px;
+}
+
+.glossaryIllustrationToolbar input {
+  width: 100%;
+  min-width: 0;
+}
+
+.glossaryContextButtons {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+}
+
+.glossaryTableToolbar {
+  justify-content: center;
+}
+
+.glossaryCalloutToolbar {
+  justify-content: center;
+}
+
+.glossaryCalloutOption {
+  color: var(--color-text-secondary);
+}
+
+.glossaryCalloutOption.info.active,
+.glossaryCalloutOption.info:not(:disabled):hover {
+  color: var(--color-info-600);
+}
+
+.glossaryCalloutOption.attention.active,
+.glossaryCalloutOption.attention:not(:disabled):hover {
+  color: var(--color-warning);
+}
+
+.glossaryCalloutOption.warning.active,
+.glossaryCalloutOption.warning:not(:disabled):hover {
+  color: var(--color-danger);
+}
+
+.glossaryCalloutOption.check.active,
+.glossaryCalloutOption.check:not(:disabled):hover {
+  color: var(--color-success-strong);
+}
+
+.glossaryConflict {
+  display: block;
+}
+
+.glossaryConflict button {
+  margin-right: 8px;
+}
+
+.glossaryTiptap {
+  min-height: 360px;
+  padding: 24px clamp(20px, 5vw, 64px);
+  outline: none;
+  color: var(--color-text-primary);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.readonly .glossaryTiptap {
+  min-height: 240px;
+}
+
+.glossaryTiptap h1,
+.glossaryTiptap h2,
+.glossaryTiptap h3,
+.glossaryTiptap h4,
+.glossaryTiptap h5 {
+  line-height: 1.25;
+}
+
+.glossaryTiptap blockquote {
+  margin-left: 0;
+  padding-left: 18px;
+  border-left: 3px solid var(--color-warning);
+  color: var(--color-text-secondary);
+}
+
+.glossaryTiptap hr {
+  border: 0;
+  border-top: 1px solid var(--color-border-strong);
+  margin: 28px 0;
+}
+
+.glossaryTiptap .tableWrapper {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.glossaryTiptap table {
+  width: max-content;
+  min-width: 100%;
+  border-collapse: collapse;
+}
+
+.glossaryTiptap th,
+.glossaryTiptap td {
+  min-width: 120px;
+  padding: 8px 10px;
+  border: 1px solid var(--color-border-strong);
+  vertical-align: top;
+}
+
+.glossaryTiptap th {
+  background: var(--color-canvas-subtle);
+}
+
+.glossaryCallout {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  overflow-wrap: anywhere;
+  margin: 20px 0;
+  padding: 12px 16px;
+  border-left: 4px solid var(--color-info-600);
+  border-radius: 6px;
+  background: var(--color-info-50);
+}
+
+.glossaryCalloutIcon {
+  display: grid;
+  place-items: center;
+  align-self: center;
+  color: var(--color-info-600);
+}
+
+.glossaryCalloutIcon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.glossaryCalloutContent {
+  min-width: 0;
+}
+
+.glossaryCalloutContent > :first-child {
+  margin-top: 0;
+}
+
+.glossaryCalloutContent > :last-child {
+  margin-bottom: 0;
+}
+
+.glossaryCallout[data-kind='attention'],
+.glossaryCallout[data-kind='note'] {
+  border-color: var(--color-warning);
+  background: var(--color-warning-surface);
+}
+
+.glossaryCallout[data-kind='attention'] .glossaryCalloutIcon,
+.glossaryCallout[data-kind='note'] .glossaryCalloutIcon {
+  color: var(--color-warning);
+}
+
+.glossaryCallout[data-kind='warning'] {
+  border-color: var(--color-danger);
+  background: var(--color-danger-surface);
+}
+
+.glossaryCallout[data-kind='warning'] .glossaryCalloutIcon {
+  color: var(--color-danger);
+}
+
+.glossaryCallout[data-kind='check'],
+.glossaryCallout[data-kind='tip'] {
+  border-color: var(--color-success);
+  background: var(--color-success-surface);
+}
+
+.glossaryCallout[data-kind='check'] .glossaryCalloutIcon,
+.glossaryCallout[data-kind='tip'] .glossaryCalloutIcon {
+  color: var(--color-success-strong);
+}
+
+.glossaryIllustration {
+  position: relative;
+  max-width: 100%;
+  margin: 24px auto;
+  text-align: center;
+}
+
+.glossaryIllustrationFrame {
+  position: relative;
+}
+
+.glossaryDocument.editable .glossaryIllustration.selected .glossaryIllustrationFrame {
+  outline: 2px solid var(--color-action-primary);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+.glossaryIllustration[data-alignment='left'] {
+  margin-left: 0;
+  text-align: left;
+}
+
+.glossaryIllustration[data-alignment='right'] {
+  margin-right: 0;
+  text-align: right;
+}
+
+.glossaryIllustration img {
+  width: 100%;
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.glossaryIllustrationResizeHandle {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  width: 12px;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  cursor: ew-resize;
+  touch-action: none;
+}
+
+.glossaryIllustrationResizeHandle.left {
+  left: -16px;
+}
+
+.glossaryIllustrationResizeHandle.right {
+  right: -16px;
+}
+
+.glossaryIllustrationResizeHandle::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 3px;
+  height: 28px;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  background: var(--color-action-primary);
+  box-shadow: 0 0 0 2px var(--color-surface), 0 1px 5px rgb(var(--color-shadow-rgb) / 24%);
+  content: '';
+  transition: height .15s ease, width .15s ease;
+}
+
+.glossaryIllustrationResizeHandle:hover::after,
+.glossaryIllustrationResizeHandle:focus-visible::after,
+.glossaryIllustration.resizing .glossaryIllustrationResizeHandle::after {
+  width: 4px;
+  height: 42px;
+}
+
+.glossaryIllustrationResizeHandle:focus-visible {
+  outline: 2px solid var(--color-action-primary);
+  outline-offset: -2px;
+}
+
+.glossaryIllustrationResizeValue {
+  position: absolute;
+  z-index: 2;
+  top: 8px;
+  right: 8px;
+  padding: 3px 7px;
+  border-radius: 999px;
+  color: var(--color-text-on-accent);
+  background: rgb(var(--color-shadow-rgb) / 78%);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+  pointer-events: none;
+}
+
+.glossaryIllustration figcaption {
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+.glossaryInternalLink {
+  color: var(--color-warning-strong);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+}
+
+.glossaryLinkedPanel {
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  gap: 10px;
+  padding: 14px 12px 24px 16px;
+  border-left: 1px solid var(--glossary-border, var(--color-border));
+  background: var(--color-surface);
+}
+
+.glossaryArticleInfoPanel {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.glossaryArticleInfoPanel > img,
+.glossaryArticleCoverPlaceholder {
+  justify-self: center;
+  width: min(100%, 176px);
+  max-height: 220px;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
+.glossaryArticleInfoPanel > img {
+  height: auto;
+}
+
+.glossaryArticleCoverPlaceholder {
+  aspect-ratio: 3 / 4;
+  display: grid;
+  place-items: center;
+  color: var(--color-action-primary);
+  background: var(--color-action-surface);
+}
+
+.glossaryArticleCoverPlaceholder svg {
+  width: 30px;
+  height: 30px;
+}
+
+.glossaryArticleSynopsisPanel {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  gap: 7px;
+}
+
+.glossaryArticleSynopsisPanel h2 {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.glossaryArticleSynopsisPanel p {
+  max-height: 132px;
+  margin: 0;
+  overflow-y: auto;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+
+.glossaryIconPicker {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(38px, 1fr));
+  gap: 6px;
+  max-height: 238px;
+  overflow-y: auto;
+  padding: 8px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+
+.glossaryIconChooser {
+  display: grid;
+  gap: 8px;
+}
+
+.glossaryIconPicker button {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 38px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: var(--color-canvas-subtle);
+}
+
+.glossaryIconPicker button.active {
+  color: var(--color-warning-strong);
+  border-color: var(--color-warning);
+  background: var(--color-warning-surface);
+}
+
+.glossaryIconPicker svg {
+  width: 24px;
+  height: 24px;
+}
+
+.glossaryIconAttribution {
+  display: block;
+  margin-top: 6px;
+  color: var(--color-text-muted);
+  font-size: 10px;
+}
+
+.glossaryLoadMoreIcons {
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 7px;
+  color: var(--color-text-secondary);
+  background: var(--color-surface);
+  font-size: 11px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.glossaryLoadMoreIcons:hover {
+  color: var(--color-action-primary);
+  border-color: var(--color-action-border);
+  background: var(--color-action-surface);
+}
+
+.glossaryCategoryManager { display: grid; gap: 22px; }
+
+.glossaryCategoryGroup { min-width: 0; }
+
+.glossaryCategoryGroup h3 {
+  margin: 0 0 9px;
+  color: var(--color-text-secondary-strong);
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.glossaryCategoryRows {
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-surface);
+}
+
+.glossaryCategoryManagerRow {
+  min-height: 58px;
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 11px;
+  padding: 9px 11px;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.glossaryCategoryManagerRow:last-child { border-bottom: 0; }
+
+.glossaryCategoryManagerIcon {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  color: var(--color-action-primary);
+}
+
+.glossaryCategoryManagerIcon svg { width: 21px; height: 21px; }
+
+.glossaryCategoryManagerCopy,
+.glossaryCategoryManagerCopy strong,
+.glossaryCategoryManagerCopy small { min-width: 0; display: block; }
+
+.glossaryCategoryManagerCopy strong {
+  overflow: hidden;
+  color: var(--color-text-primary);
+  font-size: 13px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.glossaryCategoryManagerCopy small {
+  margin-top: 2px;
+  color: var(--color-text-muted);
+  font-size: 11px;
+}
+
+.glossaryCategoryManagerRow > button {
+  min-height: 34px;
+  padding: 0 11px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 7px;
+  color: var(--color-text-secondary-strong);
+  background: var(--color-surface);
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.glossaryCategoryManagerRow > button:hover {
+  color: var(--color-action-primary);
+  border-color: var(--color-action-border);
+  background: var(--color-action-surface);
+}
+
+.glossaryCategoryManagerEmpty {
+  margin: 0;
+  padding: 24px 16px;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  text-align: center;
+}
+
+.glossaryMobileCategoryDanger { display: none; }
+
+@keyframes glossaryCreationStepFromRight {
+  from { opacity: 0; transform: translateX(18px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes glossaryCreationStepFromLeft {
+  from { opacity: 0; transform: translateX(-18px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes glossaryCreationTitleForward {
+  from { opacity: 0; transform: translateX(10px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes glossaryCreationTitleBack {
+  from { opacity: 0; transform: translateX(-10px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.glossaryCategoryDialog {
+  width: min(100%, 680px);
+}
+
+.glossaryImportDialog {
+  width: min(100%, 780px);
+}
+
+.glossaryArticleDetailsStep,
+.glossaryImportStep {
+  min-width: 0;
+  display: grid;
+  gap: 19px;
+}
+
+.glossaryImportCallout {
+  border: 1px solid var(--color-warning-border);
+  border-radius: 9px;
+  color: var(--color-warning-text);
+  background: var(--color-warning-surface);
+}
+
+.glossaryImportCallout summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 13px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.glossaryImportCallout summary svg {
+  width: 18px;
+  height: 18px;
+}
+
+.glossaryImportCallout > ul {
+  margin: 0;
+  padding: 0 13px 13px 31px;
+  color: var(--color-warning-text);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.glossaryImportCallout li + li {
+  margin-top: 5px;
+}
+
+.glossaryImportDropZone {
+  min-height: 190px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 8px;
+  padding: 24px;
+  border: 1px dashed var(--color-action-border);
+  border-radius: 11px;
+  color: var(--color-text-secondary);
+  background: var(--color-action-surface);
+  text-align: center;
+  transition: border-color .16s ease, background .16s ease;
+}
+
+.glossaryImportDropZone.active {
+  border-color: var(--color-action-primary);
+  background: var(--color-action-surface-strong);
+}
+
+.glossaryImportDropZone.busy {
+  opacity: .65;
+}
+
+.glossaryImportDropZone > svg {
+  width: 46px;
+  height: 46px;
+  margin-bottom: 4px;
+  color: var(--color-action-primary);
+}
+
+.glossaryImportDropZone > strong {
+  color: var(--color-text-primary);
+  font-size: 16px;
+}
+
+.glossaryImportDropZone > span {
+  font-size: 13px;
+}
+
+.glossaryImportDropZone > button {
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 8px;
+  padding: 8px 11px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 7px;
+  color: var(--color-text-secondary-strong);
+  background: var(--color-surface);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.glossaryImportDropZone > button:hover {
+  color: var(--color-action-primary);
+  border-color: var(--color-action-border);
+}
+
+.glossaryImportDropZone > button svg {
+  width: 17px;
+  height: 17px;
+}
+
+.glossaryImportIssue {
+  margin: -8px 0 0;
+  color: var(--color-danger-strong);
+  font-size: 12px;
+}
+
+.glossaryImportFile {
+  display: grid;
+  gap: 10px;
+}
+
+.glossaryImportFile h3 {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 15px;
+}
+
+.glossaryImportFile > div,
+.glossaryImportFile > p {
+  min-height: 58px;
+  margin: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 9px;
+  background: var(--color-surface);
+}
+
+.glossaryImportFile > div {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  padding: 9px 11px;
+}
+
+.glossaryImportFile > div > svg {
+  width: 20px;
+  height: 20px;
+  color: var(--color-action-primary);
+}
+
+.glossaryImportFile span,
+.glossaryImportFile strong,
+.glossaryImportFile small {
+  min-width: 0;
+  display: block;
+}
+
+.glossaryImportFile strong {
+  overflow: hidden;
+  color: var(--color-text-secondary-strong);
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.glossaryImportFile small {
+  margin-top: 2px;
+  color: var(--color-text-muted);
+  font-size: 11px;
+}
+
+.glossaryImportFile > div > button {
+  min-height: 32px;
+  padding: 6px 9px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 7px;
+  color: var(--color-text-secondary-strong);
+  background: var(--color-surface);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.glossaryImportFile > div > button:hover:not(:disabled) {
+  border-color: var(--color-action-border-subtle);
+  color: var(--color-action-primary);
+  background: var(--color-action-surface);
+}
+
+.glossaryImportFile > div > button:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+.glossaryImportFile > p {
+  display: grid;
+  place-items: center;
+  padding: 14px;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  text-align: center;
+}
+
+.standardDialogContent footer .glossaryDialogImportAction {
+  min-height: 39px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: auto;
+  padding: 8px 13px;
+  border: 1px solid var(--color-action-border-subtle);
+  border-radius: 7px;
+  color: var(--color-action-primary);
+  background: var(--color-surface);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.standardDialogContent footer .glossaryDialogImportAction:hover:not(:disabled) {
+  border-color: var(--color-action-primary);
+  background: var(--color-action-surface);
+}
+
+.standardDialogContent footer .glossaryDialogImportAction:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+.glossaryDialogImportAction svg {
+  width: 18px;
+  height: 18px;
+}
+
+.glossaryConfirmDialog {
+  width: min(100%, 480px);
+}
+
+.glossaryCategoryPickerDialog {
+  width: min(100%, 480px);
+}
+
+.glossaryExportDialog {
+  width: min(100%, 520px);
+}
+
+.glossaryExportDialog .standardDialogClose { display: none; }
+
+.glossaryExportFormats {
+  display: grid;
+  gap: 9px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.glossaryExportFormats legend {
+  margin-bottom: 8px;
+  color: var(--color-text-secondary-strong);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.glossaryExportFormats label {
+  position: relative;
+  display: block;
+  padding: 12px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 9px;
+  background: var(--color-surface);
+  cursor: pointer;
+}
+
+.glossaryExportFormats label.active {
+  border-color: var(--color-action-border);
+  background: var(--color-action-surface);
+}
+
+.glossaryExportFormats label:focus-within {
+  border-color: var(--color-action-border);
+  background: var(--color-action-surface);
+}
+
+.glossaryExportFormats input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.glossaryExportFormats span {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+}
+
+.glossaryExportFormats strong {
+  color: var(--color-text-primary);
+  font-size: 14px;
+}
+
+.glossaryExportFormats small,
+.glossaryExportNotice {
+  color: var(--color-text-muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.glossaryExportNotice {
+  margin: 0;
+}
+
+.glossaryExportDialog .dialogSubmit {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.glossaryExportDialog .dialogSubmit svg {
+  width: 17px;
+  height: 17px;
+}
+
+.glossaryCategoryDialog .glossaryDialogDangerAction {
+  margin-right: auto;
+}
+
+.glossaryImagePicker {
+  position: relative;
+  min-height: 104px;
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  align-items: center;
+  gap: 13px;
+  padding: 12px;
+  border: 1px dashed var(--color-action-border-subtle);
+  border-radius: 10px;
+  background: var(--color-action-surface);
+}
+
+.glossaryImagePicker.cover {
+  grid-template-columns: 72px minmax(0, 1fr);
+}
+
+.glossaryImagePicker > img,
+.glossaryImagePickerIcon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+}
+
+.glossaryImagePicker.cover > img,
+.glossaryImagePicker.cover .glossaryImagePickerIcon {
+  width: 72px;
+  max-height: 96px;
+  border-radius: 7px;
+}
+
+.glossaryImagePicker > img {
+  object-fit: cover;
+}
+
+.glossaryImagePicker.cover > img {
+  height: auto;
+  object-fit: contain;
+}
+
+.glossaryImagePicker.cover .glossaryImagePickerIcon {
+  aspect-ratio: 3 / 4;
+  height: auto;
+}
+
+.glossaryImagePickerIcon {
+  display: grid;
+  place-items: center;
+  color: var(--color-action-primary);
+  background: var(--color-action-surface-strong);
+}
+
+.glossaryImagePickerIcon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.glossaryImagePicker > div {
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+}
+
+.glossaryImagePicker strong {
+  overflow: hidden;
+  color: var(--color-text-primary);
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.glossaryImagePicker small {
+  color: var(--color-text-muted);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.glossaryImagePickerActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.glossaryImageFileButton,
+button.glossaryImageRemoveButton {
+  padding: 7px 10px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 6px;
+  color: var(--color-text-secondary-strong);
+  background: var(--color-surface);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button.glossaryImageFileButton {
+  padding: 7px 10px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 6px;
+  color: var(--color-text-secondary-strong);
+  background: var(--color-surface);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: normal;
+  cursor: pointer;
+}
+
+.glossaryImageFileButton input {
+  display: none;
+}
+
+button.glossaryImageRemoveButton {
+  border-color: transparent;
+  color: var(--color-danger);
+  background: transparent;
+}
+
+.glossaryPage .dialogActions button,
+.glossaryArticlePage .dialogActions button {
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 7px;
+  color: var(--color-text-secondary);
+  background: var(--color-surface);
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.glossaryPage .dialogActions button:hover,
+.glossaryArticlePage .dialogActions button:hover {
+  background: var(--color-canvas-subtle);
+}
+
+.glossaryPage .dialogActions button.primary,
+.glossaryArticlePage .dialogActions button.primary {
+  color: var(--color-text-on-accent);
+  border-color: var(--color-action-primary);
+  background: var(--color-action-primary);
+}
+
+.glossaryPage .dialogActions button.danger,
+.glossaryArticlePage .dialogActions button.danger {
+  color: var(--color-text-on-accent);
+  border-color: var(--color-danger);
+  background: var(--color-danger);
+}
+
+.dangerText {
+  color: var(--color-danger-strong) !important;
+}
+
+@media (max-width: 1100px) {
+  .glossaryHeader {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .glossaryHeaderActions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .glossarySearch {
+    flex: 1 1 auto;
+    width: auto;
+  }
+
+  .glossaryCards.grid {
+    grid-template-columns: 1fr;
+  }
+
+  .glossaryArticleColumns {
+    grid-template-columns: 220px minmax(0, 1fr) 260px;
+  }
+}
+
+@media (max-width: 760px) {
+  .glossaryPage {
+    height: auto;
+    grid-template-columns: 1fr;
+    overflow-y: auto;
+  }
+
+  .glossarySidebar {
+    position: static;
+    overflow: visible;
+    border-right: 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .glossaryHeader {
+    padding: 18px;
+  }
+
+  .glossaryHeaderActions {
+    flex-wrap: wrap;
+  }
+
+  .glossarySearch {
+    min-width: 100%;
+  }
+
+  .glossaryCards,
+  .glossaryAlphabet {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .glossaryArticlePage {
+    overflow-y: auto;
+  }
+
+  .glossaryArticleColumns {
+    height: auto;
+    grid-template-columns: 1fr;
+    overflow: visible;
+  }
+
+  .glossaryArticleContents {
+    overflow: visible;
+    border-right: 0;
+    border-bottom: 1px solid var(--glossary-border, var(--color-border));
+  }
+
+  .glossaryArticleMain {
+    display: block;
+    overflow: visible;
+  }
+
+  .glossaryDocument {
+    overflow: visible;
+  }
+
+  .glossaryLinkedPanel {
+    overflow: visible;
+    border-top: 1px solid var(--glossary-border, var(--color-border));
+    border-left: 0;
+  }
+
+  .glossaryArticleIntro {
+    grid-template-columns: 64px minmax(0, 1fr);
+  }
+
+  .glossaryArticleIntro > img,
+  .glossaryArticleIntro > .glossaryThumbnailPlaceholder,
+  .glossaryThumbnailEditor,
+  .glossaryThumbnailEditor > img,
+  .glossaryThumbnailEditor > .glossaryThumbnailPlaceholder {
+    width: 64px;
+    height: 64px;
+  }
+
+  .glossaryArticleActions {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 520px) {
+  .glossaryArticlePage {
+    height: 100%;
+    min-height: 0;
+    display: grid;
+    grid-template-rows: 56px minmax(0, 1fr);
+    overflow: hidden;
+  }
+
+  .glossaryArticleMobileHeader {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr) 52px;
+    align-items: center;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-surface);
+  }
+
+  .glossaryArticleMobileHeader > button {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    color: var(--color-text-secondary-strong);
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .glossaryArticleMobileHeader > button:last-child { justify-self: end; }
+  .glossaryArticleMobileHeader > button.active { color: var(--color-action-primary-hover); background: var(--color-action-surface); }
+  .glossaryArticleMobileHeader svg { width: 22px; height: 22px; }
+
+  .glossaryArticleMobileHeader h1 {
+    min-width: 0;
+    margin: 0;
+    overflow: hidden;
+    color: var(--color-text-primary);
+    font-size: 16px;
+    font-weight: 750;
+    line-height: 1.25;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .glossaryArticlePage .glossaryArticleColumns {
+    min-height: 0;
+    height: 100%;
+    display: block;
+    overflow: hidden;
+  }
+
+  .glossaryArticlePage .glossaryArticleContents,
+  .glossaryArticlePage .glossaryArticleIntro,
+  .glossaryArticlePage .glossaryLinkedPanel {
+    display: none;
+  }
+
+  .glossaryArticlePage .glossaryArticleMain {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    display: block;
+    overflow: hidden;
+  }
+
+  .glossaryArticlePage .glossaryDocument {
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .glossaryArticlePage .glossaryToolbar { display: none; }
+
+  .glossaryArticlePage .glossaryEditorContent {
+    min-width: 0;
+    min-height: 0;
+    flex: 1 1 auto;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .glossaryArticlePage .glossaryTiptap,
+  .glossaryArticlePage .readonly .glossaryTiptap {
+    min-height: 100%;
+    padding: 20px 16px calc(34px + env(safe-area-inset-bottom, 0px));
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .glossaryArticleMobileToolbar {
+    position: relative;
+    z-index: 25;
+    min-width: 0;
+    display: block;
+    flex: 0 0 auto;
+    padding: 7px max(8px, env(safe-area-inset-right, 0px)) calc(7px + env(safe-area-inset-bottom, 0px)) max(8px, env(safe-area-inset-left, 0px));
+    border-top: 1px solid var(--color-border);
+    background: rgb(var(--color-surface-rgb) / 96%);
+    box-shadow: 0 -10px 24px rgb(var(--color-shadow-rgb) / 7%);
+    backdrop-filter: blur(14px);
+  }
+
+  .glossaryArticleMobileToolbarLevel {
+    min-width: 0;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    animation: glossaryArticleMobileToolbarIn 180ms ease-out both;
+  }
+
+  .glossaryArticleMobileToolbarLeading {
+    min-width: 0;
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    overflow: hidden;
+  }
+
+  .glossaryArticleMobileToolbarTrailing {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .glossaryArticleMobileToolbar button,
+  .glossaryArticleMobileFormatScroll > button {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    display: grid;
+    place-items: center;
+    flex: 0 0 36px;
+    padding: 0;
+    border: 0;
+    border-radius: 7px;
+    color: var(--color-text-secondary-strong);
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .glossaryArticleMobileToolbar button.active { color: var(--color-action-primary-hover); background: var(--color-action-surface); }
+  .glossaryArticleMobileToolbar button:disabled { opacity: .45; cursor: default; }
+  .glossaryArticleMobileToolbar button svg { width: 20px; height: 20px; }
+  .glossaryArticleMobileToolbar button svg.mingcuteToolbarIcon { width: 17px; height: 17px; }
+
+  .glossaryArticleMobileToolbarDivider,
+  .glossaryArticleMobileFormatScroll > span {
+    width: 1px;
+    height: 24px;
+    flex: 0 0 1px;
+    margin: 0 1px;
+    background: var(--color-border-subtle);
+  }
+
+  .glossaryArticleMobileFormatScroll {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+
+  .glossaryArticleMobileFormatScroll::-webkit-scrollbar { display: none; }
+  .glossaryArticleMobileRule { font-size: 18px; font-weight: 700; }
+  .glossaryArticleMobileBlockStyle > span,
+  .glossaryMobileHeadingMark {
+    min-width: 22px;
+    display: inline-grid;
+    place-items: center;
+    color: currentColor;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: -.02em;
+  }
+  .glossaryMobileHeadingMark { min-width: 26px; }
+  .mobileLibraryAction .glossaryMobileHeadingMark { flex: 0 0 26px; }
+  .glossaryArticleMobileToolbar .glossarySaveStatus { display: grid; place-items: center; }
+  .glossaryArticleMobileToolbar .glossarySaveStatusButton { width: 36px; height: 36px; min-width: 36px; min-height: 36px; }
+  .glossaryArticleMobileToolbar button.glossarySaveStatusButton.saved { color: var(--color-success); }
+  .glossaryArticleMobileToolbar button.glossarySaveStatusButton.dirty,
+  .glossaryArticleMobileToolbar button.glossarySaveStatusButton.saving { color: var(--color-info-600); }
+  .glossaryArticleMobileToolbar button.glossarySaveStatusButton.offline,
+  .glossaryArticleMobileToolbar button.glossarySaveStatusButton.conflict,
+  .glossaryArticleMobileToolbar button.glossarySaveStatusButton.local-error { color: var(--color-danger); }
+  .glossaryArticleMobileToolbar .glossarySavePopover { top: auto; right: 0; bottom: calc(100% + 8px); left: auto; }
+
+  .glossaryArticlePage .glossaryTiptap table.glossaryCompactTable {
+    width: 100%;
+    min-width: 100%;
+    table-layout: fixed;
+  }
+
+  .glossaryArticlePage .glossaryTiptap table.glossaryCompactTable th,
+  .glossaryArticlePage .glossaryTiptap table.glossaryCompactTable td {
+    width: auto;
+    min-width: 0;
+    padding: 7px 6px;
+    overflow-wrap: anywhere;
+  }
+
+  .glossaryMobileContextTray {
+    position: absolute;
+    z-index: 24;
+    right: max(8px, env(safe-area-inset-right, 0px));
+    bottom: calc(59px + env(safe-area-inset-bottom, 0px));
+    left: max(8px, env(safe-area-inset-left, 0px));
+    min-height: 46px;
+    display: block;
+    border: 1px solid var(--color-border);
+    border-radius: 11px;
+    background: rgb(var(--color-surface-rgb) / 98%);
+    box-shadow: 0 14px 34px rgb(var(--color-shadow-rgb) / 16%);
+    backdrop-filter: blur(16px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: opacity 160ms ease, transform 180ms ease, visibility 0s linear 180ms;
+  }
+
+  .glossaryMobileContextTray.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+    transition-delay: 0s;
+  }
+
+  .glossaryMobileContextTray .glossaryContextToolbar {
+    position: static;
+    max-height: min(46dvh, 360px);
+    overflow: auto;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .glossaryMobileContextTray .glossaryLinkToolbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+  }
+
+  .glossaryMobileContextTray .glossaryLinkToolbar > input,
+  .glossaryMobileContextTray .glossaryArticleSearch { width: 100%; }
+  .glossaryMobileContextTray .glossaryArticleSearchResults { top: auto; bottom: calc(100% + 5px); }
+
+  .glossaryMobileContextTray .glossaryIllustrationToolbar {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+  }
+
+  .glossaryMobileContextTray .glossaryIllustrationToolbar label:first-child { grid-column: 1 / -1; }
+  .glossaryMobileContextTray .glossaryCalloutOptions { justify-content: space-between; }
+  .glossaryMobileContextTray .glossaryCalloutOption { min-width: 38px; padding: 5px 8px; }
+  .glossaryMobileContextTray .glossaryCalloutOption span { display: none; }
+
+  .glossaryArticleMobileInfoBackdrop {
+    position: absolute;
+    z-index: 42;
+    inset: 0;
+    display: block;
+    background: rgb(var(--color-shadow-rgb) / 36%);
+    animation: glossaryArticleInfoBackdropIn 180ms ease-out both;
+  }
+
+  .glossaryArticleMobileInfoBackdrop.closing {
+    pointer-events: none;
+    animation: glossaryArticleInfoBackdropOut 180ms ease-in both;
+  }
+
+  .glossaryArticleMobileInfoDrawer {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: min(88vw, 360px);
+    min-height: 0;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    overflow: hidden;
+    border-left: 1px solid var(--color-border);
+    background: var(--color-surface);
+    box-shadow: -12px 0 30px rgb(var(--color-shadow-rgb) / 18%);
+    animation: glossaryArticleInfoDrawerIn 180ms ease-out both;
+  }
+
+  .glossaryArticleMobileInfoDrawer.closing { animation: glossaryArticleInfoDrawerOut 180ms ease-in both; }
+
+  .glossaryArticleMobileInfoContent {
+    min-height: 0;
+    display: block;
+    padding: 14px 12px 18px 16px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .glossaryArticleMobileInfoClose {
+    width: 100%;
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 22px calc(14px + env(safe-area-inset-bottom, 0px));
+    border: 0;
+    border-top: 1px solid var(--color-border-subtle);
+    border-radius: 0;
+    color: var(--color-text-secondary-strong);
+    background: transparent;
+    font-size: 13px;
+    font-weight: 650;
+    cursor: pointer;
+  }
+
+  .glossaryArticleMobileInfoClose svg { width: 19px; height: 19px; }
+  .glossaryArticleMobileQuickActions { display: grid; padding: 0 4px 4px; }
+  .glossaryArticleMobileQuickActions button {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 8px;
+    color: var(--color-text-secondary-strong);
+    background: var(--color-canvas-subtle);
+    font-weight: 650;
+    cursor: pointer;
+  }
+  .glossaryArticleMobileQuickActions button.active { color: var(--color-action-primary-hover); border-color: var(--color-action-border); background: var(--color-action-surface); }
+  .glossaryArticleMobileQuickActions button:disabled { opacity: .5; cursor: default; }
+  .glossaryArticleMobileQuickActions svg { width: 20px; height: 20px; }
+  .glossaryMobileTocEmpty { margin: 0; padding: 22px 12px; color: var(--color-text-muted); text-align: center; }
+
+  .glossaryPage {
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .glossarySidebar {
+    position: absolute;
+    z-index: 32;
+    inset: 0 auto 0 0;
+    width: min(84vw, 320px);
+    display: flex;
+    flex-direction: column;
+    padding: 14px 18px 24px;
+    overflow-y: auto;
+    transform: translateX(-105%);
+    transition: transform 180ms ease;
+    border-right: 1px solid var(--glossary-border);
+    border-bottom: 0;
+    box-shadow: 12px 0 30px rgb(var(--color-shadow-rgb) / 18%);
+  }
+
+  .glossarySidebar.mobileOpen { transform: translateX(0); }
+
+  .glossarySidebar > button.glossaryMobileSidebarClose {
+    width: auto;
+    min-height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    margin: auto -18px -24px;
+    padding: 14px 30px calc(14px + env(safe-area-inset-bottom, 0px));
+    border: 0;
+    border-top: 1px solid var(--color-border-subtle);
+    border-radius: 0;
+    color: var(--color-text-secondary-strong);
+    background: transparent;
+    font-size: 13px;
+    font-weight: 650;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .glossaryMobileSidebarClose svg { width: 19px; height: 19px; }
+
+  .glossarySidebarBackdrop {
+    position: absolute;
+    z-index: 31;
+    inset: 0;
+    display: block;
+    background: rgb(var(--color-shadow-rgb) / 36%);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .glossaryMain {
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
+  .glossaryHeader {
+    min-height: 54px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    place-items: center;
+    padding: 8px 12px;
+  }
+
+  .glossaryHeaderCopy { width: 100%; min-width: 0; }
+  .glossaryHeaderCopy p,
+  .glossarySeriesScope,
+  .glossaryHeaderActions,
+  .glossaryAlphabet { display: none; }
+
+  .glossaryHeader h1 {
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    font-size: 16px;
+    line-height: 1.25;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .glossaryResults {
+    padding-bottom: calc(94px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .glossaryCards,
+  .glossaryCards.grid,
+  .glossaryCards.list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    margin: 0 14px;
+    padding: 0 0 24px;
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .glossaryCards article {
+    min-height: 102px;
+    grid-template-columns: 68px minmax(0, 1fr) 30px;
+    gap: 11px;
+    padding: 11px;
+    border: 0;
+    border-bottom: 1px solid var(--color-border-subtle);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .glossaryCards article:hover {
+    border-color: var(--color-border-subtle);
+    background: var(--color-canvas-subtle);
+    box-shadow: none;
+  }
+
+  .glossaryCards article > img,
+  .glossaryCards article > .glossaryThumbnailPlaceholder {
+    width: 68px;
+    height: 68px;
+  }
+
+  .glossaryMobileBottomBar {
+    position: fixed;
+    z-index: 20;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    padding: 9px max(8px, env(safe-area-inset-right, 0px)) calc(9px + env(safe-area-inset-bottom, 0px)) max(8px, env(safe-area-inset-left, 0px));
+    border-top: 1px solid var(--color-border);
+    background: rgb(var(--color-surface-rgb) / 94%);
+    box-shadow: 0 -12px 30px rgb(var(--color-shadow-rgb) / 9%);
+    backdrop-filter: blur(16px);
+  }
+
+  .glossaryMobileBottomBarSurface {
+    position: relative;
+    width: min(100%, 520px);
+    min-height: 54px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    align-items: center;
+    gap: 0;
+  }
+
+  .glossaryMobileBarButton {
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    justify-self: center;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    color: var(--color-text-secondary-strong);
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .glossaryMobileBarButton.active {
+    color: var(--color-action-primary-hover);
+    background: var(--color-action-surface);
+  }
+
+  .glossaryMobileBarButton svg { width: 22px; height: 22px; }
+
+  .glossaryMobilePrimaryAction {
+    width: 58px;
+    height: 58px;
+    display: grid;
+    place-items: center;
+    justify-self: center;
+    padding: 0;
+    border: 1px solid var(--color-action-primary);
+    border-radius: 999px;
+    color: var(--color-text-on-accent);
+    background: var(--color-action-primary);
+    box-shadow: 0 9px 22px rgb(var(--color-action-primary-rgb) / 28%);
+    cursor: pointer;
+  }
+
+  .glossaryMobilePrimaryAction:hover {
+    border-color: var(--color-action-primary-hover);
+    background: var(--color-action-primary-hover);
+  }
+
+  .glossaryMobilePrimaryAction svg {
+    width: 25px;
+    height: 25px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.65;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .glossaryMobilePanel {
+    position: absolute;
+    right: max(12px, env(safe-area-inset-right, 0px));
+    bottom: calc(100% + 8px);
+    left: max(12px, env(safe-area-inset-left, 0px));
+    padding: 7px;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: 11px;
+    background: var(--color-surface);
+    box-shadow: 0 16px 36px rgb(var(--color-shadow-rgb) / 16%);
+  }
+
+  .glossaryMobileSearchPanel .glossarySearch {
+    width: 100%;
+    min-width: 0;
+    height: 42px;
+    grid-template-columns: 18px minmax(0, 1fr) auto;
+    margin: 0;
+  }
+
+  .glossaryMobileSearchPanel .glossarySearch > button {
+    width: 30px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 6px;
+    color: var(--color-text-muted);
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .glossaryMobileSearchPanel .glossarySearch > button svg { width: 17px; height: 17px; }
+
+  .glossaryMobileSortPanel { display: grid; gap: 2px; }
+
+  .glossaryMobileSortPanel > button,
+  .glossaryMobileAllInitials {
+    width: 100%;
+    min-height: 42px;
+    padding: 8px 11px;
+    border: 0;
+    border-radius: 7px;
+    color: var(--color-text-secondary-strong);
+    background: transparent;
+    font-size: 13px;
+    font-weight: 650;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .glossaryMobileSortPanel > button.active,
+  .glossaryMobileAllInitials.active {
+    color: var(--color-action-primary-hover);
+    background: var(--color-action-surface);
+  }
+
+  .glossaryMobileAlphabetPanel {
+    max-height: min(58dvh, 430px);
+    overflow-y: auto;
+  }
+
+  .glossaryMobileAlphabetRange {
+    min-height: 46px;
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr);
+    align-items: center;
+    gap: 8px;
+    padding: 5px 4px;
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .glossaryMobileAlphabetRange > span {
+    color: var(--color-text-muted);
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .glossaryMobileAlphabetRange > div {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 3px;
+  }
+
+  .glossaryMobileAlphabetRange button {
+    min-width: 0;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 7px;
+    color: var(--color-text-secondary-strong);
+    background: var(--color-canvas-subtle);
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .glossaryMobileAlphabetRange button.active {
+    color: var(--color-action-primary-hover);
+    background: var(--color-action-surface);
+  }
+}
+
+@media (max-width: 520px) and (hover: hover) {
+  .glossaryMobileBarButton:hover,
+  .glossaryMobileSidebarClose:hover,
+  .glossaryMobileSortPanel > button:hover,
+  .glossaryMobileAlphabetRange button:hover,
+  .glossaryMobileAllInitials:hover {
+    color: var(--color-action-primary-hover);
+    background: var(--color-action-surface);
+  }
+}
+
+@media (max-width: 520px) and (prefers-reduced-motion: reduce) {
+  .glossarySidebar { transition: none; }
+  .glossaryArticleMobileToolbarLevel,
+  .glossaryArticleMobileInfoBackdrop,
+  .glossaryArticleMobileInfoDrawer { animation: none; }
+  .glossaryMobileContextTray { transition: none; }
+}
+
+@keyframes glossaryArticleMobileToolbarIn {
+  from { opacity: 0; transform: translateX(14px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes glossaryArticleInfoBackdropIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes glossaryArticleInfoBackdropOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes glossaryArticleInfoDrawerIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes glossaryArticleInfoDrawerOut {
+  from { transform: translateX(0); }
+  to { transform: translateX(100%); }
+}
+
+@media (max-width: 520px) {
+  .glossaryExportMobileForm { display: grid; gap: 16px; padding: 16px 16px 0; }
+  .glossaryExportMobileForm > footer { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 0 -16px; padding: 12px 16px calc(16px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--color-border); }
+  .glossaryExportMobileForm > footer button { width: 100%; min-width: 0; min-height: 42px; display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 9px 12px; border-radius: 8px; font: inherit; font-weight: 700; }
+  .glossaryExportMobileForm .dialogCancel { border: 1px solid var(--color-border-strong); color: var(--color-text-secondary-strong); background: var(--color-surface); }
+  .glossaryExportMobileForm .dialogSubmit { border: 1px solid var(--color-action-primary); color: var(--color-text-on-accent); background: var(--color-action-primary); }
+  .glossaryExportMobileForm .dialogSubmit svg { width: 17px; height: 17px; }
+  .glossaryExportMobileForm .dialogCancel:disabled,
+  .glossaryExportMobileForm .dialogSubmit:disabled { opacity: .6; cursor: wait; }
+
+  .glossaryArticleBottomSheetBackdrop {
+    place-items: end stretch;
+    overflow: hidden;
+    padding: 0;
+    background: rgb(var(--color-shadow-rgb) / 48%);
+    backdrop-filter: blur(3px);
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+
+  .glossaryArticleBottomSheetBackdrop.open { opacity: 1; }
+  .glossaryArticleBottomSheetBackdrop.closing { opacity: 0; pointer-events: none; }
+
+  .glossaryArticleBottomSheet {
+    width: 100%;
+    max-width: 520px;
+    max-height: min(78dvh, 680px);
+    justify-self: center;
+    border: 1px solid var(--color-border);
+    border-bottom: 0;
+    border-radius: 18px 18px 0 0;
+    box-shadow: 0 -22px 56px rgb(var(--color-shadow-rgb) / 24%);
+    transform: translate3d(0, 100%, 0);
+    transition: transform 220ms ease-out;
+    will-change: transform;
+  }
+
+  .glossaryArticleBottomSheetBackdrop.open .glossaryArticleBottomSheet { transform: translate3d(0, 0, 0); }
+  .glossaryArticleBottomSheetBackdrop.closing .glossaryArticleBottomSheet { transform: translate3d(0, 100%, 0); transition-timing-function: ease-in; }
+
+  .glossaryArticleBottomSheet > header {
+    align-items: center;
+    padding: 16px 16px 13px 20px;
+  }
+
+  .glossaryArticleBottomSheet > header h2 { margin-bottom: 0; font-size: 17px; }
+  .glossaryArticleBottomSheet > header p { display: none; }
+  .glossaryArticleBottomSheet .standardDialogContent > form { gap: 16px; padding: 18px 16px 16px; }
+  .glossaryArticleBottomSheet .standardDialogContent > .standardDialogSection { padding: 20px 18px 16px; }
+
+  .glossaryArticleBottomSheet .standardDialogContent footer,
+  .glossaryArticleBottomSheet .standardDialogFooter {
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin: 18px -16px -16px;
+    padding: 12px 16px calc(16px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .glossaryArticleBottomSheet .standardDialogContent > .standardDialogSection > .standardDialogFooter {
+    margin: 20px -18px -16px;
+  }
+
+  .glossaryArticleBottomSheet .standardDialogContent footer button,
+  .glossaryArticleBottomSheet .standardDialogFooter button { width: 100%; min-width: 0; }
+
+  .glossaryCategoryBackdrop {
+    top: var(--app-header-height);
+    place-items: stretch;
+    overflow: hidden;
+    padding: 0;
+    background: transparent;
+    backdrop-filter: none;
+  }
+
+  .glossaryCategoryView {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    border: 0;
+    border-radius: 0;
+    background: var(--color-surface);
+    box-shadow: none;
+    overscroll-behavior: contain;
+    backface-visibility: hidden;
+    transform: translate3d(100%, 0, 0);
+    transition: transform 220ms ease-out;
+    will-change: transform;
+  }
+
+  .glossaryCategoryBackdrop.open .glossaryCategoryView { transform: translate3d(0, 0, 0); }
+
+  .glossaryCategoryBackdrop.closing .glossaryCategoryView {
+    pointer-events: none;
+    transform: translate3d(100%, 0, 0);
+    transition-timing-function: ease-in;
+  }
+
+  .glossaryCategoryView > header {
+    min-height: 56px;
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr) 52px;
+    align-items: center;
+    justify-content: stretch;
+    gap: 0;
+    padding: 8px 10px;
+  }
+
+  .glossaryCategoryView > header > .mobileDialogHeaderCopy {
+    width: 100%;
+    min-width: 0;
+    grid-column: 2;
+  }
+
+  .glossaryCategoryView > header h2 {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    margin: 0;
+    font-size: 16px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .glossaryCategoryView > header p,
+  .glossaryCategoryView .standardDialogClose,
+  .glossaryCategoryView .mobileHeaderActionForm > footer,
+  .glossaryCategoryView .glossaryCategoryManager > .standardDialogFooter { display: none; }
+
+  .glossaryCategoryView .standardDialogMobileBack,
+  .glossaryCategoryView .standardDialogMobilePrimary {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .glossaryCategoryView .standardDialogMobileBack {
+    justify-self: start;
+    color: var(--color-text-secondary-strong);
+  }
+
+  .glossaryCategoryView .standardDialogMobilePrimary {
+    justify-self: end;
+    color: var(--color-action-primary);
+  }
+
+  .glossaryCategoryView .standardDialogMobileBack svg,
+  .glossaryCategoryView .standardDialogMobilePrimary svg { width: 22px; height: 22px; }
+
+  .glossaryCategoryView .standardDialogMobileBack:focus-visible,
+  .glossaryCategoryView .standardDialogMobilePrimary:focus-visible {
+    background: var(--color-action-surface);
+    outline: 2px solid var(--color-action-border);
+    outline-offset: -2px;
+  }
+
+  .glossaryCategoryView .standardDialogContent > form {
+    gap: 16px;
+    padding: 18px 16px calc(28px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .glossaryCategoryView .standardDialogContent > .glossaryCategoryManager {
+    gap: 22px;
+    padding: 16px 14px calc(28px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .glossaryCategoryRows { border-right: 0; border-left: 0; border-radius: 0; }
+
+  .glossaryCategoryManagerRow {
+    min-height: 62px;
+    grid-template-columns: 40px minmax(0, 1fr) auto;
+    padding: 10px 4px;
+  }
+
+  .glossaryCategoryManagerIcon { width: 40px; height: 40px; }
+  .glossaryCategoryManagerCopy strong { font-size: 14px; }
+
+  .glossaryIconPicker {
+    max-height: none;
+    grid-template-columns: repeat(auto-fill, minmax(42px, 1fr));
+    overflow-y: visible;
+    padding: 7px;
+  }
+
+  .glossaryIconPicker button { height: 42px; }
+
+  .glossaryMobileCategoryDanger {
+    width: 100%;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 4px;
+    padding: 9px 12px;
+    border: 1px solid var(--color-danger-border);
+    border-radius: 8px;
+    color: var(--color-danger);
+    background: var(--color-danger-surface);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .glossaryMobileCategoryDanger svg { width: 18px; height: 18px; }
+  .glossaryMobileCategoryDanger:disabled { opacity: .55; cursor: wait; }
+
+  .glossaryCreationStep.enterFromRight { animation: glossaryCreationStepFromRight 220ms ease-out both; }
+  .glossaryCreationStep.enterFromLeft { animation: glossaryCreationStepFromLeft 220ms ease-out both; }
+  .glossaryCreationTitle.forward { animation: glossaryCreationTitleForward 180ms ease-out both; }
+  .glossaryCreationTitle.back { animation: glossaryCreationTitleBack 180ms ease-out both; }
+
+  .glossaryArticleCreateDialog .glossaryImagePicker,
+  .glossaryArticleMetadataDialog .glossaryImagePicker {
+    min-height: 0;
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    gap: 14px;
+    padding: 18px 16px;
+    text-align: center;
+  }
+
+  .glossaryArticleCreateDialog .glossaryImagePicker > img,
+  .glossaryArticleCreateDialog .glossaryImagePickerIcon,
+  .glossaryArticleMetadataDialog .glossaryImagePicker > img,
+  .glossaryArticleMetadataDialog .glossaryImagePickerIcon {
+    width: 132px;
+    height: 132px;
+  }
+
+  .glossaryArticleCreateDialog .glossaryImagePicker.cover > img,
+  .glossaryArticleCreateDialog .glossaryImagePicker.cover .glossaryImagePickerIcon,
+  .glossaryArticleMetadataDialog .glossaryImagePicker.cover > img,
+  .glossaryArticleMetadataDialog .glossaryImagePicker.cover .glossaryImagePickerIcon {
+    width: 132px;
+    height: 176px;
+    max-height: none;
+    aspect-ratio: auto;
+    border-radius: 8px;
+  }
+
+  .glossaryArticleCreateDialog .glossaryImagePicker.cover > img,
+  .glossaryArticleMetadataDialog .glossaryImagePicker.cover > img { object-fit: cover; }
+  .glossaryArticleCreateDialog .glossaryImagePickerIcon svg,
+  .glossaryArticleMetadataDialog .glossaryImagePickerIcon svg { width: 38px; height: 38px; }
+
+  .glossaryArticleCreateDialog .glossaryImagePicker > div,
+  .glossaryArticleMetadataDialog .glossaryImagePicker > div {
+    width: 100%;
+    justify-items: center;
+  }
+
+  .glossaryArticleCreateDialog .glossaryImagePicker strong,
+  .glossaryArticleCreateDialog .glossaryImagePicker small,
+  .glossaryArticleMetadataDialog .glossaryImagePicker strong,
+  .glossaryArticleMetadataDialog .glossaryImagePicker small {
+    max-width: 290px;
+    text-align: center;
+  }
+
+  .glossaryArticleCreateDialog .glossaryImagePickerActions,
+  .glossaryArticleMetadataDialog .glossaryImagePickerActions {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .glossaryArticleCreateDialog .glossaryImageFileButton,
+  .glossaryArticleCreateDialog button.glossaryImageRemoveButton,
+  .glossaryArticleMetadataDialog .glossaryImageFileButton,
+  .glossaryArticleMetadataDialog button.glossaryImageRemoveButton {
+    width: auto;
+    min-width: 104px;
+    min-height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 520px) and (prefers-reduced-motion: reduce) {
+  .glossaryCategoryView,
+  .glossaryArticleBottomSheet,
+  .glossaryArticleBottomSheetBackdrop { transition: none; }
+  .glossaryCreationStep,
+  .glossaryCreationTitle { animation: none !important; }
+}

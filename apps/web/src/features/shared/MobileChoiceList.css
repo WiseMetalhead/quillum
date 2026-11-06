@@ -1,0 +1,51 @@
+@media (max-width: 520px) {
+  .mobileChoiceList {
+    display: grid;
+    padding: 8px 12px calc(12px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .mobileChoiceList label {
+    width: 100%;
+    min-height: 52px;
+    display: grid;
+    grid-template-columns: 24px minmax(0, 1fr);
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 9px;
+    color: var(--color-text-secondary-strong);
+    background: transparent;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 650;
+  }
+
+  .mobileChoiceList label + label {
+    border-top: 1px solid var(--color-border);
+    border-radius: 0;
+  }
+
+  .mobileChoiceList label.selected {
+    border-color: transparent;
+    color: var(--color-action-primary-hover);
+    background: var(--color-action-surface);
+  }
+
+  .mobileChoiceList label.selected + label {
+    border-top-color: transparent;
+  }
+
+  .mobileChoiceList input {
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    accent-color: var(--color-action-primary);
+  }
+}
+
+@media (max-width: 520px) and (hover: hover) and (pointer: fine) {
+  .mobileChoiceList label:hover {
+    color: var(--color-action-primary-hover);
+    background: var(--color-action-surface);
+  }
+}

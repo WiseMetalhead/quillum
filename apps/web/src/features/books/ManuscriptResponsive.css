@@ -1,0 +1,1030 @@
+@media (max-width: 1520px) {
+  .editorScaffold {
+    grid-template-columns:
+      var(--contents-panel-width, 280px)
+      6px
+      minmax(0, 1fr)
+      var(--inspector-rail-width);
+  }
+
+  .editorScaffold.inspectorOpen {
+    grid-template-columns:
+      var(--contents-panel-width, 280px)
+      6px
+      minmax(0, 1fr)
+      6px
+      var(--inspector-panel-width, 340px)
+      var(--inspector-rail-width);
+  }
+}
+
+@media (min-width: 1111px) and (max-width: 1450px) {
+  .editorScaffold.inspectorOpen {
+    grid-template-columns:
+      minmax(0, 1fr)
+      6px
+      var(--inspector-panel-width, 340px)
+      var(--inspector-rail-width);
+  }
+
+  .editorScaffold.inspectorOpen .editorPanelResizer.contents,
+  .editorScaffold.inspectorOpen .contentsPanel {
+    display: none;
+  }
+}
+
+@media (max-width: 1120px) {
+  .manuscriptDashboard {
+    height: auto;
+    min-height: calc(100dvh - var(--app-header-height));
+    overflow: visible;
+  }
+
+  .manuscriptDashboardLayout {
+    grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1.28fr);
+  }
+
+  .manuscriptDashboardWidgets {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: none;
+  }
+
+  .manuscriptDashboardWidgets > .dashboardWidget:nth-child(n)::before,
+  .manuscriptDashboardWidgets > .dashboardWidget:nth-child(n)::after {
+    display: block;
+  }
+
+  .manuscriptDashboardWidgets > .dashboardWidget:nth-child(2n + 1)::before,
+  .manuscriptDashboardWidgets > .dashboardWidget:nth-child(-n + 2)::after {
+    display: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .editorScaffold {
+    height: calc(100dvh - var(--app-header-height));
+  }
+}
+
+@media (max-width: 1110px) {
+  .editorScaffold {
+    grid-template-columns: minmax(0, 1fr) var(--inspector-rail-width);
+  }
+
+  .editorScaffold.inspectorOpen {
+    grid-template-columns:
+      minmax(0, 1fr)
+      6px
+      var(--inspector-panel-width, 340px)
+      var(--inspector-rail-width);
+  }
+
+  .editorPanelResizer.contents,
+  .contentsPanel { display: none; }
+}
+
+@media (max-width: 780px) {
+  .manuscriptPageState,
+  .manuscriptDashboard {
+    min-height: calc(100dvh - var(--app-header-height));
+  }
+
+  .manuscriptDashboard { padding: 22px 20px; overflow: visible; }
+  .manuscriptDashboardLayout { grid-template-columns: 1fr; }
+  .manuscriptDashboardWidgets { grid-template-columns: 1fr; }
+  .manuscriptOverviewWidget { max-height: none; overflow: visible; }
+
+  .manuscriptDashboardWidgets > .dashboardWidget:nth-child(n)::before { display: none; }
+  .manuscriptDashboardWidgets > .dashboardWidget:nth-child(n)::after { display: block; }
+  .manuscriptDashboardWidgets > .dashboardWidget:first-child::after { display: none; }
+
+  .editorPaper { padding: 32px 28px 56px; }
+  .syncPlaceholder { display: none; }
+}
+
+@media (max-width: 520px) {
+  .manuscriptPageState,
+  .manuscriptDashboard {
+    min-height: calc(100dvh - var(--app-header-height));
+  }
+
+  .editorScaffold {
+    --inspector-rail-width: 48px;
+    --inspector-rail-button-size: 38px;
+    height: calc(100dvh - var(--app-header-height));
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .editorScaffold.inspectorOpen { grid-template-columns: minmax(0, 1fr); }
+
+  .editorScaffold > .editorPanelResizer,
+  .editorScaffold > .inspectorPanel,
+  .editorScaffold > .inspectorRail { display: none; }
+
+  .editorPanel { position: relative; }
+
+  .editorScaffold > .contentsPanel {
+    position: absolute;
+    z-index: 42;
+    inset: 0 auto 0 0;
+    width: min(86vw, 340px);
+    height: 100%;
+    display: flex;
+    padding: 14px 12px 10px;
+    overflow: hidden;
+    border-right: 1px solid var(--color-border);
+    background: var(--color-surface-raised);
+    box-shadow: 14px 0 34px rgb(var(--color-shadow-rgb) / 18%);
+    transform: translateX(-105%);
+    transition: transform 220ms ease-out;
+  }
+
+  .editorScaffold > .contentsPanel.mobileOpen { transform: translateX(0); }
+
+  .contentsAddMenu { display: none; }
+
+  .bookTreeItem,
+  .bookItemCard {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .bookTreeRow,
+  .bookCardMain {
+    -webkit-touch-callout: none;
+  }
+
+  .editorContentsBackdrop {
+    position: absolute;
+    z-index: 41;
+    inset: 0;
+    display: block;
+    background: rgb(var(--color-shadow-rgb) / 40%);
+    backdrop-filter: blur(2px);
+  }
+
+  .editorMobileContentsClose {
+    width: 100%;
+    min-height: 46px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 0 0 auto;
+    margin-top: 8px;
+    padding: 8px 10px;
+    border: 0;
+    border-top: 1px solid var(--color-border);
+    border-radius: 0;
+    color: var(--color-text-secondary-strong);
+    background: transparent;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 650;
+    cursor: pointer;
+  }
+
+  .editorMobileContentsClose svg { width: 20px; height: 20px; }
+
+  .standardDialogBackdrop.bookItemDeleteBackdrop,
+  .standardDialogBackdrop.bookItemCreateBackdrop {
+    place-items: end center;
+    padding: 0;
+    opacity: 0;
+    background: rgb(var(--color-shadow-rgb) / 0.48);
+    backdrop-filter: blur(3px);
+    transition: opacity 180ms ease-out;
+  }
+
+  .bookItemDeleteBackdrop.open,
+  .bookItemCreateBackdrop.open { opacity: 1; }
+
+  .bookItemDeleteBackdrop.closing,
+  .bookItemCreateBackdrop.closing {
+    opacity: 0;
+    transition-timing-function: ease-in;
+  }
+
+  .standardActionDialog.bookItemDeleteSheet,
+  .standardActionDialog.bookItemCreateSheet {
+    width: 100%;
+    max-width: 100%;
+    max-height: min(82dvh, 720px);
+    border-right: 0;
+    border-bottom: 0;
+    border-left: 0;
+    border-radius: 18px 18px 0 0;
+    box-shadow: 0 -20px 48px rgb(var(--color-shadow-rgb) / 0.2);
+    backface-visibility: hidden;
+    transform: translate3d(0, 100%, 0);
+    transition: transform 220ms ease-out;
+    will-change: transform;
+  }
+
+  .bookItemDeleteBackdrop.open .bookItemDeleteSheet,
+  .bookItemCreateBackdrop.open .bookItemCreateSheet {
+    transform: translate3d(0, 0, 0);
+  }
+
+  .bookItemDeleteBackdrop.closing .bookItemDeleteSheet,
+  .bookItemCreateBackdrop.closing .bookItemCreateSheet {
+    pointer-events: none;
+    transform: translate3d(0, 100%, 0);
+    transition-timing-function: ease-in;
+  }
+
+  .standardActionDialog.bookItemDeleteSheet > header,
+  .standardActionDialog.bookItemCreateSheet > header {
+    min-height: 58px;
+    grid-template-columns: minmax(0, 1fr);
+    place-items: center;
+    padding: 16px 48px 12px;
+    text-align: center;
+  }
+
+  .bookItemDeleteSheet > header > div,
+  .bookItemCreateSheet > header > div {
+    width: 100%;
+    grid-column: 1;
+  }
+
+  .bookItemDeleteSheet > header h2,
+  .bookItemCreateSheet > header h2 {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  .bookItemDeleteSheet > header .standardDialogClose,
+  .bookItemCreateSheet > header .standardDialogClose { display: none; }
+  .bookItemDeleteSheet .standardDialogContent > .standardDialogSection { padding: 16px; }
+
+  .bookItemCreateSheet .standardDialogContent > form {
+    display: grid;
+    gap: 14px;
+    padding: 16px;
+  }
+
+  .bookItemCreateSheet .standardDialogContent > form > footer {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin: 2px -16px -16px;
+    padding: 16px 16px calc(16px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--color-border);
+  }
+
+  .bookItemCreateSheet .standardDialogContent > form > footer > button {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .bookItemDeleteSheet .standardDialogFooter {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin: 16px -16px -16px;
+    padding: 16px 16px calc(16px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .bookItemDeleteSheet .standardDialogFooter > button {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .editorPanel,
+  .editorPanel.hasIllustrationControls {
+    position: relative;
+    grid-template-rows: 56px minmax(0, 1fr) auto;
+  }
+
+  .editorDocumentHeader {
+    min-height: 56px;
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr) 48px;
+    align-items: center;
+    gap: 0;
+    padding: 7px 8px;
+  }
+
+  .editorMobileContentsButton,
+  .editorMobileActionsButton {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    color: var(--color-text-secondary-strong);
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .editorMobileContentsButton { justify-self: start; }
+  .editorMobileActionsButton { justify-self: end; }
+  .editorMobileContentsButton.active,
+  .editorMobileActionsButton.active { color: var(--color-action-primary-hover); background: var(--color-action-surface); }
+  .editorMobileContentsButton:disabled { opacity: .45; cursor: default; }
+  .editorMobileContentsButton svg,
+  .editorMobileActionsButton svg { width: 22px; height: 22px; }
+
+  .editorDocumentTitle {
+    min-width: 0;
+    display: block;
+  }
+
+  button.documentTitleButton,
+  .editorDocumentTitle .editorAccessDocumentTitle,
+  .editorDocumentTitle input {
+    width: 100%;
+    max-width: 100%;
+    height: 38px;
+    padding: 6px 4px;
+    overflow: hidden;
+    font-size: 16px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .editorDocumentTitle .saveStatus,
+  .editorHeaderPlaceholders,
+  .editorToolbar,
+  .editorStatusBar { display: none; }
+
+  .editorCanvas { padding: 0; }
+  .editorPaper { padding: 24px 16px calc(36px + env(safe-area-inset-bottom, 0px)); }
+  .tiptapEditor { min-height: 100%; font-size: var(--editor-font-size, 16px); line-height: 1.7; }
+
+  .illustrationControls {
+    position: absolute;
+    z-index: 24;
+    right: max(8px, env(safe-area-inset-right, 0px));
+    bottom: calc(59px + env(safe-area-inset-bottom, 0px));
+    left: max(8px, env(safe-area-inset-left, 0px));
+    max-height: min(46dvh, 360px);
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 8px;
+    padding: 10px;
+    overflow: auto;
+    border: 1px solid var(--color-border);
+    border-radius: 11px;
+    background: rgb(var(--color-surface-rgb) / 98%);
+    box-shadow: 0 14px 34px rgb(var(--color-shadow-rgb) / 16%);
+    backdrop-filter: blur(16px);
+    animation: editorMobileIllustrationToolsIn 180ms ease-out both;
+  }
+
+  button.editorMobileCommentButton {
+    position: absolute;
+    z-index: 24;
+    right: max(14px, env(safe-area-inset-right, 0px));
+    bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 1px solid var(--color-action-border);
+    border-radius: 50%;
+    color: var(--color-action-primary-contrast);
+    background: var(--color-action-primary);
+    box-shadow: 0 10px 26px rgb(var(--color-shadow-rgb) / 22%);
+    cursor: pointer;
+    animation: editorMobileCommentButtonIn 180ms ease-out both;
+  }
+
+  button.editorMobileCommentButton svg { width: 22px; height: 22px; }
+
+  .illustrationControls label:first-child { grid-column: 1 / -1; }
+  .illustrationControls input { width: 100%; }
+  .illustrationAlignment { justify-content: flex-end; }
+
+  .editorMobileToolbar {
+    position: relative;
+    z-index: 25;
+    min-width: 0;
+    display: block;
+    padding: 7px max(8px, env(safe-area-inset-right, 0px)) calc(7px + env(safe-area-inset-bottom, 0px)) max(8px, env(safe-area-inset-left, 0px));
+    border-top: 1px solid var(--color-border);
+    background: rgb(var(--color-surface-rgb) / 96%);
+    box-shadow: 0 -10px 24px rgb(var(--color-shadow-rgb) / 7%);
+    backdrop-filter: blur(14px);
+  }
+
+  .editorMobileToolbarLevel {
+    min-width: 0;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    animation: editorMobileToolbarIn 180ms ease-out both;
+  }
+
+  .editorMobileToolbarLeading {
+    min-width: 0;
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    overflow: hidden;
+  }
+
+  .editorMobileToolbarTrailing {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .editorMobileToolbar button,
+  .editorMobileFormatScroll > button {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    display: grid;
+    place-items: center;
+    flex: 0 0 36px;
+    padding: 0;
+    border: 0;
+    border-radius: 7px;
+    color: var(--color-text-secondary-strong);
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .editorMobileToolbar button.active { color: var(--color-action-primary-hover); background: var(--color-action-surface); }
+  .editorMobileToolbar button:disabled { opacity: .45; cursor: default; }
+  .editorMobileToolbar button svg { width: 20px; height: 20px; }
+  .editorMobileToolbar button svg.mingcuteToolbarIcon { width: 17px; height: 17px; }
+
+  .editorMobileToolbarDivider,
+  .editorMobileFormatScroll > span {
+    width: 1px;
+    height: 24px;
+    flex: 0 0 1px;
+    margin: 0 1px;
+    background: var(--color-border-subtle);
+  }
+
+  .editorMobileFormatScroll {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+
+  .editorMobileFormatScroll::-webkit-scrollbar { display: none; }
+  .editorMobileBlockStyle > span,
+  .editorMobileHeadingMark { min-width: 24px; font-size: 11px; font-weight: 800; }
+  .editorMobileToolbar .saveStatusButton { width: 36px; height: 36px; }
+  .editorMobileToolbar button.saveStatusButton.saved { color: var(--color-success); }
+  .editorMobileToolbar button.saveStatusButton.dirty,
+  .editorMobileToolbar button.saveStatusButton.saving { color: var(--color-info-600); }
+  .editorMobileToolbar button.saveStatusButton.offline { color: var(--color-warning-text); }
+  .editorMobileToolbar button.saveStatusButton.error { color: var(--color-danger); }
+  .editorMobileToolbar .saveStatusPopover { top: auto; right: 0; bottom: calc(100% + 8px); left: auto; transform: none; }
+
+  .focusModeControls .saveStatusPopover {
+    position: fixed;
+    right: max(12px, env(safe-area-inset-right, 0px));
+    bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+    left: max(12px, env(safe-area-inset-left, 0px));
+    width: auto;
+    max-width: 320px;
+    margin-left: auto;
+  }
+
+  .editorMobileQuickActions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .editorMobileQuickActions.editorAccess {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .editorMobileQuickActions button {
+    min-width: 0;
+    min-height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border: 1px solid var(--color-border);
+    border-radius: 9px;
+    color: var(--color-text-secondary-strong);
+    background: var(--color-canvas-subtle);
+    font: inherit;
+    font-size: 12px;
+    font-weight: 650;
+    cursor: pointer;
+  }
+
+  .editorMobileQuickActions button:disabled { opacity: .5; cursor: default; }
+  .editorMobileQuickActions button span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .editorMobileQuickActions svg { width: 19px; height: 19px; flex: 0 0 auto; }
+
+  .standardDialogBackdrop.editorMobileSettingsBackdrop.mobileFullViewBackdrop {
+    z-index: 1200;
+    top: var(--app-header-height);
+    overflow: hidden;
+    padding: 0;
+    background: transparent;
+    backdrop-filter: none;
+  }
+
+  .standardActionDialog.editorMobileSettingsDialog {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    backface-visibility: hidden;
+    transform: translate3d(100%, 0, 0);
+    transition: transform 220ms ease-out;
+    will-change: transform;
+  }
+
+  .editorMobileSettingsBackdrop.open .editorMobileSettingsDialog {
+    transform: translate3d(0, 0, 0);
+  }
+
+  .editorMobileSettingsBackdrop.closing .editorMobileSettingsDialog {
+    pointer-events: none;
+    transform: translate3d(100%, 0, 0);
+    transition-timing-function: ease-in;
+  }
+
+  .standardActionDialog.editorMobileSettingsDialog > header {
+    min-height: 56px;
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr) 52px;
+    align-items: center;
+    gap: 0;
+    padding: 8px 10px;
+  }
+
+  .editorMobileSettingsDialog > header > div { grid-column: 2; }
+  .editorMobileSettingsDialog > header h2 { margin: 0; font-size: 16px; text-align: center; }
+  .editorMobileSettingsDialog .standardDialogMobileBack { display: grid; }
+  .editorMobileSettingsDialog .standardDialogClose { display: none; }
+  .editorMobileSettingsDialog .standardDialogContent { overflow-y: auto; }
+  .editorMobileSettingsBody { display: grid; padding: 8px 12px 24px; }
+
+  button.editorMobileSettingLink,
+  .editorMobileSettingToggle {
+    width: 100%;
+    min-height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 13px 10px;
+    border: 0;
+    border-bottom: 1px solid var(--color-border-subtle);
+    border-radius: 0;
+    color: var(--color-text-secondary-strong);
+    background: transparent;
+    font: inherit;
+    text-align: left;
+  }
+
+  button.editorMobileSettingLink { cursor: pointer; }
+  button.editorMobileSettingLink > span,
+  .editorMobileSettingToggle > span {
+    min-width: 0;
+    display: grid;
+    gap: 4px;
+  }
+
+  button.editorMobileSettingLink strong,
+  .editorMobileSettingToggle strong {
+    color: var(--color-text-primary);
+    font-size: 14px;
+    line-height: 1.3;
+  }
+
+  button.editorMobileSettingLink small,
+  .editorMobileSettingToggle small {
+    color: var(--color-text-muted);
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  button.editorMobileSettingLink > svg {
+    width: 20px;
+    height: 20px;
+    flex: 0 0 auto;
+    color: var(--color-text-muted);
+  }
+
+  button.editorMobileSettingLink:focus-visible {
+    border-radius: 8px;
+    background: var(--color-action-surface);
+    outline: 2px solid var(--color-action-border);
+    outline-offset: -2px;
+  }
+
+  button.editorMobileSwitch {
+    width: 50px;
+    min-width: 50px;
+    height: 28px;
+    min-height: 28px;
+    position: relative;
+    flex: 0 0 50px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: var(--color-border-strong);
+    box-shadow: none;
+    cursor: pointer;
+  }
+
+  button.editorMobileSwitch > span {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--color-surface);
+    box-shadow: 0 2px 5px rgb(var(--color-shadow-rgb) / 0.18);
+    transition: transform 160ms ease;
+  }
+
+  button.editorMobileSwitch[aria-checked="true"] { background: var(--color-action-primary); }
+  button.editorMobileSwitch[aria-checked="true"] > span { transform: translateX(22px); }
+  button.editorMobileSwitch:disabled { opacity: .55; cursor: not-allowed; }
+  button.editorMobileSwitch:focus-visible { outline: 2px solid var(--color-action-border); outline-offset: 3px; }
+
+  .mobileLibraryActionBackdrop.editorMobileSettingSheetBackdrop { z-index: 1300; }
+  .editorMobileSettingSheetControls { display: grid; }
+  .editorMobileSettingSheetControls > .editorMobileSettingToggle { padding-inline: 4px; }
+
+  button.editorMobileSettingManage {
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 4px;
+    border: 0;
+    border-bottom: 1px solid var(--color-border-subtle);
+    border-radius: 0;
+    color: var(--color-text-secondary-strong);
+    background: transparent;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 650;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  button.editorMobileSettingManage svg { width: 20px; height: 20px; color: var(--color-text-muted); }
+  button.editorMobileSettingManage:disabled { opacity: .5; cursor: not-allowed; }
+
+  .editorMobileSettingSheetHeading {
+    display: grid;
+    gap: 3px;
+    padding: 16px 4px 6px;
+    color: var(--color-text-secondary-strong);
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .editorMobileSettingSheetHeading > strong,
+  strong.editorMobileSettingSheetHeading { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+  .editorMobileSettingSheetHeading > small { color: var(--color-text-muted); font-size: 11px; font-weight: 400; text-transform: none; letter-spacing: normal; }
+  .editorMobileSettingSheetHeading.disabled { color: var(--color-text-muted); opacity: .62; }
+  .editorMobileSettingChoicePlaceholder { width: 21px; height: 21px; flex: 0 0 21px; }
+
+  .standardDialogBackdrop.spellcheckDictionaryMobileBackdrop.mobileFullViewBackdrop {
+    z-index: 1400;
+    top: var(--app-header-height);
+    overflow: hidden;
+    padding: 0;
+    background: transparent;
+    backdrop-filter: none;
+  }
+
+  .standardActionDialog.spellcheckDictionaryMobileDialog {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    backface-visibility: hidden;
+    transform: translate3d(100%, 0, 0);
+    transition: transform 220ms ease-out;
+    will-change: transform;
+  }
+
+  .spellcheckDictionaryMobileBackdrop.open .spellcheckDictionaryMobileDialog { transform: translate3d(0, 0, 0); }
+  .spellcheckDictionaryMobileBackdrop.closing .spellcheckDictionaryMobileDialog {
+    pointer-events: none;
+    transform: translate3d(100%, 0, 0);
+    transition-timing-function: ease-in;
+  }
+
+  .standardActionDialog.spellcheckDictionaryMobileDialog > header {
+    min-height: 56px;
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr) 52px;
+    align-items: center;
+    gap: 0;
+    padding: 8px 10px;
+  }
+
+  .spellcheckDictionaryMobileDialog > header > div { min-width: 0; grid-column: 2; }
+  .spellcheckDictionaryMobileDialog > header h2 {
+    overflow: hidden;
+    margin: 0;
+    font-size: 16px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .spellcheckDictionaryMobileDialog > header p { display: none; }
+  .spellcheckDictionaryMobileDialog .standardDialogMobileBack { display: grid; }
+  .spellcheckDictionaryMobileDialog .standardDialogClose { display: none; }
+  .spellcheckDictionaryMobileDialog .standardDialogContent { overflow-y: auto; }
+  .spellcheckDictionaryMobileDialog .spellcheckDictionaryBody {
+    height: auto;
+    min-height: 100%;
+    padding: 14px 12px calc(24px + env(safe-area-inset-bottom, 0px));
+    overflow: visible;
+  }
+
+  .spellcheckDictionaryMobileDialog .spellcheckDictionaryColumns {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    overflow: visible;
+  }
+
+  .spellcheckDictionaryMobileDialog .spellcheckDictionaryColumns > section {
+    min-height: 180px;
+    overflow: visible;
+  }
+
+  .spellcheckDictionaryMobileDialog .spellcheckWordList,
+  .spellcheckDictionaryMobileDialog .spellcheckGlossaryTerms {
+    max-height: 280px;
+    overflow-y: auto;
+  }
+
+  .spellcheckDictionaryMobileOverview {
+    display: grid;
+    padding: 10px 12px 24px;
+  }
+
+  button.spellcheckDictionaryMobileLink {
+    width: 100%;
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 10px;
+    border: 0;
+    border-bottom: 1px solid var(--color-border-subtle);
+    border-radius: 0;
+    color: var(--color-text-secondary-strong);
+    background: transparent;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  button.spellcheckDictionaryMobileLink > span {
+    min-width: 0;
+    display: grid;
+    gap: 4px;
+  }
+
+  button.spellcheckDictionaryMobileLink strong {
+    color: var(--color-text-primary);
+    font-size: 14px;
+  }
+
+  button.spellcheckDictionaryMobileLink small {
+    color: var(--color-text-muted);
+    font-size: 12px;
+  }
+
+  button.spellcheckDictionaryMobileLink > svg {
+    width: 20px;
+    height: 20px;
+    flex: 0 0 auto;
+    color: var(--color-text-muted);
+  }
+
+  button.spellcheckDictionaryMobileLink:focus-visible {
+    border-radius: 8px;
+    background: var(--color-action-surface);
+    outline: 2px solid var(--color-action-border);
+    outline-offset: -2px;
+  }
+
+  .standardDialogBackdrop.spellcheckDictionarySectionBackdrop.mobileFullViewBackdrop {
+    z-index: 1500;
+    top: var(--app-header-height);
+    overflow: hidden;
+    padding: 0;
+    background: transparent;
+    backdrop-filter: none;
+  }
+
+  .standardActionDialog.spellcheckDictionarySectionDialog {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    backface-visibility: hidden;
+    transform: translate3d(100%, 0, 0);
+    transition: transform 220ms ease-out;
+    will-change: transform;
+  }
+
+  .spellcheckDictionarySectionBackdrop.open .spellcheckDictionarySectionDialog { transform: translate3d(0, 0, 0); }
+  .spellcheckDictionarySectionBackdrop.closing .spellcheckDictionarySectionDialog {
+    pointer-events: none;
+    transform: translate3d(100%, 0, 0);
+    transition-timing-function: ease-in;
+  }
+
+  .standardActionDialog.spellcheckDictionarySectionDialog > header {
+    min-height: 56px;
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr) 52px;
+    align-items: center;
+    gap: 0;
+    padding: 8px 10px;
+  }
+
+  .spellcheckDictionarySectionDialog > header > div { min-width: 0; grid-column: 2; }
+  .spellcheckDictionarySectionDialog > header h2 {
+    overflow: hidden;
+    margin: 0;
+    font-size: 16px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .spellcheckDictionarySectionDialog .standardDialogMobileBack { display: grid; }
+  .spellcheckDictionarySectionDialog .standardDialogClose { display: none; }
+  .spellcheckDictionarySectionDialog .standardDialogContent { overflow-y: auto; }
+
+  .spellcheckDictionaryMobileSection {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 14px 12px calc(24px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .spellcheckMobileAddForm {
+    display: grid;
+    gap: 10px;
+    padding: 2px 2px 16px;
+  }
+
+  .spellcheckMobileAddForm label {
+    min-width: 0;
+    display: grid;
+    gap: 6px;
+    color: var(--color-text-secondary-strong);
+    font-size: 12px;
+    font-weight: 650;
+  }
+
+  .spellcheckMobileAddForm input,
+  .spellcheckMobileAddForm button { width: 100%; }
+
+  .spellcheckMobileListDivider {
+    height: 1px;
+    flex: 0 0 1px;
+    margin: 0 -12px 4px;
+    background: var(--color-border);
+  }
+
+  .spellcheckMobileFlatList {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .spellcheckMobileFlatList > li {
+    min-height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 9px 10px;
+    border-bottom: 1px solid var(--color-border-subtle);
+    color: var(--color-text-secondary-strong);
+    background: transparent;
+    font-size: 14px;
+  }
+
+  .spellcheckMobileFlatList > li > span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  button.spellcheckMobileRemove {
+    width: 38px;
+    height: 38px;
+    min-height: 38px;
+    display: grid;
+    place-items: center;
+    flex: 0 0 38px;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    color: var(--color-danger);
+    background: transparent;
+    cursor: pointer;
+  }
+
+  button.spellcheckMobileRemove svg { width: 20px; height: 20px; }
+  button.spellcheckMobileRemove:disabled { opacity: .48; cursor: not-allowed; }
+  button.spellcheckMobileRemove:focus-visible {
+    background: var(--color-danger-surface);
+    outline: 2px solid var(--color-danger-border);
+    outline-offset: -2px;
+  }
+
+  .spellcheckMobileEmpty {
+    margin: 0;
+    padding: 10px;
+    color: var(--color-text-muted);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .standardActionDialog.editorMobileSettingsDialog,
+    .standardActionDialog.spellcheckDictionaryMobileDialog,
+    .standardActionDialog.spellcheckDictionarySectionDialog,
+    button.editorMobileSwitch > span { transition: none; }
+  }
+
+  .editorDocumentSkeleton { grid-template-rows: 56px minmax(0, 1fr) auto; }
+  .editorDocumentSkeleton .skeletonDocumentHeader { grid-row: 1; }
+  .editorDocumentSkeleton .skeletonCanvas { grid-row: 2; padding: 0; }
+  .editorDocumentSkeleton .skeletonToolbar { grid-row: 3; min-height: 59px; overflow: hidden; }
+  .editorDocumentSkeleton .skeletonStatus { display: none; }
+
+  .dashboardCover { width: 128px; min-height: 0; }
+  .dashboardBookDetails { padding: 0; }
+  .dashboardProgressBlock { width: 100%; }
+  .statusProgressRow { grid-template-columns: 12px minmax(0, 1fr) minmax(56px, auto); }
+  .statusProgressMiniTrack { grid-column: 2 / -1; grid-row: 2; }
+}
+
+@media (max-width: 520px) and (hover: none) {
+  .bookTreeItem:hover:not(.active) { background: transparent; }
+  .bookItemCard:hover:not(.active) {
+    border-color: var(--color-border);
+    background: transparent;
+  }
+}
+
+@keyframes editorMobileToolbarIn {
+  from { opacity: 0; transform: translateX(14px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes editorMobileIllustrationToolsIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes editorMobileCommentButtonIn {
+  from { opacity: 0; transform: translateY(8px) scale(.94); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .editorScaffold > .contentsPanel,
+  .editorMobileToolbarLevel,
+  .bookItemDeleteBackdrop,
+  .bookItemDeleteSheet,
+  .bookItemCreateBackdrop,
+  .bookItemCreateSheet,
+  .illustrationControls,
+  button.editorMobileCommentButton { transition: none; animation: none; }
+}

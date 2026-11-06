@@ -1,0 +1,86 @@
+.glossaryLightboxBackdrop {
+  position: fixed;
+  z-index: 10020;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgb(var(--color-shadow-rgb) / 82%);
+  backdrop-filter: blur(5px);
+}
+
+.glossaryLightbox {
+  position: relative;
+  max-width: min(96vw, 2400px);
+  max-height: 94dvh;
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  margin: 0;
+}
+
+.glossaryLightbox > img {
+  max-width: 100%;
+  max-height: calc(94dvh - 48px);
+  display: block;
+  border-radius: 10px;
+  object-fit: contain;
+  box-shadow: 0 18px 60px rgb(var(--color-shadow-rgb) / 42%);
+}
+
+.glossaryLightbox > p {
+  max-width: min(80vw, 900px);
+  margin: 0;
+  color: var(--color-text-on-accent);
+  font-size: 13px;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.glossaryLightboxClose {
+  position: absolute;
+  z-index: 1;
+  top: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgb(255 255 255 / 35%);
+  border-radius: 8px;
+  color: white;
+  background: rgb(0 0 0 / 58%);
+  cursor: pointer;
+}
+
+.glossaryLightboxClose:hover,
+.glossaryLightboxClose:focus-visible {
+  background: rgb(0 0 0 / 78%);
+}
+
+.glossaryLightboxClose svg {
+  width: 22px;
+  height: 22px;
+}
+
+@media (max-width: 760px) {
+  .glossaryLightboxBackdrop {
+    padding: 10px;
+  }
+
+  .glossaryLightbox {
+    max-width: 100%;
+    max-height: 96dvh;
+  }
+
+  .glossaryLightbox > img {
+    max-height: calc(96dvh - 44px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glossaryLightboxBackdrop {
+    backdrop-filter: none;
+  }
+}

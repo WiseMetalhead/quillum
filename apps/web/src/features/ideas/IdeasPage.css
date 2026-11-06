@@ -1,0 +1,432 @@
+.ideasPage {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  overflow: hidden;
+  background: var(--color-surface);
+}
+
+.ideasToolbar {
+  min-height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 10px 24px 10px 28px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.ideasToolbar h1 {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  color: var(--color-text-primary);
+  font-size: 20px;
+  font-weight: 750;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ideasToolbarActions {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.ideasFilter {
+  width: 190px;
+  min-width: 0;
+}
+
+.ideasFilter .customSelectButton {
+  min-height: 34px;
+  height: 34px;
+  padding: 0 9px 0 10px;
+  border-color: var(--color-border);
+  border-radius: 7px;
+  font-size: 12px;
+}
+
+button.ideasCreateButton {
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 0 11px;
+  border: 1px solid var(--color-action-primary);
+  border-radius: 7px;
+  color: var(--color-text-on-accent);
+  background: var(--color-action-primary);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button.ideasCreateButton:hover:not(:disabled) {
+  border-color: var(--color-action-primary-hover);
+  background: var(--color-action-primary-hover);
+}
+
+button.ideasCreateButton.secondary {
+  border-color: var(--color-border);
+  color: var(--color-text-secondary-strong);
+  background: var(--color-surface);
+}
+
+button.ideasCreateButton.secondary:hover:not(:disabled) {
+  border-color: rgb(var(--color-action-primary-rgb) / 42%);
+  color: var(--color-action-primary-hover);
+  background: var(--color-action-surface);
+}
+
+button.ideasCreateButton:disabled { opacity: .65; cursor: wait; }
+.ideasCreateButton svg { width: 17px; height: 17px; }
+button.ideasCreateButton.iconOnly { width: 34px; min-width: 34px; padding: 0; }
+
+.ideasFeed {
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--color-background);
+}
+
+.ideasFeedInner {
+  width: min(100%, 1280px);
+  min-height: 100%;
+  margin: 0 auto;
+  padding: 26px 30px 48px;
+}
+
+.ideasMasonry {
+  display: grid;
+  grid-template-columns: repeat(var(--ideas-column-count), minmax(0, 1fr));
+  align-items: start;
+  gap: 16px;
+}
+
+.ideasColumn {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  gap: 16px;
+}
+
+button.ideaCard {
+  width: 100%;
+  min-width: 0;
+  display: block;
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 13px;
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+  box-shadow: 0 8px 24px rgb(var(--color-shadow-rgb) / 6%);
+  cursor: pointer;
+  text-align: left;
+  transition: transform 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
+}
+
+button.ideaCard:hover {
+  transform: translateY(-2px);
+  border-color: rgb(var(--color-action-primary-rgb) / 28%);
+  box-shadow: 0 14px 32px rgb(var(--color-shadow-rgb) / 10%);
+}
+
+.ideaCard > img {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: var(--color-surface-muted);
+}
+
+.ideaCardTitle {
+  min-height: 45px;
+  display: -webkit-box;
+  padding: 12px 12px 10px;
+  overflow: hidden;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.ideaCardMeta {
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 10px;
+  color: var(--color-text-muted);
+  font-size: 10px;
+}
+
+.ideaCardMeta svg { width: 15px; height: 15px; color: var(--color-action-primary); }
+.ideaCardMeta time { margin-left: auto; }
+
+.ideaTextCardContent {
+  min-height: 110px;
+  display: grid;
+  align-content: start;
+  padding: 4px 15px 14px;
+}
+
+.ideaTextCardContent > span {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 9;
+}
+
+.ideaAudioCardContent {
+  min-height: 104px;
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  padding: 18px 15px 14px;
+  color: var(--color-action-primary);
+  background: var(--color-canvas-subtle);
+}
+
+.ideaAudioCardContent > svg { width: 27px; height: 27px; }
+.ideaAudioCardContent .audioWaveform { min-width: 0; height: 56px; }
+
+.ideasLoading { min-height: 340px; }
+.ideasLoadMore { min-height: 76px; display: grid; place-items: center; }
+.ideasLoadMore button { min-height: 34px; padding: 0 16px; border: 1px solid var(--color-border); border-radius: 8px; color: var(--color-text-secondary); background: var(--color-surface); cursor: pointer; }
+.ideasLoadMore button:disabled { opacity: .65; cursor: wait; }
+
+.ideasEmpty {
+  min-height: 360px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 9px;
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.ideasEmpty > span {
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  color: var(--color-action-primary);
+}
+
+.ideasEmpty > span svg { width: 34px; height: 34px; }
+.ideasEmpty h2 { margin: 6px 0 0; color: var(--color-text-primary); font-size: 18px; }
+.ideasEmpty p { max-width: 390px; margin: 0; font-size: 12px; line-height: 1.5; }
+
+.ideasMobileCreate { display: none; }
+
+.ideasViewer {
+  width: min(920px, calc(100vw - 48px));
+  height: min(760px, calc(100dvh - 48px));
+}
+
+.ideasImageTitleLine { min-width: 0; flex: 1 1 auto; display: flex; align-items: center; }
+.ideasImageTitleInput { width: 100%; min-width: 0; height: 34px; padding: 5px 7px; overflow: hidden; border: 1px solid var(--color-action-border); border-radius: 5px; color: var(--color-text-primary); background: var(--color-surface); font: inherit; font-size: 15px; font-weight: 750; line-height: 1.25; text-overflow: ellipsis; outline: 2px solid var(--color-action-surface-strong); }
+.ideasImageTitleInput:focus { border-color: var(--color-action-border); outline: 2px solid var(--color-action-surface-strong); outline-offset: 0; }
+.ideasImageTitleInput::placeholder { color: var(--color-text-subtle); opacity: 1; }
+button.ideasImageTitleButton { min-width: 0; max-width: 100%; padding: 5px 7px; overflow: hidden; border: 1px solid transparent; border-radius: 5px; color: var(--color-text-primary); background: transparent; font: inherit; font-size: 15px; font-weight: 750; text-align: left; text-overflow: ellipsis; white-space: nowrap; cursor: text; }
+button.ideasImageTitleButton:hover { border-color: var(--color-border); background: var(--color-canvas-subtle); }
+
+.ideasViewer .standardDialogContent {
+  min-height: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  overflow: hidden;
+}
+
+.ideasViewerImage {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  overflow: hidden;
+  background: var(--color-canvas-subtle);
+}
+
+.ideasViewerImage img {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  display: block;
+  object-fit: contain;
+}
+
+.ideasViewerActions,
+.ideasViewer .standardDialogContent > .ideasViewerActions {
+  position: static;
+  min-height: 64px;
+  justify-content: space-between;
+  margin: 0;
+  padding: 12px 18px;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.ideasViewerActions > .dialogSubmit {
+  min-width: 104px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+
+.ideasViewerActions svg { width: 17px; height: 17px; }
+.ideasImageSaveStatus .boardsSaveStatusPopover { top: auto; bottom: calc(100% + 8px); }
+
+@media (max-width: 700px) and (min-width: 521px) {
+  .ideasToolbar { align-items: stretch; flex-direction: column; gap: 10px; }
+  .ideasToolbarActions { flex-wrap: wrap; justify-content: flex-start; }
+}
+
+@media (max-width: 520px) {
+  .ideasToolbar {
+    width: 100%;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
+    justify-content: stretch;
+    gap: 0;
+    padding: 0;
+  }
+
+  .ideasToolbar h1 {
+    min-height: 56px;
+    display: grid;
+    place-items: center;
+    padding: 8px 62px;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 16px;
+    text-align: center;
+  }
+
+  button.ideasCreateButton { display: none; }
+
+  .ideasToolbarActions {
+    padding: 10px 12px;
+  }
+
+  .ideasToolbarActions,
+  .ideasFilter { width: 100%; }
+
+  .ideasFilter .customSelectButton {
+    min-height: 38px;
+    height: 38px;
+    font-size: 13px;
+  }
+
+  .ideasFeedInner { padding: 12px 10px 96px; }
+  .ideasMasonry { gap: 8px; }
+  .ideasColumn { gap: 8px; }
+  button.ideaCard { border-radius: 10px; }
+  .ideaCardTitle { min-height: 39px; padding: 9px 8px 7px; font-size: 12px; }
+  .ideaCardMeta { min-height: 30px; padding: 5px 7px; }
+  .ideaCardMeta time { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ideasEmpty { min-height: calc(100dvh - var(--app-header-height) - 222px); padding-inline: 22px; }
+  .ideasEmpty > span { width: 52px; height: 52px; }
+  .ideasEmpty > span svg { width: 32px; height: 32px; }
+
+  .ideasMobileCreate {
+    position: fixed;
+    z-index: 24;
+    bottom: calc(22px + var(--cookie-footer-offset, 0px) + env(safe-area-inset-bottom, 0px));
+    width: 56px;
+    height: 56px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    color: var(--color-text-on-accent);
+    background: var(--color-action-primary);
+    box-shadow: 0 12px 28px rgb(var(--color-shadow-rgb) / 24%);
+    cursor: pointer;
+    transition: transform 160ms ease, opacity 160ms ease;
+  }
+
+  .ideasMobileCreate.image { right: max(18px, env(safe-area-inset-right, 0px)); }
+  .ideasMobileCreate.text { right: max(82px, calc(64px + env(safe-area-inset-right, 0px))); }
+  .ideasMobileCreate.audio { right: max(146px, calc(128px + env(safe-area-inset-right, 0px))); }
+  .ideasMobileCreate.audioImport {
+    right: max(210px, calc(192px + env(safe-area-inset-right, 0px)));
+    bottom: calc(28px + var(--cookie-footer-offset, 0px) + env(safe-area-inset-bottom, 0px));
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--color-border);
+    color: var(--color-action-primary-hover);
+    background: var(--color-surface);
+  }
+  .ideasMobileCreate.audioImport svg { width: 20px; height: 20px; }
+  .ideasMobileCreate svg { width: 25px; height: 25px; }
+  .ideasPage.mobileActionsHidden .ideasMobileCreate { transform: translateY(86px); opacity: 0; pointer-events: none; }
+
+  .ideasViewerBackdrop.mobileFullViewBackdrop {
+    position: fixed;
+    z-index: 19;
+    inset: var(--app-header-height) 0 0;
+    display: block;
+  }
+
+  .ideasViewer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .ideasViewer > header { display: grid; grid-template-columns: 52px minmax(0, 1fr) 52px; align-items: center; justify-content: stretch; gap: 0; }
+  .ideasImageTitleLine { grid-column: 2; justify-content: center; }
+  .ideasImageTitleInput { height: 38px; padding: 6px 8px; border-radius: 7px; font-size: 16px; text-align: center; }
+  button.ideasImageTitleButton { width: 100%; max-width: 100%; padding: 6px 8px; font-size: 16px; text-align: center; }
+
+  .ideasViewer .standardDialogContent {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .ideasViewerImage { padding: 12px 14px; }
+  .ideasViewerActions,
+  .ideasViewer .standardDialogContent > .ideasViewerActions {
+    min-height: 64px;
+    padding: 10px 14px calc(10px + env(safe-area-inset-bottom, 0px));
+  }
+  .ideasViewerActions .dialogSubmit { width: 36px; min-width: 36px; height: 36px; min-height: 36px; display: grid; place-items: center; padding: 0; border: 0; background: transparent; }
+  .ideasViewerActions .dialogSubmit span { display: none; }
+  .ideasViewerActions .dialogSubmit svg { width: 20px; height: 20px; }
+  .ideasImageSaveStatus { margin-left: auto; order: 2; }
+  .ideasViewerActions .dialogSubmit { order: 1; }
+  .ideasImageSaveStatus button.boardsSaveStatusButton { width: 36px; height: 36px; }
+  .ideasImageSaveStatus .boardsSaveStatusButton svg { width: 20px; height: 20px; }
+  .ideasImageSaveStatus .boardsSaveStatusPopover { top: auto; right: 0; bottom: calc(100% + 8px); left: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  button.ideaCard,
+  .ideasMobileCreate { transition: none; }
+}

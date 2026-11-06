@@ -1,0 +1,1471 @@
+.manuscriptPageState {
+  min-height: calc(100dvh - var(--app-header-height));
+  display: grid;
+  place-items: center;
+  color: var(--color-text-muted);
+}
+
+.manuscriptDashboardWorkspace .manuscriptPageState.tadpoleLoadingState {
+  background: transparent;
+}
+
+.manuscriptDashboard {
+  height: calc(100dvh - var(--app-header-height));
+  min-height: 0;
+  padding: 24px 28px;
+  overflow: hidden;
+  background: var(--color-canvas-subtle);
+}
+
+.manuscriptDashboardLayout {
+  height: 100%;
+  min-height: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(320px, 0.72fr) minmax(0, 2.28fr);
+  gap: 18px;
+}
+
+.manuscriptDashboardWidgets {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 0;
+}
+
+.dashboardWidget {
+  min-height: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface);
+  box-shadow: 0 12px 30px rgb(var(--color-shadow-rgb) / 0.06);
+}
+
+.manuscriptOverviewWidget {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  max-height: 100%;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  align-content: start;
+  gap: 22px;
+  padding: 30px 22px 24px;
+  overflow: hidden;
+}
+
+.dashboardOverviewBackdrop {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 64%;
+  overflow: hidden;
+  border-radius: inherit;
+  opacity: 0.36;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgb(0 0 0 / 78%) 42%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, rgb(0 0 0 / 78%) 42%, transparent 100%);
+}
+
+.dashboardOverviewBackdrop img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(30px) saturate(0.82);
+  transform: scale(1.16);
+}
+
+.dashboardCover,
+.dashboardBookDetails {
+  position: relative;
+  z-index: 1;
+}
+
+.manuscriptDashboardWidgets > .dashboardWidget {
+  position: relative;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.manuscriptDashboardWidgets > .dashboardWidget::before,
+.manuscriptDashboardWidgets > .dashboardWidget::after {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  background: var(--color-border-subtle);
+  content: '';
+  pointer-events: none;
+}
+
+.manuscriptDashboardWidgets > .dashboardWidget::before {
+  top: 16px;
+  bottom: 16px;
+  left: 0;
+  width: 1px;
+}
+
+.manuscriptDashboardWidgets > .dashboardWidget::after {
+  top: 0;
+  right: 16px;
+  left: 16px;
+  height: 1px;
+}
+
+.manuscriptDashboardWidgets > .dashboardWidget:nth-child(3n + 1)::before,
+.manuscriptDashboardWidgets > .dashboardWidget:nth-child(-n + 3)::after {
+  display: none;
+}
+
+.dashboardWidgetActions {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 2;
+  display: grid;
+  gap: 8px;
+}
+
+.dashboardCover {
+  width: min(64%, 190px);
+  aspect-ratio: 2 / 3;
+  justify-self: center;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-action-primary);
+  background: var(--color-brand-100);
+  box-shadow: 0 8px 18px rgb(var(--color-shadow-rgb) / 0.12);
+}
+
+.dashboardCover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dashboardCover svg {
+  width: 34px;
+  height: 34px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.dashboardBookDetails {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  gap: 22px;
+}
+
+button.dashboardIconButton {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  cursor: pointer;
+}
+
+button.dashboardIconButton:hover:not(:disabled),
+button.dashboardIconButton:focus-visible {
+  border-color: var(--color-action-border-subtle);
+  color: var(--color-action-primary-hover);
+  background: var(--color-action-surface);
+  outline: none;
+}
+
+.dashboardIconButton:disabled {
+  opacity: 0.62;
+  cursor: not-allowed;
+}
+
+.dashboardIconButton svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.dashboardBookCopy {
+  min-width: 0;
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  padding-right: 2px;
+  text-align: center;
+}
+
+.dashboardBookCopy > .manuscriptStatusChip {
+  justify-self: center;
+}
+
+.dashboardBookCopy h1 {
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: var(--color-text-primary);
+  font-size: clamp(20px, 1.6vw, 25px);
+  line-height: 1.16;
+  letter-spacing: 0;
+}
+
+.dashboardBookCopy p {
+  max-width: 100%;
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  line-height: 1.55;
+  display: -webkit-box;
+  overflow: hidden;
+  white-space: normal;
+  text-align: left;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
+.dashboardProgressBlock {
+  width: 100%;
+  display: grid;
+  gap: 8px;
+  align-self: end;
+}
+
+.dashboardProgressHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--color-text-secondary-strong);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.dashboardProgressHeader strong {
+  color: var(--color-text-secondary-strong);
+  font-size: 12px;
+}
+
+.dashboardProgressTrack {
+  height: 7px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--color-surface-hover);
+}
+
+.dashboardProgressTrack span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-action-primary);
+  transition: width 180ms ease;
+}
+
+.dashboardProgressBlock p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.recentSessionsWidget {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 12px;
+  padding: 16px;
+  overflow: hidden;
+}
+
+.recentSessionsWidget h2 {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 17px;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+.recentSessionList {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  overflow: auto;
+}
+
+button.recentSessionItem {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+button.recentSessionItem:hover .recentSessionIcon,
+button.recentSessionItem:focus-visible .recentSessionIcon {
+  color: var(--color-action-primary);
+}
+
+button.recentSessionItem:focus-visible {
+  outline: 2px solid var(--color-action-border-subtle);
+  outline-offset: 2px;
+}
+
+.recentSessionIcon {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  color: var(--color-text-muted);
+}
+
+.recentSessionIcon svg {
+  width: 21px;
+  height: 21px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.recentSessionText {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+}
+
+.recentSessionText strong {
+  overflow: hidden;
+  color: var(--color-text-primary);
+  font-size: 12px;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.recentSessionMeta,
+.recentSessionsEmpty {
+  margin: 0;
+  overflow: hidden;
+  color: var(--color-text-muted);
+  font-size: 11px;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.recentSessionMeta {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.recentSessionMeta > span:first-child,
+.recentSessionMeta > span:nth-child(3) {
+  flex: 0 0 auto;
+}
+
+.recentSessionText i {
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  margin: 0 6px 2px;
+  border-radius: 50%;
+  background: var(--color-text-subtle);
+}
+
+.recentStatusChip {
+  min-width: 0;
+  max-width: 120px;
+  margin-left: 8px;
+  padding: 2px 7px;
+  overflow: hidden;
+  border: 1px solid var(--status-border);
+  border-radius: 999px;
+  color: var(--status-color);
+  background: var(--status-bg);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.statusProgressWidget {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  gap: 12px;
+  padding: 16px;
+  overflow: hidden;
+}
+
+.statusProgressHeader {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.statusProgressHeader h2 {
+  margin: 0 0 7px;
+  color: var(--color-text-primary);
+  font-size: 17px;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+.statusProgressHeader p,
+.statusProgressEmpty {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.statusProgressHeader strong {
+  color: var(--color-action-primary);
+  font-size: 20px;
+  line-height: 1;
+}
+
+.statusProgressTrack {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--color-surface-hover);
+}
+
+.statusProgressTrack span,
+.statusProgressMiniTrack span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-action-primary);
+  transition: width 180ms ease;
+}
+
+.statusProgressRows {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  overflow: auto;
+}
+
+.statusProgressRow {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 12px minmax(0, 1fr) minmax(58px, auto);
+  align-items: center;
+  gap: 8px 10px;
+}
+
+.statusProgressDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgb(var(--color-shadow-rgb) / 8%);
+}
+
+.statusProgressName {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--color-text-primary);
+  font-size: 12px;
+  font-weight: 650;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.statusProgressMiniTrack {
+  grid-column: 2 / -1;
+  grid-row: 2;
+  height: 7px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--color-surface-hover);
+}
+
+.statusProgressValue {
+  color: var(--color-text-secondary-strong);
+  font-size: 11px;
+  font-weight: 650;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.dailyGoalsWidget {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
+  align-items: start;
+  gap: 12px;
+  padding: 16px;
+  overflow: hidden;
+}
+
+.dailyGoalsWidget header {
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+}
+
+.dailyGoalsWidget h2 {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 17px;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+.dailyGoalMeter {
+  min-width: 0;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 8px;
+}
+
+.dailyGoalRing {
+  --ring-size: 102px;
+  width: var(--ring-size);
+  height: var(--ring-size);
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at center, var(--color-surface) 0 58%, transparent 59%),
+    conic-gradient(var(--color-action-primary) var(--daily-goal-progress, 0%), var(--color-surface-hover) 0);
+  box-shadow: inset 0 0 0 1px var(--color-border);
+}
+
+.dailyGoalRing strong {
+  color: var(--color-text-primary);
+  font-size: 20px;
+  line-height: 1;
+}
+
+.dailyGoalRing svg {
+  width: 34px;
+  height: 34px;
+  color: var(--color-action-primary);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.dailyGoalMeter p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.dailyGoalDays {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.dailyGoalDay {
+  min-width: 0;
+  display: grid;
+  justify-items: center;
+  gap: 5px;
+}
+
+.dailyGoalDay > span:first-child {
+  color: var(--color-text-muted);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.dailyGoalDayMark {
+  width: 27px;
+  height: 27px;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  color: var(--color-text-subtle);
+  background: var(--color-surface);
+}
+
+.dailyGoalDayMark.complete {
+  border-color: var(--color-success-border);
+  color: var(--color-success-strong);
+  background: var(--color-success-surface);
+}
+
+.dailyGoalDayMark svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.dailyGoalMessage {
+  min-height: 36px;
+  display: grid;
+  align-items: center;
+  margin: 0;
+  padding: 9px 10px;
+  border-radius: 8px;
+  color: var(--color-text-secondary-strong);
+  background: var(--color-canvas-subtle);
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.45;
+  text-align: center;
+}
+
+@media (min-width: 1121px) and (max-height: 649px) {
+  .manuscriptDashboard {
+    height: auto;
+    min-height: calc(100dvh - var(--app-header-height));
+    overflow: visible;
+  }
+
+  .manuscriptDashboardLayout {
+    min-height: 620px;
+    height: auto;
+    align-items: stretch;
+  }
+
+  .manuscriptDashboardWidgets {
+    grid-template-rows: repeat(2, minmax(292px, auto));
+  }
+
+  .dailyGoalsWidget {
+    grid-template-rows: auto auto auto auto;
+  }
+
+  .dailyGoalRing {
+    --ring-size: 88px;
+  }
+}
+
+.dashboardMemoWidget {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 12px;
+  padding: 16px;
+  overflow: hidden;
+}
+
+.dashboardMemoWidget header {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.dashboardMemoWidget header > div {
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+}
+
+.dashboardMemoWidget h2 {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 17px;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+button.dashboardMemoEdit {
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 9px;
+  border: 1px solid var(--color-border);
+  border-radius: 7px;
+  color: var(--color-text-secondary-strong);
+  background: var(--color-surface);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+button.dashboardMemoEdit:hover {
+  border-color: var(--color-action-border-subtle);
+  color: var(--color-action-primary-hover);
+  background: var(--color-action-surface);
+}
+
+.dashboardMemoEdit svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.dashboardMemoWidget .dashboardMemoMobileHeader {
+  display: none;
+}
+
+.dashboardSettingsDialog {
+  width: min(100%, 620px);
+}
+
+.dashboardWidgetManager {
+  display: grid;
+  gap: 10px;
+}
+
+.dashboardWidgetManagerRow {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 9px;
+  background: var(--color-surface);
+}
+
+.dashboardWidgetManagerRow label {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.dashboardWidgetManagerRow input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--color-action-primary);
+}
+
+.dashboardWidgetManagerRow label span {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.dashboardWidgetManagerRow strong {
+  overflow: hidden;
+  color: var(--color-text-primary);
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dashboardWidgetManagerRow small {
+  color: var(--color-text-muted);
+  font-size: 11px;
+}
+
+.dashboardWidgetOrderActions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dashboardWidgetOrderActions .spaceButton {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 7px;
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  cursor: pointer;
+}
+
+.dashboardWidgetOrderActions .spaceButton:hover:not(:disabled) {
+  border-color: var(--color-action-border-subtle);
+  color: var(--color-action-primary-hover);
+  background: var(--color-action-surface);
+}
+
+.dashboardWidgetOrderActions .spaceButton:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.dashboardWidgetOrderActions svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.dashboardMemoContent {
+  min-width: 0;
+  overflow: auto;
+  padding-right: 3px;
+  color: var(--color-text-secondary-strong);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.dashboardMemoContent h3,
+.dashboardMemoContent h4,
+.dashboardMemoContent h5,
+.dashboardMemoContent p,
+.dashboardMemoContent ul {
+  margin: 0 0 8px;
+}
+
+.dashboardMemoContent h3,
+.dashboardMemoContent h4,
+.dashboardMemoContent h5 {
+  color: var(--color-text-primary);
+  font-size: 13px;
+  line-height: 1.3;
+}
+
+.dashboardMemoContent ul {
+  display: grid;
+  gap: 5px;
+  padding-left: 18px;
+}
+
+.dashboardMemoContent strong {
+  color: var(--color-text-primary);
+  font-weight: 750;
+}
+
+.dashboardMemoContent em {
+  color: var(--color-text-secondary);
+}
+
+.dashboardMemoBreak {
+  display: block;
+  height: 6px;
+}
+
+.dashboardMemoEmpty {
+  min-height: 0;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 7px;
+  padding: 18px;
+  border: 1px dashed var(--color-border-strong);
+  border-radius: 10px;
+  color: var(--color-text-muted);
+  background: var(--color-canvas-subtle);
+  text-align: center;
+}
+
+.dashboardMemoEmpty svg {
+  width: 30px;
+  height: 30px;
+  color: var(--color-action-primary);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.dashboardMemoEmpty strong {
+  color: var(--color-text-primary);
+  font-size: 13px;
+}
+
+.dashboardMemoEmpty p {
+  max-width: 240px;
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.dashboardMemoEditor {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 10px;
+}
+
+.dashboardMemoEditor textarea {
+  width: 100%;
+  min-height: 0;
+  resize: none;
+  padding: 10px 11px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 8px;
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+  font: inherit;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.dashboardMemoEditor textarea:focus {
+  border-color: var(--color-action-border);
+  outline: 2px solid var(--color-action-border);
+  outline-offset: 1px;
+}
+
+.dashboardMemoFooter {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.dashboardMemoFooter > span {
+  color: var(--color-text-muted);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.dashboardMemoFooter > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+button.dashboardMemoSecondary,
+button.dashboardMemoPrimary {
+  min-height: 32px;
+  padding: 6px 10px;
+  border-radius: 7px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button.dashboardMemoSecondary {
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary-strong);
+  background: var(--color-surface);
+}
+
+button.dashboardMemoSecondary:hover:not(:disabled) {
+  border-color: var(--color-action-border-subtle);
+  color: var(--color-action-primary-hover);
+  background: var(--color-action-surface);
+}
+
+button.dashboardMemoPrimary {
+  border: 1px solid var(--color-action-primary);
+  color: var(--color-text-on-accent);
+  background: var(--color-action-primary);
+}
+
+button.dashboardMemoPrimary:hover:not(:disabled) {
+  border-color: var(--color-action-primary-hover);
+  background: var(--color-action-primary-hover);
+}
+
+button.dashboardMemoSecondary:disabled,
+button.dashboardMemoPrimary:disabled {
+  opacity: 0.58;
+  cursor: not-allowed;
+}
+
+@media (max-width: 520px) {
+  .dashboardMobileViewBackdrop {
+    z-index: 19;
+    top: var(--app-header-height);
+    overflow: hidden;
+    padding: 0;
+    background: transparent;
+    backdrop-filter: none;
+  }
+
+  .dashboardSettingsView {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    backface-visibility: hidden;
+    transform: translate3d(100%, 0, 0);
+    transition: transform 220ms ease-out;
+    will-change: transform;
+  }
+
+  .dashboardMobileViewBackdrop.open .dashboardSettingsView {
+    transform: translate3d(0, 0, 0);
+  }
+
+  .dashboardMobileViewBackdrop.closing .dashboardSettingsView {
+    pointer-events: none;
+    transform: translate3d(100%, 0, 0);
+    transition-timing-function: ease-in;
+  }
+
+  .dashboardSettingsView > header {
+    min-height: 56px;
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr) 52px;
+    align-items: center;
+    justify-content: stretch;
+    gap: 0;
+    padding: 8px 10px;
+  }
+
+  .dashboardSettingsView > header > div {
+    width: 100%;
+    min-width: 0;
+    grid-column: 2;
+  }
+
+  .dashboardSettingsView > header h2 {
+    width: 100%;
+    overflow: hidden;
+    margin: 0;
+    font-size: 16px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .dashboardSettingsView > header p,
+  .dashboardSettingsView .standardDialogClose,
+  .dashboardSettingsView .standardDialogFooter {
+    display: none;
+  }
+
+  .dashboardSettingsView .standardDialogMobileBack,
+  .dashboardSettingsView .standardDialogMobilePrimary {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .dashboardSettingsView .standardDialogMobileBack {
+    justify-self: start;
+    color: var(--color-text-secondary-strong);
+  }
+
+  .dashboardSettingsView .standardDialogMobilePrimary {
+    justify-self: end;
+    color: var(--color-action-primary);
+  }
+
+  .dashboardSettingsView .standardDialogMobileBack svg,
+  .dashboardSettingsView .standardDialogMobilePrimary svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .dashboardSettingsView .standardDialogContent > .standardDialogSection {
+    padding: 16px 16px calc(24px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .dashboardMemoMobileView {
+    position: fixed;
+    z-index: 19;
+    top: var(--app-header-height);
+    right: 0;
+    bottom: 0;
+    left: 0;
+    min-width: 0;
+    min-height: 0;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    gap: 0;
+    padding: 0;
+    overflow: hidden;
+    background: var(--color-surface);
+    backface-visibility: hidden;
+    transform: translate3d(100%, 0, 0);
+    transition: transform 220ms ease-out;
+    will-change: transform;
+  }
+
+  .dashboardMemoMobileView.open {
+    transform: translate3d(0, 0, 0);
+  }
+
+  .dashboardMemoMobileView.closing {
+    pointer-events: none;
+    transform: translate3d(100%, 0, 0);
+    transition-timing-function: ease-in;
+  }
+
+  .dashboardMemoWidget .dashboardMemoMobileHeader {
+    min-height: 56px;
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr) 52px;
+    align-items: center;
+    justify-content: stretch;
+    gap: 0;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-surface);
+  }
+
+  .dashboardMemoWidget .dashboardMemoMobileHeader h2 {
+    width: 100%;
+    overflow: hidden;
+    margin: 0;
+    font-size: 16px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .dashboardMemoMobileBack,
+  .dashboardMemoMobileSave {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .dashboardMemoMobileBack {
+    justify-self: start;
+    color: var(--color-text-secondary-strong);
+  }
+
+  .dashboardMemoMobileSave {
+    justify-self: end;
+    color: var(--color-action-primary);
+  }
+
+  .dashboardMemoMobileBack svg,
+  .dashboardMemoMobileSave svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .dashboardMemoMobileBack:disabled,
+  .dashboardMemoMobileSave:disabled,
+  .dashboardSettingsView .standardDialogMobileBack:disabled,
+  .dashboardSettingsView .standardDialogMobilePrimary:disabled {
+    opacity: 0.5;
+    cursor: wait;
+  }
+
+  .dashboardMemoMobileView textarea {
+    min-height: 0;
+    padding: 16px;
+    border: 0;
+    border-radius: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    outline: none;
+  }
+
+  .dashboardMemoMobileView textarea:focus {
+    border: 0;
+    outline: none;
+  }
+
+  .dashboardMemoMobileView .dashboardMemoFooter {
+    padding: 10px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--color-border);
+  }
+
+  .dashboardMemoMobileView .dashboardMemoFooter > div {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dashboardSettingsView,
+  .dashboardMemoMobileView {
+    transition: none !important;
+  }
+}
+
+.writingActivityWidget {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  padding: 16px;
+  overflow: hidden;
+}
+
+.writingActivityWidget header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+
+.writingActivityWidget h2 {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 17px;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+.writingActivityChart {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  padding: 4px 4px 0;
+}
+
+.writingActivityPlot {
+  position: relative;
+  min-height: 0;
+  height: 230px;
+  max-height: 100%;
+  align-self: center;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  align-items: end;
+  gap: 10px;
+  padding: 18px 8px 26px 30px;
+}
+
+.writingActivityPlot::after {
+  position: absolute;
+  right: 8px;
+  bottom: 48px;
+  left: 30px;
+  height: 1px;
+  background: var(--color-border);
+  content: "";
+  pointer-events: none;
+}
+
+.writingActivityAxis,
+.writingActivityGrid {
+  position: absolute;
+  top: 18px;
+  right: 8px;
+  bottom: 48px;
+  left: 30px;
+  pointer-events: none;
+}
+
+.writingActivityAxis {
+  left: 0;
+  width: 26px;
+  color: var(--color-text-subtle);
+  font-size: 10px;
+  font-weight: 650;
+}
+
+.writingActivityAxis span {
+  position: absolute;
+  right: 0;
+  line-height: 1;
+  transform: translateY(50%);
+}
+
+.writingActivityGrid span {
+  position: absolute;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: var(--color-surface-hover);
+}
+
+.writingActivityGrid span:first-child {
+  display: none;
+}
+
+.writingActivityGoalLine {
+  position: absolute;
+  right: 8px;
+  left: 30px;
+  z-index: 2;
+  border-top: 1px dashed var(--color-border-strong);
+  color: var(--color-text-muted);
+  font-size: 11px;
+  font-weight: 650;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.writingActivityGoalLine span {
+  position: absolute;
+  top: -7px;
+  right: 0;
+  padding-left: 8px;
+  background: var(--color-surface);
+}
+
+.writingActivityDay {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  min-width: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) 22px;
+  justify-items: center;
+  align-items: end;
+}
+
+.writingActivityValue {
+  position: absolute;
+  bottom: var(--bar-value-bottom, 28px);
+  color: var(--color-text-secondary);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.writingActivityBar {
+  width: min(24px, 70%);
+  height: var(--bar-height, 0);
+  display: block;
+  grid-row: 1;
+  border-radius: 5px 5px 2px 2px;
+  background: linear-gradient(180deg, var(--color-brand-500), var(--color-action-primary));
+  box-shadow: 0 4px 10px rgb(var(--color-action-primary-rgb) / 22%);
+}
+
+.writingActivityBar.metGoal {
+  background: linear-gradient(180deg, var(--color-brand-300), var(--color-action-primary));
+}
+
+.writingActivityDay time {
+  grid-row: 2;
+  align-self: end;
+  color: var(--color-text-muted);
+  font-size: 11px;
+  font-weight: 650;
+}
+
+@media (min-width: 1121px) and (min-height: 650px) and (max-height: 780px) {
+  .manuscriptDashboard {
+    height: calc(100dvh - var(--app-header-height));
+    min-height: 0;
+    padding-top: clamp(14px, 2.2vh, 18px);
+    padding-bottom: clamp(14px, 2.2vh, 18px);
+    overflow: hidden;
+  }
+
+  .manuscriptDashboardLayout {
+    height: 100%;
+    min-height: 0;
+    align-items: stretch;
+  }
+
+  .manuscriptDashboardWidgets {
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+  }
+
+  .manuscriptOverviewWidget {
+    gap: clamp(12px, 2vh, 18px);
+    padding: clamp(18px, 3vh, 24px) 20px clamp(16px, 2.6vh, 20px);
+  }
+
+  .dashboardCover {
+    width: min(64%, clamp(148px, 24vh, 180px));
+  }
+
+  .dashboardBookDetails {
+    gap: clamp(12px, 1.8vh, 18px);
+  }
+
+  .dashboardBookCopy {
+    gap: clamp(8px, 1.4vh, 12px);
+  }
+
+  .dashboardProgressBlock {
+    gap: 6px;
+  }
+
+  .manuscriptDashboardWidgets > .dashboardWidget {
+    padding: clamp(12px, 1.8vh, 14px);
+  }
+
+  .manuscriptDashboardWidgets > .dashboardWidget::before {
+    top: clamp(12px, 1.8vh, 14px);
+    bottom: clamp(12px, 1.8vh, 14px);
+  }
+
+  .manuscriptDashboardWidgets > .dashboardWidget::after {
+    right: clamp(12px, 1.8vh, 14px);
+    left: clamp(12px, 1.8vh, 14px);
+  }
+
+  .recentSessionsWidget,
+  .statusProgressWidget,
+  .dailyGoalsWidget,
+  .dashboardMemoWidget {
+    gap: clamp(9px, 1.5vh, 12px);
+  }
+
+  .recentSessionList,
+  .statusProgressRows {
+    gap: 6px;
+  }
+
+  .dailyGoalsWidget {
+    grid-template-rows: auto auto auto auto;
+  }
+
+  .dailyGoalRing {
+    --ring-size: clamp(82px, 12.5vh, 96px);
+  }
+
+  .writingActivityWidget header {
+    margin-bottom: clamp(7px, 1.2vh, 10px);
+  }
+}

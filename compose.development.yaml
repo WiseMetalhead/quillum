@@ -1,0 +1,34 @@
+name: quillum-development
+
+services:
+  postgres:
+    image: postgres:16-alpine@sha256:aa6cb33cf4c19c765cefcf48d96176258800870a9a1e930ad126200f9d825139
+    environment:
+      POSTGRES_DB: quillum
+      POSTGRES_USER: quillum
+      POSTGRES_PASSWORD: quillum
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres_development:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U quillum -d quillum"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine@sha256:c5d34a98396a4775e223c74e929162c35c5a2182901ba26b50ade939941ce14b
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - redis_development:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  postgres_development:
+  redis_development:

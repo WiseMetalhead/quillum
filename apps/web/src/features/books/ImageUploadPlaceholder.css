@@ -1,0 +1,30 @@
+.editorImageUploadPlaceholder {
+  min-height: 112px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 14px 0;
+  border: 1px dashed var(--color-action-border-subtle);
+  border-radius: 10px;
+  color: var(--color-action-primary);
+  background: color-mix(in srgb, var(--color-warning-surface) 86%, transparent);
+  user-select: none;
+}
+
+.editorImageUploadPlaceholder svg {
+  width: 30px;
+  height: 30px;
+}
+
+.editorImageUploadPlaceholder span {
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .editorImageUploadPlaceholder animateTransform {
+    display: none;
+  }
+}

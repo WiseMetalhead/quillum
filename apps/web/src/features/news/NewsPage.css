@@ -1,0 +1,97 @@
+.newsFeed {
+  display: grid;
+  gap: 14px;
+}
+
+.newsCard {
+  padding: 22px 24px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: rgb(var(--color-surface-rgb) / 0.95);
+  box-shadow: 0 14px 34px rgb(var(--color-shadow-rgb) / 0.04);
+}
+
+.newsCardMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+.newsSourceName {
+  color: var(--color-action-primary);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.newsCard h2 {
+  margin: 9px 0 4px;
+  color: var(--color-text-primary);
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+.newsAuthor {
+  margin: 0 0 13px;
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+.newsSummary {
+  display: -webkit-box;
+  margin: 0 0 17px;
+  overflow: hidden;
+  color: var(--color-text-secondary-strong);
+  font-size: 14px;
+  line-height: 1.55;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
+.newsSourceLink {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  padding: 0 12px;
+  border-radius: 7px;
+  color: var(--color-action-primary);
+  background: var(--color-action-surface);
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.newsSourceLink:hover,
+.newsSourceLink:focus-visible { background: var(--color-action-surface-strong); }
+
+.newsLoadingState,
+.newsEmptyState {
+  min-height: 320px;
+}
+
+.newsEmptyState {
+  display: grid;
+  place-content: center;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.newsEmptyState h2 { margin: 0 0 8px; }
+.newsEmptyState p { margin: 0; color: var(--color-text-secondary); }
+
+.newsLoadMore {
+  display: flex;
+  justify-content: center;
+  padding-top: 22px;
+}
+
+@media (max-width: 640px) {
+  .newsCard { padding: 18px 16px; border-radius: 8px; }
+  .newsCardMeta { align-items: flex-start; flex-direction: column; gap: 3px; }
+  .newsCard h2 { font-size: 18px; }
+  .newsSummary { -webkit-line-clamp: 5; }
+  .newsSourceLink { width: 100%; justify-content: center; }
+}

@@ -1,0 +1,4362 @@
+.compactDetails {
+  margin: 0;
+  padding: 12px;
+  border-radius: 6px;
+  background: var(--color-canvas-subtle);
+}
+
+.adminUserActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.adminSelfActionNotice {
+  margin: 16px 0 0;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.avatarRow {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+}
+
+.avatarPreview {
+  width: 72px;
+  height: 72px;
+  border: 1px solid var(--color-action-surface-strong);
+  font-size: 28px;
+}
+
+.adminStack {
+  display: grid;
+  gap: 18px;
+  max-width: 980px;
+}
+
+.adminNotificationsStack { width: 100%; max-width: none; align-content: start; }
+.adminServicePagesStack { width: 100%; height: 100%; min-height: 0; max-width: none; align-content: start; }
+.adminServicePagesContent { width: 100%; display: grid; gap: 18px; }
+.adminServicePagesContent > .adminServicePageCard { width: 100%; max-width: none; }
+.adminServicePageCard { display: grid; gap: 14px; }
+.adminServicePageHeader { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+.adminServicePageTitle { min-width: 0; display: flex; align-items: flex-start; gap: 12px; }
+.adminServicePageTitle > svg { width: 24px; height: 24px; flex: 0 0 auto; color: var(--color-action-primary); }
+.adminServicePageTitle > div { min-width: 0; }
+.adminServicePageHeader h2 { margin: 1px 0 5px; font-size: 18px; }
+.adminServicePageHeader p { margin: 0; color: var(--color-text-muted); }
+.adminServicePageSwitch { display: flex; align-items: center; gap: 10px; color: var(--color-text-secondary); font-size: 12px; font-weight: 700; }
+.adminServicePageSwitch button { position: relative; width: 42px; height: 24px; flex: 0 0 auto; padding: 2px; border: 0; border-radius: 999px; background: var(--color-border-strong); cursor: pointer; }
+.adminServicePageSwitch button > span { width: 20px; height: 20px; display: block; border-radius: 50%; background: var(--color-surface); box-shadow: 0 1px 4px rgb(var(--color-shadow-rgb) / 0.25); transition: transform 160ms ease; }
+.adminServicePageSwitch button[aria-checked="true"] { background: var(--color-action-primary); }
+.adminServicePageSwitch button[aria-checked="true"] > span { transform: translateX(18px); }
+.adminServicePageSwitch button:focus-visible { outline: 2px solid var(--color-action-border); outline-offset: 3px; }
+.adminServicePageStatus { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.adminServicePageStatus > span { padding: 4px 8px; border-radius: 999px; color: var(--color-text-muted); background: var(--color-canvas-subtle); font-size: 11px; font-weight: 800; }
+.adminServicePageStatus > span.published { color: var(--color-success); background: var(--color-success-surface); }
+.adminServicePageStatus small { color: var(--color-text-muted); }
+.adminServicePageEditor { display: grid; gap: 7px; color: var(--color-text-secondary-strong); font-size: 12px; font-weight: 700; }
+.adminServicePageEditor textarea { width: 100%; min-height: 260px; resize: vertical; padding: 13px 14px; border: 1px solid var(--color-border-strong); border-radius: 8px; color: var(--color-text-primary); background: var(--color-surface); font: 13px/1.55 var(--font-mono, monospace); }
+.adminServicePageEditor small { color: var(--color-text-muted); font-weight: 400; }
+.adminServicePageActions { display: flex; flex-wrap: nowrap; align-items: center; gap: 9px; }
+.adminServicePageActions button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; }
+.adminServicePageActions button svg { width: 17px; height: 17px; }
+.adminServicePageActionSpacer { flex: 1 1 auto; }
+
+@media (min-width: 521px) and (max-width: 700px) {
+  .adminServicePageHeader { align-items: stretch; flex-direction: column; }
+  .adminServicePageSwitch { justify-content: space-between; }
+}
+
+@media (max-width: 520px) {
+  .adminServicePagesStack {
+    height: auto;
+    align-content: start;
+  }
+
+  .adminServicePagesMobileMenu {
+    align-self: start;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    background: var(--color-surface);
+    box-shadow: 0 10px 28px rgb(var(--color-shadow-rgb) / 0.05);
+  }
+
+  .adminServicePageMobileRow {
+    width: 100%;
+    min-height: 72px;
+    display: grid;
+    grid-template-columns: 38px minmax(0, 1fr) 20px;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border: 0;
+    border-radius: 0;
+    color: var(--color-text-primary);
+    background: transparent;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .adminServicePageMobileRow + .adminServicePageMobileRow {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .adminServicePageMobileRow:focus-visible {
+    background: var(--color-action-surface);
+    outline: 2px solid var(--color-action-border);
+    outline-offset: -2px;
+  }
+
+  .adminServicePageMobileRowIcon {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    color: var(--color-action-primary);
+  }
+
+  .adminServicePageMobileRowIcon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .adminServicePageMobileRowCopy {
+    min-width: 0;
+    display: grid;
+    gap: 3px;
+  }
+
+  .adminServicePageMobileRowCopy strong,
+  .adminServicePageMobileRowCopy small {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .adminServicePageMobileRowCopy strong {
+    font-size: 15px;
+    line-height: 1.25;
+  }
+
+  .adminServicePageMobileRowCopy small {
+    color: var(--color-text-muted);
+    font-size: 12px;
+    line-height: 1.35;
+  }
+
+  .adminServicePageMobileRow > svg {
+    width: 20px;
+    height: 20px;
+    color: var(--color-text-subtle);
+  }
+
+  .adminServicePageMobileEditor {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    overflow: hidden;
+    background: var(--color-surface);
+  }
+
+  .adminServicePageMobileHeader {
+    min-height: 56px;
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr) 48px;
+    align-items: center;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-surface-raised);
+  }
+
+  .adminServicePageMobileHeader h2 {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    margin: 0;
+    overflow: hidden;
+    font-size: 15px;
+    text-align: center;
+  }
+
+  .adminServicePageMobileHeader h2 span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  button.adminServicePageMobileHeaderAction {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    color: var(--color-text-secondary-strong);
+    background: transparent;
+    cursor: pointer;
+  }
+
+  button.adminServicePageMobileHeaderAction:last-child {
+    justify-self: end;
+    color: var(--color-text-secondary-strong);
+  }
+
+  button.adminServicePageMobileHeaderAction:disabled {
+    opacity: 0.42;
+    cursor: not-allowed;
+  }
+
+  button.adminServicePageMobileHeaderAction:focus-visible {
+    outline: 2px solid var(--color-action-border);
+    outline-offset: -2px;
+  }
+
+  .adminServicePageMobileHeaderAction svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .adminServicePageMobileEditorField {
+    min-width: 0;
+    min-height: 0;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr);
+    gap: 0;
+    overflow: hidden;
+  }
+
+  .adminServicePageMobileEditorField textarea {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    resize: none;
+    padding: 16px;
+    border: 0;
+    border-radius: 0;
+    color: var(--color-text-primary);
+    background: var(--color-surface);
+    font: 13px/1.6 var(--font-mono, monospace);
+    outline: none;
+  }
+
+  .adminServicePageMobileEditorField textarea:focus {
+    box-shadow: inset 0 0 0 2px var(--color-action-border);
+  }
+
+  .adminServicePageMobileActions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--color-border);
+    background: var(--color-surface-raised);
+  }
+
+  .adminServicePageMobileActions button {
+    min-width: 0;
+    min-height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding-right: 10px;
+    padding-left: 10px;
+    font-size: 12px;
+  }
+
+  .adminServicePageMobileActions button svg {
+    width: 17px;
+    height: 17px;
+    flex: 0 0 auto;
+  }
+
+  .adminServicePageMobilePublicationSettings {
+    display: grid;
+    gap: 0;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    background: var(--color-surface);
+  }
+
+  .adminServicePageMobileVisibility,
+  .adminServicePageMobilePublicationStatus {
+    min-height: 62px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 14px;
+  }
+
+  .adminServicePageMobileVisibility > span {
+    color: var(--color-text-primary);
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .adminServicePageMobilePublicationStatus {
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .adminServicePageMobilePublicationStatus > span {
+    color: var(--color-text-muted);
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .adminServicePageMobilePublicationStatus > span.published {
+    color: var(--color-success);
+  }
+
+  .adminServicePageMobilePublicationStatus small {
+    color: var(--color-text-muted);
+    font-size: 11px;
+  }
+}
+.adminNotificationsStack > .adminNotificationTest { width: 100%; max-width: none; }
+.adminNotificationsContent { width: 100%; display: grid; gap: 18px; }
+.adminNotificationsContent > .panel { width: 100%; max-width: none; }
+.adminNotificationSettingRow { min-width: 0; display: grid; grid-template-columns: minmax(180px, 0.55fr) minmax(0, 1fr); align-items: center; gap: 16px; padding: 14px 0; border-top: 1px solid var(--color-border); }
+.adminNotificationSettingRow > span { color: var(--color-text-secondary-strong); font-size: 13px; font-weight: 700; }
+.adminNotificationSettingRow .customSelectButton { width: 100%; min-width: 0; min-height: 42px; border-radius: 8px; cursor: pointer; }
+.adminNotificationTest .adminUsersApplyButton { width: fit-content; }
+.adminSettingsSectionHeader .adminCampaignNew { width: fit-content; margin-left: auto; }
+.adminCampaignNew svg { width: 16px; height: 16px; }
+.adminCampaignLayout { min-height: 520px; display: grid; grid-template-columns: minmax(220px, 280px) minmax(0, 1fr); gap: 18px; }
+.adminCampaignList { min-width: 0; display: grid; align-content: start; gap: 7px; }
+.adminCampaignList > button { width: 100%; display: grid; gap: 3px; padding: 10px; border: 1px solid var(--color-border); border-radius: 7px; color: var(--color-text-secondary); background: var(--color-surface); text-align: left; cursor: pointer; }
+.adminCampaignList > button.active { border-color: var(--color-action-border); background: var(--color-action-surface); }
+.adminCampaignList strong { overflow: hidden; color: var(--color-text-primary); font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+.adminCampaignList span,
+.adminCampaignList small { color: var(--color-text-muted); font-size: 10px; }
+.adminCampaignEditor { min-width: 0; display: grid; align-content: start; gap: 14px; padding-left: 18px; border-left: 1px solid var(--color-border); }
+.adminCampaignEditor > label { display: grid; gap: 6px; color: var(--color-text-secondary-strong); font-size: 12px; font-weight: 700; }
+.adminCampaignEditor textarea { width: 100%; resize: vertical; padding: 10px 11px; border: 1px solid var(--color-border-strong); border-radius: 7px; color: var(--color-text-primary); background: var(--color-surface); font: inherit; }
+.adminCampaignEditor label > small { justify-self: end; color: var(--color-text-muted); font-weight: 400; }
+.adminCampaignEditor fieldset { margin: 0; padding: 12px; border: 1px solid var(--color-border); border-radius: 7px; }
+.adminCampaignEditor fieldset legend { padding: 0 5px; color: var(--color-text-secondary-strong); font-size: 12px; font-weight: 700; }
+.adminCampaignEditor fieldset p { margin: 0 0 9px; font-size: 11px; }
+.adminCampaignEditor fieldset > div { display: flex; flex-wrap: wrap; gap: 12px; }
+.adminCampaignEditor fieldset label { display: inline-flex; align-items: center; gap: 5px; color: var(--color-text-secondary); font-size: 12px; cursor: pointer; }
+.adminCampaignEditor fieldset input { width: auto; accent-color: var(--color-action-primary); cursor: pointer; }
+.adminCampaignPreview { min-height: 100px; padding: 14px; border: 1px dashed var(--color-border-strong); border-radius: 7px; background: var(--color-canvas-subtle); }
+.adminCampaignPreview > strong { display: block; margin-bottom: 8px; color: var(--color-text-primary); }
+.adminCampaignCounts { font-size: 11px; }
+.adminCampaignActions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.adminCampaignActions input[type="datetime-local"] { width: auto; min-height: 34px; padding: 6px 8px; font-size: 12px; }
+
+@media (max-width: 620px) {
+  .adminNotificationSettingRow { grid-template-columns: 1fr; gap: 8px; }
+  .adminCampaignLayout { grid-template-columns: 1fr; }
+  .adminCampaignEditor { padding: 14px 0 0; border-top: 1px solid var(--color-border); border-left: 0; }
+  .adminNotificationsContent,
+  .adminNotificationsStack,
+  .adminNotificationsContent > .panel,
+  .adminCampaignLayout,
+  .adminCampaignList,
+  .adminCampaignEditor,
+  .adminCampaignEditor fieldset,
+  .adminCampaignPreview { min-width: 0; max-width: 100%; }
+  .adminCampaignEditor > label,
+  .adminCampaignEditor input,
+  .adminCampaignEditor textarea { min-width: 0; max-width: 100%; }
+  .adminCampaignPanel .adminSettingsSectionHeader { flex-wrap: wrap; }
+  .adminSettingsSectionHeader .adminCampaignNew { width: 100%; margin-left: 0; justify-content: center; }
+  .adminCampaignActions { display: grid; grid-template-columns: 1fr; }
+  .adminCampaignActions input[type="datetime-local"],
+  .adminCampaignActions button { width: 100%; min-width: 0; }
+  .adminCampaignPreview { overflow-wrap: anywhere; }
+}
+
+.adminUsersStack,
+.adminAuditStack,
+.adminSettingsPageStack,
+.adminMaintenanceStack,
+.adminStatusStack {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  max-width: none;
+}
+
+.adminUsersLayout {
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+}
+
+.adminUsersMain {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  gap: 18px;
+}
+
+.adminAuditLayout {
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 18px;
+}
+
+.adminUsersFilters {
+  display: grid;
+  gap: 18px;
+  padding: 24px;
+}
+
+.adminUsersHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.adminUsersTitle {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.adminUsersTitle > svg {
+  width: 25px;
+  height: 25px;
+  flex: 0 0 auto;
+  color: var(--color-action-primary);
+}
+
+.adminUsersTitle h2 {
+  margin: 0 0 6px;
+  color: var(--color-text-primary);
+}
+
+.adminAuditTitle h2 {
+  margin-bottom: 0;
+}
+
+.adminUsersTitle p {
+  margin: 0;
+}
+
+.adminUsersFilterRow {
+  display: grid;
+  grid-template-columns: minmax(190px, 1.5fr) repeat(2, minmax(140px, 0.75fr)) auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.adminAuditFilterRow {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) auto;
+}
+
+.adminUsersFilterRow label {
+  min-width: 0;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.adminUsersFilterRow input,
+.adminUsersFilterRow .customSelectButton {
+  margin-top: 6px;
+  min-width: 0;
+  height: 38px;
+  padding: 8px 10px;
+  font-size: 13px;
+}
+
+.adminUsersFilterRow .customSelectButton,
+.adminUsersFilterActions button {
+  cursor: pointer;
+}
+
+.adminUsersFilterActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.adminUsersApplyButton,
+.adminUsersResetButton {
+  min-height: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border-radius: 7px;
+  gap: 7px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.adminUsersApplyButton:disabled,
+.adminUsersResetButton:disabled {
+  cursor: not-allowed;
+}
+
+.adminUsersApplyButton {
+  border: 1px solid var(--color-action-primary);
+  color: var(--color-text-on-accent);
+  background: var(--color-action-primary);
+}
+
+.adminUsersApplyButton:hover,
+.adminUsersApplyButton:focus-visible {
+  border-color: var(--color-action-primary-hover);
+  background: var(--color-action-primary-hover);
+  outline: none;
+}
+
+.adminUsersResetButton {
+  border: 1px solid var(--color-border-strong);
+  color: var(--color-text-secondary-strong);
+  background: var(--color-surface);
+}
+
+.adminUsersResetButton:hover,
+.adminUsersResetButton:focus-visible {
+  border-color: var(--color-action-border-subtle);
+  color: var(--color-action-primary-hover);
+  background: var(--color-canvas);
+  outline: none;
+}
+
+.adminUsersResetButton svg {
+  width: 17px;
+  height: 17px;
+}
+
+.adminUsersStats {
+  max-width: 100%;
+  min-height: 104px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  padding: 16px 20px;
+}
+
+.adminUserStat {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 20px;
+}
+
+.adminUserStat + .adminUserStat {
+  border-left: 1px solid var(--color-border);
+}
+
+.adminUserStatIcon {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+  color: var(--color-action-primary);
+}
+
+.adminUserStatIcon.active {
+  color: var(--color-success);
+}
+
+.adminUserStatIcon.blocked {
+  color: var(--color-danger);
+}
+
+.adminUserStat div {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+}
+
+.adminUserStat span {
+  overflow: hidden;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adminUserStat strong {
+  color: var(--color-text-primary);
+  font-size: 20px;
+}
+
+.adminUsersStatsLoading {
+  display: grid;
+  grid-column: 1 / -1;
+  place-items: center;
+  color: var(--color-action-primary);
+}
+
+.adminUsersStatsLoading svg,
+.adminUsersLoading svg {
+  width: 38px;
+  height: 38px;
+}
+
+.adminUsersTablePanel {
+  max-width: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  padding: 0;
+  overflow: hidden;
+}
+
+.adminUsersTableViewport {
+  position: relative;
+  min-height: 0;
+  overflow: auto;
+  padding: 18px 24px 0;
+}
+
+.auditTable.adminUsersTable {
+  width: 100%;
+  min-width: 0;
+  table-layout: fixed;
+}
+
+.adminUsersTable th:nth-child(1) {
+  width: 18%;
+}
+
+.adminUsersTable th:nth-child(2) {
+  width: 24%;
+}
+
+.adminUsersTable th:nth-child(3) {
+  width: 15%;
+}
+
+.adminUsersTable th:nth-child(4),
+.adminUsersTable th:nth-child(5) {
+  width: 12%;
+}
+
+.adminUsersTable th:nth-child(6) {
+  width: 15%;
+}
+
+.adminUsersTable th:nth-child(7) {
+  width: 4%;
+}
+
+.adminUsersTable td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.auditTable.adminAuditTable {
+  width: 100%;
+  min-width: 0;
+  table-layout: fixed;
+}
+
+.adminAuditTable th:nth-child(1) {
+  width: 18%;
+}
+
+.adminAuditTable th:nth-child(2) {
+  width: 22%;
+}
+
+.adminAuditTable th:nth-child(3) {
+  width: 16%;
+}
+
+.adminAuditTable th:nth-child(4) {
+  width: 20%;
+}
+
+.adminAuditTable th:nth-child(5) {
+  width: 16%;
+}
+
+.adminAuditTable th:nth-child(6) {
+  width: 8%;
+}
+
+.adminAuditTable td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adminAuditTable td.adminAuditEventCell {
+  overflow: visible;
+}
+
+.adminAuditEventLabel {
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  max-width: 100%;
+}
+
+.adminAuditEventName {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adminAuditEventCodeInfo {
+  position: relative;
+  display: inline-grid;
+  flex: 0 0 auto;
+  place-items: center;
+  color: var(--color-primary);
+  cursor: help;
+  outline: none;
+}
+
+.adminAuditEventCodeInfo > svg {
+  width: 15px;
+  height: 15px;
+}
+
+.adminAuditEventCodeInfo:focus-visible {
+  border-radius: 3px;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary) 24%, transparent);
+}
+
+.adminAuditEventCodeTooltip {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 7px);
+  left: 50%;
+  visibility: hidden;
+  width: max-content;
+  max-width: min(320px, 70vw);
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: var(--color-text-primary);
+  box-shadow: 0 8px 24px rgb(var(--color-shadow-rgb) / 20%);
+  color: var(--color-surface);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.35;
+  opacity: 0;
+  pointer-events: none;
+  text-align: left;
+  transform: translate(-50%, -3px);
+  transition: opacity 120ms ease, transform 120ms ease, visibility 120ms ease;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.adminAuditEventCodeInfo:hover .adminAuditEventCodeTooltip,
+.adminAuditEventCodeInfo:focus .adminAuditEventCodeTooltip {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.adminAuditRow {
+  transition: background-color 120ms ease;
+}
+
+.adminAuditRow:hover {
+  background: var(--color-action-surface);
+}
+
+.adminAuditDetailsAction {
+  width: 46px;
+  text-align: right !important;
+}
+
+.adminAuditDetailsButton {
+  width: 32px;
+  height: 32px;
+  display: inline-grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 7px;
+  color: var(--color-text-secondary);
+  background: transparent;
+  cursor: pointer;
+}
+
+.adminAuditDetailsButton:hover,
+.adminAuditDetailsButton:focus-visible {
+  color: var(--color-action-primary);
+  background: var(--color-action-surface);
+  outline: none;
+}
+
+.adminAuditDetailsButton svg {
+  width: 17px;
+  height: 17px;
+}
+
+.adminAuditDetailsCell {
+  white-space: normal !important;
+  background: var(--color-canvas-subtle);
+}
+
+.adminAuditDetails {
+  display: grid;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 7px;
+  background: var(--color-canvas-subtle);
+}
+
+.adminAuditMeta {
+  margin: 0;
+}
+
+.adminAuditMeta div {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: 12px;
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+.adminAuditMeta dt,
+.adminAuditMeta dd {
+  margin: 0;
+}
+
+.adminAuditMeta dd {
+  overflow-wrap: anywhere;
+  color: var(--color-text-primary);
+}
+
+.adminAuditPayload {
+  display: grid;
+  gap: 6px;
+}
+
+.adminAuditPayload strong {
+  color: var(--color-text-secondary-strong);
+  font-size: 13px;
+}
+
+.adminAuditPayload .payloadBlock {
+  max-height: 180px;
+  overflow: auto;
+}
+
+.adminUsersTable tbody tr {
+  cursor: pointer;
+  transition: background-color 120ms ease;
+}
+
+.adminUsersTable tbody tr:hover,
+.adminUsersTable tbody tr.selected,
+.adminUsersTable tbody tr:focus-visible {
+  background: var(--color-action-surface);
+  outline: none;
+}
+
+.adminUserTableIdentity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.adminUserAvatar {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  object-fit: cover;
+  color: var(--color-action-primary);
+  background: var(--color-action-surface);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.adminUserStatus {
+  font-weight: 700;
+}
+
+.adminUserStatus.active {
+  color: var(--color-success-strong);
+}
+
+.adminUserStatus.blocked {
+  color: var(--color-danger);
+}
+
+.adminUsersRowArrow {
+  width: 34px;
+  color: var(--color-text-subtle);
+  text-align: right !important;
+}
+
+.adminUsersRowArrow svg {
+  width: 17px;
+  height: 17px;
+}
+
+.adminUsersLoading {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--color-action-primary);
+  background: rgb(var(--color-surface-rgb) / 68%);
+  cursor: progress;
+}
+
+.adminUsersEmpty {
+  min-height: 100%;
+  display: grid;
+  place-content: center;
+  place-items: center;
+  gap: 5px;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.adminUsersEmpty svg {
+  width: 34px;
+  height: 34px;
+  margin-bottom: 3px;
+  color: var(--color-action-primary);
+}
+
+.adminUsersEmpty strong {
+  color: var(--color-text-primary);
+}
+
+.adminUsersTableFooter {
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 24px;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+.adminUsersPagination {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.adminUsersPageButton {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 7px;
+  color: var(--color-text-secondary);
+  background: transparent;
+}
+
+.adminUsersPageButton:hover:not(:disabled),
+.adminUsersPageButton:focus-visible {
+  color: var(--color-action-primary);
+  background: var(--color-action-surface);
+  outline: none;
+}
+
+.adminUsersPageButton:disabled {
+  color: var(--color-border-strong);
+  cursor: not-allowed;
+}
+
+.adminUsersPageButton svg {
+  width: 18px;
+  height: 18px;
+}
+
+.adminUserDetailsDialog {
+  width: min(100%, 620px);
+  max-height: calc(100dvh - 24px);
+}
+
+.adminUserDetailsDialog .responsiveDetailsContent {
+  height: min(620px, calc(100dvh - 100px));
+  padding: 20px;
+}
+
+.adminUserDetailsDialog .adminUserDetails {
+  height: 100%;
+}
+
+.adminUserDetails {
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 20px;
+}
+
+.adminUserIdentityPanel {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  gap: 16px;
+  align-items: center;
+}
+
+.adminUserIdentityPanel .adminUserAvatar {
+  width: 76px;
+  height: 76px;
+  font-size: 27px;
+}
+
+.adminUserIdentityPanel > div {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.adminUserIdentityPanel strong {
+  overflow: hidden;
+  color: var(--color-text-primary);
+  font-size: 18px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adminUserIdentityPanel > div > span {
+  overflow: hidden;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adminUserBadges {
+  display: flex !important;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 7px;
+}
+
+.adminUserBadges span {
+  padding: 4px 8px;
+  border-radius: 5px;
+  color: var(--color-text-secondary);
+  background: var(--color-surface-subtle);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.adminUserBadges span.active {
+  color: var(--color-success-strong);
+  background: var(--color-success-surface);
+}
+
+.adminUserBadges span.blocked {
+  color: var(--color-danger);
+  background: var(--color-danger-surface);
+}
+
+.adminUserRoleBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.adminUserRoleBadges span {
+  padding: 3px 7px;
+  border-radius: 5px;
+  color: var(--color-text-secondary);
+  background: var(--color-surface-subtle);
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.adminUserDetailsList {
+  min-height: 0;
+  display: grid;
+  align-content: start;
+  gap: 0;
+  margin: 0;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.adminUserDetailsList div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--color-surface-hover);
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+.adminUserDetailsList dt,
+.adminUserDetailsList dd {
+  margin: 0;
+}
+
+.adminUserDetailsList dd {
+  color: var(--color-text-primary);
+  text-align: right;
+}
+
+.adminUserDetailsActions {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+
+.adminUserDetailsActions button {
+  width: 100%;
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.adminUserDetailsActions button:disabled {
+  cursor: not-allowed;
+}
+
+.adminUserDetailsActions button svg {
+  width: 17px;
+  height: 17px;
+}
+
+.adminUserActionPrimary,
+.adminUserActionSecondary,
+.adminUserActionDanger {
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.adminUserActionPrimary {
+  border: 1px solid var(--color-action-primary);
+  color: var(--color-text-on-accent);
+  background: var(--color-action-primary);
+}
+
+.adminUserActionPrimary:hover:not(:disabled) {
+  border-color: var(--color-action-primary-hover);
+  background: var(--color-action-primary-hover);
+}
+
+.adminUserActionSecondary {
+  border: 1px solid var(--color-action-border);
+  color: var(--color-action-primary);
+  background: var(--color-surface);
+}
+
+.adminUserActionSecondary:hover:not(:disabled) {
+  background: var(--color-action-surface);
+}
+
+.adminUserActionDanger {
+  border: 1px solid var(--color-danger-border);
+  color: var(--color-danger);
+  background: var(--color-surface);
+}
+
+.adminUserActionDanger:hover:not(:disabled) {
+  border-color: var(--color-danger-border-strong);
+  background: var(--color-danger-surface);
+}
+
+.adminUserDetailsPlaceholder {
+  min-height: 100%;
+  display: grid;
+  place-content: center;
+  place-items: center;
+  gap: 6px;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.adminUserDetailsPlaceholder svg {
+  width: 42px;
+  height: 42px;
+  margin-bottom: 4px;
+  color: var(--color-action-primary);
+}
+
+.adminUserDetailsPlaceholder strong {
+  color: var(--color-text-primary);
+}
+
+@media (max-width: 1100px) {
+  .adminUsersFilterRow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .adminUsersFilterActions {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 861px) and (max-width: 1450px) {
+  .adminUsersFilterRow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .adminUsersFilterActions {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 860px) {
+  .adminUsersStack,
+  .adminAuditStack,
+  .adminUsersLayout,
+  .adminAuditLayout {
+    height: auto;
+  }
+
+  .adminUsersLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .adminUsersMain {
+    min-height: 760px;
+  }
+
+}
+
+@media (max-width: 520px) {
+  .auditTable.adminUsersTable {
+    width: 860px;
+    min-width: 860px;
+  }
+
+  .auditTable.adminAuditTable {
+    width: 820px;
+    min-width: 820px;
+  }
+
+  .adminUsersTableViewport {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+
+  .adminUserMobileDetails .responsiveDetailsContent {
+    padding: 20px;
+  }
+
+  .adminUserMobileDetails .adminUserDetails {
+    min-height: auto;
+    grid-template-rows: auto auto auto;
+  }
+
+  .adminUserMobileDetails .adminUserDetailsList {
+    overflow: visible;
+    padding-right: 0;
+  }
+
+  .adminUsersFilterRow,
+  .adminUsersStats {
+    grid-template-columns: 1fr;
+  }
+
+  .adminUsersFilterActions {
+    grid-column: auto;
+  }
+
+  .adminUserStat {
+    padding: 10px 0;
+  }
+
+  .adminUserStat + .adminUserStat {
+    border-top: 1px solid var(--color-border);
+    border-left: 0;
+  }
+
+  .adminUsersTableFooter {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+.metricGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.metricCard {
+  min-height: 104px;
+  display: grid;
+  align-content: space-between;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+}
+
+.metricCard span {
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+.metricCard strong {
+  color: var(--color-text-primary);
+  font-size: 20px;
+}
+
+.metricCard.ok {
+  border-color: var(--color-success-border);
+}
+
+.metricCard.degraded {
+  border-color: var(--color-danger-border);
+}
+
+.notice.inline {
+  margin: 14px 0 0;
+}
+
+.widePanel {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.auditFilters {
+  max-width: 100%;
+}
+
+.filterGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin: 16px 0;
+}
+
+.auditTable {
+  width: 100%;
+  min-width: 780px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.compactTable {
+  min-width: 0;
+}
+
+.auditTable th,
+.auditTable td {
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.auditTable th {
+  color: var(--color-text-muted);
+  font-weight: 700;
+}
+
+.payloadBlock {
+  margin: 0;
+  padding: 12px;
+  border-radius: 6px;
+  overflow-x: auto;
+  color: var(--color-text-primary);
+  background: var(--color-canvas-subtle);
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.adminSettingsStack {
+  display: grid;
+  gap: 18px;
+}
+
+.adminSettingsPanel,
+.adminAdvancedSettings {
+  max-width: 100%;
+}
+
+.adminSettingsHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.adminSettingsHeader h2,
+.adminAdvancedSettings strong {
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+.adminSettingsHeader p {
+  margin-top: 6px;
+}
+
+.adminSettingsActions {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 10px;
+}
+
+.adminSettingsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 24px;
+  margin-top: 20px;
+}
+
+.adminSettingRow {
+  min-width: 0;
+  padding: 16px 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.adminSettingHeading,
+.adminSettingControl {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.adminSettingHeading {
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.adminSettingLabel {
+  color: var(--color-text-secondary-strong);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.adminSettingSource {
+  flex: 0 0 auto;
+  padding: 3px 8px;
+  border-radius: 999px;
+  color: var(--color-text-secondary);
+  background: var(--color-surface-subtle);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.adminSettingSource.database {
+  color: var(--color-info-700);
+  background: var(--color-info-100);
+}
+
+.adminSettingSource.environment {
+  color: var(--color-warning-text);
+  background: var(--color-warning-surface);
+}
+
+.adminSettingControl input,
+.adminSettingControl .customSelectButton {
+  min-width: 0;
+  flex: 1;
+}
+
+.adminSettingToggle {
+  display: inline-flex;
+  flex: 1;
+  grid-template-columns: none;
+  align-items: center;
+  gap: 9px;
+}
+
+.adminSettingToggle input[type='checkbox'] {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.adminSettingRow small {
+  display: block;
+  margin-top: 7px;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+.adminSettingRow.locked .adminSettingControl {
+  opacity: 0.72;
+}
+
+.adminEmailTest {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) auto;
+  gap: 12px;
+  align-items: end;
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border);
+}
+
+.adminAdvancedSettings {
+  padding: 0;
+}
+
+.adminAdvancedSettings summary {
+  display: flex;
+  padding: 20px 24px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.adminAdvancedSettings summary::-webkit-details-marker {
+  display: none;
+}
+
+.adminAdvancedSettings summary span {
+  display: grid;
+  gap: 4px;
+}
+
+.adminAdvancedSettings summary small {
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+.adminAdvancedSettings[open] summary {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.adminAdvancedSettings .adminSettingsGrid {
+  padding: 0 24px 20px;
+}
+
+.tierQuotaGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.tierQuotaGroup {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-canvas-subtle);
+}
+
+.tierQuotaGroup h3 {
+  margin: 0 0 12px;
+  color: var(--color-text-primary);
+  font-size: 15px;
+}
+
+.tierQuotaRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 116px auto;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.tierQuotaRow + .tierQuotaRow {
+  border-top: 1px solid var(--color-border);
+}
+
+.tierQuotaRow span {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+}
+
+.tierQuotaRow strong {
+  color: var(--color-text-secondary-strong);
+  font-size: 13px;
+}
+
+.tierQuotaRow small {
+  color: var(--color-text-muted);
+  font-size: 11px;
+}
+
+.tierQuotaRow input {
+  min-width: 0;
+}
+
+.adminSettingsStack {
+  width: 100%;
+  max-width: none;
+  min-height: 0;
+}
+
+.adminSettingsStack > .adminSettingsPanel {
+  width: 100%;
+}
+
+.adminSettingsSection,
+.adminTierQuotasPanel {
+  display: grid;
+  gap: 18px;
+}
+
+.adminTierProgressionPanel {
+  display: grid;
+  gap: 18px;
+}
+
+.tierProgressionForm {
+  display: grid;
+  gap: 18px;
+}
+
+.tierProgressionToggle {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 15px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+}
+
+.tierProgressionToggle > span {
+  display: grid;
+  gap: 4px;
+}
+
+.tierProgressionSwitch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  flex: 0 0 auto;
+  color: var(--color-text-secondary-strong);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.tierProgressionSwitch button.securityToggle {
+  position: relative;
+  width: 58px;
+  min-width: 58px;
+  max-width: 58px;
+  height: 30px;
+  min-height: 30px;
+  display: block;
+  flex: 0 0 58px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 999px;
+  background: var(--color-border-strong);
+  box-shadow: none;
+  box-sizing: border-box;
+  appearance: none;
+  cursor: pointer;
+  transform: scale(.86);
+  transform-origin: right center;
+}
+
+.tierProgressionSwitch button.securityToggle > span {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--color-surface);
+  box-shadow: 0 2px 5px rgb(var(--color-shadow-rgb) / 0.18);
+  transition: transform 160ms ease;
+}
+
+.tierProgressionSwitch button.securityToggle[aria-checked="true"] {
+  background: var(--color-action-primary);
+}
+
+.tierProgressionSwitch button.securityToggle[aria-checked="true"] > span {
+  transform: translateX(28px);
+}
+
+.tierProgressionSwitch button.securityToggle:hover:not(:disabled)[aria-checked="true"] {
+  background: var(--color-action-primary-hover);
+}
+
+.tierProgressionSwitch button.securityToggle:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+.tierProgressionSwitch button.securityToggle:focus-visible {
+  outline: 2px solid var(--color-action-border);
+  outline-offset: 3px;
+}
+
+.tierProgressionToggle strong {
+  color: var(--color-text-primary);
+  font-size: 14px;
+}
+
+.tierProgressionToggle small {
+  color: var(--color-text-muted);
+  line-height: 1.45;
+}
+
+.tierProgressionThresholds {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.tierProgressionThresholds label {
+  display: grid;
+  gap: 7px;
+}
+
+.tierProgressionThresholds label > span {
+  color: var(--color-text-secondary-strong);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.tierProgressionThresholds input {
+  width: 100%;
+  height: 40px;
+  padding: 8px 11px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 7px;
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+  font: inherit;
+}
+
+.tierProgressionThresholds input:focus {
+  border-color: var(--color-action-border);
+  outline: 2px solid var(--color-action-border);
+  outline-offset: 1px;
+}
+
+.tierProgressionActions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.tierProgressionActions button {
+  min-height: 38px;
+  padding: 8px 14px;
+  border: 1px solid var(--color-action-primary);
+  border-radius: 7px;
+  color: var(--color-text-on-accent);
+  background: var(--color-action-primary);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tierProgressionActions button:disabled {
+  opacity: .6;
+  cursor: wait;
+}
+
+@media (max-width: 640px) {
+  .tierProgressionToggle {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .tierProgressionSwitch {
+    justify-content: space-between;
+  }
+
+  .tierProgressionThresholds {
+    grid-template-columns: 1fr;
+  }
+}
+
+.adminSettingsLoading { min-height: 180px; }
+
+.adminSettingsSectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.adminSettingsSectionHeader svg {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  color: var(--color-action-primary);
+}
+
+.adminSettingsSectionHeader h2 {
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+.adminSettingsSectionLead {
+  margin: -6px 0 0;
+  color: var(--color-text-secondary);
+}
+
+.adminMaintenancePanel {
+  width: 100%;
+  max-width: none;
+  display: grid;
+  align-content: start;
+  gap: 18px;
+}
+
+.adminMaintenanceList {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.adminMaintenanceRow {
+  min-width: 0;
+  min-height: 78px;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.adminMaintenanceRowIcon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  color: var(--color-action-primary);
+}
+
+.adminMaintenanceRowIcon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.adminMaintenanceRowCopy {
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+}
+
+.adminMaintenanceRowCopy strong {
+  color: var(--color-text-primary);
+  font-size: 14px;
+}
+
+.adminMaintenanceRowCopy small {
+  color: var(--color-text-muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.adminMaintenanceAction {
+  min-width: 132px;
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1px solid var(--color-action-primary);
+  border-radius: 7px;
+  color: var(--color-text-on-accent);
+  background: var(--color-action-primary);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.adminMaintenanceAction:hover:not(:disabled) {
+  border-color: var(--color-action-primary-hover);
+  background: var(--color-action-primary-hover);
+}
+
+.adminMaintenanceAction:focus-visible {
+  outline: 2px solid var(--color-action-border);
+  outline-offset: 2px;
+}
+
+.adminMaintenanceAction:disabled {
+  opacity: .6;
+  cursor: wait;
+}
+
+.adminMaintenanceAction svg {
+  width: 18px;
+  height: 18px;
+}
+
+.adminMaintenanceMobileActionIcon {
+  display: none;
+}
+
+.adminSettingsGrid {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  margin-top: 0;
+}
+
+.adminSettingRow {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(180px, 0.55fr) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.adminSettingValueCell {
+  min-width: 0;
+}
+
+.adminSettingValueWithAction {
+  width: 100%;
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 7px;
+}
+
+.adminSettingValueWithAction .adminSettingDisplayValue {
+  flex: 1 1 auto;
+}
+
+.adminSettingInlineForm {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 42px 42px;
+  align-items: center;
+  gap: 8px;
+}
+
+.adminSettingInlineForm > input,
+.adminSettingInlineForm > .customSelect {
+  width: 100%;
+  min-width: 0;
+  min-height: 42px;
+  border-radius: 8px;
+}
+
+.adminSettingInlineForm > .adminSettingToggle {
+  min-height: 42px;
+}
+
+.adminSettingDisplayValue {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--color-text-primary);
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adminIconAction {
+  width: 24px;
+  height: 24px;
+  display: inline-grid;
+  flex: 0 0 auto;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  color: var(--color-action-primary);
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.adminIconAction:hover {
+  background: var(--color-action-surface);
+}
+
+.adminIconAction:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+.adminIconAction:disabled {
+  opacity: .55;
+  cursor: wait;
+}
+
+.adminIconAction svg {
+  width: 16px;
+  height: 16px;
+}
+
+.adminSettingInlineForm .adminIconAction {
+  width: 42px;
+  height: 42px;
+}
+
+.adminSettingInlineForm .adminIconAction svg {
+  width: 22px;
+  height: 22px;
+}
+
+.adminSettingSaveAction {
+  color: var(--color-success);
+}
+
+.adminSettingCancelAction {
+  color: var(--color-danger);
+}
+
+.adminSettingResetAction {
+  color: var(--color-text-muted);
+}
+
+.adminSettingRow.locked .adminSettingValueCell {
+  opacity: 0.72;
+}
+
+.adminSettingRow.locked .adminSettingSource {
+  opacity: 1;
+}
+
+.tierQuotaRow {
+  grid-template-columns: minmax(0, 1fr) minmax(0, auto);
+  gap: 12px;
+  min-width: 0;
+}
+
+.tierQuotaLabel {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tierQuotaValue {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.tierQuotaValue > span {
+  min-width: 0;
+  display: block;
+  overflow: hidden;
+  color: var(--color-text-primary);
+  font-size: 13px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.tierQuotaEditForm {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 34px 34px;
+  align-items: center;
+  gap: 5px;
+}
+
+.tierQuotaEditForm input {
+  width: 100%;
+  min-height: 36px;
+  border-radius: 7px;
+}
+
+.tierQuotaEditForm .adminIconAction {
+  width: 34px;
+  height: 34px;
+}
+
+.tierQuotaEditForm .adminIconAction svg {
+  width: 18px;
+  height: 18px;
+}
+
+@media (max-width: 860px) {
+  .adminSettingRow {
+    grid-template-columns: minmax(140px, 0.5fr) minmax(0, 1fr);
+  }
+
+  .adminSettingSource {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
+
+@media (max-width: 520px) {
+  .adminSettingRow {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .adminSettingSource {
+    grid-column: auto;
+  }
+
+  .tierQuotaGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.adminStatusLayout {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.adminStatusHeader {
+  width: 100%;
+  max-width: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 22px;
+}
+
+.adminStatusRefreshControls {
+  display: flex;
+  align-items: center;
+}
+
+.adminStatusRefreshControls button {
+  cursor: pointer;
+}
+
+.adminStatusNotice {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+.adminStatusLoading {
+  width: 100%;
+  max-width: none;
+  min-height: 240px;
+  display: grid;
+  flex: 1 1 auto;
+  place-items: center;
+  color: var(--color-action-primary);
+}
+
+.adminStatusLoading svg {
+  width: 42px;
+  height: 42px;
+}
+
+.adminStatusServiceGrid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 14px;
+}
+
+.adminServiceCard {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  padding: 18px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+  box-shadow: 0 18px 45px rgb(var(--color-shadow-rgb) / 0.05);
+}
+
+.adminServiceCard.ok {
+  border-color: var(--color-success-border);
+}
+
+.adminServiceCard.degraded {
+  border-color: var(--color-danger-border);
+}
+
+.adminServiceCardTitle {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.adminServiceCardTitle svg {
+  width: 23px;
+  height: 23px;
+  flex: 0 0 auto;
+  color: var(--color-action-primary);
+}
+
+.adminServiceCard.degraded .adminServiceCardTitle svg {
+  color: var(--color-danger);
+}
+
+.adminServiceCardValue {
+  color: var(--color-text-primary);
+  font-size: 19px;
+}
+
+.adminServiceStatus {
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  color: var(--color-success-strong);
+  background: var(--color-success-surface);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.adminServiceStatus > span,
+.adminInlineStatus > span {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.adminServiceCard.degraded .adminServiceStatus {
+  color: var(--color-danger);
+  background: var(--color-danger-surface);
+}
+
+.adminServiceCard.neutral .adminServiceStatus {
+  color: var(--color-text-muted);
+  background: var(--color-surface-subtle);
+}
+
+.adminServiceDetails,
+.adminStatusDetailsList {
+  min-width: 0;
+  display: grid;
+  gap: 0;
+  margin: 0;
+}
+
+.adminServiceDetails {
+  margin-top: 2px;
+}
+
+.adminServiceDetails div,
+.adminStatusDetailsList div {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 7px 0;
+  border-top: 1px solid var(--color-surface-hover);
+  font-size: 12px;
+}
+
+.adminServiceDetails dt,
+.adminServiceDetails dd,
+.adminStatusDetailsList dt,
+.adminStatusDetailsList dd {
+  min-width: 0;
+  margin: 0;
+}
+
+.adminServiceDetails dt,
+.adminStatusDetailsList dt {
+  color: var(--color-text-muted);
+}
+
+.adminServiceDetails dd,
+.adminStatusDetailsList dd {
+  overflow: hidden;
+  color: var(--color-text-primary);
+  font-weight: 700;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adminServiceDetails div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 58%);
+}
+
+.adminServiceDetails dt {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adminServiceDetails dd {
+  width: 100%;
+}
+
+.adminStatusDetailsList dd.adminStatusEventValue {
+  overflow: visible;
+}
+
+.adminStatusEventValue .adminAuditEventCodeTooltip {
+  right: 0;
+  left: auto;
+  transform: translateY(-3px);
+}
+
+.adminStatusEventValue .adminAuditEventCodeInfo:hover .adminAuditEventCodeTooltip,
+.adminStatusEventValue .adminAuditEventCodeInfo:focus .adminAuditEventCodeTooltip {
+  transform: translateY(0);
+}
+
+.adminStatusDetailGrid {
+  min-height: 0;
+  display: grid;
+  flex: 1 1 auto;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.adminStatusDetailPanel {
+  width: 100%;
+  max-width: none;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+}
+
+.adminStatusPanelHeader {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.adminStatusPanelHeader svg {
+  width: 23px;
+  height: 23px;
+  flex: 0 0 auto;
+  color: var(--color-action-primary);
+}
+
+.adminStatusPanelHeader h3 {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 17px;
+}
+
+.adminStatusDetailsList.compact div {
+  padding: 8px 0;
+}
+
+.adminInlineStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.adminInlineStatus.healthy {
+  color: var(--color-success-strong);
+}
+
+.adminInlineStatus.degraded,
+.adminInlineStatus.unavailable {
+  color: var(--color-danger);
+}
+
+.adminLastTask {
+  display: grid;
+  gap: 10px;
+  padding-top: 4px;
+}
+
+.adminLastTask > span {
+  color: var(--color-text-muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.adminLastTaskHeading {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.adminLastTaskHeading strong {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--color-action-primary);
+  font-size: 12px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adminTaskStatus {
+  flex: 0 0 auto;
+  padding: 4px 8px;
+  border-radius: 999px;
+  color: var(--color-text-secondary);
+  background: var(--color-surface-subtle);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.adminTaskStatus.succeeded {
+  color: var(--color-success-strong);
+  background: var(--color-success-surface);
+}
+
+.adminTaskStatus.failed,
+.adminTaskStatus.revoked {
+  color: var(--color-danger);
+  background: var(--color-danger-surface);
+}
+
+.adminTaskStatus.running,
+.adminTaskStatus.retrying {
+  color: var(--color-warning-strong);
+  background: var(--color-warning-surface);
+}
+
+.adminStatusEmpty {
+  min-height: 86px;
+  display: grid;
+  place-items: center;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.adminStatusPanelAction {
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: auto;
+  padding: 9px 12px;
+  border: 0;
+  border-radius: 7px;
+  color: var(--color-action-primary);
+  background: var(--color-action-surface);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.adminStatusPanelAction:hover,
+.adminStatusPanelAction:focus-visible {
+  color: var(--color-action-primary-hover);
+  background: var(--color-action-surface-strong);
+  outline: none;
+}
+
+.adminStatusPanelAction svg {
+  width: 17px;
+  height: 17px;
+}
+
+@media (max-width: 1100px) {
+  .adminStatusStack,
+  .adminStatusLayout {
+    height: auto;
+  }
+
+  .adminStatusDetailGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .adminStatusDetailPanel {
+    min-height: 320px;
+  }
+}
+
+@media (min-width: 1101px) and (max-height: 780px) {
+  .adminStatusDetailGrid {
+    min-height: 320px;
+    flex: 0 0 auto;
+  }
+}
+
+@media (max-width: 620px) {
+  .adminStatusHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .adminStatusServiceGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .adminSettingsPageStack {
+    height: auto;
+    align-content: start;
+  }
+
+  .adminStatusLayout {
+    gap: 14px;
+    overflow: visible;
+    padding-right: 0;
+  }
+
+  .adminStatusHeader {
+    display: none;
+  }
+
+  .adminStatusServiceGrid.mobile {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .adminMobileVersionCard {
+    min-width: 0;
+    min-height: 62px;
+    display: flex;
+    grid-column: 1 / -1;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 16px;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    background: var(--color-surface);
+    box-shadow: 0 10px 28px rgb(var(--color-shadow-rgb) / 0.05);
+  }
+
+  .adminMobileVersionCard > span {
+    min-width: 0;
+    color: var(--color-text-muted);
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .adminMobileVersionCard > strong {
+    min-width: 0;
+    overflow: hidden;
+    color: var(--color-text-primary);
+    font-size: 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .adminMobileServiceCard {
+    min-width: 0;
+    min-height: 116px;
+    display: grid;
+    grid-template-rows: auto auto minmax(0, 1fr);
+    align-content: start;
+    gap: 7px;
+    padding: 13px;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    background: var(--color-surface);
+    box-shadow: 0 10px 28px rgb(var(--color-shadow-rgb) / 0.05);
+  }
+
+  .adminMobileServiceCard.ok {
+    border-color: var(--color-success-border);
+  }
+
+  .adminMobileServiceCard.degraded {
+    border-color: var(--color-danger-border);
+  }
+
+  .adminMobileServiceCard > header {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .adminMobileServiceCard > header strong {
+    min-width: 0;
+    overflow: hidden;
+    color: var(--color-text-primary);
+    font-size: 13px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .adminMobileServiceStatus {
+    width: 9px;
+    height: 9px;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: var(--color-success);
+    box-shadow: 0 0 0 4px var(--color-success-surface);
+  }
+
+  .adminMobileServiceCard.degraded .adminMobileServiceStatus {
+    background: var(--color-danger);
+    box-shadow: 0 0 0 4px var(--color-danger-surface);
+  }
+
+  .adminMobileServiceCard > span {
+    overflow: hidden;
+    color: var(--color-text-muted);
+    font-size: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .adminMobileServiceCard > b {
+    min-width: 0;
+    align-self: end;
+    overflow: hidden;
+    color: var(--color-text-primary);
+    font-size: 16px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .adminStatusMobileMenu {
+    overflow: hidden;
+    margin-top: 2px;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    background: var(--color-surface-raised);
+    box-shadow: 0 8px 24px rgb(var(--color-shadow-rgb) / 0.06);
+  }
+
+  button.adminStatusMobileMenuRow {
+    width: 100%;
+    min-height: 68px;
+    display: grid;
+    grid-template-columns: 38px minmax(0, 1fr) 20px;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border: 0;
+    border-radius: 0;
+    color: var(--color-text-primary);
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  button.adminStatusMobileMenuRow + button.adminStatusMobileMenuRow {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .adminStatusMobileMenuRow > span {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    color: var(--color-action-primary);
+  }
+
+  .adminStatusMobileMenuRow > span svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .adminStatusMobileMenuRow > strong {
+    min-width: 0;
+    overflow: hidden;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .adminStatusMobileMenuRow > svg {
+    width: 20px;
+    height: 20px;
+    color: var(--color-text-subtle);
+  }
+
+  button.adminStatusMobileMenuRow:focus-visible {
+    background: var(--color-action-surface);
+    outline: 2px solid var(--color-action-border);
+    outline-offset: -2px;
+  }
+
+  .adminStatusMobileSheetContent {
+    padding: 4px 18px 24px;
+  }
+
+  .adminStatusSheetPanel {
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .adminStatusSheetPanel .adminStatusDetailsList div {
+    min-height: 52px;
+    gap: 16px;
+    padding: 14px 0;
+    font-size: 13px;
+  }
+
+  .adminStatusSheetPanel .adminStatusDetailsList > div:first-child {
+    border-top: 0;
+  }
+
+  .adminStatusSheetPanel .adminLastTask {
+    gap: 14px;
+    padding-top: 18px;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .adminStatusSheetPanel .adminLastTask > span {
+    font-size: 13px;
+  }
+
+  .adminStatusSheetPanel .adminLastTaskHeading {
+    display: grid;
+    justify-content: stretch;
+    gap: 10px;
+    padding: 14px;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    background: var(--color-canvas-subtle);
+  }
+
+  .adminStatusSheetPanel .adminLastTaskHeading strong {
+    display: -webkit-box;
+    font-size: 13px;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+    white-space: normal;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .adminStatusSheetPanel .adminTaskStatus {
+    justify-self: start;
+  }
+
+  .adminStatusSheetPanel .adminLastTask > .adminStatusDetailsList {
+    margin-top: 2px;
+  }
+
+  .adminStatusSheetPanel .adminStatusPanelAction {
+    min-height: 42px;
+    margin-top: 12px;
+    font-size: 13px;
+  }
+
+  .adminSettingsMobileLayout,
+  .adminSettingsMobileCategory,
+  .adminSettingsMobileTierContent {
+    min-width: 0;
+    display: grid;
+    align-content: start;
+    gap: 14px;
+  }
+
+  .adminSettingsMobileLayout {
+    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .adminMaintenanceStack {
+    height: auto;
+    align-content: start;
+  }
+
+  .adminMaintenancePanel {
+    padding: 0 0 calc(12px + env(safe-area-inset-bottom, 0px));
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .adminMaintenanceHeader,
+  .adminMaintenancePanel > .adminSettingsSectionLead {
+    display: none;
+  }
+
+  .adminMaintenanceList {
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    background: var(--color-surface-raised);
+    box-shadow: 0 8px 24px rgb(var(--color-shadow-rgb) / 0.06);
+  }
+
+  .adminMaintenanceRow {
+    min-height: 82px;
+    grid-template-columns: 38px minmax(0, 1fr) auto;
+    gap: 12px;
+    padding: 12px 14px;
+    border-top: 0;
+  }
+
+  .adminMaintenanceRow + .adminMaintenanceRow {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .adminMaintenanceRowIcon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .adminMaintenanceRowCopy small {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .adminMaintenanceAction {
+    min-width: 44px;
+    width: 44px;
+    height: 40px;
+    display: inline-grid;
+    place-items: center;
+    padding: 0;
+  }
+
+  .adminMaintenanceAction > span,
+  .adminMaintenanceDesktopActionIcon {
+    display: none;
+  }
+
+  .adminMaintenanceMobileActionIcon {
+    display: block;
+  }
+
+  .adminMaintenanceAction svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  .mobileMenuTransition.forward > .mobileMenuTransitionPane,
+  .mobileMenuTransitionPane.forward {
+    animation: adminMobileMenuFromRight 220ms ease-out both;
+  }
+
+  .mobileMenuTransition.back > .mobileMenuTransitionPane,
+  .mobileMenuTransitionPane.back {
+    animation: adminMobileMenuFromLeft 220ms ease-out both;
+  }
+
+  .adminSettingsMobileMenu {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    background: var(--color-surface-raised);
+    box-shadow: 0 8px 24px rgb(var(--color-shadow-rgb) / 0.06);
+  }
+
+  .adminSettingsMobileRow {
+    width: 100%;
+    min-width: 0;
+    min-height: 68px;
+    display: grid;
+    grid-template-columns: 38px minmax(0, 1fr) 20px;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border: 0;
+    border-radius: 0;
+    color: var(--color-text-primary);
+    background: transparent;
+    text-align: left;
+  }
+
+  .adminSettingsMobileRow.withoutIcon {
+    grid-template-columns: minmax(0, 1fr) 20px;
+  }
+
+  button.adminSettingsMobileRow {
+    cursor: pointer;
+  }
+
+  button.adminSettingsMobileRow:focus-visible,
+  .adminAuditMobileFilterRow:focus-visible,
+  .adminAuditMobileEventRow:focus-visible {
+    background: var(--color-action-surface);
+    outline: 2px solid var(--color-action-border);
+    outline-offset: -2px;
+  }
+
+  .adminSettingsMobileRow + .adminSettingsMobileRow,
+  .adminTierQuotaMobileGroup + .adminTierQuotaMobileGroup,
+  .adminTierQuotaMobileItems .adminSettingsMobileRow + .adminSettingsMobileRow {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .adminSettingsMobileRow.readOnly {
+    cursor: default;
+  }
+
+  .adminSettingsMobileRow:disabled {
+    cursor: not-allowed;
+  }
+
+  .adminSettingsMobileRowIcon {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    color: var(--color-action-primary);
+  }
+
+  .adminSettingsMobileRowIcon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .adminSettingsMobileRowCopy {
+    min-width: 0;
+    display: grid;
+    gap: 4px;
+  }
+
+  .adminSettingsMobileRowCopy strong,
+  .adminSettingsMobileRowCopy small {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .adminSettingsMobileRowCopy strong {
+    color: var(--color-text-primary);
+    font-size: 14px;
+  }
+
+  .adminSettingsMobileRowCopy small {
+    color: var(--color-text-muted);
+    font-size: 12px;
+    line-height: 1.35;
+    white-space: nowrap;
+  }
+
+  .adminSettingsMobileRow > svg {
+    width: 20px;
+    height: 20px;
+    color: var(--color-text-subtle);
+  }
+
+  .adminSettingsMobileBackRow {
+    min-height: 58px;
+  }
+
+  .adminSettingsMobileBackMenu,
+  .adminSettingsMobileEmailTestMenu {
+    box-shadow: none;
+  }
+
+  .adminSettingsMobileBackRow .adminSettingsMobileRowIcon {
+    color: var(--color-text-secondary-strong);
+  }
+
+  .adminSettingsMobileLoading {
+    min-height: 92px;
+  }
+
+  .adminTierQuotaMobileMenu,
+  .adminTierProgressionMobileMenu {
+    box-shadow: none;
+  }
+
+  .adminTierQuotaMobileGroup {
+    min-width: 0;
+  }
+
+  .adminTierQuotaMobileGroup.expanded .adminTierQuotaTierRow {
+    background: var(--color-canvas-subtle);
+  }
+
+  .adminTierQuotaMobileItems {
+    border-top: 1px solid var(--color-border);
+    background: var(--color-canvas-subtle);
+  }
+
+  .adminTierQuotaMobileRow {
+    min-height: 60px;
+    grid-template-columns: minmax(0, 1fr) 20px;
+    padding-left: 66px;
+  }
+
+  .adminTierQuotaMobileRow .adminSettingsMobileRowCopy strong {
+    font-size: 13px;
+  }
+
+  .adminSettingsMobileSheetForm,
+  .adminAuditMobileFilterForm {
+    display: grid;
+    gap: 16px;
+    padding: 18px 16px 0;
+  }
+
+  .adminSettingsMobileSheetForm > input,
+  .adminSettingsMobileSheetForm .customSelectButton,
+  .adminAuditMobileFilterForm input {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .adminSettingsMobileToggleRow {
+    min-height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 10px 0;
+  }
+
+  .adminSettingsMobileToggleRow > span {
+    min-width: 0;
+    color: var(--color-text-primary);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .adminSettingsMobileToggleRow button.securityToggle {
+    position: relative;
+    width: 58px;
+    min-width: 58px;
+    height: 30px;
+    display: block;
+    flex: 0 0 58px;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    border-radius: 999px;
+    background: var(--color-border-strong);
+    box-shadow: none;
+    appearance: none;
+    cursor: pointer;
+    transform: scale(.86);
+    transform-origin: right center;
+  }
+
+  .adminSettingsMobileToggleRow button.securityToggle > span {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    background: var(--color-surface);
+    box-shadow: 0 2px 5px rgb(var(--color-shadow-rgb) / 0.18);
+    transition: transform 160ms ease;
+  }
+
+  .adminSettingsMobileToggleRow button.securityToggle[aria-checked="true"] {
+    background: var(--color-action-primary);
+  }
+
+  .adminSettingsMobileToggleRow button.securityToggle[aria-checked="true"] > span {
+    transform: translateX(28px);
+  }
+
+  .adminSettingsMobileToggleRow button.securityToggle:focus-visible {
+    outline: 2px solid var(--color-action-border);
+    outline-offset: 3px;
+  }
+
+  .adminSettingsMobileSource,
+  .adminSettingsMobileHint {
+    margin: -4px 0 0;
+    color: var(--color-text-muted);
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
+  .adminSettingsMobileReset {
+    width: 100%;
+    min-height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 1px solid var(--color-border-strong);
+    color: var(--color-text-secondary-strong);
+    background: var(--color-surface);
+  }
+
+  .adminSettingsMobileReset svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .adminSettingsMobileSheetForm .dialogActions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin: 0 -16px;
+    padding: 16px 16px calc(16px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--color-border);
+  }
+
+  .adminSettingsMobileSheetForm .dialogActions button {
+    width: 100%;
+    min-width: 0;
+    min-height: 42px;
+  }
+
+  .adminTierProgressionMobileForm > label {
+    display: grid;
+    gap: 7px;
+    color: var(--color-text-secondary-strong);
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .adminTierProgressionMobileForm .tierProgressionToggle {
+    display: grid;
+    gap: 14px;
+  }
+
+  .adminTierProgressionMobileLead {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .adminTierProgressionMobileForm .tierProgressionSwitch {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .adminTierProgressionMobileConfirm {
+    padding: 4px 18px calc(24px + env(safe-area-inset-bottom));
+  }
+
+  .adminAuditMobileLayout {
+    min-width: 0;
+    display: grid;
+    gap: 14px;
+  }
+
+  .adminAuditMobileFilterRow {
+    width: 100%;
+    min-height: 64px;
+    display: grid;
+    grid-template-columns: 38px minmax(0, 1fr) 20px;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 16px;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    color: var(--color-text-primary);
+    background: var(--color-surface-raised);
+    box-shadow: 0 8px 24px rgb(var(--color-shadow-rgb) / 0.06);
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .adminAuditMobileFilterIcon {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    color: var(--color-action-primary);
+  }
+
+  .adminAuditMobileFilterIcon svg {
+    width: 23px;
+    height: 23px;
+  }
+
+  .adminAuditMobileFilterRow > span:nth-child(2) {
+    min-width: 0;
+    display: grid;
+    gap: 3px;
+  }
+
+  .adminAuditMobileFilterRow strong,
+  .adminAuditMobileFilterRow small {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .adminAuditMobileFilterRow strong {
+    font-size: 14px;
+  }
+
+  .adminAuditMobileFilterRow small {
+    color: var(--color-text-muted);
+    font-size: 12px;
+  }
+
+  .adminAuditMobileFilterRow > svg {
+    width: 20px;
+    height: 20px;
+    color: var(--color-text-subtle);
+  }
+
+  .adminAuditMobileEvents {
+    min-width: 0;
+    min-height: 180px;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    background: var(--color-surface-raised);
+  }
+
+  .adminAuditMobileEvents > .adminUsersLoading,
+  .adminAuditMobileEvents > .adminUsersEmpty {
+    min-height: 180px;
+  }
+
+  .adminAuditMobileList {
+    min-width: 0;
+  }
+
+  .adminAuditMobileEventRow {
+    width: 100%;
+    min-width: 0;
+    min-height: 66px;
+    display: grid;
+    grid-template-columns: minmax(94px, .75fr) minmax(0, 1.25fr) 20px;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border: 0;
+    border-radius: 0;
+    color: var(--color-text-primary);
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .adminAuditMobileEventRow + .adminAuditMobileEventRow {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .adminAuditMobileEventRow time {
+    color: var(--color-text-muted);
+    font-size: 11px;
+    line-height: 1.35;
+  }
+
+  .adminAuditMobileEventRow strong {
+    min-width: 0;
+    overflow: hidden;
+    font-size: 13px;
+    line-height: 1.4;
+    text-overflow: ellipsis;
+  }
+
+  .adminAuditMobileEventRow > svg {
+    width: 18px;
+    height: 18px;
+    color: var(--color-text-subtle);
+  }
+
+  .adminAuditMobileEvents .adminUsersTableFooter {
+    min-width: 0;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 14px;
+    white-space: nowrap;
+  }
+
+  .adminAuditMobileEvents .adminUsersTableFooter > span {
+    min-width: 0;
+    overflow: hidden;
+    font-size: 11px;
+    text-overflow: ellipsis;
+  }
+
+  .adminAuditMobileEvents .adminUsersPagination {
+    flex: 0 0 auto;
+    gap: 5px;
+  }
+
+  .adminAuditMobileEvents .adminUsersPagination > span {
+    font-size: 11px;
+  }
+
+  .adminAuditMobileFilterForm label {
+    display: grid;
+    gap: 7px;
+    color: var(--color-text-secondary-strong);
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .adminAuditMobileFilterActions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 0 -16px;
+    padding: 16px 16px calc(16px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--color-border);
+  }
+
+  .adminAuditMobileFilterActions button {
+    width: 100%;
+    min-width: 0;
+    min-height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 9px 12px;
+    border: 1px solid var(--color-action-primary);
+    border-radius: 7px;
+    color: var(--color-text-on-accent);
+    background: var(--color-action-primary);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .adminAuditMobileFilterActions button.secondary {
+    border-color: var(--color-border-strong);
+    color: var(--color-text-secondary-strong);
+    background: var(--color-surface);
+  }
+
+  .adminAuditMobileFilterActions button:not(.secondary):hover,
+  .adminAuditMobileFilterActions button:not(.secondary):focus-visible {
+    border-color: var(--color-action-primary-hover);
+    background: var(--color-action-primary-hover);
+    outline: none;
+  }
+
+  .adminAuditMobileFilterActions button.secondary:hover,
+  .adminAuditMobileFilterActions button.secondary:focus-visible {
+    border-color: var(--color-action-border-subtle);
+    color: var(--color-action-primary-hover);
+    background: var(--color-canvas);
+    outline: none;
+  }
+
+  .adminAuditMobileFilterActions button svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .adminAuditMobileDetails {
+    display: grid;
+    gap: 18px;
+    padding: 4px 18px calc(24px + env(safe-area-inset-bottom));
+  }
+
+  .adminAuditMobileDetails dl {
+    margin: 0;
+  }
+
+  .adminAuditMobileDetails dl > div {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: minmax(92px, .7fr) minmax(0, 1.3fr);
+    gap: 14px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .adminAuditMobileDetails dt,
+  .adminAuditMobileDetails dd {
+    min-width: 0;
+    margin: 0;
+    font-size: 12px;
+    overflow-wrap: anywhere;
+  }
+
+  .adminAuditMobileDetails dt {
+    color: var(--color-text-muted);
+    font-weight: 700;
+  }
+
+  .adminAuditMobileDetails dd {
+    color: var(--color-text-primary);
+  }
+
+  .adminAuditMobileDetails code {
+    font-size: 11px;
+  }
+
+  .adminAuditMobileDetails .payloadBlock {
+    max-height: 240px;
+  }
+}
+
+@media (max-width: 520px) {
+  .adminUsersMain {
+    min-height: 0;
+    display: grid;
+    grid-template-rows: auto auto minmax(180px, 1fr);
+    gap: 14px;
+  }
+
+  .adminUsersStats.mobile {
+    min-height: 0;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .adminUsersStats.mobile .adminUserStat {
+    aspect-ratio: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 8px 6px;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    background: var(--color-surface-raised);
+    box-shadow: 0 8px 24px rgb(var(--color-shadow-rgb) / 0.05);
+    text-align: center;
+  }
+
+  .adminUsersStats.mobile .adminUserStat + .adminUserStat {
+    border: 1px solid var(--color-border);
+  }
+
+  .adminUsersStats.mobile .adminUserStatIcon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .adminUsersStats.mobile .adminUserStat div {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .adminUsersStats.mobile .adminUserStat span {
+    display: -webkit-box;
+    overflow: hidden;
+    font-size: 10px;
+    line-height: 1.2;
+    text-overflow: clip;
+    white-space: normal;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .adminUsersStats.mobile .adminUserStat strong {
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  .adminUsersStats.mobile .adminUsersStatsLoading {
+    min-height: 98px;
+  }
+
+  .adminUsersMobileFilterRow:focus-visible,
+  .adminUsersMobileRow:focus-visible {
+    background: var(--color-action-surface);
+    outline: 2px solid var(--color-action-border);
+    outline-offset: -2px;
+  }
+
+  .adminUsersMobileListPanel {
+    min-width: 0;
+    min-height: 180px;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    background: var(--color-surface-raised);
+  }
+
+  .adminUsersMobileListViewport {
+    position: relative;
+    min-width: 0;
+    min-height: 180px;
+  }
+
+  .adminUsersMobileListViewport > .adminUsersEmpty {
+    min-height: 180px;
+    padding: 18px;
+  }
+
+  .adminUsersMobileList {
+    min-width: 0;
+  }
+
+  .adminUsersMobileRow {
+    width: 100%;
+    min-width: 0;
+    min-height: 64px;
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr);
+    align-items: center;
+    gap: 13px;
+    padding: 10px 16px;
+    border: 0;
+    border-radius: 0;
+    color: var(--color-text-primary);
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .adminUsersMobileRow + .adminUsersMobileRow {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .adminUsersMobileRow .adminUserAvatar {
+    width: 42px;
+    height: 42px;
+    font-size: 16px;
+  }
+
+  .adminUsersMobileRow strong {
+    min-width: 0;
+    overflow: hidden;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .adminUsersMobileListPanel .adminUsersTableFooter {
+    min-width: 0;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 14px;
+    white-space: nowrap;
+  }
+
+  .adminUsersMobileListPanel .adminUsersTableFooter > span {
+    min-width: 0;
+    overflow: hidden;
+    font-size: 11px;
+    text-overflow: ellipsis;
+  }
+
+  .adminUsersMobileListPanel .adminUsersPagination {
+    flex: 0 0 auto;
+    gap: 5px;
+  }
+
+  .adminUsersMobileListPanel .adminUsersPagination > span {
+    font-size: 11px;
+  }
+
+  .adminUsersMobileFilterForm {
+    display: grid;
+    gap: 16px;
+    padding: 18px 16px 0;
+  }
+
+  .adminUsersMobileFilterForm label,
+  .adminUserMobileOperation .dialogField {
+    min-width: 0;
+    display: grid;
+    gap: 7px;
+    color: var(--color-text-secondary-strong);
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .adminUsersMobileFilterForm input,
+  .adminUsersMobileFilterForm .customSelect,
+  .adminUsersMobileFilterForm .customSelectButton,
+  .adminUserMobileOperation .customSelect,
+  .adminUserMobileOperation .customSelectButton {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .adminUsersMobileFilterActions,
+  .adminUserMobileOperationActions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin: 0 -16px;
+    padding: 16px 16px calc(16px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--color-border);
+  }
+
+  .adminUsersMobileFilterActions button,
+  .adminUserMobileOperationActions button {
+    width: 100%;
+    min-width: 0;
+    min-height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 9px 12px;
+    border: 1px solid var(--color-action-primary);
+    border-radius: 7px;
+    color: var(--color-text-on-accent);
+    background: var(--color-action-primary);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .adminUsersMobileFilterActions button.secondary,
+  .adminUserMobileOperationActions button.secondary {
+    border-color: var(--color-border-strong);
+    color: var(--color-text-secondary-strong);
+    background: var(--color-surface);
+  }
+
+  .adminUserMobileOperationActions button.danger {
+    border-color: var(--color-danger);
+    background: var(--color-danger);
+  }
+
+  .adminUsersMobileFilterActions button svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .responsiveDetailsBackdrop.adminUserMobileDetailsBackdrop {
+    top: var(--app-header-height);
+    place-items: stretch;
+    overflow: hidden;
+    padding: 0;
+    background: transparent;
+    backdrop-filter: none;
+  }
+
+  .responsiveDetailsDialog.adminUserMobileDetails {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .adminUserMobileDetails .responsiveDetailsHeader {
+    min-height: 56px;
+    border-bottom-color: var(--color-border);
+  }
+
+  .adminUserMobileDetails .responsiveDetailsHeader h2 {
+    font-size: 16px;
+    font-weight: 750;
+  }
+
+  .adminUserMobileHeaderAction {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    color: var(--color-text-secondary-strong);
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .adminUserMobileHeaderAction:hover,
+  .adminUserMobileHeaderAction:focus-visible,
+  .adminUserMobileHeaderAction.active {
+    color: var(--color-action-primary-hover);
+    background: var(--color-action-surface);
+    outline: none;
+  }
+
+  .adminUserMobileHeaderAction svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .adminUserMobileDetails .responsiveDetailsContent {
+    padding: 0;
+  }
+
+  .adminUserDetails.mobile {
+    min-height: 100%;
+    display: grid;
+    grid-template-rows: auto auto auto;
+    align-content: start;
+    gap: 24px;
+    padding: 26px 18px calc(28px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .adminUserDetails.mobile .adminUserIdentityPanel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .adminUserDetails.mobile .adminUserIdentityPanel .adminUserAvatar {
+    width: 96px;
+    height: 96px;
+    font-size: 34px;
+  }
+
+  .adminUserDetails.mobile .adminUserIdentityPanel > div {
+    justify-items: center;
+    gap: 5px;
+  }
+
+  .adminUserDetails.mobile .adminUserIdentityPanel strong {
+    max-width: min(100%, 320px);
+    font-size: 20px;
+  }
+
+  .adminUserDetails.mobile .adminUserIdentityPanel > div > span {
+    max-width: min(100%, 320px);
+  }
+
+  .adminUserDetails.mobile .adminUserBadges {
+    justify-content: center;
+  }
+
+  .adminUserDetails.mobile .adminUserDetailsList {
+    overflow: visible;
+    padding: 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .adminUserDetails.mobile .adminUserDetailsList div {
+    padding: 14px 0;
+    border-bottom-color: var(--color-border);
+  }
+
+  .adminUserDetails.mobile .adminSelfActionNotice {
+    margin: 0;
+    text-align: center;
+  }
+
+  .adminUserMobileOperation {
+    display: grid;
+    gap: 18px;
+    padding: 8px 16px 0;
+  }
+
+  .adminUserMobileOperation > p {
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  .adminUserMobileOperationActions {
+    margin-top: 2px;
+  }
+}
+
+@media (max-width: 520px) {
+  .adminNotificationsMobileLayout,
+  .adminNotificationsMobileCampaigns {
+    min-width: 0;
+    display: grid;
+    align-content: start;
+    gap: 14px;
+  }
+
+  .adminNotificationsMobileLayout {
+    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .adminNotificationsMobileMenu {
+    align-self: start;
+  }
+
+  .adminNotificationsMobileBackMenu,
+  .adminNotificationsMobileCreateMenu {
+    box-shadow: none;
+  }
+
+  .adminNotificationsMobileHistory {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    background: var(--color-surface-raised);
+    box-shadow: 0 8px 24px rgb(var(--color-shadow-rgb) / 0.05);
+  }
+
+  .adminNotificationsMobileHistoryRow {
+    width: 100%;
+    min-width: 0;
+    min-height: 68px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border: 0;
+    border-radius: 0;
+    color: var(--color-text-primary);
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .adminNotificationsMobileHistoryRow + .adminNotificationsMobileHistoryRow {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .adminNotificationsMobileHistoryRow:focus-visible {
+    background: var(--color-action-surface);
+    outline: 2px solid var(--color-action-border);
+    outline-offset: -2px;
+  }
+
+  .adminNotificationsMobileHistoryRow > span:first-child {
+    min-width: 0;
+    display: grid;
+    gap: 5px;
+  }
+
+  .adminNotificationsMobileHistoryRow strong,
+  .adminNotificationsMobileHistoryRow small {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .adminNotificationsMobileHistoryRow strong {
+    font-size: 14px;
+  }
+
+  .adminNotificationsMobileHistoryRow small {
+    color: var(--color-text-muted);
+    font-size: 11px;
+  }
+
+  .adminNotificationsMobileCampaignStatus {
+    max-width: 112px;
+    padding: 5px 8px;
+    overflow: hidden;
+    border-radius: 999px;
+    color: var(--color-text-muted);
+    background: var(--color-canvas-subtle);
+    font-size: 10px;
+    font-weight: 800;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .adminNotificationsMobileCampaignStatus.scheduled,
+  .adminNotificationsMobileCampaignStatus.processing {
+    color: var(--color-action-primary-hover);
+    background: var(--color-action-surface);
+  }
+
+  .adminNotificationsMobileCampaignStatus.sent {
+    color: var(--color-success-strong);
+    background: var(--color-success-surface);
+  }
+
+  .adminNotificationsMobileCampaignStatus.failed {
+    color: var(--color-danger);
+    background: var(--color-danger-surface);
+  }
+
+  .adminNotificationsMobileEmpty {
+    min-height: 160px;
+    display: grid;
+    place-content: center;
+    place-items: center;
+    gap: 8px;
+    padding: 20px;
+    color: var(--color-text-muted);
+    text-align: center;
+  }
+
+  .adminNotificationsMobileEmpty svg {
+    width: 32px;
+    height: 32px;
+    color: var(--color-action-primary);
+  }
+
+  .adminNotificationTestMobileForm,
+  .adminNotificationCampaignMobileSheetForm {
+    display: grid;
+    gap: 16px;
+    padding: 18px 16px 0;
+  }
+
+  .adminNotificationTestMobileForm > label,
+  .adminNotificationCampaignMobileSheetForm > label {
+    min-width: 0;
+    display: grid;
+    gap: 7px;
+    color: var(--color-text-secondary-strong);
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .adminNotificationTestMobileForm .customSelect,
+  .adminNotificationTestMobileForm .customSelectButton,
+  .adminNotificationCampaignMobileSheetForm input {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .adminNotificationTestMobileActions,
+  .adminNotificationCampaignMobileSheetActions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin: 0 -16px;
+    padding: 16px 16px calc(16px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--color-border);
+  }
+
+  .adminNotificationTestMobileActions button,
+  .adminNotificationCampaignMobileSheetActions button {
+    width: 100%;
+    min-width: 0;
+    min-height: 42px;
+    padding: 9px 12px;
+    border: 1px solid var(--color-action-primary);
+    border-radius: 7px;
+    color: var(--color-text-on-accent);
+    background: var(--color-action-primary);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .adminNotificationTestMobileActions button.secondary,
+  .adminNotificationCampaignMobileSheetActions button.secondary {
+    border-color: var(--color-border-strong);
+    color: var(--color-text-secondary-strong);
+    background: var(--color-surface);
+  }
+
+  .adminNotificationCampaignMobileBackdrop {
+    z-index: 19;
+  }
+
+  .adminNotificationCampaignMobileEditor {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    display: grid;
+    grid-template-rows: 56px minmax(0, 1fr) auto;
+    overflow: hidden;
+    background: var(--color-surface);
+  }
+
+  .adminNotificationCampaignMobileHeader {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr) 52px;
+    align-items: center;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-surface-raised);
+  }
+
+  .adminNotificationCampaignMobileHeader h2 {
+    min-width: 0;
+    margin: 0;
+    overflow: hidden;
+    color: var(--color-text-primary);
+    font-size: 16px;
+    font-weight: 750;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .adminNotificationCampaignHeaderAction {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    color: var(--color-text-secondary-strong);
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .adminNotificationCampaignHeaderAction:last-child {
+    justify-self: end;
+  }
+
+  .adminNotificationCampaignHeaderAction:disabled {
+    opacity: .36;
+    cursor: not-allowed;
+  }
+
+  .adminNotificationCampaignHeaderAction:focus-visible {
+    color: var(--color-action-primary-hover);
+    background: var(--color-action-surface);
+    outline: 2px solid var(--color-action-border);
+    outline-offset: -2px;
+  }
+
+  .adminNotificationCampaignHeaderAction svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .adminNotificationCampaignMobileBody {
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    background: var(--color-surface);
+  }
+
+  .adminNotificationCampaignMobileFields {
+    height: 100%;
+    min-height: 0;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    overflow: hidden;
+  }
+
+  .adminNotificationCampaignMobileFields > label {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 6px 12px;
+    padding: 13px 16px;
+    color: var(--color-text-secondary-strong);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .adminNotificationCampaignMobileFields > label + label {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .adminNotificationCampaignMobileFields > label > input,
+  .adminNotificationCampaignMobileFields > label > textarea {
+    grid-column: 1 / -1;
+  }
+
+  .adminNotificationCampaignMobileFields > label > small {
+    color: var(--color-text-muted);
+    font-weight: 400;
+  }
+
+  .adminNotificationCampaignMobileFields input {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .adminNotificationCampaignMobileFields .bodyField {
+    min-height: 0;
+    grid-template-rows: auto minmax(0, 1fr);
+    overflow: hidden;
+  }
+
+  .adminNotificationCampaignMobileFields textarea {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    resize: none;
+    padding: 12px;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 8px;
+    color: var(--color-text-primary);
+    background: var(--color-surface);
+    font: 13px/1.6 var(--font-mono, monospace);
+  }
+
+  .adminNotificationCampaignMobilePreview {
+    height: 100%;
+    min-height: 0;
+    margin: 0;
+    padding: 22px 18px 28px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .adminNotificationCampaignMobilePreview h1 {
+    margin: 0 0 18px;
+    color: var(--color-text-primary);
+    font-size: 20px;
+  }
+
+  .adminNotificationCampaignMobileFooter {
+    min-width: 0;
+    display: grid;
+    background: rgb(var(--color-surface-rgb) / 96%);
+    box-shadow: 0 -10px 26px rgb(var(--color-shadow-rgb) / 0.06);
+    backdrop-filter: blur(14px);
+  }
+
+  .adminNotificationCampaignMobileStats {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 6px 12px;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border-subtle);
+    color: var(--color-text-muted);
+    font-size: 10px;
+    white-space: nowrap;
+  }
+
+  .adminNotificationCampaignMobileStats span.failed {
+    color: var(--color-danger);
+  }
+
+  .adminNotificationCampaignMobileToolbar {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    padding: 9px 12px calc(9px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .adminNotificationCampaignModeSwitch {
+    display: flex;
+    align-items: center;
+    padding: 3px;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    background: var(--color-canvas-subtle);
+  }
+
+  .adminNotificationCampaignModeSwitch button,
+  .adminNotificationCampaignToolbarAction {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    color: var(--color-text-secondary-strong);
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .adminNotificationCampaignModeSwitch button {
+    width: 34px;
+    height: 34px;
+  }
+
+  .adminNotificationCampaignModeSwitch button.active,
+  .adminNotificationCampaignToolbarAction.configured {
+    color: var(--color-action-primary-hover);
+    background: var(--color-action-surface);
+  }
+
+  .adminNotificationCampaignToolbarAction.send {
+    position: relative;
+    color: var(--color-action-primary-hover);
+    background: transparent;
+  }
+
+  .adminNotificationCampaignToolbarAction.send::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: -5px;
+    width: 1px;
+    height: 28px;
+    background: var(--color-border);
+    transform: translateX(-50%);
+  }
+
+  .adminNotificationCampaignToolbarAction:first-of-type {
+    margin-left: auto;
+  }
+
+  .adminNotificationCampaignToolbarAction.send:hover:not(:disabled),
+  .adminNotificationCampaignToolbarAction.send:focus-visible,
+  .adminNotificationCampaignToolbarAction.send.active {
+    box-shadow: inset 0 0 0 1px var(--color-action-border);
+    background: var(--color-action-surface);
+  }
+
+  .adminNotificationCampaignModeSwitch button:disabled,
+  .adminNotificationCampaignToolbarAction:disabled {
+    opacity: .34;
+    cursor: not-allowed;
+  }
+
+  .adminNotificationCampaignModeSwitch button:focus-visible,
+  .adminNotificationCampaignToolbarAction:focus-visible {
+    outline: 2px solid var(--color-action-border);
+    outline-offset: 2px;
+  }
+
+  .adminNotificationCampaignModeSwitch svg,
+  .adminNotificationCampaignToolbarAction svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .adminNotificationCampaignMobileSheetForm > p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .adminNotificationCampaignAudienceList {
+    margin: 0 -12px;
+  }
+}
+
+@keyframes adminMobileMenuFromRight {
+  from {
+    opacity: 0;
+    transform: translate3d(28px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes adminMobileMenuFromLeft {
+  from {
+    opacity: 0;
+    transform: translate3d(-28px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobileMenuTransition > .mobileMenuTransitionPane,
+  .mobileMenuTransitionPane.forward,
+  .mobileMenuTransitionPane.back {
+    animation: none;
+  }
+}
+
+@media (min-width: 521px) {
+  .adminPage > .adminBody {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .adminSettingsStack,
+  .adminMaintenanceStack,
+  .adminNotificationsContent,
+  .adminServicePagesContent,
+  .adminUsersMain,
+  .adminAuditLayout {
+    gap: 0;
+  }
+
+  .adminStatusStack,
+  .adminStatusLayout {
+    height: auto;
+  }
+
+  .adminStatusLayout {
+    overflow: visible;
+    padding-right: 0;
+  }
+
+  .adminSettingsStack > .adminSettingsPanel,
+  .adminMaintenanceStack > .adminMaintenancePanel,
+  .adminNotificationsContent > .adminSettingsPanel,
+  .adminServicePagesContent > .adminServicePageCard,
+  .adminUsersMain > .panel,
+  .adminAuditLayout > .panel,
+  .adminStatusLayout > .adminStatusHeader,
+  .adminStatusLayout > .adminStatusLoading,
+  .adminStatusDetailGrid > .adminStatusDetailPanel {
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .adminSettingsStack > .adminSettingsPanel + .adminSettingsPanel,
+  .adminNotificationsContent > .adminSettingsPanel + .adminSettingsPanel,
+  .adminServicePagesContent > .adminServicePageCard + .adminServicePageCard,
+  .adminUsersMain > .panel + .panel,
+  .adminAuditLayout > .panel + .panel {
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .adminStatusDetailGrid {
+    gap: 0;
+    padding-top: 18px;
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .adminStatusDetailGrid > .adminStatusDetailPanel + .adminStatusDetailPanel {
+    border-left: 1px solid var(--color-border-subtle);
+  }
+}
+
+@media (min-width: 521px) and (max-width: 1100px) {
+  .adminStatusDetailGrid > .adminStatusDetailPanel + .adminStatusDetailPanel {
+    border-top: 1px solid var(--color-border-subtle);
+    border-left: 0;
+  }
+}
+
+@media (max-width: 520px) and (hover: hover) and (pointer: fine) {
+  button.adminStatusMobileMenuRow:hover {
+    background: var(--color-action-surface);
+  }
+}

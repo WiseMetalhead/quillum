@@ -1,0 +1,161 @@
+.glossaryDetailsSections { min-width: 0; display: grid; grid-auto-rows: max-content; align-content: start; border-top: 1px solid var(--color-border-subtle); }
+.glossaryLinkedPanel > .glossaryDetailsSections { min-height: 0; overflow-y: auto; }
+.glossaryDetailsSection { min-width: 0; }
+.glossaryDetailsSection + .glossaryDetailsSection { border-top: 1px solid var(--color-border-subtle); }
+
+.glossaryMediaOpenButton {
+  width: 100%;
+  min-height: 40px;
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr) auto 16px;
+  gap: 8px;
+  align-items: center;
+  padding: 7px 8px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 7px;
+  color: var(--color-text-secondary-strong);
+  background: var(--color-surface);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.glossaryMediaOpenButton:hover:not(:disabled),
+.glossaryMediaOpenButton:focus-visible:not(:disabled) { color: var(--color-action-primary-hover); border-color: var(--color-action-border-subtle); background: var(--color-action-surface); outline: none; }
+.glossaryMediaOpenButton:disabled { color: var(--color-text-muted); background: var(--color-canvas-subtle); cursor: default; }
+.glossaryMediaOpenButton > svg:first-child { width: 18px; height: 18px; color: var(--color-action-primary); }
+.glossaryMediaOpenButton > svg:last-child { width: 15px; height: 15px; }
+.glossaryMediaOpenButton small { min-width: 20px; color: var(--color-text-muted); font-size: 10px; text-align: center; }
+
+.glossaryDetailsSectionToggle {
+  width: 100%;
+  min-height: 48px;
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr) auto 18px;
+  gap: 8px;
+  align-items: center;
+  padding: 10px 3px 10px 0;
+  border: 0;
+  border-radius: 0;
+  color: var(--color-text-secondary-strong);
+  background: transparent;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.glossaryDetailsSectionToggle:hover,
+.glossaryDetailsSectionToggle:focus-visible { color: var(--color-action-primary-hover); background: var(--color-action-surface); outline: none; }
+.glossaryDetailsSectionToggle > svg:first-child { width: 20px; height: 20px; color: var(--color-action-primary); }
+.glossaryDetailsSectionToggle > svg:last-child { width: 16px; height: 16px; }
+.glossaryDetailsSectionToggle small { min-width: 23px; padding: 2px 6px; border-radius: 999px; color: var(--color-text-muted); background: var(--color-canvas-subtle); font-size: 10px; text-align: center; }
+
+.glossaryDetailsSectionBody { min-width: 0; display: grid; gap: 9px; padding: 1px 2px 13px 0; }
+.glossaryDetailsEmpty,
+.glossaryDetailsOfflineNotice { margin: 0; color: var(--color-text-muted); font-size: 12px; line-height: 1.45; }
+.glossaryDetailsOfflineNotice { padding: 8px; border-radius: 7px; color: var(--color-warning-strong); background: var(--color-warning-surface); }
+
+.glossaryAliasAddButton {
+  width: 100%;
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 6px 10px;
+  border: 0;
+  border-radius: 7px;
+  color: var(--color-text-on-accent);
+  background: var(--color-action-primary);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.glossaryAliasAddButton:hover:not(:disabled),
+.glossaryAliasAddButton:focus-visible:not(:disabled) { background: var(--color-action-primary-hover); outline: none; }
+.glossaryAliasAddButton:disabled { opacity: .5; cursor: not-allowed; }
+.glossaryAliasAddButton svg { width: 15px; height: 15px; }
+
+.glossaryAliasList { display: grid; gap: 5px; }
+.glossaryAliasRow { min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr) 30px; gap: 4px; align-items: center; }
+.glossaryAliasEdit { min-width: 0; min-height: 32px; padding: 6px 8px; overflow: hidden; border: 1px solid var(--color-border-subtle); border-radius: 6px; color: var(--color-text-secondary-strong); background: var(--color-surface); font-size: 12px; text-align: left; text-overflow: ellipsis; white-space: nowrap; cursor: pointer; }
+.glossaryAliasEdit:hover:not(:disabled),
+.glossaryAliasEdit:focus-visible:not(:disabled) { color: var(--color-action-primary-hover); border-color: var(--color-action-border-subtle); outline: none; }
+.glossaryAliasDelete { width: 30px; height: 30px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 6px; color: var(--color-danger); background: transparent; cursor: pointer; }
+.glossaryAliasDelete:hover:not(:disabled),
+.glossaryAliasDelete:focus-visible:not(:disabled) { color: var(--color-danger-strong); background: var(--color-danger-surface); outline: none; }
+.glossaryAliasDelete:disabled,
+.glossaryAliasEdit:disabled { opacity: .48; cursor: not-allowed; }
+.glossaryAliasDelete svg { width: 17px; height: 17px; }
+
+.glossaryDetailsLinkedGroup h3 { margin: 8px 0 6px; color: var(--color-text-secondary); font-size: 12px; font-weight: 650; }
+.glossaryDetailsLinkedArticle { box-sizing: border-box; width: 100%; min-width: 0; min-height: 58px; display: grid; grid-template-columns: 38px minmax(0, 1fr); gap: 9px; align-items: center; padding: 8px; border: 1px solid var(--color-border); border-radius: 7px; background: var(--color-surface); text-align: left; cursor: pointer; }
+.glossaryDetailsLinkedArticle + .glossaryDetailsLinkedArticle { margin-top: 6px; }
+.glossaryDetailsLinkedArticle:hover,
+.glossaryDetailsLinkedArticle:focus-visible { border-color: var(--color-action-border-subtle); background: var(--color-action-surface); outline: none; }
+.glossaryDetailsLinkedArticle img,
+.glossaryDetailsLinkedArticle .glossaryLinkedThumbnailPlaceholder { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; }
+.glossaryDetailsLinkedArticle .glossaryLinkedThumbnailPlaceholder { display: grid; place-items: center; color: var(--color-text-subtle); background: var(--color-surface-subtle); }
+.glossaryDetailsLinkedArticle .glossaryLinkedThumbnailPlaceholder svg { width: 17px; height: 17px; }
+.glossaryDetailsLinkedArticle span,
+.glossaryDetailsLinkedArticle strong,
+.glossaryDetailsLinkedArticle small { min-width: 0; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.glossaryDetailsLinkedArticle strong { color: var(--color-text-primary); font-size: 12px; }
+.glossaryDetailsLinkedArticle small { color: var(--color-text-muted); font-size: 10px; }
+
+.glossaryAliasDialog { width: min(560px, calc(100vw - 32px)); }
+.glossaryAliasDialog .standardDialogClose { display: none; }
+.glossaryAliasDialog > header { padding: 18px 20px 14px; }
+.glossaryAliasDialog header h2 { margin-bottom: 4px; font-size: 18px; }
+.glossaryAliasDialog header p { font-size: 13px; }
+.standardDialogContent > .glossaryAliasForm { display: grid; gap: 14px; padding: 16px 20px 18px; }
+.glossaryAliasForm .dialogField { padding: 0; }
+.standardDialogContent .glossaryAliasForm input { height: 40px; min-height: 40px; box-sizing: border-box; padding: 8px 10px; border-radius: 7px; }
+.glossaryAliasForm input:focus { border-color: var(--color-action-border); outline: 2px solid var(--color-action-border); outline-offset: 1px; }
+.glossaryAliasForm .standardDialogFooter { margin: 0 -20px -18px; padding: 12px 20px 16px; }
+
+@media (min-width: 521px) {
+  .glossaryDetailsSectionToggle {
+    min-height: 40px;
+    grid-template-columns: 19px minmax(0, 1fr) auto 16px;
+    gap: 7px;
+    padding: 7px 6px;
+    border-radius: 6px;
+    font-size: 12px;
+  }
+
+  .glossaryDetailsSectionToggle:hover,
+  .glossaryDetailsSectionToggle:focus-visible { background: color-mix(in srgb, var(--color-action-surface) 62%, transparent); }
+  .glossaryDetailsSectionToggle > svg:first-child { width: 18px; height: 18px; }
+  .glossaryDetailsSectionToggle > svg:last-child { width: 14px; height: 14px; }
+  .glossaryDetailsSectionToggle small { min-width: 20px; padding: 1px 5px; font-size: 9px; }
+  .glossaryDetailsSectionBody { gap: 7px; padding: 2px 6px 11px; }
+}
+
+@media (max-width: 520px) {
+  .glossaryArticleMobileInfoContent .glossaryArticleInfoPanel { padding-bottom: 14px; }
+  .glossaryMediaOpenButton { min-height: 44px; margin: 10px 0 4px; }
+  .glossaryDetailsSectionToggle { min-height: 52px; }
+
+  .glossaryAliasMobileForm { display: grid; gap: 16px; padding: 16px 16px 0; }
+  .glossaryAliasMobileForm .dialogField { display: grid; gap: 7px; }
+  .glossaryAliasMobileForm .dialogField > span { color: var(--color-text-secondary-strong); font-size: 13px; font-weight: 700; }
+  .glossaryAliasMobileForm input { width: 100%; height: 42px; box-sizing: border-box; padding: 9px 11px; border: 1px solid var(--color-border-strong); border-radius: 8px; color: var(--color-text-primary); background: var(--color-surface); font: inherit; }
+  .glossaryAliasMobileForm .standardDialogFooter { position: static; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 0 -16px; padding: 12px 16px calc(16px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--color-border); }
+  .glossaryAliasMobileForm .dialogCancel,
+  .glossaryAliasMobileForm .dialogSubmit { width: 100%; min-width: 0; min-height: 42px; padding: 9px 12px; border-radius: 8px; font: inherit; font-weight: 700; }
+  .glossaryAliasMobileForm .dialogCancel { border: 1px solid var(--color-border-strong); color: var(--color-text-secondary-strong); background: var(--color-surface); }
+  .glossaryAliasMobileForm .dialogSubmit { border: 1px solid var(--color-action-primary); color: var(--color-text-on-accent); background: var(--color-action-primary); }
+  .glossaryAliasMobileForm .dialogCancel:disabled,
+  .glossaryAliasMobileForm .dialogSubmit:disabled { opacity: .6; cursor: wait; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glossaryAliasDialog { transition: none !important; }
+}

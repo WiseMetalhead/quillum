@@ -1,0 +1,724 @@
+@media (prefers-reduced-motion: reduce) {
+  .mobileFullView,
+  .mobileBottomSheet {
+    animation: none;
+    transition: none !important;
+  }
+}
+
+.dialogBackdrop {
+  position: fixed;
+  z-index: 50;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgb(var(--color-shadow-rgb) / 0.48);
+  backdrop-filter: blur(3px);
+}
+
+.createOneShotDialog {
+  width: min(100%, 620px);
+  max-height: calc(100dvh - 48px);
+  overflow-y: auto;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background: var(--color-surface);
+  box-shadow: 0 28px 70px rgb(var(--color-shadow-rgb) / 0.24);
+}
+
+.createOneShotDialog > header {
+  position: sticky;
+  z-index: 3;
+  top: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 24px 18px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.createOneShotDialog header h2 {
+  margin-bottom: 6px;
+  font-size: 21px;
+}
+
+.createOneShotDialog header p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
+
+button.dialogClose {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  padding: 0;
+  border: 0;
+  border-radius: 7px;
+  color: var(--color-text-muted);
+  background: transparent;
+  cursor: pointer;
+}
+
+button.dialogClose:hover {
+  background: var(--color-surface-subtle);
+}
+
+.mobileDialogBack,
+.mobileDialogPrimary {
+  display: none;
+}
+
+.dialogClose svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+  stroke: none;
+}
+
+.createOneShotDialog form {
+  display: grid;
+  gap: 19px;
+  padding: 22px 24px 24px;
+}
+
+.createOneShotDialog form > div[hidden],
+.dialogScrollBody > div[hidden] {
+  display: none;
+}
+
+.dialogDetailsStep {
+  display: grid;
+  gap: 19px;
+}
+
+.dialogField {
+  display: grid;
+  gap: 7px;
+}
+
+.dialogField > span {
+  color: var(--color-text-secondary-strong);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.dialogField > span strong {
+  color: var(--color-danger);
+}
+
+.dialogField > span em {
+  margin-left: 6px;
+  color: var(--color-text-subtle);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.dialogField input,
+.dialogField .customSelectButton,
+.dialogField textarea {
+  width: 100%;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 8px;
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+  font: inherit;
+}
+
+.dialogField input {
+  height: 43px;
+  padding: 9px 12px;
+}
+
+.dialogField .customSelectButton {
+  height: 43px;
+  padding: 9px 11px 9px 12px;
+}
+
+.dialogField textarea {
+  padding: 10px 12px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.dialogField input:focus,
+.dialogField .customSelectButton:focus-visible,
+.dialogField textarea:focus {
+  border-color: var(--color-action-border);
+  outline: 2px solid var(--color-action-border);
+  outline-offset: 1px;
+}
+
+.dialogField > small {
+  color: var(--color-text-muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.fieldError {
+  color: var(--color-danger-strong) !important;
+}
+
+.imageUploadOverlay {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 9px;
+  border-radius: inherit;
+  color: var(--color-action-primary);
+  background: rgb(var(--color-surface-rgb) / 0.82);
+  backdrop-filter: blur(2px);
+}
+
+.imageUploadOverlay svg {
+  width: 32px;
+  height: 32px;
+}
+
+.imageUploadOverlay span {
+  color: var(--color-text-secondary-strong);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.dialogEmptyMessage {
+  margin: 0;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+button.dialogCancel,
+button.dialogSubmit,
+button.dialogDelete {
+  padding: 9px 14px;
+  border-radius: 7px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button.dialogCancel {
+  border: 1px solid var(--color-border-strong);
+  color: var(--color-text-secondary-strong);
+  background: var(--color-surface);
+}
+
+button.dialogSubmit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border: 1px solid var(--color-action-primary);
+  color: var(--color-text-on-accent);
+  background: var(--color-action-primary);
+}
+
+button.dialogSubmit:hover {
+  border-color: var(--color-action-primary-hover);
+  background: var(--color-action-primary-hover);
+}
+
+.dialogSubmit svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+button.dialogSubmit.danger,
+button.dialogDelete {
+  border: 1px solid var(--color-danger);
+  color: var(--color-text-on-accent);
+  background: var(--color-danger);
+}
+
+button.dialogSubmit.danger:hover,
+button.dialogDelete:hover {
+  border-color: var(--color-danger-strong);
+  background: var(--color-danger-strong);
+}
+
+button.dialogDelete:disabled,
+button.dialogSubmit:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.manuscriptDeleteDialog {
+  width: min(100%, 480px);
+}
+
+.manuscriptDeleteBody {
+  padding: 22px 24px;
+}
+
+.manuscriptDeleteBody p {
+  margin: 0;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.manuscriptDeleteDialog > footer {
+  position: sticky;
+  z-index: 2;
+  bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 16px 24px 24px;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.createOneShotDialog footer {
+  position: sticky;
+  z-index: 2;
+  bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  background: var(--color-surface);
+}
+
+.createOneShotDialog form > footer {
+  margin: 0 -24px -24px;
+  padding: 16px 24px 24px;
+  border-top: 1px solid var(--color-border);
+}
+
+@media (min-width: 521px) {
+  .createOneShotDialog.dialogScrollLayout {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    overflow: hidden;
+  }
+
+  .dialogScrollLayout > form {
+    min-height: 0;
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: 0;
+    overflow: hidden;
+    padding: 0;
+  }
+
+  .dialogScrollLayout .dialogScrollBody {
+    min-height: 0;
+    display: grid;
+    align-content: start;
+    gap: 19px;
+    overflow-y: auto;
+    padding: 22px 24px;
+    overscroll-behavior: contain;
+  }
+
+  .dialogScrollLayout > form > footer {
+    position: static;
+    margin: 0;
+    padding: 16px 24px 24px;
+  }
+
+  .dialogBackdrop {
+    animation: dialogPrimitiveBackdropIn 140ms ease-out both;
+  }
+
+  .dialogBackdrop > .createOneShotDialog {
+    transform-origin: center;
+    animation: dialogPrimitiveSurfaceIn 180ms cubic-bezier(.2, .8, .2, 1) both;
+  }
+}
+
+@keyframes dialogPrimitiveBackdropIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes dialogPrimitiveSurfaceIn {
+  from { transform: translateY(8px) scale(.98); }
+  to { transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dialogBackdrop,
+  .dialogBackdrop > .createOneShotDialog {
+    animation: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .dialogBackdrop {
+    padding: 10px;
+  }
+
+  .createOneShotDialog {
+    width: 100%;
+    max-width: 100%;
+    max-height: calc(100dvh - 20px);
+    overflow-x: hidden;
+  }
+
+  .createOneShotDialog > header > div,
+  .createOneShotDialog form,
+  .dialogDetailsStep,
+  .dialogField {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .createOneShotDialog > header,
+  .createOneShotDialog form {
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+
+  .createOneShotDialog form > footer {
+    margin-right: -18px;
+    margin-left: -18px;
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+
+  .mobileFullViewBackdrop {
+    z-index: 19;
+    top: var(--app-header-height);
+    overflow: hidden;
+    padding: 0;
+    background: transparent;
+    backdrop-filter: none;
+  }
+
+  .mobileFullView {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    border: 0;
+    border-radius: 0;
+    background: var(--color-surface);
+    box-shadow: none;
+    overscroll-behavior: contain;
+    backface-visibility: hidden;
+    transform: translate3d(100%, 0, 0);
+    transition: transform 220ms ease-out;
+    will-change: transform;
+  }
+
+  .mobileFullViewBackdrop.open .mobileFullView {
+    transform: translate3d(0, 0, 0);
+  }
+
+  .mobileFullViewBackdrop.closing .mobileFullView {
+    pointer-events: none;
+    transform: translate3d(100%, 0, 0);
+    transition-timing-function: ease-in;
+  }
+
+  .mobileFullView > header {
+    min-height: 56px;
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr) 52px;
+    align-items: center;
+    gap: 0;
+    padding: 8px 10px;
+  }
+
+  .mobileDialogHeaderCopy {
+    width: 100%;
+    min-width: 0;
+    grid-column: 2;
+  }
+
+  .mobileFullView .mobileDialogHeaderCopy h2 {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    margin: 0;
+    font-size: 16px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .mobileDialogHeaderCopy p,
+  .mobileFullView .dialogClose,
+  .mobileFullView .standardDialogClose,
+  .mobileHeaderActionForm > footer {
+    display: none;
+  }
+
+  button.mobileDialogBack,
+  button.mobileDialogPrimary {
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  button.mobileDialogBack {
+    width: 40px;
+    justify-content: center;
+    justify-self: start;
+    padding: 0;
+    color: var(--color-text-secondary-strong);
+  }
+
+  .mobileDialogBack svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  button.mobileDialogPrimary {
+    width: 40px;
+    justify-content: center;
+    justify-self: end;
+    padding: 0;
+    color: var(--color-action-primary);
+  }
+
+  .mobileDialogPrimary svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  button.mobileDialogBack:disabled,
+  button.mobileDialogPrimary:disabled {
+    opacity: 0.5;
+    cursor: wait;
+  }
+
+  button.mobileDialogBack:focus-visible,
+  button.mobileDialogPrimary:focus-visible {
+    background: var(--color-action-surface);
+    outline: 2px solid var(--color-action-border);
+    outline-offset: -2px;
+  }
+
+  .mobileFullViewForm {
+    gap: 16px;
+    padding: 18px 16px calc(28px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .mobileFullViewForm .dialogCancel {
+    display: none;
+  }
+
+  .mobileFullViewForm > footer {
+    margin-right: -16px;
+    margin-left: -16px;
+    padding-right: 16px;
+    padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    padding-left: 16px;
+  }
+
+  .mobileFullViewFooter {
+    padding: 14px 16px calc(14px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .mobileFullViewFooter .dialogCancel {
+    display: none;
+  }
+
+  .createOneShotDialog footer button {
+    min-width: 0;
+    max-width: 100%;
+    justify-content: center;
+    margin-right: 0;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .manuscriptDeleteDialog > footer {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .manuscriptDeleteDialog > footer button {
+    width: 100%;
+  }
+
+  .mobileBottomSheetBackdrop {
+    place-items: end center;
+    padding: 0;
+    opacity: 0;
+    background: rgb(var(--color-shadow-rgb) / 0.48);
+    backdrop-filter: blur(3px);
+    transition: opacity 180ms ease-out;
+  }
+
+  .mobileBottomSheetBackdrop.open {
+    opacity: 1;
+  }
+
+  .mobileBottomSheetBackdrop.closing {
+    opacity: 0;
+    transition-timing-function: ease-in;
+  }
+
+  .mobileBottomSheet {
+    width: 100%;
+    max-width: 100%;
+    max-height: min(82dvh, 720px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-right: 0;
+    border-bottom: 0;
+    border-left: 0;
+    border-radius: 18px 18px 0 0;
+    box-shadow: 0 -20px 48px rgb(var(--color-shadow-rgb) / 0.2);
+    backface-visibility: hidden;
+    transform: translate3d(0, 100%, 0);
+    transition: transform 220ms ease-out;
+    will-change: transform;
+  }
+
+  .mobileBottomSheetBackdrop.open .mobileBottomSheet {
+    transform: translate3d(0, 0, 0);
+  }
+
+  .mobileBottomSheetBackdrop.closing .mobileBottomSheet {
+    pointer-events: none;
+    transform: translate3d(0, 100%, 0);
+    transition-timing-function: ease-in;
+  }
+
+  .mobileBottomSheet > header {
+    position: sticky;
+    min-height: 58px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    place-items: center;
+    justify-content: stretch;
+    padding: 16px 48px 12px;
+    text-align: center;
+  }
+
+  .mobileBottomSheet > header > div {
+    width: 100%;
+    min-width: 0;
+    grid-column: 1;
+    justify-self: stretch;
+  }
+
+  .mobileBottomSheet > header h2 {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  .mobileBottomSheet > header p,
+  .mobileBottomSheet > header .dialogClose {
+    display: none;
+  }
+
+  .mobileBottomSheet > form {
+    padding: 16px;
+  }
+
+  .mobileBottomSheet > form > footer,
+  .mobileBottomSheet > footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 16px;
+    padding-right: 16px;
+    padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    padding-left: 16px;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .mobileBottomSheet > form > footer > button,
+  .mobileBottomSheet > footer > button {
+    width: 100%;
+    max-width: none;
+    flex: 1 1 0;
+  }
+
+  .createOneShotDialog.dialogScrollLayout {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    overflow: hidden;
+  }
+
+  .dialogScrollLayout > form {
+    min-height: 0;
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: 0;
+    overflow: hidden;
+    padding: 0;
+  }
+
+  .dialogScrollLayout .dialogScrollBody {
+    min-height: 0;
+    display: grid;
+    align-content: start;
+    gap: 16px;
+    overflow-y: auto;
+    padding: 18px 16px calc(28px + env(safe-area-inset-bottom, 0px));
+    overscroll-behavior: contain;
+  }
+
+  .dialogScrollLayout.mobileBottomSheet .dialogScrollBody {
+    padding: 16px;
+  }
+
+  .dialogScrollLayout > form > footer {
+    position: static;
+    margin: 0;
+  }
+}
+
+@media (min-width: 521px) and (max-height: 780px) {
+  .dialogBackdrop {
+    padding: 12px;
+  }
+
+  .createOneShotDialog {
+    max-height: calc(100dvh - 24px);
+  }
+
+  .createOneShotDialog > header {
+    padding-top: 16px;
+    padding-bottom: 13px;
+  }
+
+  .createOneShotDialog form {
+    gap: 14px;
+    padding-top: 16px;
+  }
+
+  .dialogScrollLayout .dialogScrollBody {
+    gap: 14px;
+    padding-top: 16px;
+  }
+
+  .dialogScrollLayout > form {
+    gap: 0;
+    padding-top: 0;
+  }
+
+  .dialogDetailsStep {
+    gap: 14px;
+  }
+
+  .createOneShotDialog form > footer {
+    padding-top: 12px;
+    padding-bottom: 16px;
+  }
+}

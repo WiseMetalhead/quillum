@@ -1,0 +1,141 @@
+.mobileSectionSelector {
+  display: none;
+}
+
+@media (max-width: 520px) {
+  .mobileSectionSelector {
+    position: relative;
+    z-index: 12;
+    width: 100%;
+    min-width: 0;
+    min-height: 46px;
+    display: flex;
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-surface-raised);
+  }
+
+  .mobileSectionSelectorButton {
+    width: 100%;
+    min-height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 16px;
+    border: 0;
+    border-radius: 0;
+    color: var(--color-text-primary);
+    background: transparent;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .mobileSectionSelectorButton:hover {
+    color: var(--color-action-primary-hover);
+    background: var(--color-canvas);
+  }
+
+  .mobileSectionSelectorButton:focus-visible,
+  .mobileSectionSelectorOption:focus-visible {
+    outline: 2px solid var(--color-action-border);
+    outline-offset: -3px;
+  }
+
+  .mobileSectionSelectorButton svg,
+  .mobileSectionSelectorOption svg {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 auto;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+  }
+
+  .mobileSectionSelectorChevron {
+    transition: transform 160ms ease;
+  }
+
+  .mobileSectionSelectorChevron.open {
+    transform: rotate(180deg);
+  }
+
+  .mobileSectionSelectorMenu {
+    position: absolute;
+    z-index: 13;
+    top: 100%;
+    right: 0;
+    left: 0;
+    width: 100%;
+    max-height: calc(100dvh - var(--app-header-height) - 46px);
+    display: grid;
+    gap: 2px;
+    padding: 8px 12px 10px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-surface-raised);
+    box-shadow: 0 18px 42px rgb(var(--color-shadow-rgb) / 0.14);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform-origin: top center;
+    transform: translate3d(0, -10px, 0) scaleY(.97);
+    transition:
+      opacity 180ms ease-in,
+      transform 200ms ease-in,
+      visibility 0s linear 200ms;
+  }
+
+  .mobileSectionSelectorMenu.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translate3d(0, 0, 0) scaleY(1);
+    transition:
+      opacity 180ms ease-out,
+      transform 200ms ease-out,
+      visibility 0s linear 0s;
+  }
+
+  .mobileSectionSelectorOption {
+    width: 100%;
+    min-height: 42px;
+    display: grid;
+    grid-template-columns: 20px minmax(0, 1fr);
+    align-items: center;
+    gap: 12px;
+    padding: 0 12px;
+    border: 0;
+    border-radius: 7px;
+    color: var(--color-text-secondary-strong);
+    background: transparent;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .mobileSectionSelectorOption span {
+    min-width: 0;
+  }
+
+  .mobileSectionSelectorOption:hover {
+    color: var(--color-action-primary-hover);
+    background: var(--color-canvas);
+  }
+
+  .mobileSectionSelectorOption.active {
+    color: var(--color-action-primary);
+    background: var(--color-action-surface);
+  }
+
+}
+
+@media (max-width: 520px) and (prefers-reduced-motion: reduce) {
+  .mobileSectionSelectorMenu {
+    transition: none;
+  }
+}

@@ -1,0 +1,76 @@
+.audioTranscriptionPanel {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  width: min(100%, 650px);
+  padding: 14px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 9px;
+  background: var(--color-surface);
+}
+
+.audioTranscriptionHeader { min-width: 0; display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--color-text-primary); }
+.audioTranscriptionHeader > span { min-width: 0; display: inline-flex; align-items: center; gap: 8px; }
+.audioTranscriptionHeader.centered { justify-content: center; text-align: center; }
+.audioTranscriptionHeader svg { width: 19px; height: 19px; color: var(--color-action-primary); }
+.audioTranscriptionHeader strong { overflow: hidden; font-size: 14px; text-overflow: ellipsis; white-space: nowrap; }
+.audioTranscriptionHeader small { padding: 3px 7px; border-radius: 99px; color: var(--color-text-muted); background: var(--color-canvas-subtle); font-size: 10px; font-weight: 800; letter-spacing: .05em; }
+.audioTranscriptionPanel.empty { align-content: center; justify-items: center; text-align: center; }
+.audioTranscriptionPanel.loading { min-height: 96px; color: var(--color-action-primary); }
+.audioTranscriptionPanel.loading > svg,
+.audioTranscriptionProgress svg { width: 24px; height: 24px; }
+.audioTranscriptionPanel.hasText { row-gap: 18px; }
+.audioTranscriptionLead { max-width: 500px; margin: 0; color: var(--color-text-muted); font-size: 13px; line-height: 1.5; text-align: center; }
+.audioTranscriptionPanel button.audioTranscriptionStart,
+.audioTranscriptionPanel button.audioTranscriptionRetry,
+.audioTranscriptionPanel .audioTranscriptionActions button {
+  width: fit-content;
+  height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--color-action-primary);
+  border-radius: 7px;
+  color: var(--color-text-on-accent);
+  background: var(--color-action-primary);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: pointer;
+}
+.audioTranscriptionPanel button.audioTranscriptionStart,
+.audioTranscriptionPanel button.audioTranscriptionRetry,
+.audioTranscriptionPanel .audioTranscriptionActions button,
+.audioTranscriptionProgress { display: inline-flex; align-items: center; gap: 7px; }
+.audioTranscriptionPanel button.audioTranscriptionStart:hover:not(:disabled),
+.audioTranscriptionPanel button.audioTranscriptionRetry:hover:not(:disabled),
+.audioTranscriptionPanel .audioTranscriptionActions button:hover:not(:disabled) { border-color: var(--color-action-primary-hover); background: var(--color-action-primary-hover); }
+.audioTranscriptionPanel button.audioTranscriptionStart:focus-visible,
+.audioTranscriptionPanel button.audioTranscriptionRetry:focus-visible,
+.audioTranscriptionPanel .audioTranscriptionActions button:focus-visible { outline: 2px solid var(--color-focus-ring); outline-offset: 2px; }
+.audioTranscriptionPanel button.audioTranscriptionStart:disabled,
+.audioTranscriptionPanel button.audioTranscriptionRetry:disabled,
+.audioTranscriptionPanel .audioTranscriptionActions button:disabled { opacity: .55; cursor: wait; }
+.audioTranscriptionStart svg,
+.audioTranscriptionRetry svg,
+.audioTranscriptionActions svg { width: 15px; height: 15px; }
+.audioTranscriptionText { min-width: 0; outline: none; }
+.audioTranscriptionText:focus-visible { border-radius: 5px; outline: 2px solid var(--color-focus-ring); outline-offset: 4px; }
+.audioTranscriptionText p { margin: 0; color: var(--color-text-primary); line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; user-select: text; }
+.audioTranscriptionProgress { color: var(--color-text-muted); font-size: 13px; }
+.audioTranscriptionPanel.active .audioTranscriptionProgress { justify-self: center; flex-direction: column; justify-content: center; text-align: center; }
+.audioTranscriptionFailure,
+.audioTranscriptionError { margin: 0; color: var(--color-danger); font-size: 13px; }
+.audioTranscriptionPanel.empty .audioTranscriptionFailure,
+.audioTranscriptionPanel.empty .audioTranscriptionError { text-align: center; }
+.audioTranscriptionActions { width: 100%; display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; }
+.audioTranscriptionPanel .audioTranscriptionActions button.danger { border-color: var(--color-danger-border); color: var(--color-danger); background: var(--color-danger-surface); }
+.audioTranscriptionPanel .audioTranscriptionActions button.danger:hover:not(:disabled) { border-color: var(--color-danger); background: color-mix(in srgb, var(--color-danger-surface), var(--color-danger) 8%); }
+
+@media (max-width: 720px) {
+  .audioTranscriptionPanel { padding: 12px; }
+  .audioTranscriptionHeader strong { font-size: 13px; }
+  .audioTranscriptionActions { display: grid; }
+  .audioTranscriptionPanel button.audioTranscriptionStart,
+  .audioTranscriptionPanel button.audioTranscriptionRetry,
+  .audioTranscriptionPanel .audioTranscriptionActions button { width: 100%; justify-content: center; }
+}

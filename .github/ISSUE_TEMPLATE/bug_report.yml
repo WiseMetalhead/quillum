@@ -1,0 +1,50 @@
+name: Сообщение об ошибке
+description: Воспроизводимая проблема в Quillum
+title: "[Ошибка]: "
+body:
+  - type: markdown
+    attributes:
+      value: Не прикладывайте секреты, реальные рукописи и персональные данные.
+  - type: input
+    id: version
+    attributes:
+      label: Версия Quillum
+      placeholder: 1.0.0
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Что произошло
+      description: Опишите ожидаемое и фактическое поведение.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Как воспроизвести
+      placeholder: |
+        1. Открыть …
+        2. Нажать …
+        3. Увидеть …
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Среда
+      description: Браузер, ОС, Docker/Compose и вариант reverse proxy.
+  - type: textarea
+    id: logs
+    attributes:
+      label: Обезличенные логи
+      render: shell
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Проверка данных
+      options:
+        - label: Я удалил(а) секреты и персональные данные из описания и логов.
+          required: true
+        - label: Это не отчёт об уязвимости безопасности.
+          required: true

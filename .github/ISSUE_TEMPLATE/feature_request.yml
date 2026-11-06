@@ -1,0 +1,27 @@
+name: Предложение
+description: Новая возможность или улучшение Quillum
+title: "[Предложение]: "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Какую проблему нужно решить
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Предлагаемое поведение
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Альтернативы и ограничения
+  - type: checkboxes
+    id: data
+    attributes:
+      label: Проверка данных
+      options:
+        - label: В описании нет секретов, персональных данных и закрытых текстов.
+          required: true

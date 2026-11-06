@@ -1,0 +1,515 @@
+.contentsPanel {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 14px;
+}
+
+.editorMobileContentsClose { display: none; }
+
+.bookNavigator {
+  min-height: 0;
+  flex: 1;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
+  padding-top: 10px;
+}
+
+.bookNavigatorModes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  margin: 0 4px 10px;
+  padding: 3px;
+  border-radius: 8px;
+  background: var(--color-surface-subtle);
+}
+
+.bookNavigatorModes button,
+.bookBreadcrumbs button,
+.bookNavigatorBack {
+  border: 0;
+  color: var(--color-text-muted);
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+}
+
+.bookNavigatorModes button {
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.bookNavigatorModes button.active {
+  color: var(--color-action-primary-hover);
+  background: var(--color-surface);
+  box-shadow: 0 1px 2px rgb(var(--color-shadow-rgb) / 0.08);
+}
+
+.bookNavigatorBody { min-height: 0; overflow: auto; }
+
+.bookTreeRow {
+  width: 100%;
+  min-height: 38px;
+  display: grid;
+  grid-template-columns: 14px 18px minmax(0, 1fr);
+  align-items: center;
+  gap: 7px;
+  padding: 7px 8px;
+  border: 0;
+  border-left: 3px solid transparent;
+  border-radius: 7px;
+  color: var(--color-text-secondary-strong);
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.bookTreeRow > span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bookTreeRow.active { border-left-color: var(--color-action-primary); color: var(--color-action-primary-hover); background: var(--color-action-surface); }
+.bookTreeChevron { color: var(--color-text-muted); font-size: 18px; }
+
+.bookBreadcrumbs {
+  padding: 3px 7px 10px;
+  color: var(--color-text-subtle);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.bookBreadcrumbs button { padding: 0; color: var(--color-text-secondary); }
+.bookCardGrid { display: grid; gap: 7px; padding: 0 4px; }
+
+.bookItemCard {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 2px 8px;
+  padding: 11px;
+  border: 1px solid var(--color-border);
+  border-radius: 9px;
+  color: var(--color-text-secondary-strong);
+  background: var(--color-surface);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.bookItemCard strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bookItemCard small { grid-column: 2; color: var(--color-text-subtle); }
+.bookItemCard:hover { border-color: var(--color-action-border-subtle); background: var(--color-action-surface); }
+.bookItemCard.active { border-color: var(--color-action-border); color: var(--color-action-primary-hover); background: var(--color-action-surface); }
+
+.bookTrashButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 4px 0;
+  padding: 10px 11px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  font: inherit;
+  cursor: pointer;
+}
+
+.bookTrashButton.active { color: var(--color-action-primary-hover); border-color: var(--color-action-border-subtle); }
+.bookTrashView { padding: 4px; }
+.bookTrashView h3 { margin: 12px 6px; font-size: 14px; }
+.bookTrashView p { margin: 16px 6px; color: var(--color-text-subtle); font-size: 12px; }
+.bookNavigatorBack { padding: 4px 2px; }
+.bookTrashItem { display: flex; align-items: center; gap: 7px; padding: 9px 7px; color: var(--color-text-muted); }
+.bookTrashItem > span { min-width: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bookTrashItem button,
+.bookCreateBar button {
+  padding: 5px 7px;
+  border: 0;
+  border-radius: 5px;
+  color: var(--color-text-secondary);
+  background: var(--color-surface-subtle);
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.bookTrashItem button.danger,
+.bookCreateBar button.danger { color: var(--color-danger-strong); background: var(--color-danger-surface); }
+
+.bookCreateBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 8px 4px 0;
+  border-top: 1px solid var(--color-surface-subtle);
+}
+
+.bookCreateBar form { width: 100%; display: flex; flex-wrap: wrap; gap: 5px; }
+.bookCreateBar input {
+  min-width: 0;
+  flex: 1 1 100%;
+  height: 32px;
+  padding: 6px 8px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 6px;
+  font: inherit;
+  font-size: 12px;
+}
+
+.contentsPanel > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 6px 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.contentsPanel > header h2 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.contentsPanel > header > .contentsAddControl > button {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 7px;
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  cursor: pointer;
+}
+
+.contentsPanel > header > .contentsAddControl > button:not(:disabled):hover {
+  border-color: var(--color-action-border);
+  color: var(--color-action-primary-hover);
+  background: var(--color-action-surface);
+}
+
+.contentsPanel > header > .contentsAddControl > button:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+.contentsPanel > header svg,
+.chapterItem svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.contentsGroup {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 18px 8px 10px;
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+button.chapterItem {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 12px;
+  border: 0;
+  border-left: 3px solid transparent;
+  border-radius: 7px;
+  color: var(--color-text-secondary-strong);
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: default;
+}
+
+button.chapterItem.active {
+  border-left-color: var(--color-action-primary);
+  color: var(--color-action-primary-hover);
+  background: var(--color-action-surface);
+}
+
+.chapterItem span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Shared One-Shot and Book contents navigator. */
+.contentsPanel { padding: 18px 12px 12px; }
+.contentsPanel > header { position: relative; padding: 0 6px 16px; }
+.contentsPanel > header h2 { color: var(--color-text-primary); font-size: 16px; font-weight: 750; }
+.contentsAddControl { position: relative; }
+
+.contentsAddMenu {
+  position: absolute;
+  z-index: 20;
+  top: 38px;
+  right: 0;
+  width: 220px;
+  display: grid;
+  gap: 3px;
+  padding: 6px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-surface);
+  box-shadow: 0 12px 30px rgb(var(--color-shadow-rgb) / 0.14);
+}
+
+.contentsAddMenu button {
+  width: 100%;
+  min-height: 52px;
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  align-items: center;
+  gap: 9px;
+  padding: 8px 9px;
+  border: 0;
+  border-radius: 7px;
+  color: var(--color-text-secondary-strong);
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.contentsAddMenu button:hover { color: var(--color-action-primary-hover); background: var(--color-action-surface); }
+.contentsAddMenu button:disabled { color: var(--color-text-subtle); background: transparent; cursor: not-allowed; }
+.contentsAddMenu button > span { min-width: 0; display: grid; gap: 2px; }
+.contentsAddMenu strong { font-size: 12px; }
+.contentsAddMenu small { color: var(--color-text-subtle); font-size: 10px; font-weight: 500; }
+.contentsAddMenu svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.6; }
+
+.bookNavigator {
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  padding-top: 12px;
+}
+
+.bookNavigatorModes {
+  gap: 0;
+  margin: 0 5px 10px;
+  border-radius: 7px;
+}
+
+.bookNavigatorModes button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 9px;
+}
+
+.bookNavigatorModes button svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.bookNavigatorModes button.active { box-shadow: 0 1px 4px rgb(var(--color-shadow-rgb) / 0.08); }
+
+.bookNavigatorBody {
+  padding: 1px 2px 8px;
+  scrollbar-gutter: stable;
+}
+
+.bookNavigatorBody.cardsView {
+  width: calc(100% + 24px);
+  margin-left: -12px;
+  padding: 1px 0 8px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-gutter: auto;
+}
+
+.bookTree { min-height: 100%; padding: 2px 0; }
+.bookTreeItem {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 28px;
+  align-items: center;
+  margin: 2px 5px;
+  padding-left: calc(var(--tree-depth) * 17px);
+  border-radius: 7px;
+  color: var(--color-text-secondary-strong);
+}
+
+.bookTreeItem:hover { background: var(--color-canvas-subtle); }
+.bookTreeItem.active { color: var(--color-action-primary); background: var(--color-action-surface); }
+.bookTreeRow {
+  min-height: 39px;
+  grid-template-columns: 16px 19px minmax(0, 1fr);
+  gap: 7px;
+  padding: 7px 2px 7px 4px;
+  border: 0;
+  color: inherit;
+  background: transparent;
+}
+
+.bookTreeItem.active .bookTreeRow { color: var(--color-action-primary); }
+.bookTreeChevron,
+.bookTreeTypeIcon,
+.bookItemIcon { display: grid; place-items: center; color: var(--color-text-muted); }
+.bookTreeItem.active .bookTreeTypeIcon { color: var(--color-action-primary); }
+.bookTreeChevron.placeholder { visibility: hidden; }
+.bookTreeChevron svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; transition: transform 140ms ease; }
+.bookTreeChevron svg.expanded { transform: rotate(90deg); }
+.bookTreeTypeIcon svg,
+.bookItemIcon svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.55; stroke-linejoin: round; }
+.bookTreeTitle { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; font-weight: 600; }
+
+.bookItemMenu { position: relative; display: grid; place-items: center; }
+.bookTreeItem > .bookItemMenu { margin-right: 3px; }
+.bookItemMenuButton {
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  color: var(--color-text-subtle);
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+  opacity: 0;
+  display: grid;
+  place-items: center;
+  line-height: 0;
+}
+
+.bookItemMenuButton svg { width: 17px; height: 17px; }
+
+.bookTreeItem:hover .bookItemMenuButton,
+.bookTreeItem:focus-within .bookItemMenuButton,
+.bookItemCard:hover .bookItemMenuButton,
+.bookItemCard:focus-within .bookItemMenuButton { opacity: 1; }
+.bookItemMenuButton:hover { color: var(--color-text-secondary-strong); background: var(--color-border); }
+.bookItemMenuPopover {
+  position: absolute;
+  z-index: 15;
+  top: 28px;
+  right: 0;
+  width: 132px;
+  display: grid;
+  padding: 5px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+  box-shadow: 0 9px 24px rgb(var(--color-shadow-rgb) / 0.14);
+}
+
+.bookItemMenuPopover button { display: flex; align-items: center; gap: 7px; padding: 7px 8px; border: 0; border-radius: 5px; color: var(--color-text-secondary); background: transparent; font: inherit; font-size: 11px; text-align: left; cursor: pointer; }
+.bookItemMenuPopover button svg { width: 15px; height: 15px; flex: 0 0 auto; }
+.bookItemMenuPopover button:hover { background: var(--color-surface-subtle); }
+.bookItemMenuPopover button.danger { color: var(--color-danger-strong); }
+.bookItemMenuPopover button.danger:hover { background: var(--color-danger-surface); }
+
+.bookBreadcrumbs {
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 7px 9px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.bookBreadcrumbs span { min-width: 0; display: flex; align-items: center; gap: 3px; }
+.bookBreadcrumbs span svg { width: 12px; height: 12px; flex: 0 0 auto; fill: none; stroke: var(--color-text-subtle); stroke-width: 2; }
+.bookBreadcrumbs button { min-width: 0; overflow: hidden; padding: 0; text-overflow: ellipsis; white-space: nowrap; }
+.bookNavigatorBody.cardsView .bookBreadcrumbs { padding-right: 21px; padding-left: 21px; }
+.bookCardGrid {
+  gap: 0;
+  margin: 0;
+  padding: 0 0 4px;
+  border-top: 1px solid var(--color-border);
+}
+.bookItemCard {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 28px;
+  gap: 0;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid var(--color-border);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.bookItemCard:hover { border-color: var(--color-border); background: var(--color-canvas-subtle); }
+.bookItemCard.active { border-bottom-color: var(--color-border); color: var(--color-action-primary); background: var(--color-action-surface); }
+.bookCardMain {
+  min-width: 0;
+  min-height: 64px;
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  padding: 10px 3px 10px 9px;
+  border: 0;
+  color: inherit;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.bookNavigatorBody.cardsView .bookCardMain { padding-left: 21px; }
+.bookCardMain > .bookItemIcon { width: 22px; height: 22px; }
+.bookCardMain > .bookItemIcon svg { width: 18px; height: 18px; }
+.bookItemCard.active .bookItemIcon { color: var(--color-action-primary); }
+.bookCardText { min-width: 0; display: grid; gap: 6px; }
+.bookCardText strong { overflow: hidden; color: var(--color-text-primary); font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+.bookItemCard.active .bookCardText strong { color: var(--color-action-primary-hover); }
+.bookCardMeta { min-width: 0; display: flex; align-items: center; gap: 6px; overflow: hidden; color: var(--color-text-muted); font-size: 10px; white-space: nowrap; }
+.bookCardMeta > i { width: 3px; height: 3px; flex: 0 0 auto; border-radius: 50%; background: var(--color-text-subtle); }
+.bookCardStatusSlot { min-width: 34px; flex: 1 1 auto; }
+
+.bookTrashButton {
+  min-height: 40px;
+  margin: 0;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 7px;
+  color: var(--color-text-secondary-strong);
+  background: transparent;
+  font-size: 13px;
+}
+
+.bookTrashButton > span:first-child { display: flex; align-items: center; gap: 12px; font-weight: 600; }
+.bookTrashButton svg { width: 18px; height: 18px; }
+.bookTrashButton:hover { color: var(--color-action-primary-hover); background: var(--color-canvas); }
+.bookTrashButton.active { color: var(--color-action-primary); background: var(--color-action-surface); }
+.bookTrashCount { min-width: 25px; padding: 2px 7px; border-radius: 999px; background: var(--color-border); color: var(--color-text-secondary); font-size: 11px; text-align: center; }
+.bookTrashView { padding: 5px 4px; }
+.bookNavigatorBack { display: flex; align-items: center; gap: 4px; padding: 5px 3px; font-size: 11px; }
+.bookNavigatorBack svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }
+.bookTrashView h3 { margin: 13px 4px 8px; color: var(--color-text-primary); font-size: 13px; }
+.bookTrashItem { display: grid; grid-template-columns: 22px minmax(0, 1fr) 28px 28px; align-items: center; gap: 7px; margin: 3px 0; padding: 8px 7px; border: 1px solid var(--color-border); border-radius: 8px; background: var(--color-surface); }
+.bookTrashItem strong { min-width: 0; overflow: hidden; color: var(--color-text-secondary-strong); font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+.bookTrashItem button.bookTrashItemAction { width: 28px; height: 28px; display: grid; grid-column: auto; place-items: center; padding: 0; border: 0; border-radius: 6px; color: var(--color-text-muted); background: transparent; cursor: pointer; }
+.bookTrashItem button.bookTrashItemAction:hover { color: var(--color-action-primary); background: var(--color-action-surface); }
+.bookTrashItem button.bookTrashItemAction.danger { color: var(--color-danger); background: transparent; }
+.bookTrashItem button.bookTrashItemAction.danger:hover { background: var(--color-danger-surface); }
+.bookTrashItemAction svg { width: 16px; height: 16px; }
+.bookNavigatorEmpty { margin: 18px 8px; color: var(--color-text-subtle); font-size: 11px; text-align: center; }
+.contentsNavigatorLoading { min-height: 160px; padding: 24px 8px; color: var(--color-text-subtle); font-size: 11px; }
+
+.bookItemActionDialog { width: min(100%, 480px); }

@@ -1,0 +1,40 @@
+.authWorkspace .authCard button.primaryAction {
+  width: 100%;
+  min-height: 42px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 8px;
+  color: var(--color-text-on-accent);
+  background: var(--color-action-primary);
+  box-shadow: none;
+  cursor: pointer;
+}
+
+.authWorkspace .authCard button.primaryAction:hover {
+  background: var(--color-action-primary-hover);
+}
+
+.authWorkspace .authCard button.secondaryAction {
+  width: 100%;
+  min-height: 42px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 8px;
+  color: var(--color-text-primary);
+  background: var(--color-surface-subtle);
+  box-shadow: none;
+  cursor: pointer;
+}
+
+.authWorkspace .authCard button.secondaryAction:hover {
+  background: var(--color-border);
+}
+
+.authWorkspace .authCard button.primaryAction:disabled,
+.authWorkspace .authCard button.secondaryAction:disabled {
+  cursor: not-allowed;
+}
+
+.authWorkspace .authCard button.hiddenAction {
+  display: none;
+}

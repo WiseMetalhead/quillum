@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Django
+*.sqlite3
+media/
+staticfiles/
+
+# Celery
+celerybeat-schedule*
+
+# Node
+node_modules/
+dist/
+coverage/
+
+# Environment
+.env
+.env.local
+.env.production
+!.env.example
+.secrets/
+.run/
+
+# Public Docker backups
+backups/
+
+# Editors
+.idea/
+.vscode/
+
+# OS
+Thumbs.db
+.DS_Store

@@ -1,0 +1,15 @@
+.tadpoleLoadingState {
+  width: 100%;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  color: var(--color-action-primary);
+  background: rgb(var(--color-surface-rgb) / 68%);
+  cursor: progress;
+}
+
+.tadpoleLoadingState svg {
+  width: 38px;
+  height: 38px;
+  color: var(--color-action-primary);
+}

@@ -1,0 +1,349 @@
+.documentComparison {
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  color: var(--color-text-primary);
+  background: var(--color-canvas-subtle);
+}
+
+.documentComparisonMobileHeader,
+.documentComparisonMobileToolbar { display: none; }
+
+.documentComparisonToolbar {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 8px 18px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.documentComparisonLegend,
+.documentComparisonNavigation {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+.documentComparisonLegend span::before {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  margin-right: 5px;
+  border-radius: 3px;
+  content: '';
+}
+
+.documentComparisonLegend .removed::before { background: var(--color-danger-surface); border: 1px solid var(--color-danger-border); }
+.documentComparisonLegend .added::before { background: var(--color-success-surface); border: 1px solid var(--color-success-border); }
+.documentComparisonLegend .formatted::before { background: var(--color-warning-surface); border: 1px solid var(--color-warning-border); }
+
+.documentComparisonNavigation { margin-left: auto; }
+.documentComparisonNavigation button { width: 32px; height: 32px; display: grid; place-items: center; padding: 0; border: 1px solid var(--color-border); background: var(--color-surface); }
+.documentComparisonNavigation button:disabled { opacity: .45; }
+.documentComparisonNavigation svg { width: 17px; height: 17px; fill: currentColor; }
+.documentComparisonShowAll { height: 34px; padding: 8px 14px; border: 0; border-radius: 7px; color: var(--color-text-on-accent); background: var(--color-action-primary); font-size: 13px; font-weight: 700; }
+.documentComparisonShowAll:hover { background: var(--color-action-primary-hover); }
+
+.documentComparisonColumns,
+.documentComparisonRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.documentComparisonColumns {
+  position: relative;
+  z-index: 2;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.documentComparisonColumns header {
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 20px;
+}
+
+.documentComparisonColumns header + header { border-left: 1px solid var(--color-border); }
+.documentComparisonColumns strong { font-size: 14px; }
+.documentComparisonColumns time { color: var(--color-text-muted); font-size: 11px; white-space: nowrap; }
+.documentComparisonMobileTabs { display: none; }
+
+.documentComparisonScroll { min-height: 0; overflow: auto; scroll-behavior: smooth; }
+
+@media (min-width: 521px) {
+  .documentComparisonScroll { scrollbar-gutter: stable both-edges; }
+}
+
+.documentComparisonRow { align-items: stretch; border-bottom: 1px solid var(--color-border-subtle, var(--color-border)); }
+.documentComparisonRow.changed { scroll-margin-block: 90px; }
+.documentComparisonCell { min-width: 0; padding: 18px 24px; background: var(--color-surface); font-family: Georgia, 'Times New Roman', serif; font-size: 16px; line-height: 1.7; }
+.documentComparisonCell + .documentComparisonCell { border-left: 1px solid var(--color-border); }
+.documentComparisonRow.changed .documentComparisonCell.left { box-shadow: inset 3px 0 var(--color-danger-border); }
+.documentComparisonRow.changed .documentComparisonCell.right { box-shadow: inset 3px 0 var(--color-success-border); }
+.documentComparisonRow.unchanged .documentComparisonCell { color: var(--color-text-secondary); background: var(--color-canvas-subtle); }
+.documentComparisonCell.empty { display: grid; place-items: center; color: var(--color-text-subtle); background: var(--color-canvas-subtle); font: 12px/1.4 inherit; }
+.documentComparisonText { white-space: pre-wrap; overflow-wrap: anywhere; }
+.documentComparisonText.heading { font-family: inherit; font-weight: 700; line-height: 1.35; }
+.documentComparisonText.heading.level-1 { font-size: 1.45em; }
+.documentComparisonText.heading.level-2 { font-size: 1.27em; }
+.documentComparisonText.heading.level-3 { font-size: 1.12em; }
+.documentComparisonText .removed { color: var(--color-danger-text); background: var(--color-danger-surface); text-decoration-color: currentColor; }
+.documentComparisonText .added { color: var(--color-success-text); background: var(--color-success-surface); }
+.documentComparisonText .formattingChanged { border-bottom: 2px dotted var(--color-warning-border); background: var(--color-warning-surface); }
+.documentComparisonText .annotationsChanged { outline: 1px dashed var(--color-action-border); outline-offset: 1px; }
+
+.documentComparisonBadges { display: flex; flex-wrap: wrap; justify-content: inherit; gap: 5px; margin-bottom: 8px; font: 10px/1.3 inherit; text-align: left; }
+.documentComparisonBadges span { padding: 3px 6px; border: 1px solid var(--color-warning-border); border-radius: 999px; color: var(--color-warning-text); background: var(--color-warning-surface); }
+.documentComparisonSceneBreak { text-align: center; letter-spacing: .18em; }
+
+.documentComparisonIllustration { max-width: 100%; margin: 0; }
+.documentComparisonIllustrationPreview { position: relative; min-height: 90px; display: grid; place-items: center; overflow: hidden; border: 1px solid var(--color-border); border-radius: 8px; color: var(--color-text-muted); background: var(--color-canvas-subtle); font: 12px/1.4 inherit; }
+.documentComparisonIllustrationPreview img { position: relative; z-index: 1; width: 100%; max-height: 260px; object-fit: contain; background: var(--color-surface); }
+.documentComparisonIllustrationPreview span { position: absolute; }
+.documentComparisonIllustration figcaption { margin-top: 8px; font-style: italic; text-align: center; }
+
+.documentComparisonGap { width: 100%; min-height: 38px; border: 0; border-bottom: 1px solid var(--color-border); color: var(--color-text-muted); background: var(--color-canvas-subtle); font-size: 12px; }
+.documentComparisonGap:hover { color: var(--color-text-secondary-strong); background: var(--color-surface-subtle); }
+.documentComparisonState { min-height: 180px; display: grid; place-content: center; justify-items: center; gap: 12px; padding: 24px; color: var(--color-text-muted); text-align: center; }
+.documentComparisonState p { margin: 0; }
+.documentComparisonState button { min-height: 36px; padding: 7px 13px; border: 1px solid var(--color-border); background: var(--color-surface); }
+
+@media (max-width: 520px) {
+  .documentComparison { grid-template-rows: auto auto minmax(0, 1fr); }
+  .documentComparisonToolbar { flex-wrap: wrap; gap: 8px 12px; padding: 8px 12px; }
+  .documentComparisonLegend { width: 100%; justify-content: center; }
+  .documentComparisonNavigation { margin-left: 0; }
+  .documentComparisonShowAll { margin-left: auto; }
+  .documentComparisonColumns { display: none; }
+  .documentComparisonMobileTabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 8px 12px; border-bottom: 1px solid var(--color-border); background: var(--color-surface); }
+  .documentComparisonMobileTabs button { min-height: 42px; display: grid; place-content: center; gap: 2px; border: 1px solid var(--color-border); color: var(--color-text-secondary); background: var(--color-surface); font: inherit; }
+  .documentComparisonMobileTabs button strong { font-size: 12px; }
+  .documentComparisonMobileTabs button time { font-size: 9px; font-weight: 400; }
+  .documentComparisonMobileTabs button:first-child { border-radius: 7px 0 0 7px; }
+  .documentComparisonMobileTabs button:last-child { border-left: 0; border-radius: 0 7px 7px 0; }
+  .documentComparisonMobileTabs button.active { color: var(--color-text-on-accent); background: var(--color-action-primary); }
+  .documentComparisonRow { display: block; }
+  .documentComparisonCell { display: none; min-height: 72px; padding: 16px; font-size: 15px; }
+  .documentComparisonCell.mobileActive { display: block; }
+  .documentComparisonCell.empty.mobileActive { display: grid; }
+  .documentComparisonCell + .documentComparisonCell { border-left: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .documentComparisonScroll { scroll-behavior: auto; }
+}
+
+.conflictComparisonBackdrop {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: var(--color-overlay);
+  backdrop-filter: blur(3px);
+}
+
+.conflictComparisonDialog {
+  width: min(1400px, 98vw);
+  height: min(940px, calc(100dvh - 40px));
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background: var(--color-surface);
+  box-shadow: 0 28px 70px rgb(var(--color-shadow-rgb) / 24%);
+}
+
+.conflictComparisonDialog:focus { outline: none; }
+
+.conflictComparisonDialog > header { padding: 18px 22px 15px; border-bottom: 1px solid var(--color-border); }
+.conflictComparisonDialog > header h2 { margin: 0; font-size: 20px; }
+.conflictComparisonDialog > header p { margin: 5px 0 0; color: var(--color-text-muted); font-size: 13px; line-height: 1.45; }
+.conflictComparisonDialog > footer { display: flex; justify-content: flex-end; gap: 10px; padding: 14px 20px; border-top: 1px solid var(--color-border); }
+.conflictComparisonDialog > footer button { min-height: 39px; padding: 8px 14px; border-radius: 7px; font: inherit; font-weight: 700; }
+.conflictComparisonDialog > footer .secondaryAction { border: 1px solid var(--color-border-strong); color: var(--color-text-secondary-strong); background: var(--color-surface); }
+.conflictComparisonDialog > footer .primaryAction { border: 1px solid var(--color-action-primary); color: var(--color-text-on-accent); background: var(--color-action-primary); }
+.conflictConfirmationDialog { width: min(100%, 520px); }
+
+@media (max-width: 520px) {
+  body.conflictComparisonOpen .appHeader {
+    background: var(--color-surface);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  body.conflictComparisonOpen button.brandButton:disabled {
+    color: var(--color-text-primary);
+    cursor: default;
+    opacity: 1;
+  }
+
+  body.conflictComparisonOpen button.notificationButton:disabled,
+  body.conflictComparisonOpen button.mobileNavigationButton:disabled {
+    color: var(--color-text-secondary-strong);
+    cursor: default;
+    opacity: 1;
+  }
+
+  .conflictComparisonBackdrop {
+    inset: var(--app-header-height) 0 0;
+    place-items: stretch;
+    padding: 0;
+    background: transparent;
+    backdrop-filter: none;
+  }
+
+  .editorScaffold > .conflictComparisonBackdrop {
+    position: absolute;
+    z-index: 30;
+    inset: 0;
+  }
+
+  .conflictComparisonDialog {
+    width: 100%;
+    height: 100%;
+    grid-template-rows: minmax(0, 1fr);
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .conflictComparisonDialog > header,
+  .conflictComparisonDialog > footer { display: none; }
+
+  .documentComparison.mobileConflict,
+  .documentComparison.mobileVersionComparison {
+    height: 100%;
+    grid-template-rows: 56px minmax(0, 1fr) auto;
+    background: var(--color-surface);
+  }
+
+  .documentComparison.mobileConflict > .documentComparisonToolbar,
+  .documentComparison.mobileConflict > .documentComparisonMobileTabs,
+  .documentComparison.mobileConflict > .documentComparisonColumns,
+  .documentComparison.mobileVersionComparison > .documentComparisonToolbar,
+  .documentComparison.mobileVersionComparison > .documentComparisonMobileTabs,
+  .documentComparison.mobileVersionComparison > .documentComparisonColumns { display: none; }
+
+  .documentComparisonMobileHeader {
+    min-width: 0;
+    min-height: 56px;
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr) 40px;
+    align-items: center;
+    gap: 0;
+    padding: 7px 8px;
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-surface);
+  }
+
+  .documentComparisonMobileHeader h2 {
+    min-width: 0;
+    margin: 0;
+    overflow: hidden;
+    font-size: 16px;
+    line-height: 1.35;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .documentComparisonMobileHeader button {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    justify-self: end;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    color: var(--color-text-secondary-strong);
+    background: transparent;
+  }
+
+  .documentComparisonMobileHeader button.documentComparisonMobileBack {
+    justify-self: start;
+  }
+
+  .documentComparisonMobileHeader button.active { color: var(--color-action-primary-hover); background: var(--color-action-surface); }
+  .documentComparisonMobileHeader button svg { width: 22px; height: 22px; }
+
+  .documentComparison.mobileConflict > .documentComparisonScroll,
+  .documentComparison.mobileVersionComparison > .documentComparisonScroll { grid-row: 2; }
+
+  .documentComparisonMobileToolbar {
+    position: relative;
+    z-index: 3;
+    min-width: 0;
+    min-height: 59px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 7px max(8px, env(safe-area-inset-right, 0px)) calc(7px + env(safe-area-inset-bottom, 0px)) max(8px, env(safe-area-inset-left, 0px));
+    border-top: 1px solid var(--color-border);
+    background: rgb(var(--color-surface-rgb) / 96%);
+    box-shadow: 0 -10px 24px rgb(var(--color-shadow-rgb) / 7%);
+    backdrop-filter: blur(14px);
+  }
+
+  .documentComparisonMobileToolbarGroup { min-width: 0; display: flex; align-items: center; gap: 5px; }
+  .documentComparisonMobileToolbarGroup.changes { flex: 1 1 auto; justify-content: center; }
+  .documentComparisonMobileToolbarGroup.trailing { flex: 0 0 auto; }
+
+  .documentComparisonMobileToolbar button {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    display: grid;
+    place-items: center;
+    flex: 0 0 36px;
+    padding: 0;
+    border: 0;
+    border-radius: 7px;
+    color: var(--color-text-secondary-strong);
+    background: transparent;
+  }
+
+  .documentComparisonMobileToolbar button.active { color: var(--color-action-primary-hover); background: var(--color-action-surface); }
+  .documentComparisonMobileToolbar button.choose { color: var(--color-text-on-accent); background: var(--color-action-primary); }
+  .documentComparisonMobileToolbar button:disabled { opacity: .45; }
+  .documentComparisonMobileToolbar button svg { width: 20px; height: 20px; }
+
+  .documentComparisonMobileToolbarDivider {
+    width: 1px;
+    height: 24px;
+    flex: 0 0 1px;
+    margin: 0 1px;
+    background: var(--color-border-subtle);
+  }
+
+  .documentComparisonMobileCount {
+    min-width: 29px;
+    color: var(--color-text-muted);
+    font-size: 10px;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+  }
+
+  .documentComparisonMobileLegend { display: grid; padding: 4px 2px 8px; }
+  .documentComparisonMobileLegend span { min-height: 42px; display: flex; align-items: center; gap: 10px; color: var(--color-text-secondary-strong); font-size: 13px; }
+  .documentComparisonMobileLegend span::before { width: 13px; height: 13px; flex: 0 0 13px; border-radius: 3px; content: ''; }
+  .documentComparisonMobileLegend .removed::before { border: 1px solid var(--color-danger-border); background: var(--color-danger-surface); }
+  .documentComparisonMobileLegend .added::before { border: 1px solid var(--color-success-border); background: var(--color-success-surface); }
+  .documentComparisonMobileLegend .formatted::before { border: 1px solid var(--color-warning-border); background: var(--color-warning-surface); }
+
+  .standardDialogBackdrop.conflictConfirmationBackdrop {
+    z-index: 1200;
+  }
+}

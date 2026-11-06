@@ -1,0 +1,571 @@
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: var(--color-overlay);
+  backdrop-filter: blur(4px);
+}
+
+.reauthenticationBackdrop {
+  z-index: 1200;
+}
+
+.reauthenticationDialog,
+.actionDialog {
+  position: relative;
+  width: min(100%, 420px);
+  padding: 28px;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background: var(--color-surface);
+  box-shadow: 0 24px 64px rgb(var(--color-shadow-rgb) / 24%);
+}
+
+.reauthenticationDialog h2,
+.actionDialog h2 {
+  margin: 0 0 8px;
+}
+
+.reauthenticationDialog p,
+.actionDialog p {
+  margin: 0 0 20px;
+  color: var(--color-text-muted);
+}
+
+.reauthenticationDialog form,
+.actionDialogForm {
+  display: grid;
+  gap: 14px;
+}
+
+.dialogActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.compactDialogBackdrop {
+  position: fixed;
+  z-index: 1100;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: var(--color-overlay);
+  backdrop-filter: blur(3px);
+}
+
+.compactActionDialog {
+  width: min(440px, calc(100vw - 32px));
+  max-height: min(720px, calc(100dvh - 32px));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface);
+  box-shadow: 0 24px 60px rgb(var(--color-shadow-rgb) / 22%);
+}
+
+.compactActionDialog > header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 22px 14px;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.compactActionDialog h2 {
+  margin: 0;
+  font-size: 17px;
+}
+
+.compactActionDialog header p {
+  margin: 4px 0 0;
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+.compactDialogClose {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  padding: 0;
+  border: 0;
+  border-radius: 7px;
+  color: var(--color-text-muted);
+  background: transparent;
+  cursor: pointer;
+}
+
+.compactDialogClose:hover:not(:disabled),
+.compactDialogClose:focus-visible:not(:disabled) {
+  color: var(--color-action-primary-hover);
+  background: var(--color-surface-subtle);
+  outline: none;
+}
+
+.compactDialogClose:disabled {
+  opacity: .5;
+  cursor: wait;
+}
+
+.compactDialogClose svg {
+  width: 20px;
+  height: 20px;
+}
+
+.compactDialogContent {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.reauthenticationStructuredForm {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.reauthenticationStructuredForm .notice {
+  margin: 0;
+}
+
+.opposingDialogFooter {
+  justify-content: space-between;
+}
+
+.compactDialogSection {
+  min-height: 0;
+  display: grid;
+  gap: 14px;
+  padding: 18px 22px;
+  overflow-y: auto;
+}
+
+.compactDialogSection > p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.compactDialogContent .dialogField {
+  display: grid;
+  gap: 7px;
+}
+
+.compactDialogContent .dialogField > span {
+  color: var(--color-text-secondary-strong);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.compactDialogContent .dialogField .customSelectButton {
+  width: 100%;
+  height: 38px;
+  padding: 7px 10px 7px 11px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 7px;
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+  font: inherit;
+  font-size: 13px;
+}
+
+.compactDialogContent .dialogField .customSelectButton:focus-visible {
+  border-color: var(--color-action-border);
+  outline: 2px solid var(--color-action-border);
+  outline-offset: 1px;
+}
+
+.compactDialogFooter {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 13px 22px;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.compactDialogSecondaryAction,
+.compactDialogPrimaryAction {
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 8px 12px;
+  border-radius: 7px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.compactDialogSecondaryAction {
+  border: 1px solid var(--color-border-strong);
+  color: var(--color-text-secondary-strong);
+  background: var(--color-surface);
+}
+
+.compactDialogSecondaryAction:hover:not(:disabled),
+.compactDialogSecondaryAction:focus-visible:not(:disabled) {
+  border-color: var(--color-action-border-subtle);
+  color: var(--color-action-primary-hover);
+  background: var(--color-canvas);
+  outline: none;
+}
+
+.compactDialogPrimaryAction {
+  border: 1px solid var(--color-action-primary);
+  color: var(--color-text-on-accent);
+  background: var(--color-action-primary);
+}
+
+.compactDialogPrimaryAction:hover:not(:disabled),
+.compactDialogPrimaryAction:focus-visible:not(:disabled) {
+  border-color: var(--color-action-primary-hover);
+  background: var(--color-action-primary-hover);
+  outline: none;
+}
+
+.compactDialogPrimaryAction.danger,
+.compactDialogPrimaryAction.danger:hover:not(:disabled) {
+  border-color: var(--color-danger);
+  background: var(--color-danger);
+}
+
+.compactDialogSecondaryAction:disabled,
+.compactDialogPrimaryAction:disabled {
+  opacity: .6;
+  cursor: wait;
+}
+
+.compactDialogPrimaryAction svg {
+  width: 17px;
+  height: 17px;
+}
+
+@media (max-width: 520px) {
+  .reauthenticationMobileForm .compactDialogSection {
+    padding: 18px 16px;
+  }
+
+  .reauthenticationMobileForm .compactDialogSection > p {
+    font-size: 14px;
+  }
+
+  .reauthenticationMobileForm .compactDialogFooter {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    padding: 16px 16px calc(16px + env(safe-area-inset-bottom, 0px));
+    border-top-color: var(--color-border);
+  }
+
+  .reauthenticationMobileForm .compactDialogFooter button {
+    width: 100%;
+    min-width: 0;
+    min-height: 42px;
+  }
+}
+
+.standardDialogBackdrop {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: var(--color-overlay);
+  backdrop-filter: blur(3px);
+}
+
+.standardActionDialog {
+  width: min(100%, 620px);
+  max-height: calc(100dvh - 48px);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background: var(--color-surface);
+  box-shadow: 0 28px 70px rgb(var(--color-shadow-rgb) / 24%);
+}
+
+.standardActionDialog > header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 24px 18px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.standardActionDialog header h2 {
+  margin: 0 0 6px;
+  color: var(--color-text-primary);
+  font-size: 21px;
+  line-height: 1.25;
+}
+
+.standardActionDialog header p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.standardDialogClose {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  padding: 0;
+  border: 0;
+  border-radius: 7px;
+  color: var(--color-text-muted);
+  background: transparent;
+  cursor: pointer;
+}
+
+.standardDialogClose:hover:not(:disabled) {
+  color: var(--color-text-secondary-strong);
+  background: var(--color-surface-subtle);
+}
+
+.standardDialogClose:disabled {
+  opacity: .5;
+  cursor: wait;
+}
+
+.standardDialogClose svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+  stroke: none;
+}
+
+.standardDialogMobileBack,
+.standardDialogMobilePrimary {
+  display: none;
+}
+
+.standardDialogContent {
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.standardDialogContent > form {
+  display: grid;
+  gap: 19px;
+  padding: 22px 24px 24px;
+}
+
+.standardDialogContent .dialogField {
+  display: grid;
+  gap: 7px;
+}
+
+.standardDialogContent .dialogField > span {
+  color: var(--color-text-secondary-strong);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.standardDialogContent .dialogField input,
+.standardDialogContent .dialogField textarea,
+.standardDialogContent .dialogField .customSelectButton {
+  width: 100%;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 8px;
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+  font: inherit;
+}
+
+.standardDialogContent .dialogField input {
+  height: 43px;
+  padding: 9px 12px;
+}
+
+.standardDialogContent .dialogField .customSelectButton {
+  height: 43px;
+  padding: 9px 11px 9px 12px;
+}
+
+.standardDialogContent .dialogField textarea {
+  padding: 10px 12px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.standardDialogContent .dialogField input:focus,
+.standardDialogContent .dialogField textarea:focus,
+.standardDialogContent .dialogField .customSelectButton:focus-visible {
+  border-color: var(--color-action-border);
+  outline: 2px solid var(--color-action-border);
+  outline-offset: 1px;
+}
+
+.standardDialogContent footer,
+.standardDialogFooter {
+  position: sticky;
+  z-index: 2;
+  bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin: 0 -24px -24px;
+  padding: 16px 24px 24px;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.standardDialogContent > .standardDialogSection {
+  padding: 22px 24px 24px;
+}
+
+.standardDialogContent > .standardDialogSection > p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.standardDialogContent > .standardDialogSection > .standardDialogFooter {
+  margin-top: 22px;
+}
+
+.standardDialogContent .dialogCancel,
+.standardDialogContent .dialogSubmit {
+  min-height: 39px;
+  padding: 9px 14px;
+  border-radius: 7px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.standardDialogContent .dialogCancel {
+  border: 1px solid var(--color-border-strong);
+  color: var(--color-text-secondary-strong);
+  background: var(--color-surface);
+}
+
+.standardDialogContent .dialogCancel:hover:not(:disabled) {
+  background: var(--color-canvas-subtle);
+}
+
+.standardDialogContent .dialogSubmit {
+  border: 1px solid var(--color-action-primary);
+  color: var(--color-text-on-accent);
+  background: var(--color-action-primary);
+}
+
+.standardDialogContent .dialogSubmit:hover:not(:disabled) {
+  border-color: var(--color-action-primary-hover);
+  background: var(--color-action-primary-hover);
+}
+
+.standardDialogContent .dialogSubmit.danger {
+  border-color: var(--color-danger);
+  background: var(--color-danger);
+}
+
+.standardDialogContent .dialogSubmit.danger:hover:not(:disabled) {
+  border-color: var(--color-danger-strong);
+  background: var(--color-danger-strong);
+}
+
+.standardDialogContent .dialogCancel:disabled,
+.standardDialogContent .dialogSubmit:disabled {
+  opacity: .6;
+  cursor: wait;
+}
+
+@media (min-width: 521px) {
+  .modalBackdrop,
+  .compactDialogBackdrop,
+  .standardDialogBackdrop {
+    animation: actionDialogBackdropIn 140ms ease-out both;
+  }
+
+  .modalBackdrop > .actionDialog,
+  .compactDialogBackdrop > .compactActionDialog,
+  .standardDialogBackdrop > .standardActionDialog {
+    transform-origin: center;
+    animation: actionDialogSurfaceIn 180ms cubic-bezier(.2, .8, .2, 1) both;
+  }
+}
+
+@keyframes actionDialogBackdropIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes actionDialogSurfaceIn {
+  from { transform: translateY(8px) scale(.98); }
+  to { transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modalBackdrop,
+  .compactDialogBackdrop,
+  .standardDialogBackdrop,
+  .modalBackdrop > .actionDialog,
+  .compactDialogBackdrop > .compactActionDialog,
+  .standardDialogBackdrop > .standardActionDialog {
+    animation: none;
+  }
+}
+
+@media (max-width: 680px) {
+  .standardDialogBackdrop {
+    padding: 10px;
+  }
+
+  .standardActionDialog {
+    max-height: calc(100dvh - 20px);
+  }
+
+  .standardActionDialog > header {
+    padding: 18px;
+  }
+
+  .standardDialogContent > form,
+  .standardDialogContent > .standardDialogSection {
+    padding: 18px;
+  }
+
+  .standardDialogContent footer,
+  .standardDialogFooter {
+    margin-right: -18px;
+    margin-bottom: -18px;
+    margin-left: -18px;
+    padding: 14px 18px 18px;
+  }
+}
+
+@media (min-width: 681px) and (max-height: 780px) {
+  .modalBackdrop,
+  .compactDialogBackdrop,
+  .standardDialogBackdrop {
+    padding: 12px;
+  }
+
+  .compactActionDialog,
+  .standardActionDialog {
+    max-height: calc(100dvh - 24px);
+  }
+}

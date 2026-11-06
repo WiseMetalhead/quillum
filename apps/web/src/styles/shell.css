@@ -1,0 +1,641 @@
+.shell {
+  min-height: 100dvh;
+  padding-top: var(--app-header-height);
+  background:
+    linear-gradient(180deg, var(--color-surface) 0%, var(--color-canvas) 52%, var(--color-canvas-subtle) 100%);
+  color: var(--color-text-primary);
+}
+
+.appHeader {
+  position: fixed;
+  z-index: 20;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: var(--app-header-height);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 28px;
+  border-bottom: 1px solid var(--color-border);
+  background: rgb(var(--color-surface-rgb) / 0.92);
+  box-shadow: 0 10px 30px rgb(var(--color-shadow-rgb) / 0.04);
+  backdrop-filter: blur(16px);
+}
+
+.appHeader.mobileMenuOpen { z-index: 1000; }
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex: 0 0 auto;
+  color: var(--color-text-primary);
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.brandMark {
+  width: 17px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.brandMark img {
+  width: auto;
+  height: 34px;
+  display: block;
+}
+
+button.brandButton {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+button.brandButton:focus-visible {
+  color: var(--color-text-primary);
+  background: transparent;
+  outline: none;
+}
+
+button.brandButton:focus-visible {
+  border-radius: 5px;
+  box-shadow: 0 0 0 2px var(--color-action-border);
+}
+
+button.brandButton:disabled {
+  color: var(--color-text-muted);
+  background: transparent;
+  cursor: not-allowed;
+}
+
+@media (hover: hover) {
+  button.brandButton:hover:not(:disabled) {
+    color: var(--color-action-primary);
+  }
+}
+
+.primaryNav {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.manuscriptNav {
+  gap: 6px;
+}
+
+.headerDivider {
+  width: 1px;
+  height: 28px;
+  flex: 0 0 auto;
+  background: var(--color-border);
+}
+
+.sectionMenu {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+button.sectionMenuButton {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text-secondary-strong);
+  background: var(--color-surface);
+  cursor: pointer;
+}
+
+button.sectionMenuButton:hover {
+  border-color: var(--color-action-border-subtle);
+  color: var(--color-action-primary-hover);
+  background: var(--color-action-surface);
+}
+
+.sectionMenuButton svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sectionDropdown {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 12px);
+  left: 0;
+  width: 180px;
+  padding: 7px;
+  border: 1px solid var(--color-border);
+  border-radius: 9px;
+  background: var(--color-surface);
+  box-shadow: 0 18px 42px rgb(var(--color-shadow-rgb) / 0.14);
+}
+
+.sectionDropdown .dropdownItem {
+  font-weight: 600;
+}
+
+.navItem {
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 8px;
+  color: var(--color-text-secondary);
+  background: transparent;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.navItem:hover {
+  color: var(--color-text-primary);
+  background: var(--color-canvas-subtle);
+}
+
+.navItem.active {
+  color: var(--color-action-primary);
+  background: var(--color-action-surface);
+}
+
+.navIcon {
+  width: 19px;
+  height: 19px;
+  flex: 0 0 auto;
+}
+
+.headerActions {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.guestHeaderActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+button.guestServicePageReturn {
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text-secondary-strong);
+  background: var(--color-surface);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+button.guestServicePageReturn svg { width: 17px; height: 17px; }
+
+button.guestServicePageReturn:hover,
+button.guestServicePageReturn:focus-visible {
+  border-color: var(--color-action-border-subtle);
+  color: var(--color-action-primary-hover);
+  background: var(--color-action-surface);
+  outline: none;
+}
+
+button.themeToggle {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text-secondary-strong);
+  background: var(--color-surface);
+  cursor: pointer;
+}
+
+button.themeToggle:hover,
+button.themeToggle:focus-visible {
+  border-color: var(--color-action-border-subtle);
+  color: var(--color-action-primary-hover);
+  background: var(--color-action-surface);
+  outline: none;
+}
+
+.themeToggle svg {
+  width: 19px;
+  height: 19px;
+}
+
+.notificationButton svg {
+  width: 20px;
+  height: 20px;
+}
+
+.profileMenu {
+  position: relative;
+}
+
+.mobileNavigation {
+  position: relative;
+  display: none;
+}
+
+button.mobileNavigationButton {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  color: var(--color-text-secondary-strong);
+  background: transparent;
+  cursor: pointer;
+}
+
+button.mobileNavigationButton:focus-visible,
+button.mobileNavigationButton[aria-expanded="true"] {
+  color: var(--color-action-primary);
+  background: var(--color-action-surface);
+  outline: none;
+}
+
+button.mobileNavigationButton:disabled {
+  color: var(--color-text-subtle);
+  background: transparent;
+  cursor: not-allowed;
+}
+
+.mobileNavigationButton svg {
+  width: 21px;
+  height: 21px;
+}
+
+.mobileNavigationPopover {
+  position: absolute;
+  z-index: 45;
+  top: calc(100% + 12px);
+  right: 0;
+  width: min(292px, calc(100vw - 24px));
+  max-height: calc(100dvh - var(--app-header-height) - 20px);
+  padding: 7px;
+  overflow-y: auto;
+  border: 1px solid var(--color-border);
+  border-radius: 9px;
+  background: var(--color-surface);
+  box-shadow: 0 20px 50px rgb(var(--color-shadow-rgb) / 0.18);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform-origin: top right;
+  transform: translate3d(0, -10px, 0) scaleY(.97);
+  transition:
+    opacity 180ms ease-in,
+    transform 200ms ease-in,
+    visibility 0s linear 200ms;
+}
+
+.mobileNavigationPopover.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translate3d(0, 0, 0) scaleY(1);
+  transition:
+    opacity 180ms ease-out,
+    transform 200ms ease-out,
+    visibility 0s linear 0s;
+}
+
+.mobileNavigationGroup,
+.mobileNavigationAccountActions {
+  display: grid;
+  gap: 2px;
+}
+
+button.mobileNavigationItem,
+button.mobileNavigationUser {
+  width: 100%;
+  min-height: 40px;
+  border: 0;
+  border-radius: 6px;
+  color: var(--color-text-secondary-strong);
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+button.mobileNavigationItem {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 8px 10px;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.mobileNavigationItem > svg {
+  width: 19px;
+  height: 19px;
+  flex: 0 0 auto;
+  color: var(--color-action-primary);
+}
+
+button.mobileNavigationItem:hover,
+button.mobileNavigationItem:focus-visible,
+button.mobileNavigationUser:hover,
+button.mobileNavigationUser:focus-visible {
+  color: var(--color-text-primary);
+  background: var(--color-surface-subtle);
+  outline: none;
+}
+
+button.mobileNavigationItem.active {
+  color: var(--color-action-primary-hover);
+  background: var(--color-action-surface);
+}
+
+button.mobileNavigationItem:disabled {
+  color: var(--color-text-subtle);
+  background: transparent;
+  cursor: not-allowed;
+}
+
+.mobileNavigationDivider {
+  height: 2px;
+  margin: 7px 4px;
+  background: var(--color-border-strong);
+}
+
+button.mobileNavigationUser {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr) 18px;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 9px;
+}
+
+.mobileNavigationUser strong {
+  overflow: hidden;
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mobileNavigationUser > svg {
+  width: 17px;
+  height: 17px;
+  color: var(--color-text-muted);
+  transition: transform 160ms ease;
+}
+
+.mobileNavigationUser > svg.open {
+  transform: rotate(180deg);
+}
+
+.mobileNavigationAccountActions {
+  max-height: 0;
+  margin-top: 0;
+  padding: 0 0 0 13px;
+  overflow: hidden;
+  border-top: 1px solid transparent;
+  opacity: 0;
+  transform: translate3d(0, -8px, 0);
+  transition:
+    max-height 200ms ease-in,
+    margin-top 200ms ease-in,
+    padding-top 200ms ease-in,
+    border-color 200ms ease-in,
+    opacity 150ms ease-in,
+    transform 180ms ease-in;
+}
+
+.mobileNavigationAccountActions.open {
+  max-height: 210px;
+  margin-top: 3px;
+  padding-top: 5px;
+  border-top-color: var(--color-border-subtle);
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobileNavigationPopover,
+  .mobileNavigationAccountActions {
+    transition: none;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  button.mobileNavigationButton:hover {
+    color: var(--color-action-primary);
+    background: var(--color-action-surface);
+  }
+}
+
+.profileButton {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  color: var(--color-text-primary);
+  background: transparent;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.avatar,
+.avatarPreview {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 50%;
+  color: var(--color-text-on-accent);
+  background: var(--color-action-primary);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  font-size: 13px;
+}
+
+.avatar img,
+.avatarPreview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profileDropdown {
+  position: absolute;
+  top: calc(100% + 14px);
+  right: 0;
+  width: 238px;
+  padding: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+  box-shadow: 0 22px 52px rgb(var(--color-shadow-rgb) / 0.14);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform-origin: top right;
+  transform: translate3d(0, -10px, 0) scaleY(.97);
+  transition:
+    opacity 180ms ease-in,
+    transform 200ms ease-in,
+    visibility 0s linear 200ms;
+}
+
+.profileDropdown.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translate3d(0, 0, 0) scaleY(1);
+  transition:
+    opacity 180ms ease-out,
+    transform 200ms ease-out,
+    visibility 0s linear 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .profileDropdown {
+    transition: none;
+  }
+}
+
+.profileSummary {
+  display: grid;
+  gap: 3px;
+  padding: 8px 10px 10px;
+  border-bottom: 1px solid var(--color-surface-hover);
+  margin-bottom: 6px;
+}
+
+.profileSummary span {
+  overflow: hidden;
+  color: var(--color-text-primary);
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profileSummary small {
+  color: var(--color-text-muted);
+}
+
+.profileDropdownDivider,
+.mobileAccountDivider {
+  height: 1px;
+  margin: 6px 4px;
+  background: var(--color-border-subtle);
+}
+
+.dropdownItem.workspaceSwitcherItem,
+button.mobileWorkspaceSwitcherItem {
+  color: var(--color-text-primary);
+  font-weight: 700;
+}
+
+.workspaceSwitcherItem {
+  margin-bottom: 1px;
+}
+
+.mobileAccountDivider {
+  margin-left: 10px;
+}
+
+.dropdownItem {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border: 0;
+  border-radius: 6px;
+  color: var(--color-text-secondary-strong);
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dropdownItem:hover {
+  background: var(--color-canvas-subtle);
+  color: var(--color-text-primary);
+}
+
+.menuIcon {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+  color: var(--color-action-primary);
+}
+
+.workspace {
+  min-height: calc(100dvh - var(--app-header-height));
+  padding: 28px 40px 40px;
+}
+
+.workspaceInner {
+  width: min(100%, 1400px);
+  margin: 0 auto;
+}
+
+.manuscriptWorkspace {
+  padding: 0;
+}
+
+.manuscriptWorkspace .workspaceInner {
+  width: 100%;
+  max-width: none;
+}
+
+.sidebarWorkspace {
+  height: calc(100dvh - var(--app-header-height));
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.sidebarWorkspace .workspaceInner {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  min-height: 0;
+}
+
+.manuscriptWorkspace.fixedManuscriptWorkspace {
+  height: calc(100dvh - var(--app-header-height));
+  min-height: 0;
+  overflow: hidden;
+}
+
+.fixedManuscriptWorkspace .workspaceInner { height: 100%; min-height: 0; }

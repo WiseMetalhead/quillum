@@ -1,0 +1,19 @@
+{
+  "name": "@quillum/editor-schema",
+  "private": true,
+  "version": "1.0.0",
+  "license": "AGPL-3.0-or-later",
+  "author": "@WiseMetalhead and Quillum contributors",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "default": "./src/index.js"
+    }
+  },
+  "dependencies": {
+    "@tiptap/core": "3.32.2",
+    "@tiptap/extension-text-align": "3.32.2",
+    "@tiptap/starter-kit": "3.32.2"
+  }
+}

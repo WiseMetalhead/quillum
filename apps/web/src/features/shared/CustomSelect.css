@@ -1,0 +1,171 @@
+.customSelect {
+  position: relative;
+  min-width: 0;
+  width: 100%;
+  display: inline-block;
+}
+
+.customSelectNative {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+button.customSelectButton {
+  width: 100%;
+  min-width: 0;
+  min-height: 42px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 20px;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 11px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 8px;
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+  box-shadow: 0 1px 2px rgb(var(--color-shadow-rgb) / 0.03);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+button.customSelectButton:hover {
+  border-color: var(--color-action-border);
+  background: var(--color-surface);
+}
+
+button.customSelectButton:focus-visible,
+.customSelect.open button.customSelectButton {
+  border-color: var(--color-action-primary);
+  outline: 2px solid var(--color-action-border);
+  outline-offset: 1px;
+}
+
+button.customSelectButton:disabled {
+  opacity: 0.58;
+  cursor: not-allowed;
+}
+
+.customSelectValue {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.customSelectButton > svg {
+  width: 18px;
+  height: 18px;
+  color: var(--color-text-muted);
+}
+
+.customSelectMenu {
+  position: fixed;
+  z-index: 1400;
+  display: grid;
+  gap: 3px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 6px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-surface-elevated, var(--color-surface));
+  box-shadow: 0 18px 44px rgb(var(--color-shadow-rgb) / 0.2);
+}
+
+@media (min-width: 521px) {
+  .customSelectMenu[data-placement="below"] {
+    transform-origin: top center;
+    animation: customSelectMenuInBelow 150ms cubic-bezier(.2, .8, .2, 1) both;
+  }
+
+  .customSelectMenu[data-placement="above"] {
+    transform-origin: bottom center;
+    animation: customSelectMenuInAbove 150ms cubic-bezier(.2, .8, .2, 1) both;
+  }
+}
+
+@keyframes customSelectMenuInBelow {
+  from { opacity: 0; transform: translateY(-5px) scale(.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes customSelectMenuInAbove {
+  from { opacity: 0; transform: translateY(5px) scale(.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+button.customSelectOption {
+  width: 100%;
+  min-width: 0;
+  min-height: 38px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 20px;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 7px;
+  color: var(--color-text-secondary-strong);
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.customSelectOption > span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.customSelectOption > svg {
+  width: 18px;
+  height: 18px;
+  color: var(--color-action-primary);
+}
+
+button.customSelectOption.active,
+button.customSelectOption:hover {
+  color: var(--color-action-primary-hover);
+  background: var(--color-action-surface);
+}
+
+button.customSelectOption.selected {
+  color: var(--color-action-primary-hover);
+  font-weight: 750;
+}
+
+button.customSelectOption:disabled {
+  color: var(--color-text-subtle);
+  opacity: 0.58;
+  cursor: not-allowed;
+}
+
+@media (max-width: 520px) {
+  .customSelectMenu {
+    max-width: calc(100vw - 20px);
+  }
+
+  button.customSelectOption {
+    min-height: 44px;
+    font-size: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .customSelectMenu {
+    animation: none;
+    scroll-behavior: auto;
+  }
+}

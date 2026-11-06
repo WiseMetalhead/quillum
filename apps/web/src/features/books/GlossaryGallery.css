@@ -1,0 +1,93 @@
+.glossaryGallery {
+  position: relative;
+  margin: 12px 0;
+}
+
+.glossaryGalleryGrid {
+  min-width: 0;
+}
+
+.glossaryGalleryGrid > [data-node-view-content-react] {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: 10px 12px;
+}
+
+.glossaryGalleryGrid > [data-node-view-content-react] > .node-illustration {
+  position: relative;
+  min-width: 0;
+}
+
+.glossaryGalleryColumns2 .glossaryGalleryGrid > [data-node-view-content-react] {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.glossaryGallery .glossaryIllustration {
+  box-sizing: border-box;
+  width: 100% !important;
+  max-width: none;
+  margin: 0 !important;
+}
+
+.glossaryGallery .glossaryIllustrationFrame > img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+.glossaryGallery .glossaryIllustration figcaption {
+  min-height: 1.4em;
+  margin-top: 6px;
+}
+
+.glossaryGallery .glossaryIllustrationResizeHandle {
+  display: none;
+}
+
+.glossaryGalleryDropBefore::before,
+.glossaryGalleryDropAfter::after {
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  border-radius: 999px;
+  background: var(--color-action-primary);
+  box-shadow: 0 0 0 2px var(--color-surface);
+  content: '';
+  pointer-events: none;
+}
+
+.glossaryGalleryDropBefore::before {
+  left: -6px;
+}
+
+.glossaryGalleryDropAfter::after {
+  right: -6px;
+}
+
+.glossaryDocument.readonly .glossaryIllustration[role='button'] {
+  cursor: zoom-in;
+}
+
+.glossaryDocument.readonly .glossaryIllustration[role='button']:focus-visible .glossaryIllustrationFrame {
+  outline: 2px solid var(--color-action-primary);
+  outline-offset: 3px;
+}
+
+.glossaryInspectorReader .glossaryGalleryGrid > [data-node-view-content-react] {
+  grid-template-columns: 1fr;
+}
+
+@media (max-width: 1100px) {
+  .glossaryGalleryGrid > [data-node-view-content-react] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .glossaryGalleryGrid > [data-node-view-content-react] {
+    grid-template-columns: 1fr;
+  }
+}

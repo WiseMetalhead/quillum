@@ -1,0 +1,4 @@
+services:
+  gateway:
+    ports:
+      - "${QUILLUM_HTTP_BIND:-127.0.0.1}:${QUILLUM_HTTP_PORT:-8080}:8080"

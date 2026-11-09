@@ -82,8 +82,40 @@ test('admin status owns compact phone cards and mobile detail sheets', async () 
   assert.ok(adminCss.includes('.adminStatusSheetPanel .adminLastTaskHeading'))
   assert.ok(adminCss.includes('-webkit-line-clamp: 2'))
   assert.ok(statusTab.includes('<strong title={taskLabel}>{taskLabel}</strong>'))
-  assert.ok(adminCss.includes('grid-template-columns: minmax(0, 1fr) minmax(0, 58%)'))
-  assert.ok(statusCard.includes('<dd title={detail.value}>'))
+  assert.ok(statusCard.includes('aria-haspopup="dialog"'))
+  assert.ok(statusCard.includes('<strong title={metricValue}>{metricValue}</strong>'))
+})
+
+test('desktop admin status uses a title card, scrollable service row, and detail dialog', async () => {
+  const [statusTab, desktopStatus, adminCss, en, ru] = await Promise.all([
+    read(webSourceRoot, 'features/admin/StatusTab.tsx'),
+    read(webSourceRoot, 'features/admin/DesktopStatusOverview.tsx'),
+    read(webSourceRoot, 'features/admin/AdminPage.css'),
+    read(webSourceRoot, 'i18n/locales/en.ts'),
+    read(webSourceRoot, 'i18n/locales/ru.ts'),
+  ])
+
+  assert.ok(statusTab.includes('<DesktopStatusOverview'))
+  assert.ok(desktopStatus.includes('className={`adminApplicationCard ${appService.tone} spaceButton`}'))
+  assert.ok(desktopStatus.includes('className="adminServiceCarousel"'))
+  assert.ok(desktopStatus.includes('<ResponsiveDetailsPanel'))
+  assert.ok(desktopStatus.includes('desktopClassName="adminStatusDetailsDialog"'))
+  assert.ok(desktopStatus.includes("metricLabel: t('admin.version')"))
+  assert.ok(desktopStatus.includes("metricLabel: t('admin.memory')"))
+  assert.ok(desktopStatus.includes("metricLabel: t('admin.workers')"))
+  assert.ok(desktopStatus.includes("metricLabel: t('admin.connections')"))
+  assert.ok(desktopStatus.includes("metricLabel: t('admin.mediaUsage')"))
+  assert.ok(adminCss.includes('.adminApplicationCard'))
+  assert.ok(adminCss.includes('.adminServiceCarouselControl.forward'))
+  assert.ok(adminCss.includes('scroll-snap-type: inline mandatory'))
+  assert.ok(adminCss.includes('.adminStatusDialogDetails'))
+  for (const locale of [en, ru]) {
+    assert.ok(locale.includes('openServiceDetails:'))
+    assert.ok(locale.includes('closeServiceDetails:'))
+    assert.ok(locale.includes('previousServices:'))
+    assert.ok(locale.includes('nextServices:'))
+    assert.ok(locale.includes('collaborationModes:'))
+  }
 })
 
 test('super administrator maintenance owns independent feed refresh actions and responsive rows', async () => {

@@ -126,6 +126,36 @@ test('non-phone admin sections keep breathing room below the application header'
   assert.match(desktopAdminBody[1], /padding-top: 12px/)
 })
 
+test('only Product Admin opts into the shared collapsible sidebar contract', async () => {
+  const [adminPage, settingsPage, feedPage, plannerPage, toggle, sharedCss, en, ru] = await Promise.all([
+    read(webSourceRoot, 'features/admin/AdminPage.tsx'),
+    read(webSourceRoot, 'features/settings/SettingsPage.tsx'),
+    read(webSourceRoot, 'features/feed/FeedPage.tsx'),
+    read(webSourceRoot, 'features/books/PlannerPage.tsx'),
+    read(webSourceRoot, 'features/shared/SectionSidebarToggle.tsx'),
+    read(webSourceRoot, 'styles/shared.css'),
+    read(webSourceRoot, 'i18n/locales/en.ts'),
+    read(webSourceRoot, 'i18n/locales/ru.ts'),
+  ])
+
+  assert.ok(adminPage.includes('collapsibleSidebarPage'))
+  assert.ok(adminPage.includes('collapsibleSectionSidebar'))
+  assert.ok(adminPage.includes('<SectionSidebarToggle'))
+  for (const otherSidebar of [settingsPage, feedPage, plannerPage]) {
+    assert.ok(!otherSidebar.includes('collapsibleSidebarPage'))
+    assert.ok(!otherSidebar.includes('SectionSidebarToggle'))
+  }
+  assert.ok(toggle.includes("collapsed ? 'arrow-right-1' : 'arrow-left-1'"))
+  assert.ok(sharedCss.includes('@media (min-width: 861px)'))
+  assert.ok(sharedCss.includes('.sidebarPage.collapsibleSidebarPage.sidebarCollapsed'))
+  assert.ok(sharedCss.includes('transition: grid-template-columns 180ms ease'))
+  assert.ok(sharedCss.includes('@media (prefers-reduced-motion: reduce)'))
+  for (const locale of [en, ru]) {
+    assert.ok(locale.includes('collapseSidebar:'))
+    assert.ok(locale.includes('expandSidebar:'))
+  }
+})
+
 test('super administrator maintenance owns independent feed refresh actions and responsive rows', async () => {
   const [adminPage, maintenanceTab, adminCss, sourceTasks, en, ru] = await Promise.all([
     read(webSourceRoot, 'features/admin/AdminPage.tsx'),

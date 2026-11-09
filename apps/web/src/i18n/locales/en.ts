@@ -21,6 +21,8 @@ export const en = {
     loading: 'Loading...',
     copy: 'Copy',
     retry: 'Try again',
+    collapseSidebar: 'Collapse sidebar',
+    expandSidebar: 'Expand sidebar',
   },
   theme: {
     label: 'Theme',

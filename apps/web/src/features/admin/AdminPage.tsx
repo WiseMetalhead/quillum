@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Icon, type IconName } from '../../icons/Icon'
 import type { AdminView, User } from '../../types'
 import { MobileSectionSelector } from '../shared/MobileSectionSelector'
+import { SectionSidebarToggle } from '../shared/SectionSidebarToggle'
 import { useSensitiveAction } from '../shared/useSensitiveAction'
 import { AuditLogTab } from './AuditLogTab'
 import { MaintenanceTab } from './MaintenanceTab'
@@ -33,6 +34,7 @@ type AdminPageProps = {
 export function AdminPage({ user, onMessage, onError, onServicePagesChange }: AdminPageProps) {
   const { t } = useTranslation()
   const [adminView, setAdminView] = useState<AdminView>('status')
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const { runSensitiveAction, reauthenticationDialog } = useSensitiveAction()
   const stackClass =
     adminView === 'notifications'
@@ -58,7 +60,7 @@ export function AdminPage({ user, onMessage, onError, onServicePagesChange }: Ad
   }
 
   return (
-    <div className="sidebarPage adminPage">
+    <div className={`sidebarPage adminPage collapsibleSidebarPage ${sidebarCollapsed ? 'sidebarCollapsed' : ''}`.trim()}>
       <MobileSectionSelector
         items={adminNavigation.map((item) => ({
           id: item.view,
@@ -70,7 +72,7 @@ export function AdminPage({ user, onMessage, onError, onServicePagesChange }: Ad
         onSelect={setAdminView}
       />
 
-      <aside className="sectionSidebar adminSidebar" aria-label={t('admin.navigation')}>
+      <aside className="sectionSidebar adminSidebar collapsibleSectionSidebar" aria-label={t('admin.navigation')}>
         <nav className="sectionNavigation adminNavigation" role="tablist" aria-label={t('admin.views')}>
           {adminNavigation.map((item) => (
             <button
@@ -87,6 +89,12 @@ export function AdminPage({ user, onMessage, onError, onServicePagesChange }: Ad
             </button>
           ))}
         </nav>
+        <SectionSidebarToggle
+          collapsed={sidebarCollapsed}
+          collapseLabel={t('common.collapseSidebar')}
+          expandLabel={t('common.expandSidebar')}
+          onToggle={() => setSidebarCollapsed((collapsed) => !collapsed)}
+        />
       </aside>
 
       <main className="sectionBody adminBody">

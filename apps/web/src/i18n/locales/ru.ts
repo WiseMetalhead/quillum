@@ -21,6 +21,8 @@ export const ru = {
     loading: 'Загрузка...',
     copy: 'Копировать',
     retry: 'Повторить',
+    collapseSidebar: 'Свернуть сайдбар',
+    expandSidebar: 'Развернуть сайдбар',
   },
   theme: {
     label: 'Тема',

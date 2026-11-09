@@ -126,6 +126,30 @@ test('non-phone admin sections keep breathing room below the application header'
   assert.match(desktopAdminBody[1], /padding-top: 12px/)
 })
 
+test('routine desktop admin actions share the compact button contract', async () => {
+  const [adminCss, settings, tiers, maintenance, servicePages, users] = await Promise.all([
+    read(webSourceRoot, 'features/admin/AdminPage.css'),
+    read(webSourceRoot, 'features/admin/SettingsTab.tsx'),
+    read(webSourceRoot, 'features/admin/TierProgressionPanel.tsx'),
+    read(webSourceRoot, 'features/admin/MaintenanceTab.tsx'),
+    read(webSourceRoot, 'features/admin/ServicePagesTab.tsx'),
+    read(webSourceRoot, 'features/admin/UsersTab.tsx'),
+  ])
+
+  const compactRule = adminCss.match(/\.adminCompactAction,[\s\S]*?\{([\s\S]*?)\}/)
+  assert.ok(compactRule, 'compact admin action rule is missing')
+  assert.match(compactRule[1], /min-height: 34px/)
+  assert.match(compactRule[1], /font-size: 12px/)
+
+  for (const source of [settings, tiers, maintenance, servicePages]) {
+    assert.ok(source.includes('adminCompactAction adminCompactActionPrimary spaceButton'))
+  }
+  assert.ok(servicePages.includes('adminCompactAction adminCompactActionSecondary spaceButton'))
+  assert.ok(servicePages.includes('className="secondaryAction"'), 'phone service-page actions changed scope')
+  assert.ok(!users.includes('adminUserActionPrimary adminCompactAction'))
+  assert.ok(!users.includes('adminUserActionDanger adminCompactAction'))
+})
+
 test('only Product Admin opts into the shared collapsible sidebar contract', async () => {
   const [adminPage, settingsPage, feedPage, plannerPage, toggle, sharedCss, en, ru] = await Promise.all([
     read(webSourceRoot, 'features/admin/AdminPage.tsx'),

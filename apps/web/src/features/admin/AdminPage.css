@@ -501,6 +501,7 @@
   gap: 8px;
 }
 
+.adminCompactAction,
 .adminUsersApplyButton,
 .adminUsersResetButton {
   min-height: 34px;
@@ -518,17 +519,21 @@
   cursor: pointer;
 }
 
+.adminCompactAction:disabled,
 .adminUsersApplyButton:disabled,
 .adminUsersResetButton:disabled {
   cursor: not-allowed;
 }
 
+.adminCompactActionPrimary,
 .adminUsersApplyButton {
   border: 1px solid var(--color-action-primary);
   color: var(--color-text-on-accent);
   background: var(--color-action-primary);
 }
 
+.adminCompactActionPrimary:hover:not(:disabled),
+.adminCompactActionPrimary:focus-visible,
 .adminUsersApplyButton:hover,
 .adminUsersApplyButton:focus-visible {
   border-color: var(--color-action-primary-hover);
@@ -536,12 +541,15 @@
   outline: none;
 }
 
+.adminCompactActionSecondary,
 .adminUsersResetButton {
   border: 1px solid var(--color-border-strong);
   color: var(--color-text-secondary-strong);
   background: var(--color-surface);
 }
 
+.adminCompactActionSecondary:hover:not(:disabled),
+.adminCompactActionSecondary:focus-visible,
 .adminUsersResetButton:hover,
 .adminUsersResetButton:focus-visible {
   border-color: var(--color-action-border-subtle);
@@ -550,6 +558,7 @@
   outline: none;
 }
 
+.adminCompactAction svg,
 .adminUsersResetButton svg {
   width: 17px;
   height: 17px;
@@ -1779,18 +1788,6 @@
   justify-content: flex-end;
 }
 
-.tierProgressionActions button {
-  min-height: 38px;
-  padding: 8px 14px;
-  border: 1px solid var(--color-action-primary);
-  border-radius: 7px;
-  color: var(--color-text-on-accent);
-  background: var(--color-action-primary);
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
-}
-
 .tierProgressionActions button:disabled {
   opacity: .6;
   cursor: wait;
@@ -1891,30 +1888,7 @@
 }
 
 .adminMaintenanceAction {
-  min-width: 132px;
-  min-height: 38px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 8px 14px;
-  border: 1px solid var(--color-action-primary);
-  border-radius: 7px;
-  color: var(--color-text-on-accent);
-  background: var(--color-action-primary);
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.adminMaintenanceAction:hover:not(:disabled) {
-  border-color: var(--color-action-primary-hover);
-  background: var(--color-action-primary-hover);
-}
-
-.adminMaintenanceAction:focus-visible {
-  outline: 2px solid var(--color-action-border);
-  outline-offset: 2px;
+  min-width: 112px;
 }
 
 .adminMaintenanceAction:disabled {

@@ -321,7 +321,11 @@ export function TierProgressionPanel({ onSensitiveAction, mobile = false }: Prop
             </label>
           </div>
           <div className="tierProgressionActions">
-            <button type="submit" className="spaceButton" disabled={submitting}>
+            <button
+              type="submit"
+              className="adminCompactAction adminCompactActionPrimary spaceButton"
+              disabled={submitting}
+            >
               {submitting ? t('common.saving') : t('common.save')}
             </button>
           </div>

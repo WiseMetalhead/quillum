@@ -118,6 +118,14 @@ test('desktop admin status uses a title card, scrollable service row, and detail
   }
 })
 
+test('non-phone admin sections keep breathing room below the application header', async () => {
+  const adminCss = await read(webSourceRoot, 'features/admin/AdminPage.css')
+  const desktopAdminBody = adminCss.match(/@media \(min-width: 521px\)[\s\S]*?\.adminPage > \.adminBody \{([\s\S]*?)\}/)
+
+  assert.ok(desktopAdminBody, 'non-phone admin body rule is missing')
+  assert.match(desktopAdminBody[1], /padding-top: 12px/)
+})
+
 test('super administrator maintenance owns independent feed refresh actions and responsive rows', async () => {
   const [adminPage, maintenanceTab, adminCss, sourceTasks, en, ru] = await Promise.all([
     read(webSourceRoot, 'features/admin/AdminPage.tsx'),

@@ -4584,7 +4584,7 @@
 
 @media (min-width: 521px) {
   .adminPage > .adminBody {
-    padding-top: 0;
+    padding-top: 12px;
     padding-bottom: 0;
   }
 

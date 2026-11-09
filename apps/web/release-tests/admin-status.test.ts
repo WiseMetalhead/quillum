@@ -150,6 +150,19 @@ test('routine desktop admin actions share the compact button contract', async ()
   assert.ok(!users.includes('adminUserActionDanger adminCompactAction'))
 })
 
+test('admin settings initial load does not render a premature section heading', async () => {
+  const settings = await read(webSourceRoot, 'features/admin/SettingsTab.tsx')
+  const loadingStart = settings.indexOf('  if (loading) {')
+  const loadingEnd = settings.indexOf('\n  if (!payload) {', loadingStart)
+
+  assert.notEqual(loadingStart, -1, 'settings loading branch is missing')
+  assert.notEqual(loadingEnd, -1, 'settings loading branch is not bounded by the empty state')
+  const loadingBranch = settings.slice(loadingStart, loadingEnd)
+  assert.ok(loadingBranch.includes('className="adminSettingsLoading"'))
+  assert.ok(!loadingBranch.includes('sectionHeader('))
+  assert.ok(!loadingBranch.includes('adminSettingsSection'))
+})
+
 test('only Product Admin opts into the shared collapsible sidebar contract', async () => {
   const [adminPage, settingsPage, feedPage, plannerPage, toggle, sharedCss, en, ru] = await Promise.all([
     read(webSourceRoot, 'features/admin/AdminPage.tsx'),

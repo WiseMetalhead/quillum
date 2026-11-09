@@ -488,12 +488,7 @@ export function SettingsTab({ onSensitiveAction }: SettingsTabProps) {
     if (isMobile) {
       return <TadpoleLoadingState className="adminSettingsMobileLoading" label={t('adminSettings.loading')} />
     }
-    return (
-      <div className="panel adminSettingsPanel adminSettingsSection">
-        {sectionHeader('tuning-2-light', t('adminSettings.generalSettings'))}
-        <TadpoleLoadingState className="adminSettingsLoading" label={t('adminSettings.loading')} />
-      </div>
-    )
+    return <TadpoleLoadingState className="adminSettingsLoading" label={t('adminSettings.loading')} />
   }
 
   if (!payload) {

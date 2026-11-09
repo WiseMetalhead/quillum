@@ -168,7 +168,7 @@ export function MaintenanceTab({ onMessage, onError }: MaintenanceTabProps) {
               </span>
               <button
                 type="button"
-                className="adminMaintenanceAction spaceButton"
+                className="adminMaintenanceAction adminCompactAction adminCompactActionPrimary spaceButton"
                 disabled={running}
                 aria-busy={running}
                 aria-label={t(

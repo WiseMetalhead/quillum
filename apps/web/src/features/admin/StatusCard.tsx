@@ -3,39 +3,44 @@ import { Icon, type IconName } from '../../icons/Icon'
 type StatusCardProps = {
   icon: IconName
   label: string
-  value: string
+  metricLabel: string
+  metricValue: string
   statusLabel: string
-  tone: 'ok' | 'degraded' | 'neutral'
-  details: Array<{ label: string; value: string }>
+  openLabel: string
+  tone: 'ok' | 'degraded'
+  onClick: () => void
 }
 
 export function StatusCard({
   icon,
   label,
-  value,
+  metricLabel,
+  metricValue,
   statusLabel,
+  openLabel,
   tone,
-  details,
+  onClick,
 }: StatusCardProps) {
   return (
-    <article className={`adminServiceCard ${tone}`}>
+    <button
+      type="button"
+      className={`adminServiceCard ${tone} spaceButton`}
+      aria-haspopup="dialog"
+      onClick={onClick}
+    >
       <div className="adminServiceCardTitle">
         <Icon name={icon} />
         <span>{label}</span>
       </div>
-      <strong className="adminServiceCardValue">{value}</strong>
       <span className="adminServiceStatus">
         <span aria-hidden="true" />
         {statusLabel}
       </span>
-      <dl className="adminServiceDetails">
-        {details.map((detail) => (
-          <div key={detail.label}>
-            <dt>{detail.label}</dt>
-            <dd title={detail.value}>{detail.value}</dd>
-          </div>
-        ))}
-      </dl>
-    </article>
+      <span className="adminServiceCardMetric">
+        <span>{metricLabel}</span>
+        <strong title={metricValue}>{metricValue}</strong>
+      </span>
+      <span className="srOnly">{openLabel}</span>
+    </button>
   )
 }

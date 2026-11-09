@@ -501,6 +501,7 @@
   gap: 8px;
 }
 
+.adminCompactAction,
 .adminUsersApplyButton,
 .adminUsersResetButton {
   min-height: 34px;
@@ -518,17 +519,21 @@
   cursor: pointer;
 }
 
+.adminCompactAction:disabled,
 .adminUsersApplyButton:disabled,
 .adminUsersResetButton:disabled {
   cursor: not-allowed;
 }
 
+.adminCompactActionPrimary,
 .adminUsersApplyButton {
   border: 1px solid var(--color-action-primary);
   color: var(--color-text-on-accent);
   background: var(--color-action-primary);
 }
 
+.adminCompactActionPrimary:hover:not(:disabled),
+.adminCompactActionPrimary:focus-visible,
 .adminUsersApplyButton:hover,
 .adminUsersApplyButton:focus-visible {
   border-color: var(--color-action-primary-hover);
@@ -536,12 +541,15 @@
   outline: none;
 }
 
+.adminCompactActionSecondary,
 .adminUsersResetButton {
   border: 1px solid var(--color-border-strong);
   color: var(--color-text-secondary-strong);
   background: var(--color-surface);
 }
 
+.adminCompactActionSecondary:hover:not(:disabled),
+.adminCompactActionSecondary:focus-visible,
 .adminUsersResetButton:hover,
 .adminUsersResetButton:focus-visible {
   border-color: var(--color-action-border-subtle);
@@ -550,6 +558,7 @@
   outline: none;
 }
 
+.adminCompactAction svg,
 .adminUsersResetButton svg {
   width: 17px;
   height: 17px;
@@ -1779,18 +1788,6 @@
   justify-content: flex-end;
 }
 
-.tierProgressionActions button {
-  min-height: 38px;
-  padding: 8px 14px;
-  border: 1px solid var(--color-action-primary);
-  border-radius: 7px;
-  color: var(--color-text-on-accent);
-  background: var(--color-action-primary);
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
-}
-
 .tierProgressionActions button:disabled {
   opacity: .6;
   cursor: wait;
@@ -1891,30 +1888,7 @@
 }
 
 .adminMaintenanceAction {
-  min-width: 132px;
-  min-height: 38px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 8px 14px;
-  border: 1px solid var(--color-action-primary);
-  border-radius: 7px;
-  color: var(--color-text-on-accent);
-  background: var(--color-action-primary);
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.adminMaintenanceAction:hover:not(:disabled) {
-  border-color: var(--color-action-primary-hover);
-  background: var(--color-action-primary-hover);
-}
-
-.adminMaintenanceAction:focus-visible {
-  outline: 2px solid var(--color-action-border);
-  outline-offset: 2px;
+  min-width: 112px;
 }
 
 .adminMaintenanceAction:disabled {
@@ -2198,16 +2172,173 @@
   gap: 14px;
 }
 
-.adminServiceCard {
+.adminStatusDesktopOverview {
   min-width: 0;
   display: grid;
-  align-content: start;
-  gap: 10px;
-  padding: 18px;
+  gap: 18px;
+}
+
+.adminApplicationCard {
+  width: 100%;
+  min-height: 94px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 18px 26px;
   border: 1px solid var(--color-border);
-  border-radius: 8px;
+  border-radius: 12px;
+  color: var(--color-text-primary);
+  background: linear-gradient(115deg, var(--color-surface), var(--color-canvas-subtle));
+  box-shadow: 0 18px 45px rgb(var(--color-shadow-rgb) / 0.05);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 140ms ease, box-shadow 140ms ease, transform 140ms ease;
+}
+
+.adminApplicationCard.ok {
+  border-color: var(--color-success-border);
+  box-shadow: 0 14px 38px rgb(var(--color-shadow-rgb) / 0.05), 0 0 0 1px color-mix(in srgb, var(--color-success) 8%, transparent);
+}
+
+.adminApplicationCard.degraded {
+  border-color: var(--color-danger-border);
+  box-shadow: 0 14px 38px rgb(var(--color-shadow-rgb) / 0.05), 0 0 0 1px color-mix(in srgb, var(--color-danger) 8%, transparent);
+}
+
+.adminApplicationCard:hover,
+.adminApplicationCard:focus-visible {
+  border-color: var(--color-action-border);
+  box-shadow: 0 16px 44px rgb(var(--color-shadow-rgb) / 0.09), 0 0 0 2px color-mix(in srgb, var(--color-action-primary) 12%, transparent);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.adminApplicationIdentity,
+.adminApplicationVersion {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+}
+
+.adminApplicationIdentity {
+  gap: 14px;
+}
+
+.adminApplicationIdentity > svg {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  color: var(--color-action-primary);
+}
+
+.adminApplicationCard.degraded .adminApplicationIdentity > svg {
+  color: var(--color-danger);
+}
+
+.adminApplicationIdentity > strong {
+  overflow: hidden;
+  font-size: 20px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adminApplicationStatus {
+  width: 10px;
+  height: 10px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  margin-left: 2px;
+}
+
+.adminApplicationStatus > span:first-child {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-success);
+  box-shadow: 0 0 0 5px var(--color-success-surface);
+}
+
+.adminApplicationCard.degraded .adminApplicationStatus > span:first-child {
+  background: var(--color-danger);
+  box-shadow: 0 0 0 5px var(--color-danger-surface);
+}
+
+.adminApplicationVersion {
+  flex: 0 0 auto;
+  gap: 8px;
+  padding-left: 24px;
+  border-left: 1px solid var(--color-border-strong);
+}
+
+.adminApplicationVersion > span {
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+.adminApplicationVersion > strong {
+  max-width: 220px;
+  overflow: hidden;
+  font-size: 15px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adminServiceCarouselShell {
+  position: relative;
+  min-width: 0;
+}
+
+.adminServiceCarousel {
+  min-width: 0;
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 2px 2px 10px;
+  overscroll-behavior-inline: contain;
+  scroll-behavior: smooth;
+  scroll-snap-type: inline mandatory;
+  scrollbar-color: var(--color-action-border) var(--color-canvas-subtle);
+  scrollbar-width: thin;
+}
+
+.adminServiceCarousel::-webkit-scrollbar {
+  height: 7px;
+}
+
+.adminServiceCarousel::-webkit-scrollbar-track {
+  border-radius: 999px;
+  background: var(--color-canvas-subtle);
+}
+
+.adminServiceCarousel::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: var(--color-action-border);
+}
+
+.adminServiceCard {
+  min-width: 220px;
+  min-height: 126px;
+  display: grid;
+  flex: 1 0 220px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: auto minmax(0, 1fr);
+  align-content: start;
+  align-items: end;
+  gap: 16px 12px;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  color: var(--color-text-primary);
   background: var(--color-surface);
   box-shadow: 0 18px 45px rgb(var(--color-shadow-rgb) / 0.05);
+  font: inherit;
+  text-align: left;
+  scroll-snap-align: start;
+  cursor: pointer;
+  transition: border-color 140ms ease, box-shadow 140ms ease, transform 140ms ease;
 }
 
 .adminServiceCard.ok {
@@ -2218,30 +2349,40 @@
   border-color: var(--color-danger-border);
 }
 
+.adminServiceCard:hover,
+.adminServiceCard:focus-visible {
+  border-color: var(--color-action-border);
+  box-shadow: 0 16px 38px rgb(var(--color-shadow-rgb) / 0.1);
+  outline: none;
+  transform: translateY(-1px);
+}
+
 .adminServiceCardTitle {
   min-width: 0;
   display: flex;
+  grid-column: 1 / -1;
   align-items: center;
   gap: 9px;
-  color: var(--color-text-secondary);
-  font-size: 13px;
+  color: var(--color-text-primary);
+  font-size: 14px;
   font-weight: 700;
 }
 
+.adminServiceCardTitle > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .adminServiceCardTitle svg {
-  width: 23px;
-  height: 23px;
+  width: 25px;
+  height: 25px;
   flex: 0 0 auto;
   color: var(--color-action-primary);
 }
 
 .adminServiceCard.degraded .adminServiceCardTitle svg {
   color: var(--color-danger);
-}
-
-.adminServiceCardValue {
-  color: var(--color-text-primary);
-  font-size: 19px;
 }
 
 .adminServiceStatus {
@@ -2271,12 +2412,147 @@
   background: var(--color-danger-surface);
 }
 
-.adminServiceCard.neutral .adminServiceStatus {
-  color: var(--color-text-muted);
-  background: var(--color-surface-subtle);
+.adminServiceCardMetric {
+  min-width: 0;
+  display: grid;
+  justify-items: end;
+  gap: 2px;
 }
 
-.adminServiceDetails,
+.adminServiceCardMetric > span {
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--color-text-muted);
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adminServiceCardMetric > strong {
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adminServiceCarouselControl {
+  position: absolute;
+  z-index: 2;
+  top: calc(50% - 12px);
+  width: 38px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 9px;
+  color: var(--color-action-primary);
+  background: var(--color-surface-raised);
+  box-shadow: 0 8px 24px rgb(var(--color-shadow-rgb) / 0.18);
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.adminServiceCarouselControl.backward {
+  left: 8px;
+}
+
+.adminServiceCarouselControl.forward {
+  right: 8px;
+}
+
+.adminServiceCarouselControl:hover,
+.adminServiceCarouselControl:focus-visible {
+  color: var(--color-action-primary-hover);
+  background: var(--color-action-surface);
+  outline: 2px solid var(--color-action-border);
+  outline-offset: 2px;
+}
+
+.adminServiceCarouselControl svg {
+  width: 20px;
+  height: 20px;
+}
+
+.adminStatusDetailsDialog {
+  width: min(100%, 520px);
+}
+
+.adminStatusDialogContent {
+  display: grid;
+  gap: 18px;
+  padding: 20px;
+}
+
+.adminStatusDialogSummary {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.adminStatusDialogSummary > svg {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  color: var(--color-action-primary);
+}
+
+.adminStatusDialogSummary.degraded > svg {
+  color: var(--color-danger);
+}
+
+.adminStatusDialogSummary.degraded .adminServiceStatus {
+  color: var(--color-danger);
+  background: var(--color-danger-surface);
+}
+
+.adminStatusDialogDetails {
+  min-width: 0;
+  display: grid;
+  margin: 0;
+  padding: 2px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 9px;
+  background: var(--color-canvas-subtle);
+}
+
+.adminStatusDialogDetails > div {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 58%);
+  align-items: center;
+  gap: 16px;
+  min-height: 45px;
+  padding: 9px 0;
+}
+
+.adminStatusDialogDetails > div + div {
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.adminStatusDialogDetails dt,
+.adminStatusDialogDetails dd {
+  min-width: 0;
+  margin: 0;
+}
+
+.adminStatusDialogDetails dt {
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+.adminStatusDialogDetails dd {
+  overflow: hidden;
+  color: var(--color-text-primary);
+  font-size: 12px;
+  font-weight: 700;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .adminStatusDetailsList {
   min-width: 0;
   display: grid;
@@ -2284,11 +2560,6 @@
   margin: 0;
 }
 
-.adminServiceDetails {
-  margin-top: 2px;
-}
-
-.adminServiceDetails div,
 .adminStatusDetailsList div {
   min-width: 0;
   display: flex;
@@ -2300,20 +2571,16 @@
   font-size: 12px;
 }
 
-.adminServiceDetails dt,
-.adminServiceDetails dd,
 .adminStatusDetailsList dt,
 .adminStatusDetailsList dd {
   min-width: 0;
   margin: 0;
 }
 
-.adminServiceDetails dt,
 .adminStatusDetailsList dt {
   color: var(--color-text-muted);
 }
 
-.adminServiceDetails dd,
 .adminStatusDetailsList dd {
   overflow: hidden;
   color: var(--color-text-primary);
@@ -2321,21 +2588,6 @@
   text-align: right;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.adminServiceDetails div {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 58%);
-}
-
-.adminServiceDetails dt {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.adminServiceDetails dd {
-  width: 100%;
 }
 
 .adminStatusDetailsList dd.adminStatusEventValue {
@@ -2529,6 +2781,21 @@
   .adminStatusHeader {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .adminApplicationCard {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .adminApplicationVersion {
+    width: 100%;
+    justify-content: space-between;
+    padding-top: 14px;
+    padding-left: 0;
+    border-top: 1px solid var(--color-border);
+    border-left: 0;
   }
 
   .adminStatusServiceGrid {
@@ -4291,7 +4558,7 @@
 
 @media (min-width: 521px) {
   .adminPage > .adminBody {
-    padding-top: 0;
+    padding-top: 12px;
     padding-bottom: 0;
   }
 

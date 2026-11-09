@@ -7,7 +7,7 @@ import type { AdminStatus } from '../../types'
 import { MobileSettingsSheet } from '../shared/MobileSettingsSheet'
 import { useMobileViewport } from '../shared/useMobileViewport'
 import { AuditEventLabel } from './AuditEventLabel'
-import { StatusCard } from './StatusCard'
+import { DesktopStatusOverview } from './DesktopStatusOverview'
 import { formatBytes } from './utils'
 
 const STATUS_REFRESH_INTERVAL_MS = 30_000
@@ -113,8 +113,8 @@ export function StatusTab({ onOpenAudit }: StatusTabProps) {
         </section>
       ) : adminStatus ? (
         <>
-          <div className={`adminStatusServiceGrid ${isMobile ? 'mobile' : ''}`} aria-live="polite">
-            {isMobile ? (
+          {isMobile ? (
+            <div className="adminStatusServiceGrid mobile" aria-live="polite">
               <>
                 <MobileVersionCard
                   label={t('admin.quillumVersion')}
@@ -156,125 +156,15 @@ export function StatusTab({ onOpenAudit }: StatusTabProps) {
                   tone={storage?.ok ? 'ok' : 'degraded'}
                 />
               </>
-            ) : (
-              <>
-                <StatusCard
-                  icon="database-light"
-                  label={t('admin.database')}
-                  value={database?.ok ? t('admin.working') : t('admin.unavailable')}
-                  statusLabel={database?.ok ? t('admin.healthy') : t('admin.degraded')}
-                  tone={database?.ok ? 'ok' : 'degraded'}
-                  details={[
-                    { label: t('admin.version'), value: database?.version ?? unknown },
-                    {
-                      label: t('admin.databaseSize'),
-                      value: database?.sizeBytes == null ? unknown : formatBytes(database.sizeBytes, locale),
-                    },
-                    {
-                      label: t('admin.connections'),
-                      value: database?.activeConnections == null
-                        ? unknown
-                        : numberFormatter.format(database.activeConnections),
-                    },
-                    { label: t('admin.responseTime'), value: latencyValue(database?.latencyMs, decimalFormatter, unknown, t) },
-                  ]}
-                />
-                <StatusCard
-                  icon="layers-minimalistic-light"
-                  label={t('admin.redis')}
-                  value={redis?.ok ? t('admin.working') : t('admin.unavailable')}
-                  statusLabel={redis?.ok ? t('admin.healthy') : t('admin.degraded')}
-                  tone={redis?.ok ? 'ok' : 'degraded'}
-                  details={[
-                    { label: t('admin.version'), value: redis?.version ?? unknown },
-                    {
-                      label: t('admin.memory'),
-                      value: redis?.usedMemoryBytes == null
-                        ? unknown
-                        : redis.maxMemoryBytes
-                          ? `${formatBytes(redis.usedMemoryBytes, locale)} / ${formatBytes(redis.maxMemoryBytes, locale)}`
-                          : formatBytes(redis.usedMemoryBytes, locale),
-                    },
-                    {
-                      label: t('admin.redisKeys'),
-                      value: redis?.keys == null ? unknown : numberFormatter.format(redis.keys),
-                    },
-                    { label: t('admin.responseTime'), value: latencyValue(redis?.latencyMs, decimalFormatter, unknown, t) },
-                  ]}
-                />
-                <StatusCard
-                  icon="box-light"
-                  label={t('admin.app')}
-                  value={t('admin.working')}
-                  statusLabel={t('admin.available')}
-                  tone="ok"
-                  details={[
-                    { label: t('admin.version'), value: adminStatus.app.version },
-                    { label: t('admin.environment'), value: adminStatus.app.environment },
-                    { label: t('admin.authentication'), value: adminStatus.auth.mode },
-                    { label: t('admin.debug'), value: adminStatus.app.debug ? t('admin.enabled') : t('admin.disabled') },
-                  ]}
-                />
-                <StatusCard
-                  icon="server-2-light"
-                  label={t('admin.worker')}
-                  value={celery?.ok ? t('admin.working') : t('admin.unavailable')}
-                  statusLabel={workerHealthy ? t('admin.healthy') : t('admin.degraded')}
-                  tone={workerHealthy ? 'ok' : 'degraded'}
-                  details={[
-                    {
-                      label: t('admin.workers'),
-                      value: celery ? numberFormatter.format(celery.workerCount) : unknown,
-                    },
-                    { label: t('admin.broker'), value: celery?.broker ?? unknown },
-                    {
-                      label: t('admin.scheduler'),
-                      value: adminStatus.taskActivity.scheduler.online
-                        ? t('admin.online')
-                        : t('admin.offline'),
-                    },
-                    { label: t('admin.responseTime'), value: latencyValue(celery?.latencyMs, decimalFormatter, unknown, t) },
-                  ]}
-                />
-                <StatusCard
-                  icon="writing-pen-light"
-                  label={t('admin.collaboration')}
-                  value={collaboration?.ok ? t('admin.working') : t('admin.unavailable')}
-                  statusLabel={collaboration?.ok ? t('admin.healthy') : t('admin.degraded')}
-                  tone={collaboration?.ok ? 'ok' : 'degraded'}
-                  details={[
-                    { label: t('admin.mode'), value: collaboration?.mode ?? unknown },
-                    {
-                      label: t('admin.activeDocuments'),
-                      value: collaboration?.documents == null ? unknown : numberFormatter.format(collaboration.documents),
-                    },
-                    {
-                      label: t('admin.connections'),
-                      value: collaboration?.connections == null ? unknown : numberFormatter.format(collaboration.connections),
-                    },
-                    { label: t('admin.responseTime'), value: latencyValue(collaboration?.latencyMs, decimalFormatter, unknown, t) },
-                  ]}
-                />
-                <StatusCard
-                  icon="ssd-round-light"
-                  label={t('admin.storage')}
-                  value={storage?.ok ? t('admin.available') : t('admin.unavailable')}
-                  statusLabel={storage?.ok ? t('admin.healthy') : t('admin.degraded')}
-                  tone={storage?.ok ? 'ok' : 'degraded'}
-                  details={[
-                    {
-                      label: t('admin.storageType'),
-                      value: t(`admin.storageProviders.${storage?.provider ?? 'other'}`),
-                    },
-                    {
-                      label: t('admin.mediaUsage'),
-                      value: storage?.usedBytes == null ? unknown : formatBytes(storage.usedBytes, locale),
-                    },
-                  ]}
-                />
-              </>
-            )}
-          </div>
+            </div>
+          ) : (
+            <DesktopStatusOverview
+              status={adminStatus}
+              locale={locale}
+              numberFormatter={numberFormatter}
+              decimalFormatter={decimalFormatter}
+            />
+          )}
 
           {isMobile ? (
             <section className="adminStatusMobileMenu">

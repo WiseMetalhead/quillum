@@ -488,12 +488,7 @@ export function SettingsTab({ onSensitiveAction }: SettingsTabProps) {
     if (isMobile) {
       return <TadpoleLoadingState className="adminSettingsMobileLoading" label={t('adminSettings.loading')} />
     }
-    return (
-      <div className="panel adminSettingsPanel adminSettingsSection">
-        {sectionHeader('tuning-2-light', t('adminSettings.generalSettings'))}
-        <TadpoleLoadingState className="adminSettingsLoading" label={t('adminSettings.loading')} />
-      </div>
-    )
+    return <TadpoleLoadingState className="adminSettingsLoading" label={t('adminSettings.loading')} />
   }
 
   if (!payload) {
@@ -509,7 +504,11 @@ export function SettingsTab({ onSensitiveAction }: SettingsTabProps) {
       <div className="panel adminSettingsPanel adminSettingsSection">
         {sectionHeader('tuning-2-light', t('adminSettings.generalSettings'))}
         {error && <div className="notice error">{error}</div>}
-        <button type="button" onClick={() => void loadSettings()}>
+        <button
+          type="button"
+          className="adminCompactAction adminCompactActionPrimary spaceButton"
+          onClick={() => void loadSettings()}
+        >
           {t('adminSettings.retry')}
         </button>
       </div>
@@ -817,6 +816,7 @@ export function SettingsTab({ onSensitiveAction }: SettingsTabProps) {
           </label>
           <button
             type="submit"
+            className="adminCompactAction adminCompactActionPrimary spaceButton"
             disabled={testingEmail || submitting || editingKey !== null}
           >
             {testingEmail ? t('adminSettings.sending') : t('adminSettings.sendTestEmail')}

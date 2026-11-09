@@ -412,7 +412,7 @@ function ServicePageCard({
         {fileInput}
         <button
           type="button"
-          className="secondaryAction"
+          className="adminCompactAction adminCompactActionSecondary spaceButton"
           disabled={busy !== null}
           onClick={() => fileInputRef.current?.click()}
         >
@@ -422,7 +422,7 @@ function ServicePageCard({
         <span className="adminServicePageActionSpacer" />
         <button
           type="button"
-          className="secondaryAction"
+          className="adminCompactAction adminCompactActionSecondary spaceButton"
           disabled={!contentChanged || busy !== null}
           onClick={() => void saveDraft()}
         >
@@ -433,7 +433,7 @@ function ServicePageCard({
         {canPublishChanges && (
           <button
             type="button"
-            className="primaryAction"
+            className="adminCompactAction adminCompactActionPrimary spaceButton"
             disabled={busy !== null}
             onClick={() => void applyPublication('publish')}
           >

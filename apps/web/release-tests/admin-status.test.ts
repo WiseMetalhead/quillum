@@ -82,8 +82,115 @@ test('admin status owns compact phone cards and mobile detail sheets', async () 
   assert.ok(adminCss.includes('.adminStatusSheetPanel .adminLastTaskHeading'))
   assert.ok(adminCss.includes('-webkit-line-clamp: 2'))
   assert.ok(statusTab.includes('<strong title={taskLabel}>{taskLabel}</strong>'))
-  assert.ok(adminCss.includes('grid-template-columns: minmax(0, 1fr) minmax(0, 58%)'))
-  assert.ok(statusCard.includes('<dd title={detail.value}>'))
+  assert.ok(statusCard.includes('aria-haspopup="dialog"'))
+  assert.ok(statusCard.includes('<strong title={metricValue}>{metricValue}</strong>'))
+})
+
+test('desktop admin status uses a title card, scrollable service row, and detail dialog', async () => {
+  const [statusTab, desktopStatus, adminCss, en, ru] = await Promise.all([
+    read(webSourceRoot, 'features/admin/StatusTab.tsx'),
+    read(webSourceRoot, 'features/admin/DesktopStatusOverview.tsx'),
+    read(webSourceRoot, 'features/admin/AdminPage.css'),
+    read(webSourceRoot, 'i18n/locales/en.ts'),
+    read(webSourceRoot, 'i18n/locales/ru.ts'),
+  ])
+
+  assert.ok(statusTab.includes('<DesktopStatusOverview'))
+  assert.ok(desktopStatus.includes('className={`adminApplicationCard ${appService.tone} spaceButton`}'))
+  assert.ok(desktopStatus.includes('className="adminServiceCarousel"'))
+  assert.ok(desktopStatus.includes('<ResponsiveDetailsPanel'))
+  assert.ok(desktopStatus.includes('desktopClassName="adminStatusDetailsDialog"'))
+  assert.ok(desktopStatus.includes("metricLabel: t('admin.version')"))
+  assert.ok(desktopStatus.includes("metricLabel: t('admin.memory')"))
+  assert.ok(desktopStatus.includes("metricLabel: t('admin.workers')"))
+  assert.ok(desktopStatus.includes("metricLabel: t('admin.connections')"))
+  assert.ok(desktopStatus.includes("metricLabel: t('admin.mediaUsage')"))
+  assert.ok(adminCss.includes('.adminApplicationCard'))
+  assert.ok(adminCss.includes('.adminServiceCarouselControl.forward'))
+  assert.ok(adminCss.includes('scroll-snap-type: inline mandatory'))
+  assert.ok(adminCss.includes('.adminStatusDialogDetails'))
+  for (const locale of [en, ru]) {
+    assert.ok(locale.includes('openServiceDetails:'))
+    assert.ok(locale.includes('closeServiceDetails:'))
+    assert.ok(locale.includes('previousServices:'))
+    assert.ok(locale.includes('nextServices:'))
+    assert.ok(locale.includes('collaborationModes:'))
+  }
+})
+
+test('non-phone admin sections keep breathing room below the application header', async () => {
+  const adminCss = await read(webSourceRoot, 'features/admin/AdminPage.css')
+  const desktopAdminBody = adminCss.match(/@media \(min-width: 521px\)[\s\S]*?\.adminPage > \.adminBody \{([\s\S]*?)\}/)
+
+  assert.ok(desktopAdminBody, 'non-phone admin body rule is missing')
+  assert.match(desktopAdminBody[1], /padding-top: 12px/)
+})
+
+test('routine desktop admin actions share the compact button contract', async () => {
+  const [adminCss, settings, tiers, maintenance, servicePages, users] = await Promise.all([
+    read(webSourceRoot, 'features/admin/AdminPage.css'),
+    read(webSourceRoot, 'features/admin/SettingsTab.tsx'),
+    read(webSourceRoot, 'features/admin/TierProgressionPanel.tsx'),
+    read(webSourceRoot, 'features/admin/MaintenanceTab.tsx'),
+    read(webSourceRoot, 'features/admin/ServicePagesTab.tsx'),
+    read(webSourceRoot, 'features/admin/UsersTab.tsx'),
+  ])
+
+  const compactRule = adminCss.match(/\.adminCompactAction,[\s\S]*?\{([\s\S]*?)\}/)
+  assert.ok(compactRule, 'compact admin action rule is missing')
+  assert.match(compactRule[1], /min-height: 34px/)
+  assert.match(compactRule[1], /font-size: 12px/)
+
+  for (const source of [settings, tiers, maintenance, servicePages]) {
+    assert.ok(source.includes('adminCompactAction adminCompactActionPrimary spaceButton'))
+  }
+  assert.ok(servicePages.includes('adminCompactAction adminCompactActionSecondary spaceButton'))
+  assert.ok(servicePages.includes('className="secondaryAction"'), 'phone service-page actions changed scope')
+  assert.ok(!users.includes('adminUserActionPrimary adminCompactAction'))
+  assert.ok(!users.includes('adminUserActionDanger adminCompactAction'))
+})
+
+test('admin settings initial load does not render a premature section heading', async () => {
+  const settings = await read(webSourceRoot, 'features/admin/SettingsTab.tsx')
+  const loadingStart = settings.indexOf('  if (loading) {')
+  const loadingEnd = settings.indexOf('\n  if (!payload) {', loadingStart)
+
+  assert.notEqual(loadingStart, -1, 'settings loading branch is missing')
+  assert.notEqual(loadingEnd, -1, 'settings loading branch is not bounded by the empty state')
+  const loadingBranch = settings.slice(loadingStart, loadingEnd)
+  assert.ok(loadingBranch.includes('className="adminSettingsLoading"'))
+  assert.ok(!loadingBranch.includes('sectionHeader('))
+  assert.ok(!loadingBranch.includes('adminSettingsSection'))
+})
+
+test('only Product Admin opts into the shared collapsible sidebar contract', async () => {
+  const [adminPage, settingsPage, feedPage, plannerPage, toggle, sharedCss, en, ru] = await Promise.all([
+    read(webSourceRoot, 'features/admin/AdminPage.tsx'),
+    read(webSourceRoot, 'features/settings/SettingsPage.tsx'),
+    read(webSourceRoot, 'features/feed/FeedPage.tsx'),
+    read(webSourceRoot, 'features/books/PlannerPage.tsx'),
+    read(webSourceRoot, 'features/shared/SectionSidebarToggle.tsx'),
+    read(webSourceRoot, 'styles/shared.css'),
+    read(webSourceRoot, 'i18n/locales/en.ts'),
+    read(webSourceRoot, 'i18n/locales/ru.ts'),
+  ])
+
+  assert.ok(adminPage.includes('collapsibleSidebarPage'))
+  assert.ok(adminPage.includes('collapsibleSectionSidebar'))
+  assert.ok(adminPage.includes('<SectionSidebarToggle'))
+  for (const otherSidebar of [settingsPage, feedPage, plannerPage]) {
+    assert.ok(!otherSidebar.includes('collapsibleSidebarPage'))
+    assert.ok(!otherSidebar.includes('SectionSidebarToggle'))
+  }
+  assert.ok(toggle.includes("collapsed ? 'arrow-right-1' : 'arrow-left-1'"))
+  assert.ok(sharedCss.includes('@media (min-width: 861px)'))
+  assert.ok(sharedCss.includes('.sidebarPage.collapsibleSidebarPage.sidebarCollapsed'))
+  assert.ok(sharedCss.includes('transition: grid-template-columns 180ms ease'))
+  assert.ok(sharedCss.includes('@media (prefers-reduced-motion: reduce)'))
+  for (const locale of [en, ru]) {
+    assert.ok(locale.includes('collapseSidebar:'))
+    assert.ok(locale.includes('expandSidebar:'))
+  }
 })
 
 test('super administrator maintenance owns independent feed refresh actions and responsive rows', async () => {

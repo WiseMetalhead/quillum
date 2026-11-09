@@ -78,6 +78,117 @@
   overflow-y: auto;
 }
 
+.sectionSidebarToggle {
+  display: none;
+}
+
+@media (min-width: 861px) {
+  .sidebarPage.collapsibleSidebarPage {
+    transition: grid-template-columns 180ms ease;
+  }
+
+  .sidebarPage.collapsibleSidebarPage.sidebarCollapsed {
+    grid-template-columns: 72px minmax(0, 1fr);
+  }
+
+  .collapsibleSectionSidebar {
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    overflow: hidden;
+    transition: padding 180ms ease;
+  }
+
+  .collapsibleSectionSidebar > .sectionNavigation {
+    min-height: 0;
+    align-content: start;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+
+  .collapsibleSidebarPage .sectionNavigationButton {
+    transition: gap 180ms ease, padding 180ms ease;
+  }
+
+  .collapsibleSidebarPage .sectionNavigationButton > span,
+  .sectionSidebarToggle > span {
+    min-width: 0;
+    max-width: 220px;
+    overflow: hidden;
+    opacity: 1;
+    text-overflow: clip;
+    transition: max-width 160ms ease, opacity 120ms ease;
+    white-space: nowrap;
+  }
+
+  .sectionSidebarToggle {
+    width: 100%;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 14px;
+    padding: 0 12px;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 7px;
+    color: var(--color-text-muted);
+    background: transparent;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    transition: gap 180ms ease, padding 180ms ease, color 120ms ease, background-color 120ms ease;
+  }
+
+  .sectionSidebarToggle:hover,
+  .sectionSidebarToggle:focus-visible {
+    color: var(--color-action-primary-hover);
+    background: var(--color-canvas);
+    outline: none;
+  }
+
+  .sectionSidebarToggle:focus-visible {
+    box-shadow: 0 0 0 2px var(--color-action-border);
+  }
+
+  .sectionSidebarToggle svg {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 auto;
+  }
+
+  .sidebarPage.sidebarCollapsed > .collapsibleSectionSidebar {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  .sidebarCollapsed .sectionNavigationButton,
+  .sidebarCollapsed .sectionSidebarToggle {
+    justify-content: center;
+    gap: 0;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .sidebarCollapsed .sectionNavigationButton > span,
+  .sidebarCollapsed .sectionSidebarToggle > span {
+    max-width: 0;
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebarPage.collapsibleSidebarPage,
+  .collapsibleSectionSidebar,
+  .collapsibleSidebarPage .sectionNavigationButton,
+  .collapsibleSidebarPage .sectionNavigationButton > span,
+  .sectionSidebarToggle,
+  .sectionSidebarToggle > span {
+    transition: none;
+  }
+}
+
 .eyebrow {
   margin: 0 0 6px;
   color: var(--color-text-muted);

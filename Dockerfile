@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7
 
-FROM docker.io/library/node:24.22.1-bookworm-slim@sha256:be8204d4bd327363357f532187b752ff62759c31bedf98e9e18fc08c9cbd605c AS web-build
+FROM docker.io/library/node:24.22.2-bookworm-slim@sha256:01d566e8d94d8c619591d78652babfccd3c6992a3dffa9ed5ab39e11cf6c70e9 AS web-build
 
 WORKDIR /build
 COPY package.json package-lock.json ./
@@ -13,7 +13,7 @@ COPY packages/editor-schema packages/editor-schema
 RUN npm run web:build
 
 
-FROM docker.io/library/node:24.22.1-bookworm-slim@sha256:be8204d4bd327363357f532187b752ff62759c31bedf98e9e18fc08c9cbd605c AS collaboration-build
+FROM docker.io/library/node:24.22.2-bookworm-slim@sha256:01d566e8d94d8c619591d78652babfccd3c6992a3dffa9ed5ab39e11cf6c70e9 AS collaboration-build
 
 WORKDIR /build
 COPY package.json package-lock.json ./

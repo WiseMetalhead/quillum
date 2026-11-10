@@ -1,4 +1,6 @@
 version: 2
+# Обычные minor/patch-обновления автоматизируются, а major-переходы выполняются вручную.
+# Ограничения allow относятся к version updates и не отключают security updates.
 updates:
   - package-ecosystem: npm
     directory: /
@@ -7,9 +9,21 @@ updates:
       day: monday
       time: "04:00"
       timezone: Europe/Moscow
+    allow:
+      - dependency-name: "*"
+        update-types:
+          - version-update:semver-minor
+          - version-update:semver-patch
     groups:
-      npm:
+      npm-routine:
+        applies-to: version-updates
         patterns: ["*"]
+        exclude-patterns: ["@tiptap/*"]
+        update-types: [minor, patch]
+      tiptap:
+        applies-to: version-updates
+        patterns: ["@tiptap/*"]
+        update-types: [minor, patch]
 
   - package-ecosystem: uv
     directory: /apps/api
@@ -18,9 +32,21 @@ updates:
       day: monday
       time: "04:15"
       timezone: Europe/Moscow
+    allow:
+      - dependency-name: "*"
+        update-types:
+          - version-update:semver-minor
+          - version-update:semver-patch
     groups:
-      python:
+      python-runtime:
+        applies-to: version-updates
         patterns: ["*"]
+        exclude-patterns: [pytest, pytest-django, ruff]
+        update-types: [minor, patch]
+      python-development:
+        applies-to: version-updates
+        patterns: [pytest, pytest-django, ruff]
+        update-types: [minor, patch]
 
   - package-ecosystem: docker
     directory: /
@@ -29,6 +55,10 @@ updates:
       day: monday
       time: "04:30"
       timezone: Europe/Moscow
+    allow:
+      - dependency-name: "*"
+        update-types:
+          - version-update:semver-patch
 
   - package-ecosystem: docker-compose
     directory: /
@@ -37,6 +67,10 @@ updates:
       day: monday
       time: "04:45"
       timezone: Europe/Moscow
+    allow:
+      - dependency-name: "*"
+        update-types:
+          - version-update:semver-patch
 
   - package-ecosystem: github-actions
     directory: /
@@ -45,6 +79,13 @@ updates:
       day: monday
       time: "05:00"
       timezone: Europe/Moscow
+    allow:
+      - dependency-name: "*"
+        update-types:
+          - version-update:semver-minor
+          - version-update:semver-patch
     groups:
-      actions:
+      actions-routine:
+        applies-to: version-updates
         patterns: ["*"]
+        update-types: [minor, patch]

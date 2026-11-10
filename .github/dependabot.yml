@@ -10,7 +10,7 @@ updates:
       time: "04:00"
       timezone: Europe/Moscow
     allow:
-      - dependency-name: "*"
+      - dependency-type: direct
         update-types:
           - version-update:semver-minor
           - version-update:semver-patch
@@ -33,10 +33,14 @@ updates:
       time: "04:15"
       timezone: Europe/Moscow
     allow:
-      - dependency-name: "*"
+      - dependency-type: direct
         update-types:
           - version-update:semver-minor
           - version-update:semver-patch
+    ignore:
+      # webauthn 2.8.0 требует cbor2 < 6, а текущий autobahn — cbor2 >= 6.1.
+      - dependency-name: webauthn
+        versions: ["2.8.0"]
     groups:
       python-runtime:
         applies-to: version-updates

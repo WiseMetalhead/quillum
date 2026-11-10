@@ -1,6 +1,6 @@
 services:
   caddy:
-    image: docker.io/library/caddy:2-alpine@sha256:ae5e525ca6773b0a4ce579c774cb39b3147e1576084139229517bdbcfe3ed812
+    image: docker.io/library/caddy:2-alpine@sha256:78bd35025c7ba85961dd149ae670315129954e77abe2383ac47c89106b35ade9
     restart: unless-stopped
     environment:
       QUILLUM_DOMAIN: ${QUILLUM_DOMAIN:?Укажите QUILLUM_DOMAIN в .env.production}

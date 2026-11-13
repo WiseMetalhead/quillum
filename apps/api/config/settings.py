@@ -109,7 +109,7 @@ if AUTH_MODE not in {"local", "hybrid"}:
     raise ImproperlyConfigured("QUILLUM_AUTH_MODE must be local or hybrid.")
 QUILLUM_DJANGO_ADMIN_ENABLED = env_bool("QUILLUM_DJANGO_ADMIN_ENABLED", False)
 AUTH_USER_MODEL = "accounts.User"
-QUILLUM_VERSION = os.getenv("QUILLUM_VERSION", "1.0.0")
+QUILLUM_VERSION = os.getenv("QUILLUM_VERSION", "1.0.1")
 QUILLUM_BOOTSTRAP_ADMIN_ENABLED = env_bool(
     "QUILLUM_BOOTSTRAP_ADMIN_ENABLED",
     not running_pytest(),

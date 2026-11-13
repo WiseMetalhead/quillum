@@ -1,6 +1,6 @@
 {
   "name": "quillum",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "AGPL-3.0-or-later",
   "author": "@WiseMetalhead and Quillum contributors",
   "private": true,
@@ -26,4 +26,3 @@
     "api:migrate": "cd apps/api && uv run python manage.py migrate"
   }
 }
-

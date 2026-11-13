@@ -1,7 +1,7 @@
 {
   "name": "@quillum/collaboration",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "AGPL-3.0-or-later",
   "author": "@WiseMetalhead and Quillum contributors",
   "type": "module",

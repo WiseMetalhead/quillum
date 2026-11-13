@@ -81,6 +81,26 @@ test('illustration conflict checks ignore JSON attribute insertion order', () =>
   assert.notDeepEqual(illustrationProjection(local), illustrationProjection(server))
 })
 
+test('presence labels cannot capture the local text caret', async () => {
+  const [editor, styles] = await Promise.all([
+    read('apps/web/src/features/books/DocumentEditor.tsx'),
+    read('apps/web/src/features/books/DocumentEditor.css'),
+  ])
+
+  assert.ok(editor.includes("const COLLABORATION_CARET_GUARD = '\\u2060'"))
+  assert.equal(
+    editor.match(/document\.createTextNode\(COLLABORATION_CARET_GUARD\)/g)?.length,
+    2,
+  )
+  assert.ok(editor.includes("cursor.contentEditable = 'false'"))
+  assert.ok(editor.includes("label.contentEditable = 'false'"))
+  assert.ok(editor.includes('render: renderCollaborationCaret'))
+  assert.match(
+    styles,
+    /\.collaboration-carets__caret\s*\{[^}]*pointer-events: none;[^}]*user-select: none;/s,
+  )
+})
+
 test('public Docker ships an isolated Node runtime and blocks the internal API', async () => {
   const [dockerfile, compose, nginx] = await Promise.all([
     read('Dockerfile'),

@@ -662,7 +662,7 @@ button.saveStatusButton.error {
 
 .tiptapEditor .collaboration-carets__label {
   position: absolute;
-  z-index: 12;
+  z-index: 2;
   top: -1.55em;
   left: -1px;
   max-width: 180px;

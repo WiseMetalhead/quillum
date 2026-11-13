@@ -101,6 +101,21 @@ test('presence labels cannot capture the local text caret', async () => {
   )
 })
 
+test('presence labels stay beneath editor toolbar popovers', async () => {
+  const styles = await read('apps/web/src/features/books/DocumentEditor.css')
+  const labelZIndex = styles.match(
+    /\.collaboration-carets__label\s*\{[^}]*z-index:\s*(\d+);/s,
+  )?.[1]
+  const toolbarZIndex = styles.match(/\.editorToolbar\s*\{[^}]*z-index:\s*(\d+);/s)?.[1]
+
+  assert.ok(labelZIndex)
+  assert.ok(toolbarZIndex)
+  assert.ok(
+    Number(labelZIndex) < Number(toolbarZIndex),
+    'presence labels must stay below the toolbar stacking context',
+  )
+})
+
 test('public Docker ships an isolated Node runtime and blocks the internal API', async () => {
   const [dockerfile, compose, nginx] = await Promise.all([
     read('Dockerfile'),

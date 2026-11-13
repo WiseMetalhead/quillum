@@ -45,7 +45,7 @@
 .documentComparisonNavigation button { width: 32px; height: 32px; display: grid; place-items: center; padding: 0; border: 1px solid var(--color-border); background: var(--color-surface); }
 .documentComparisonNavigation button:disabled { opacity: .45; }
 .documentComparisonNavigation svg { width: 17px; height: 17px; fill: currentColor; }
-.documentComparisonShowAll { height: 34px; padding: 8px 14px; border: 0; border-radius: 7px; color: var(--color-text-on-accent); background: var(--color-action-primary); font-size: 13px; font-weight: 700; }
+.documentComparisonToolbar button.documentComparisonShowAll { height: 34px; padding: 8px 14px; border: 0; border-radius: 7px; color: var(--color-text-on-accent); background: var(--color-action-primary); font-size: 13px; font-weight: 700; }
 .documentComparisonShowAll:hover { background: var(--color-action-primary-hover); }
 
 .documentComparisonColumns,

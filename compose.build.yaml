@@ -3,7 +3,7 @@ services:
     build:
       context: .
       args:
-        QUILLUM_VERSION: ${QUILLUM_VERSION:-1.0.0}
+        QUILLUM_VERSION: ${QUILLUM_VERSION:-1.0.1}
     pull_policy: build
   migrate: *local-build
   api: *local-build

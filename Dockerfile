@@ -41,7 +41,7 @@ RUN uv sync --frozen --no-dev
 
 FROM docker.io/library/python:3.12.16-slim-bookworm@sha256:935c3c5b12357a7e10caa9c1e6ca5692344d97cf229832ef584be2cec9fc03df AS runtime
 
-ARG QUILLUM_VERSION=1.0.0
+ARG QUILLUM_VERSION=1.0.1
 LABEL org.opencontainers.image.title="Quillum" \
       org.opencontainers.image.description="Самостоятельно размещаемая среда для работы над большими текстами" \
       org.opencontainers.image.source="https://github.com/WiseMetalhead/quillum" \

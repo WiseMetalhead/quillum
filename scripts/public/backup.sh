@@ -33,7 +33,7 @@ compose_base run --rm --no-deps --entrypoint tar api \
 tar -C "$PROJECT_ROOT" -czf "$backup_root/configuration.tar.gz" \
     .env.production .secrets
 
-printf 'quillum_version=%s\n' "${QUILLUM_VERSION:-1.0.0}" > "$backup_root/manifest.txt"
+printf 'quillum_version=%s\n' "${QUILLUM_VERSION:-1.0.1}" > "$backup_root/manifest.txt"
 printf 'created_at=%s\n' "$(date --iso-8601=seconds)" >> "$backup_root/manifest.txt"
 if [[ -f "$PROJECT_ROOT/.run/public-deployment-mode" ]]; then
     printf 'deployment_mode=%s\n' "$(<"$PROJECT_ROOT/.run/public-deployment-mode")" \

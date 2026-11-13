@@ -823,6 +823,10 @@ button.editorAccessRevoke:hover:not(:disabled) {
 }
 
 @media (min-width: 521px) {
+  .oneShotCard.editorAvailable {
+    height: 220px;
+  }
+
   .oneShotCard.series .oneShotCardBody {
     overflow: hidden;
   }

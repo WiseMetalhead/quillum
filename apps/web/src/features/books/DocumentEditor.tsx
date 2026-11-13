@@ -82,7 +82,32 @@ type EditorMode = 'edit' | 'view'
 type MobileToolbarLevel = 'main' | 'format'
 type MobileSettingsSheet = 'font-size' | 'smart-quotes' | 'spellcheck'
 const OFFLINE_UI_GRACE_MS = 600
+const COLLABORATION_CARET_GUARD = '\u2060'
 const mobileEditorQuery = '(max-width: 520px)'
+
+function renderCollaborationCaret(user: Record<string, unknown>) {
+  const color = typeof user.color === 'string' && /^#[0-9a-f]{6}$/i.test(user.color)
+    ? user.color
+    : 'transparent'
+  const name = typeof user.name === 'string' ? user.name : ''
+  const cursor = document.createElement('span')
+  cursor.classList.add('collaboration-carets__caret')
+  cursor.contentEditable = 'false'
+  cursor.style.borderColor = color
+
+  const label = document.createElement('span')
+  label.classList.add('collaboration-carets__label')
+  label.contentEditable = 'false'
+  label.style.backgroundColor = color
+  label.textContent = name
+
+  cursor.append(
+    document.createTextNode(COLLABORATION_CARET_GUARD),
+    label,
+    document.createTextNode(COLLABORATION_CARET_GUARD),
+  )
+  return cursor
+}
 
 const ReadOnlyIllustrations = Extension.create({
   name: 'readOnlyIllustrations',
@@ -436,6 +461,7 @@ export const DocumentEditor = forwardRef<DocumentEditorHandle, DocumentEditorPro
             CollaborationCaret.configure({
               provider: liveCollaboration.provider,
               user: liveCollaboration.identity,
+              render: renderCollaborationCaret,
             }),
           ]
         : []),

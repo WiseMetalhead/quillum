@@ -656,6 +656,7 @@ button.saveStatusButton.error {
   border-right: 1px solid;
   border-left: 1px solid;
   pointer-events: none;
+  user-select: none;
   word-break: normal;
 }
 

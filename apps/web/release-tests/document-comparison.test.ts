@@ -224,3 +224,15 @@ test('desktop comparison centers the scrollbar gutter to keep column dividers al
 
   assert.match(styles, /@media \(min-width: 521px\) \{\s+\.documentComparisonScroll \{ scrollbar-gutter: stable both-edges; \}/)
 })
+
+test('version comparison keeps compact typography on the show-all action', async () => {
+  const styles = await readFile(
+    new URL('../src/features/books/DocumentComparison.css', import.meta.url),
+    'utf8',
+  )
+
+  assert.match(
+    styles,
+    /\.documentComparisonToolbar button\.documentComparisonShowAll \{[^}]*font-size: 13px; font-weight: 700;/,
+  )
+})

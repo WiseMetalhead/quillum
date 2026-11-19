@@ -333,7 +333,8 @@
 .adminNotificationsStack > .adminNotificationTest { width: 100%; max-width: none; }
 .adminNotificationsContent { width: 100%; display: grid; gap: 18px; }
 .adminNotificationsContent > .panel { width: 100%; max-width: none; }
-.adminNotificationSettingRow { min-width: 0; display: grid; grid-template-columns: minmax(180px, 0.55fr) minmax(0, 1fr); align-items: center; gap: 16px; padding: 14px 0; border-top: 1px solid var(--color-border); }
+.adminNotificationTestFields { min-width: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; border-top: 1px solid var(--color-border); }
+.adminNotificationSettingRow { min-width: 0; display: grid; grid-template-columns: minmax(180px, 0.55fr) minmax(0, 1fr); align-items: center; gap: 16px; padding: 14px 0; }
 .adminNotificationSettingRow > span { color: var(--color-text-secondary-strong); font-size: 13px; font-weight: 700; }
 .adminNotificationSettingRow .customSelectButton { width: 100%; min-width: 0; min-height: 42px; border-radius: 8px; cursor: pointer; }
 .adminNotificationTest .adminUsersApplyButton { width: fit-content; }
@@ -363,7 +364,9 @@
 .adminCampaignActions input[type="datetime-local"] { width: auto; min-height: 34px; padding: 6px 8px; font-size: 12px; }
 
 @media (max-width: 620px) {
+  .adminNotificationTestFields { grid-template-columns: 1fr; }
   .adminNotificationSettingRow { grid-template-columns: 1fr; gap: 8px; }
+  .adminNotificationSettingRow + .adminNotificationSettingRow { border-top: 1px solid var(--color-border); }
   .adminCampaignLayout { grid-template-columns: 1fr; }
   .adminCampaignEditor { padding: 14px 0 0; border-top: 1px solid var(--color-border); border-left: 0; }
   .adminNotificationsContent,

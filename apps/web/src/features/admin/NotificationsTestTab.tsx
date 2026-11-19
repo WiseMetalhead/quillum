@@ -345,7 +345,7 @@ export function NotificationsTestTab({ onSensitiveAction, onMessage, onError }: 
   return <div className="adminNotificationsContent">
     <section className="panel adminSettingsPanel adminSettingsSection adminNotificationTest">
       <div className="adminSettingsSectionHeader"><Icon name="bell-light" /><h2>{t('admin.notificationTestTitle')}</h2></div>
-      <div className="adminSettingsGrid">
+      <div className="adminNotificationTestFields">
         <label className="adminNotificationSettingRow"><span>{t('admin.notificationKind')}</span><CustomSelect value={kind} onChange={(event) => { const value = event.target.value as NotificationKind; setKind(value); if (!emailKinds.has(value)) setChannel('panel') }}>{kinds.map((value) => <option key={value} value={value}>{t(`notifications.kinds.${value.replaceAll('.', '_')}.title`)}</option>)}</CustomSelect></label>
         <label className="adminNotificationSettingRow"><span>{t('admin.notificationChannel')}</span><CustomSelect value={channel} onChange={(event) => setChannel(event.target.value as 'panel' | 'panel_email')}><option value="panel">{t('admin.notificationChannelPanel')}</option>{emailKinds.has(kind) && <option value="panel_email">{t('admin.notificationChannelPanelEmail')}</option>}</CustomSelect></label>
       </div>

@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import json
+import re
 from datetime import timedelta
+from pathlib import Path
 from time import perf_counter
 from typing import Any
 from urllib.request import Request, urlopen
@@ -22,6 +24,18 @@ CELERY_PING_TIMEOUT_SECONDS = 0.75
 SCHEDULER_FRESHNESS_SECONDS = 120
 STORAGE_USAGE_CACHE_SECONDS = 60
 STORAGE_USAGE_CACHE_KEY = "quillum:admin-status:storage-usage:v1"
+RELEASE_NOTES_DIRECTORY = Path(__file__).with_name("release_notes")
+RELEASE_VERSION_PATTERN = re.compile(r"[0-9]+[.][0-9]+[.][0-9]+(?:[-+][A-Za-z0-9.-]+)?")
+
+
+def changelog_for_version(version: str, directory: Path = RELEASE_NOTES_DIRECTORY) -> str | None:
+    if RELEASE_VERSION_PATTERN.fullmatch(version) is None:
+        return None
+    try:
+        notes = (directory / f"{version}.md").read_text(encoding="utf-8").strip()
+    except OSError:
+        return None
+    return notes or None
 
 
 def _elapsed_ms(started_at: float) -> float:

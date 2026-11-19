@@ -1155,6 +1155,7 @@ export const en = {
     statusLoadFailed: 'Unable to load admin status',
     serviceStatus: 'Service status',
     quillumVersion: 'Quillum version',
+    releaseNotes: 'Changes in version {{version}}',
     loadStatus: 'Load status',
     statusLoading: 'Loading service status...',
     refresh: 'Refresh',

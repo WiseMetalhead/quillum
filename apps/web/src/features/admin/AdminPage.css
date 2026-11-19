@@ -1906,7 +1906,7 @@
 }
 
 .adminSettingsGrid {
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: minmax(180px, 0.55fr) minmax(0, 1fr) max-content;
   gap: 0;
   margin-top: 0;
 }
@@ -1914,7 +1914,8 @@
 .adminSettingRow {
   min-width: 0;
   display: grid;
-  grid-template-columns: minmax(180px, 0.55fr) minmax(0, 1fr) auto;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
   align-items: center;
   gap: 16px;
   padding: 14px 0;
@@ -2089,7 +2090,7 @@
 }
 
 @media (max-width: 860px) {
-  .adminSettingRow {
+  .adminSettingsGrid {
     grid-template-columns: minmax(140px, 0.5fr) minmax(0, 1fr);
   }
 
@@ -2100,8 +2101,11 @@
 }
 
 @media (max-width: 520px) {
-  .adminSettingRow {
+  .adminSettingsGrid {
     grid-template-columns: 1fr;
+  }
+
+  .adminSettingRow {
     gap: 8px;
   }
 

@@ -16,8 +16,14 @@ import type {
 } from '../../types'
 import { TierQuotasPanel } from './TierQuotasPanel'
 import { TierProgressionPanel } from './TierProgressionPanel'
+import {
+  parseRateLimit,
+  rateLimitUnits,
+  serializeRateLimit,
+} from './rateLimit'
+import type { RateLimitDraft, RateLimitUnit } from './rateLimit'
 
-type DraftValue = boolean | string
+type DraftValue = boolean | string | RateLimitDraft
 
 type MobileSettingsCategory = 'general' | 'oidc' | 'speech' | 'mail' | 'policies' | 'tiers'
 
@@ -25,12 +31,30 @@ const OPEN_REGISTRATION_KEY = 'open_registration'
 const LOCAL_PASSWORD_LOGIN_KEY = 'local_password_login_enabled'
 const AUDIO_TRANSCRIPTION_KEY = 'audio_transcription_enabled'
 
+const EMPTY_RATE_LIMIT: RateLimitDraft = {
+  count: '',
+  period: '1',
+  unit: 'hour',
+}
+
+function rateLimitDraft(value: AdminSetting['value']): RateLimitDraft {
+  return parseRateLimit(String(value ?? '')) ?? { ...EMPTY_RATE_LIMIT }
+}
+
+function draftValue(item: AdminSetting): DraftValue {
+  if (item.secret) return ''
+  if (item.type === 'boolean') return item.value === true
+  if (item.type === 'rate') return rateLimitDraft(item.value)
+  return String(item.value ?? '')
+}
+
+function isRateLimitDraft(value: DraftValue | undefined): value is RateLimitDraft {
+  return typeof value === 'object' && value !== null
+}
+
 function initialDraft(items: AdminSetting[]): Record<string, DraftValue> {
   return Object.fromEntries(
-    items.map((item) => [
-      item.key,
-      item.secret ? '' : item.type === 'boolean' ? item.value === true : String(item.value ?? ''),
-    ]),
+    items.map((item) => [item.key, draftValue(item)]),
   )
 }
 
@@ -155,17 +179,31 @@ export function SettingsTab() {
     setMessage('')
   }
 
+  function updateRateLimitDraft(
+    key: string,
+    field: keyof RateLimitDraft,
+    value: string,
+  ) {
+    setDraft((current) => {
+      const currentValue = current[key]
+      const rateValue = isRateLimitDraft(currentValue)
+        ? currentValue
+        : { ...EMPTY_RATE_LIMIT }
+      return {
+        ...current,
+        [key]: { ...rateValue, [field]: value },
+      }
+    })
+    setMessage('')
+  }
+
   function startEditing(item: AdminSetting) {
     if (!item.editable || submitting) return
     setError('')
     setMessage('')
     setDraft((current) => ({
       ...current,
-      [item.key]: item.secret
-        ? ''
-        : item.type === 'boolean'
-          ? item.value === true
-          : String(item.value ?? ''),
+      [item.key]: draftValue(item),
     }))
     setEditingKey(item.key)
   }
@@ -173,11 +211,7 @@ export function SettingsTab() {
   function cancelEditing(item: AdminSetting) {
     setDraft((current) => ({
       ...current,
-      [item.key]: item.secret
-        ? ''
-        : item.type === 'boolean'
-          ? item.value === true
-          : String(item.value ?? ''),
+      [item.key]: draftValue(item),
     }))
     setEditingKey(null)
   }
@@ -189,6 +223,9 @@ export function SettingsTab() {
     }
     if (item.type === 'integer') {
       return Number(value)
+    }
+    if (item.type === 'rate' && isRateLimitDraft(value)) {
+      return serializeRateLimit(value)
     }
     return String(value ?? '')
   }
@@ -267,6 +304,19 @@ export function SettingsTab() {
           ? t('adminSettings.console')
           : String(item.value ?? '')
     }
+    if (item.type === 'rate') {
+      const value = parseRateLimit(String(item.value ?? ''))
+      if (value) {
+        const locale = i18n.resolvedLanguage ?? 'en'
+        const numberFormat = new Intl.NumberFormat(locale)
+        const period = Number(value.period)
+        return t('adminSettings.rateValue', {
+          limit: numberFormat.format(Number(value.count)),
+          period: numberFormat.format(period),
+          unit: t(`adminSettings.rateUnits.${value.unit}`, { count: period }),
+        })
+      }
+    }
     return String(item.value ?? '') || t('adminSettings.notConfigured')
   }
 
@@ -308,6 +358,55 @@ export function SettingsTab() {
             </option>
           ))}
         </CustomSelect>
+      )
+    }
+    if (item.type === 'rate') {
+      const value = draft[item.key]
+      const rateValue = isRateLimitDraft(value) ? value : { ...EMPTY_RATE_LIMIT }
+      const period = Number(rateValue.period) || 1
+      return (
+        <div className="adminRateLimitInput" role="group" aria-label={settingLabel(item)}>
+          <input
+            type="number"
+            inputMode="numeric"
+            min="1"
+            step="1"
+            value={rateValue.count}
+            aria-label={t('adminSettings.rateCount')}
+            disabled={disabled}
+            onChange={(event) => updateRateLimitDraft(item.key, 'count', event.target.value)}
+          />
+          <span className="adminRateLimitSeparator" aria-hidden="true">
+            {t('adminSettings.ratePer')}
+          </span>
+          <input
+            type="number"
+            inputMode="numeric"
+            min="1"
+            step="1"
+            value={rateValue.period}
+            aria-label={t('adminSettings.ratePeriod')}
+            disabled={disabled}
+            onChange={(event) => updateRateLimitDraft(item.key, 'period', event.target.value)}
+          />
+          <CustomSelect
+            className="adminRateLimitUnit"
+            value={rateValue.unit}
+            aria-label={t('adminSettings.rateUnit')}
+            disabled={disabled}
+            onChange={(event) => updateRateLimitDraft(
+              item.key,
+              'unit',
+              event.target.value as RateLimitUnit,
+            )}
+          >
+            {rateLimitUnits.map((unit) => (
+              <option key={unit} value={unit}>
+                {t(`adminSettings.rateUnits.${unit}`, { count: period })}
+              </option>
+            ))}
+          </CustomSelect>
+        </div>
       )
     }
     return (

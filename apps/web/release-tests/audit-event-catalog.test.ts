@@ -122,7 +122,7 @@ test('backend audit producers are covered by the localized event list', async ()
   const files = await productionPythonFiles(new URL('../../api/apps/', import.meta.url))
   const sources = await Promise.all(files.map((file) => readFile(file, 'utf8')))
   const producerCodes = new Set<string>()
-  const eventPattern = /['"]((?:admin|auth|editor|manuscript|system)\.[a-z0-9_]+)['"]/g
+  const eventPattern = /['"]((?:admin|auth|editor|idea|manuscript|system)\.[a-z0-9_]+)['"]/g
 
   for (const source of sources) {
     for (const marker of ['write_audit_event', 'write_system_audit_event', 'AuditEvent.objects.create', '_audit']) {

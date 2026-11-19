@@ -1285,6 +1285,16 @@ export const ru = {
         invitation_accepted: 'Принятие приглашения редактора',
         connection_disconnected: 'Отключение связи редактора',
       },
+      idea: {
+        attached: 'Перенос идеи в рукопись',
+        audio_created: 'Создание аудиоидеи',
+        audio_transcription_deleted: 'Удаление расшифровки аудиоидеи',
+        audio_transcription_requested: 'Запрос расшифровки аудиоидеи',
+        deleted: 'Удаление идеи',
+        image_created: 'Создание идеи-изображения',
+        text_created: 'Создание текстовой идеи',
+        updated: 'Изменение идеи',
+      },
       manuscript: {
         annotation_created: 'Создание аннотации',
         annotation_deleted: 'Удаление аннотации',

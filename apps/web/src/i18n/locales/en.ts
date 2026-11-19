@@ -1330,6 +1330,16 @@ export const en = {
         invitation_accepted: 'Editor invitation accepted',
         connection_disconnected: 'Editor connection disconnected',
       },
+      idea: {
+        attached: 'Idea attached to manuscript',
+        audio_created: 'Audio idea created',
+        audio_transcription_deleted: 'Audio idea transcription deleted',
+        audio_transcription_requested: 'Audio idea transcription requested',
+        deleted: 'Idea deleted',
+        image_created: 'Image idea created',
+        text_created: 'Text idea created',
+        updated: 'Idea updated',
+      },
       manuscript: {
         annotation_created: 'Annotation created',
         annotation_deleted: 'Annotation deleted',

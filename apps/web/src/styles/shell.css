@@ -37,8 +37,8 @@
 }
 
 .brandMark {
-  width: 17px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,8 +46,8 @@
 }
 
 .brandMark img {
-  width: auto;
-  height: 34px;
+  width: 32px;
+  height: 32px;
   display: block;
 }
 

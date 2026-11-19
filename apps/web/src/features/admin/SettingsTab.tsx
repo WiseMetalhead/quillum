@@ -753,7 +753,6 @@ export function SettingsTab() {
 
       <section className="panel adminSettingsPanel adminSettingsSection">
         {sectionHeader('microphone-3-linear', t('adminSettings.speechRecognition'))}
-        <p className="adminSettingsSectionLead">{t('adminSettings.transcriptionLead')}</p>
         <div className="adminSettingsGrid">
           {transcriptionSettings.map(renderSetting)}
           {[

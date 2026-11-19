@@ -1925,6 +1925,10 @@
 
 .adminSettingValueCell {
   min-width: 0;
+  min-height: 24px;
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .adminSettingValueWithAction {
@@ -1941,11 +1945,16 @@
 }
 
 .adminSettingInlineForm {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
   min-width: 0;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 42px 42px;
+  grid-template-columns: minmax(0, 1fr) 24px 24px;
   align-items: center;
   gap: 8px;
+  transform: translateY(-50%);
 }
 
 .adminSettingInlineForm > input,
@@ -2001,16 +2010,6 @@
 .adminIconAction svg {
   width: 16px;
   height: 16px;
-}
-
-.adminSettingInlineForm .adminIconAction {
-  width: 42px;
-  height: 42px;
-}
-
-.adminSettingInlineForm .adminIconAction svg {
-  width: 22px;
-  height: 22px;
 }
 
 .adminSettingSaveAction {

@@ -5,6 +5,7 @@ import re
 import sys
 from dataclasses import dataclass
 from email.utils import parseaddr
+from pathlib import Path
 from typing import Literal
 
 from django.core.cache import cache
@@ -40,6 +41,8 @@ class SettingDefinition:
     allow_blank: bool = False
     choices: tuple[str, ...] = ()
     environment_aliases: tuple[tuple[str, str], ...] = ()
+    environment_guard: str | None = None
+    environment_file_name: str | None = None
 
     def validate(self, value):
         if self.kind == "boolean":
@@ -126,6 +129,70 @@ DEFINITIONS = (
         "boolean",
         "QUILLUM_AUDIO_TRANSCRIPTION_ENABLED",
         False,
+    ),
+    SettingDefinition(
+        "oidc_enabled",
+        "OpenID Connect login",
+        "primary",
+        "boolean",
+        "QUILLUM_OIDC_ENABLED",
+        False,
+        environment_guard="QUILLUM_OIDC_DEPLOYMENT_OWNED",
+    ),
+    SettingDefinition(
+        "oidc_provider_name",
+        "OpenID Connect provider name",
+        "primary",
+        "string",
+        "OIDC_PROVIDER_NAME",
+        "OpenID Connect",
+        max_length=120,
+        environment_guard="QUILLUM_OIDC_DEPLOYMENT_OWNED",
+    ),
+    SettingDefinition(
+        "oidc_discovery_url",
+        "OpenID Connect discovery URL",
+        "primary",
+        "string",
+        "OIDC_DISCOVERY_URL",
+        "",
+        max_length=2048,
+        allow_blank=True,
+        environment_guard="QUILLUM_OIDC_DEPLOYMENT_OWNED",
+    ),
+    SettingDefinition(
+        "oidc_issuer",
+        "OpenID Connect issuer",
+        "primary",
+        "string",
+        "OIDC_ISSUER",
+        "",
+        max_length=2048,
+        allow_blank=True,
+        environment_guard="QUILLUM_OIDC_DEPLOYMENT_OWNED",
+    ),
+    SettingDefinition(
+        "oidc_client_id",
+        "OpenID Connect client ID",
+        "primary",
+        "string",
+        "OIDC_CLIENT_ID",
+        "",
+        max_length=512,
+        allow_blank=True,
+        environment_guard="QUILLUM_OIDC_DEPLOYMENT_OWNED",
+    ),
+    SettingDefinition(
+        "oidc_client_secret",
+        "OpenID Connect client secret",
+        "primary",
+        "secret",
+        "OIDC_CLIENT_SECRET",
+        "",
+        max_length=4096,
+        allow_blank=True,
+        environment_guard="QUILLUM_OIDC_DEPLOYMENT_OWNED",
+        environment_file_name="OIDC_CLIENT_SECRET_FILE",
     ),
     SettingDefinition(
         "email_backend",
@@ -385,8 +452,41 @@ def setting_definition(key: str) -> SettingDefinition:
         raise KeyError(f"Unknown runtime setting: {key}") from exc
 
 
-def environment_value(definition: SettingDefinition):
+def _environment_guard_enabled(definition: SettingDefinition) -> bool:
+    if definition.environment_guard is None:
+        return True
+    raw_value = os.getenv(definition.environment_guard)
+    if raw_value is None:
+        return True
+    normalized = raw_value.strip().lower()
+    if normalized in TRUE_VALUES:
+        return True
+    if normalized in FALSE_VALUES:
+        return False
+    raise ImproperlyConfigured(f"{definition.environment_guard} must be a boolean.")
+
+
+def _raw_environment_value(definition: SettingDefinition) -> str | None:
+    if not _environment_guard_enabled(definition):
+        return None
     raw_value = os.getenv(definition.env_name)
+    if raw_value is not None:
+        return raw_value
+    if definition.environment_file_name is None:
+        return None
+    file_path = os.getenv(definition.environment_file_name)
+    if not file_path:
+        return None
+    try:
+        return Path(file_path).read_text(encoding="utf-8").strip()
+    except OSError as exc:
+        raise ImproperlyConfigured(
+            f"Unable to read {definition.environment_file_name}: {file_path}"
+        ) from exc
+
+
+def environment_value(definition: SettingDefinition):
+    raw_value = _raw_environment_value(definition)
     if raw_value is None:
         return None
     return definition.parse_environment(raw_value)
@@ -446,7 +546,7 @@ def runtime_setting(key: str):
 
 def runtime_setting_source(key: str) -> str:
     definition = setting_definition(key)
-    if os.getenv(definition.env_name) is not None:
+    if environment_value(definition) is not None:
         return "environment"
     return "database" if _stored_payload(key)["exists"] else "default"
 

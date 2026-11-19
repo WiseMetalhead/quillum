@@ -4,11 +4,12 @@ import hashlib
 from dataclasses import dataclass
 
 from authlib.integrations.django_client import OAuth
-from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.db.models import F
 from django.utils import timezone
+
+from apps.adminpanel.runtime_settings import runtime_setting
 
 from .lookups import email_lookup_q, normalize_email
 from .models import OidcIdentity, RegistrationCounter, User
@@ -22,6 +23,16 @@ class OidcLoginError(Exception):
 
 
 @dataclass(frozen=True)
+class OidcConfiguration:
+    enabled: bool
+    provider_name: str
+    discovery_url: str
+    issuer: str
+    client_id: str
+    client_secret: str
+
+
+@dataclass(frozen=True)
 class ResolvedOidcUser:
     user: User
     identity: OidcIdentity
@@ -29,35 +40,64 @@ class ResolvedOidcUser:
     linked: bool
 
 
-def oidc_configured() -> bool:
-    return bool(
-        settings.OIDC_ENABLED
-        and settings.OIDC_DISCOVERY_URL
-        and settings.OIDC_CLIENT_ID
-        and settings.OIDC_CLIENT_SECRET
+def oidc_configuration() -> OidcConfiguration:
+    return OidcConfiguration(
+        enabled=bool(runtime_setting("oidc_enabled")),
+        provider_name=str(runtime_setting("oidc_provider_name")) or "OpenID Connect",
+        discovery_url=str(runtime_setting("oidc_discovery_url")),
+        issuer=str(runtime_setting("oidc_issuer")),
+        client_id=str(runtime_setting("oidc_client_id")),
+        client_secret=str(runtime_setting("oidc_client_secret")),
     )
 
 
+def oidc_configured() -> bool:
+    configuration = oidc_configuration()
+    return bool(
+        configuration.enabled
+        and configuration.discovery_url
+        and configuration.issuer
+        and configuration.client_id
+        and configuration.client_secret
+    )
+
+
+def oidc_auth_mode() -> str:
+    return "hybrid" if oidc_configured() else "local"
+
+
+def oidc_provider_name() -> str:
+    return oidc_configuration().provider_name
+
+
 def oidc_status_payload() -> dict:
+    configuration = oidc_configuration()
     return {
-        "enabled": settings.OIDC_ENABLED,
+        "enabled": configuration.enabled,
         "configured": oidc_configured(),
-        "providerName": settings.OIDC_PROVIDER_NAME or "OpenID Connect",
-        "issuer": settings.OIDC_ISSUER,
-        "discoveryUrl": settings.OIDC_DISCOVERY_URL,
+        "providerName": configuration.provider_name,
+        "issuer": configuration.issuer,
+        "discoveryUrl": configuration.discovery_url,
         "callbackPath": "/api/auth/oidc/callback/",
     }
 
 
 def oidc_client():
-    if not oidc_configured():
+    configuration = oidc_configuration()
+    if not (
+        configuration.enabled
+        and configuration.discovery_url
+        and configuration.issuer
+        and configuration.client_id
+        and configuration.client_secret
+    ):
         raise OidcLoginError("oidc_not_configured")
     oauth = OAuth()
     return oauth.register(
         name="oidc",
-        client_id=settings.OIDC_CLIENT_ID,
-        client_secret=settings.OIDC_CLIENT_SECRET,
-        server_metadata_url=settings.OIDC_DISCOVERY_URL,
+        client_id=configuration.client_id,
+        client_secret=configuration.client_secret,
+        server_metadata_url=configuration.discovery_url,
         client_kwargs={"scope": "openid profile email"},
     )
 
@@ -152,11 +192,12 @@ def resolve_oidc_user(
     author_workspace_enabled: bool = True,
     require_editor_only: bool = False,
 ) -> ResolvedOidcUser:
-    issuer = _claim(claims, "iss") or settings.OIDC_ISSUER
+    configured_issuer = oidc_configuration().issuer
+    issuer = _claim(claims, "iss") or configured_issuer
     subject = _claim(claims, "sub")
     if not issuer or not subject:
         raise OidcLoginError("oidc_identity_invalid")
-    if settings.OIDC_ISSUER and issuer != settings.OIDC_ISSUER:
+    if configured_issuer and issuer != configured_issuer:
         raise OidcLoginError("oidc_issuer_invalid")
 
     identity = (

@@ -13,7 +13,7 @@ from apps.adminpanel.runtime_settings import runtime_setting
 
 from .capabilities import has_author_workspace, has_editor_workspace
 from .models import EditorConnection, EditorInvitation, User
-from .oidc import oidc_configured
+from .oidc import oidc_configured, oidc_provider_name
 from .tiers import tier_quotas
 
 EDITOR_INVITATION_TTL = timedelta(hours=48)
@@ -120,7 +120,7 @@ def invitation_claim_payload(invitation: EditorInvitation) -> dict:
         },
         "localPasswordLoginEnabled": runtime_setting("local_password_login_enabled"),
         "oidcEnabled": oidc_configured(),
-        "oidcProviderName": settings.OIDC_PROVIDER_NAME or "OpenID Connect",
+        "oidcProviderName": oidc_provider_name(),
     }
 
 

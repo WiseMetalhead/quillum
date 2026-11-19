@@ -615,7 +615,6 @@ def test_superuser_updates_and_resets_runtime_setting(
         password="correct-password",
     )
     client.force_login(admin)
-    mark_recent_auth(client)
 
     response = client.patch(
         "/api/admin/settings/",
@@ -733,7 +732,6 @@ def test_tier_quotas_require_superuser(
     assert denied.status_code == 403
 
     client.force_login(admin)
-    mark_recent_auth(client)
     visible = client.get("/api/admin/tier-quotas/")
     assert visible.status_code == 200
     believer = next(
@@ -801,14 +799,6 @@ def test_tier_progression_policy_permissions_validation_and_disable_reset(
     assert denied.status_code == 403
 
     client.force_login(admin)
-    recent_required = client.patch(
-        "/api/admin/tier-progression/",
-        {"enabled": True, "noviceToAuthorDays": 30, "authorToBelieverDays": 60},
-        content_type="application/json",
-    )
-    assert recent_required.status_code == 403
-    assert recent_required.json()["error"] == "recent_authentication_required"
-    mark_recent_auth(client)
 
     invalid = client.patch(
         "/api/admin/tier-progression/",
@@ -843,7 +833,7 @@ def test_tier_progression_policy_permissions_validation_and_disable_reset(
 
 
 @pytest.mark.django_db
-def test_service_setting_update_requires_recent_authentication(
+def test_service_setting_update_does_not_require_recent_authentication(
     client,
     django_user_model,
     monkeypatch,
@@ -862,8 +852,8 @@ def test_service_setting_update_requires_recent_authentication(
         content_type="application/json",
     )
 
-    assert response.status_code == 403
-    assert response.json()["error"] == "recent_authentication_required"
+    assert response.status_code == 200
+    assert runtime_setting("open_registration") is True
 
 
 @pytest.mark.django_db
@@ -999,7 +989,6 @@ def test_only_superuser_can_disable_local_login(
         password="correct-password",
     )
     client.force_login(admin)
-    mark_recent_auth(client)
 
     response = client.patch(
         "/api/admin/settings/",
@@ -1180,7 +1169,6 @@ def test_superuser_sends_email_configuration_test(
         password="correct-password",
     )
     client.force_login(admin)
-    mark_recent_auth(client)
 
     response = client.post(
         "/api/admin/settings/email/test/",

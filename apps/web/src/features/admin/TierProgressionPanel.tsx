@@ -8,7 +8,6 @@ import { MobileSettingsSheet } from '../shared/MobileSettingsSheet'
 import { TadpoleLoadingState } from '../shared/TadpoleLoadingState'
 
 type Props = {
-  onSensitiveAction: <T>(action: () => Promise<T>) => Promise<T>
   mobile?: boolean
 }
 
@@ -26,7 +25,7 @@ function draftFromPayload(payload: AdminTierProgressionPayload): Draft {
   }
 }
 
-export function TierProgressionPanel({ onSensitiveAction, mobile = false }: Props) {
+export function TierProgressionPanel({ mobile = false }: Props) {
   const { t } = useTranslation()
   const [payload, setPayload] = useState<AdminTierProgressionPayload | null>(null)
   const [draft, setDraft] = useState<Draft | null>(null)
@@ -74,16 +73,14 @@ export function TierProgressionPanel({ onSensitiveAction, mobile = false }: Prop
     setError('')
     setMessage('')
     try {
-      const next = await onSensitiveAction(() =>
-        apiRequest<AdminTierProgressionPayload>('/api/admin/tier-progression/', {
-          method: 'PATCH',
-          body: JSON.stringify({
-            enabled: draft.enabled,
-            noviceToAuthorDays: Number(draft.noviceToAuthorDays),
-            authorToBelieverDays: Number(draft.authorToBelieverDays),
-          }),
+      const next = await apiRequest<AdminTierProgressionPayload>('/api/admin/tier-progression/', {
+        method: 'PATCH',
+        body: JSON.stringify({
+          enabled: draft.enabled,
+          noviceToAuthorDays: Number(draft.noviceToAuthorDays),
+          authorToBelieverDays: Number(draft.authorToBelieverDays),
         }),
-      )
+      })
       applyPayload(next)
       setConfirmDisable(false)
       setMobileOpen(false)

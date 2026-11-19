@@ -100,7 +100,7 @@ export function AdminPage({ user, onMessage, onError, onServicePagesChange }: Ad
       <main className="sectionBody adminBody">
         <div className={`adminStack ${stackClass}`}>
           {adminView === 'status' && <StatusTab onOpenAudit={() => setAdminView('audit')} />}
-          {adminView === 'settings' && <SettingsTab onSensitiveAction={runSensitiveAction} />}
+          {adminView === 'settings' && <SettingsTab />}
           {adminView === 'maintenance' && (
             <MaintenanceTab onMessage={onMessage} onError={onError} />
           )}

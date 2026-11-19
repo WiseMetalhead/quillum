@@ -583,6 +583,7 @@ export type AdminStatus = {
   app: {
     name: string
     version: string
+    changelog: string | null
     debug: boolean
     environment: string
   }

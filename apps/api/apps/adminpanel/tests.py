@@ -18,6 +18,7 @@ from apps.adminpanel.models import (
     TierQuotaOverride,
 )
 from apps.adminpanel.runtime_settings import invalidate_runtime_setting, runtime_setting
+from apps.adminpanel.status import changelog_for_version
 from apps.adminpanel.task_monitor import record_task_finished, record_task_started
 from apps.audit.models import AuditEvent
 
@@ -55,6 +56,14 @@ def test_background_task_monitor_records_safe_summary():
 def test_celery_ignores_results_tracked_in_postgresql():
     assert settings.CELERY_TASK_IGNORE_RESULT is True
     assert settings.CELERY_RESULT_BACKEND == settings.REDIS_URL
+
+
+def test_changelog_for_version_returns_only_installed_release(tmp_path):
+    (tmp_path / "2.0.0.md").write_text("### Added\n\n- Current.\n", encoding="utf-8")
+
+    assert changelog_for_version("2.0.0", tmp_path) == "### Added\n\n- Current."
+    assert changelog_for_version("3.0.0", tmp_path) is None
+    assert changelog_for_version("../../2.0.0", tmp_path) is None
 
 
 @pytest.mark.django_db
@@ -114,6 +123,7 @@ def test_admin_status_returns_operational_summary(client, django_user_model, mon
     assert response.status_code == 200
     payload = response.json()
     assert payload["app"]["name"] == "Quillum"
+    assert payload["app"]["changelog"]
     assert payload["auth"]["mode"] == "local"
     assert payload["usage"]["users"] == 1
     assert payload["usage"]["administrators"] == 1

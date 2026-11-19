@@ -69,6 +69,7 @@ from .runtime_settings import (
     settings_payload,
 )
 from .status import (
+    changelog_for_version,
     check_celery_worker,
     check_collaboration,
     check_database,
@@ -322,6 +323,7 @@ def status(request):
             "app": {
                 "name": "Quillum",
                 "version": settings.QUILLUM_VERSION,
+                "changelog": changelog_for_version(settings.QUILLUM_VERSION),
                 "debug": settings.DEBUG,
                 "environment": settings.QUILLUM_ENVIRONMENT,
             },

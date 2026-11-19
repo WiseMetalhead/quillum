@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Icon, type IconName } from '../../icons/Icon'
 import type { AdminStatus } from '../../types'
+import { SafeNotificationMarkdown } from '../notifications/SafeNotificationMarkdown'
 import { ResponsiveDetailsPanel } from '../shared/ResponsiveDetailsPanel'
 import { StatusCard } from './StatusCard'
 import { formatBytes } from './utils'
@@ -207,12 +208,9 @@ export function DesktopStatusOverview({
         onClick={() => setSelectedServiceId('app')}
       >
         <span className="adminApplicationIdentity">
-          <Icon name={appService.icon} />
+          <img className="adminApplicationLogo" src="/quillum-logo-mark.png" alt="" />
           <strong>{appService.label}</strong>
-          <span className="adminApplicationStatus" title={appService.statusLabel}>
-            <span aria-hidden="true" />
-            <span className="srOnly">{appService.statusLabel}</span>
-          </span>
+          <span className="srOnly">{appService.statusLabel}</span>
         </span>
         <span className="adminApplicationVersion">
           <span>{appService.metricLabel}</span>
@@ -274,7 +272,9 @@ export function DesktopStatusOverview({
         {selectedService && (
           <div className="adminStatusDialogContent">
             <div className={`adminStatusDialogSummary ${selectedService.tone}`}>
-              <Icon name={selectedService.icon} />
+              {selectedService.id === 'app'
+                ? <img className="adminApplicationLogo" src="/quillum-logo-mark.png" alt="" />
+                : <Icon name={selectedService.icon} />}
               <span className="adminServiceStatus">
                 <span aria-hidden="true" />
                 {selectedService.statusLabel}
@@ -288,6 +288,12 @@ export function DesktopStatusOverview({
                 </div>
               ))}
             </dl>
+            {selectedService.id === 'app' && status.app.changelog && (
+              <section className="adminStatusReleaseNotes">
+                <h3>{t('admin.releaseNotes', { version: status.app.version })}</h3>
+                <SafeNotificationMarkdown source={status.app.changelog} />
+              </section>
+            )}
           </div>
         )}
       </ResponsiveDetailsPanel>

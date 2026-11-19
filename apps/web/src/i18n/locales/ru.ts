@@ -1110,6 +1110,7 @@ export const ru = {
     statusLoadFailed: 'Не удалось загрузить состояние сервиса.',
     serviceStatus: 'Состояние сервиса',
     quillumVersion: 'Версия Quillum',
+    releaseNotes: 'Изменения в версии {{version}}',
     loadStatus: 'Загрузить состояние',
     statusLoading: 'Загрузка состояния сервисов...',
     refresh: 'Обновить',

@@ -415,9 +415,6 @@ def service_settings(request):
             }
         )
 
-    if response := require_recent_auth(request):
-        return response
-
     payload = read_json(request)
     if not isinstance(payload, dict):
         return JsonResponse({"error": "invalid_json"}, status=400)
@@ -559,9 +556,6 @@ def test_email_settings(request):
     permission_error = require_superuser(request)
     if permission_error is not None:
         return permission_error
-    if response := require_recent_auth(request):
-        return response
-
     payload = read_json(request)
     recipient = str(payload.get("recipient", "")).strip() if isinstance(payload, dict) else ""
     try:
@@ -911,8 +905,6 @@ def tier_quotas(request):
     if request.method == "GET":
         return JsonResponse(quota_admin_payload())
 
-    if response := require_recent_auth(request):
-        return response
     payload = read_json(request)
     if not isinstance(payload, dict):
         return JsonResponse({"error": "invalid_json"}, status=400)
@@ -960,8 +952,6 @@ def tier_progression(request):
     if request.method == "GET":
         return JsonResponse(tier_progression_policy_payload())
 
-    if response := require_recent_auth(request):
-        return response
     payload = read_json(request)
     required_keys = {"enabled", "noviceToAuthorDays", "authorToBelieverDays"}
     if not isinstance(payload, dict) or set(payload) != required_keys:

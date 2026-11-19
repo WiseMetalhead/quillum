@@ -10,7 +10,6 @@ import { formatBytes } from './utils'
 type Draft = Record<string, string>
 
 type TierQuotasPanelProps = {
-  onSensitiveAction: <T>(action: () => Promise<T>) => Promise<T>
   mobile?: boolean
 }
 
@@ -35,7 +34,7 @@ function quotaDisplayValue(quota: AdminTierQuota, locale: string | undefined) {
   return new Intl.NumberFormat(locale).format(quota.value)
 }
 
-export function TierQuotasPanel({ onSensitiveAction, mobile = false }: TierQuotasPanelProps) {
+export function TierQuotasPanel({ mobile = false }: TierQuotasPanelProps) {
   const { t, i18n } = useTranslation()
   const [payload, setPayload] = useState<AdminTierQuotasPayload | null>(null)
   const [draft, setDraft] = useState<Draft>({})
@@ -98,18 +97,16 @@ export function TierQuotasPanel({ onSensitiveAction, mobile = false }: TierQuota
     setError('')
     setMessage('')
     try {
-      const next = await onSensitiveAction(() =>
-        apiRequest<AdminTierQuotasPayload>('/api/admin/tier-quotas/', {
-          method: 'PATCH',
-          body: JSON.stringify({
-            values: [{
-              tier,
-              key: quota.key,
-              value: Number(draft[key] ?? quota.value),
-            }],
-          }),
+      const next = await apiRequest<AdminTierQuotasPayload>('/api/admin/tier-quotas/', {
+        method: 'PATCH',
+        body: JSON.stringify({
+          values: [{
+            tier,
+            key: quota.key,
+            value: Number(draft[key] ?? quota.value),
+          }],
         }),
-      )
+      })
       applyPayload(next)
       setMessage(t('adminTiers.saved'))
     } catch (saveError) {
@@ -125,12 +122,10 @@ export function TierQuotasPanel({ onSensitiveAction, mobile = false }: TierQuota
     setError('')
     setMessage('')
     try {
-      const next = await onSensitiveAction(() =>
-        apiRequest<AdminTierQuotasPayload>('/api/admin/tier-quotas/', {
-          method: 'PATCH',
-          body: JSON.stringify({ reset: [{ tier, key: quota.key }] }),
-        }),
-      )
+      const next = await apiRequest<AdminTierQuotasPayload>('/api/admin/tier-quotas/', {
+        method: 'PATCH',
+        body: JSON.stringify({ reset: [{ tier, key: quota.key }] }),
+      })
       applyPayload(next)
       setMessage(t('adminTiers.resetDone'))
     } catch (resetError) {

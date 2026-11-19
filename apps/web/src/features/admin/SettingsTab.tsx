@@ -21,10 +21,6 @@ type DraftValue = boolean | string
 
 type MobileSettingsCategory = 'general' | 'oidc' | 'speech' | 'mail' | 'policies' | 'tiers'
 
-type SettingsTabProps = {
-  onSensitiveAction: <T>(action: () => Promise<T>) => Promise<T>
-}
-
 const OPEN_REGISTRATION_KEY = 'open_registration'
 const LOCAL_PASSWORD_LOGIN_KEY = 'local_password_login_enabled'
 const AUDIO_TRANSCRIPTION_KEY = 'audio_transcription_enabled'
@@ -64,7 +60,7 @@ function settingsErrorMessage(error: unknown, fallback: string, t: TFunction) {
   return t(`adminSettings.errors.${error.code}`, { defaultValue: error.message })
 }
 
-export function SettingsTab({ onSensitiveAction }: SettingsTabProps) {
+export function SettingsTab() {
   const { t, i18n } = useTranslation()
   const isMobile = useMobileViewport()
   const [payload, setPayload] = useState<AdminSettingsPayload | null>(null)
@@ -203,12 +199,10 @@ export function SettingsTab({ onSensitiveAction }: SettingsTabProps) {
     setError('')
     setMessage('')
     try {
-      const nextPayload = await onSensitiveAction(() =>
-        apiRequest<AdminSettingsPayload>('/api/admin/settings/', {
-          method: 'PATCH',
-          body: JSON.stringify({ values: { [item.key]: serializedValue(item) } }),
-        }),
-      )
+      const nextPayload = await apiRequest<AdminSettingsPayload>('/api/admin/settings/', {
+        method: 'PATCH',
+        body: JSON.stringify({ values: { [item.key]: serializedValue(item) } }),
+      })
       applyPayload(nextPayload)
     } catch (saveError) {
       setError(settingsErrorMessage(saveError, t('adminSettings.saveFailed'), t))
@@ -222,12 +216,10 @@ export function SettingsTab({ onSensitiveAction }: SettingsTabProps) {
     setError('')
     setMessage('')
     try {
-      const nextPayload = await onSensitiveAction(() =>
-        apiRequest<AdminSettingsPayload>('/api/admin/settings/', {
-          method: 'PATCH',
-          body: JSON.stringify({ reset: [key] }),
-        }),
-      )
+      const nextPayload = await apiRequest<AdminSettingsPayload>('/api/admin/settings/', {
+        method: 'PATCH',
+        body: JSON.stringify({ reset: [key] }),
+      })
       applyPayload(nextPayload)
     } catch (resetError) {
       setError(settingsErrorMessage(resetError, t('adminSettings.resetFailed'), t))
@@ -242,12 +234,10 @@ export function SettingsTab({ onSensitiveAction }: SettingsTabProps) {
     setError('')
     setMessage('')
     try {
-      await onSensitiveAction(() =>
-        apiRequest<{ ok: boolean; sent: number }>('/api/admin/settings/email/test/', {
-          method: 'POST',
-          body: JSON.stringify({ recipient: testRecipient.trim() }),
-        }),
-      )
+      await apiRequest<{ ok: boolean; sent: number }>('/api/admin/settings/email/test/', {
+        method: 'POST',
+        body: JSON.stringify({ recipient: testRecipient.trim() }),
+      })
       setMessage(t('adminSettings.testEmailSent'))
       setMobileEmailTestOpen(false)
     } catch (testError) {
@@ -641,8 +631,8 @@ export function SettingsTab({ onSensitiveAction }: SettingsTabProps) {
             )}
             {mobileCategory === 'tiers' && (
               <div className="adminSettingsMobileTierContent">
-                <TierQuotasPanel mobile onSensitiveAction={onSensitiveAction} />
-                <TierProgressionPanel mobile onSensitiveAction={onSensitiveAction} />
+                <TierQuotasPanel mobile />
+                <TierProgressionPanel mobile />
               </div>
             )}
           </div>
@@ -818,8 +808,8 @@ export function SettingsTab({ onSensitiveAction }: SettingsTabProps) {
         <div className="adminSettingsGrid">{policySettings.map(renderSetting)}</div>
       </section>
 
-      <TierQuotasPanel onSensitiveAction={onSensitiveAction} />
-      <TierProgressionPanel onSensitiveAction={onSensitiveAction} />
+      <TierQuotasPanel />
+      <TierProgressionPanel />
     </div>
   )
 }

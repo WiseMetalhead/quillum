@@ -1512,7 +1512,6 @@ export const ru = {
     oidcCallback: 'Путь обратного вызова',
     mailSettings: 'Настройки почты',
     speechRecognition: 'Распознавание речи',
-    transcriptionLead: 'Аудио распознаётся локально встроенной многоязычной моделью Whisper. Аудио не отправляется во внешние сервисы.',
     transcriptionEngine: 'Движок',
     transcriptionModel: 'Модель',
     transcriptionLanguages: 'Поддерживаемые языки',

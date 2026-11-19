@@ -1551,7 +1551,6 @@ export const en = {
     oidcCallback: 'Callback path',
     mailSettings: 'Mail settings',
     speechRecognition: 'Speech recognition',
-    transcriptionLead: 'Audio is transcribed locally with the bundled multilingual Whisper model. No audio is sent to an external service.',
     transcriptionEngine: 'Engine',
     transcriptionModel: 'Model',
     transcriptionLanguages: 'Supported languages',

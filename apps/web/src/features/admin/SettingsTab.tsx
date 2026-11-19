@@ -141,6 +141,10 @@ export function SettingsTab({ onSensitiveAction }: SettingsTabProps) {
     ) ?? [],
     [payload],
   )
+  const oidcSettings = useMemo(
+    () => payload?.items.filter((item) => item.key.startsWith('oidc_')) ?? [],
+    [payload],
+  )
   const transcriptionSettings = useMemo(
     () => payload?.items.filter((item) => item.key === AUDIO_TRANSCRIPTION_KEY) ?? [],
     [payload],
@@ -560,14 +564,6 @@ export function SettingsTab({ onSensitiveAction }: SettingsTabProps) {
         icon: 'crown-minimalistic-light',
       },
     ]
-    const oidcRows = [
-      [t('adminSettings.oidcStatus'), payload.oidc.configured
-        ? t('adminSettings.configured')
-        : t('adminSettings.notConfigured')],
-      [t('adminSettings.oidcProvider'), payload.oidc.providerName],
-      [t('adminSettings.oidcIssuer'), payload.oidc.issuer || '—'],
-      [t('adminSettings.oidcCallback'), payload.oidc.callbackPath],
-    ]
     const transcriptionRows = [
       [t('adminSettings.transcriptionEngine'), payload.transcription.engine],
       [t('adminSettings.transcriptionModel'), t('adminSettings.whisperSmall')],
@@ -606,7 +602,11 @@ export function SettingsTab({ onSensitiveAction }: SettingsTabProps) {
             )}
             {mobileCategory === 'oidc' && (
               <div className="adminSettingsMobileMenu" role="list" aria-label={t('adminSettings.oidcSettings')}>
-                {oidcRows.map(([label, value]) => renderMobileMenuRow({ label, value }))}
+                {oidcSettings.map((item) => renderMobileSetting(item))}
+                {renderMobileMenuRow({
+                  label: t('adminSettings.oidcCallback'),
+                  value: `${payload.oidc.callbackPath} · ${t('adminSettings.sourceApplication')}`,
+                })}
               </div>
             )}
             {mobileCategory === 'speech' && (
@@ -751,24 +751,13 @@ export function SettingsTab({ onSensitiveAction }: SettingsTabProps) {
 
       <section className="panel adminSettingsPanel adminSettingsSection">
         {sectionHeader('global-light', t('adminSettings.oidcSettings'))}
-        <p className="adminSettingsSectionLead">{t('adminSettings.oidcEnvironmentLead')}</p>
         <div className="adminSettingsGrid">
-          {[
-            [t('adminSettings.oidcStatus'), payload.oidc.configured
-              ? t('adminSettings.configured')
-              : t('adminSettings.notConfigured')],
-            [t('adminSettings.oidcProvider'), payload.oidc.providerName],
-            [t('adminSettings.oidcIssuer'), payload.oidc.issuer || '—'],
-            [t('adminSettings.oidcCallback'), payload.oidc.callbackPath],
-          ].map(([label, value]) => (
-            <div className="adminSettingRow" key={label}>
-              <span className="adminSettingLabel">{label}</span>
-              <span className="adminSettingValueCell adminSettingDisplayValue">{value}</span>
-              <span className={`adminSettingSource ${payload.oidc.configured ? 'database' : ''}`}>
-                {payload.oidc.enabled ? t('adminSettings.enabled') : t('adminSettings.disabled')}
-              </span>
-            </div>
-          ))}
+          {oidcSettings.map(renderSetting)}
+          <div className="adminSettingRow">
+            <span className="adminSettingLabel">{t('adminSettings.oidcCallback')}</span>
+            <span className="adminSettingValueCell adminSettingDisplayValue">{payload.oidc.callbackPath}</span>
+            <span className="adminSettingSource">{t('adminSettings.sourceApplication')}</span>
+          </div>
         </div>
       </section>
 

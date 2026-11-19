@@ -27,7 +27,11 @@ RP ID.
 
 ## OpenID Connect
 
-Основные переменные:
+На чистом Compose-инстансе OpenID Connect настраивается в Product Admin. Значения хранятся в
+PostgreSQL вместе с остальными данными приложения. Callback URL:
+`https://ваш-домен/api/auth/oidc/callback/`.
+
+Оператор может вместо этого задать deployment-owned конфигурацию через переменные:
 
 - `QUILLUM_OIDC_ENABLED`;
 - `OIDC_DISCOVERY_URL`;
@@ -36,10 +40,9 @@ RP ID.
 - `OIDC_CLIENT_SECRET` или `OIDC_CLIENT_SECRET_FILE`;
 - `OIDC_PROVIDER_NAME`.
 
-Callback URL: `https://ваш-домен/api/auth/oidc/callback/`.
-
-Запишите client secret в `.secrets/oidc_client_secret` и оставьте права файла `0600`. При
-`QUILLUM_OIDC_ENABLED=true` запуск блокируется, пока этот файл пуст.
+При `QUILLUM_OIDC_ENABLED=true` Compose считает все эти значения принадлежащими развёртыванию: Product Admin
+показывает их как заблокированные. Запишите client secret в `.secrets/oidc_client_secret`, оставьте права
+файла `0600`; запуск блокируется, пока обязательные значения не заданы.
 
 Провайдер должен поддерживать Authorization Code Flow, discovery metadata и стандартные claims
 `iss`, `sub`, `preferred_username`/`username`, `email`, `email_verified`.

@@ -458,14 +458,17 @@ def test_user_role_update_requires_recent_authentication(client, django_user_mod
 def test_passwordless_oidc_admin_reauthenticates_with_oidc_while_local_login_is_enabled(
     client,
     django_user_model,
-    settings,
+    monkeypatch,
 ):
-    settings.OIDC_ENABLED = True
-    settings.OIDC_DISCOVERY_URL = (
-        "https://idp.example.test/.well-known/openid-configuration"
+    monkeypatch.setenv("QUILLUM_OIDC_DEPLOYMENT_OWNED", "true")
+    monkeypatch.setenv("QUILLUM_OIDC_ENABLED", "true")
+    monkeypatch.setenv(
+        "OIDC_DISCOVERY_URL",
+        "https://idp.example.test/.well-known/openid-configuration",
     )
-    settings.OIDC_CLIENT_ID = "quillum"
-    settings.OIDC_CLIENT_SECRET = "oidc-secret"
+    monkeypatch.setenv("OIDC_ISSUER", "https://idp.example.test")
+    monkeypatch.setenv("OIDC_CLIENT_ID", "quillum")
+    monkeypatch.setenv("OIDC_CLIENT_SECRET", "oidc-secret")
     admin = django_user_model.objects.create_superuser(
         username="passwordless-oidc-admin",
         email="passwordless-oidc-admin@example.test",
@@ -893,6 +896,93 @@ def test_environment_owned_setting_is_locked(
     )
     assert patch_response.status_code == 409
     assert patch_response.json()["error"] == "setting_locked"
+
+
+@pytest.mark.django_db
+def test_superuser_configures_oidc_on_clean_instance(
+    client,
+    django_user_model,
+    monkeypatch,
+):
+    monkeypatch.setenv("QUILLUM_OIDC_DEPLOYMENT_OWNED", "false")
+    admin = django_user_model.objects.create_superuser(
+        username="oidc-settings-admin",
+        email="oidc-settings-admin@example.test",
+        password="correct-password",
+    )
+    client.force_login(admin)
+    mark_recent_auth(client)
+
+    incomplete = client.patch(
+        "/api/admin/settings/",
+        {"values": {"oidc_enabled": True}},
+        content_type="application/json",
+    )
+
+    assert incomplete.status_code == 400
+    assert incomplete.json()["error"] == "oidc_configuration_incomplete"
+
+    response = client.patch(
+        "/api/admin/settings/",
+        {
+            "values": {
+                "oidc_provider_name": "Example ID",
+                "oidc_discovery_url": (
+                    "https://idp.example.test/.well-known/openid-configuration"
+                ),
+                "oidc_issuer": "https://idp.example.test",
+                "oidc_client_id": "quillum",
+                "oidc_client_secret": "oidc-secret",
+                "oidc_enabled": True,
+            }
+        },
+        content_type="application/json",
+    )
+
+    assert response.status_code == 200
+    assert response.json()["oidc"]["configured"] is True
+    items = {item["key"]: item for item in response.json()["items"]}
+    assert items["oidc_enabled"]["source"] == "database"
+    assert items["oidc_client_secret"]["value"] is None
+    assert items["oidc_client_secret"]["configured"] is True
+    assert runtime_setting("oidc_provider_name") == "Example ID"
+    assert runtime_setting("oidc_client_secret") == "oidc-secret"
+
+
+@pytest.mark.django_db
+def test_deployment_owned_oidc_settings_are_locked(
+    client,
+    django_user_model,
+    monkeypatch,
+):
+    monkeypatch.setenv("QUILLUM_OIDC_DEPLOYMENT_OWNED", "true")
+    monkeypatch.setenv("QUILLUM_OIDC_ENABLED", "true")
+    monkeypatch.setenv("OIDC_PROVIDER_NAME", "Deployment ID")
+    monkeypatch.setenv(
+        "OIDC_DISCOVERY_URL",
+        "https://idp.example.test/.well-known/openid-configuration",
+    )
+    monkeypatch.setenv("OIDC_ISSUER", "https://idp.example.test")
+    monkeypatch.setenv("OIDC_CLIENT_ID", "quillum")
+    monkeypatch.setenv("OIDC_CLIENT_SECRET", "deployment-secret")
+    admin = django_user_model.objects.create_superuser(
+        username="oidc-deployment-admin",
+        email="oidc-deployment-admin@example.test",
+        password="correct-password",
+    )
+    client.force_login(admin)
+    mark_recent_auth(client)
+
+    response = client.get("/api/admin/settings/")
+
+    assert response.status_code == 200
+    oidc_items = [
+        item for item in response.json()["items"] if item["key"].startswith("oidc_")
+    ]
+    assert len(oidc_items) == 6
+    assert all(item["source"] == "environment" for item in oidc_items)
+    assert all(item["locked"] is True for item in oidc_items)
+    assert all(item["editable"] is False for item in oidc_items)
 
 
 @pytest.mark.django_db

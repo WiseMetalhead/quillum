@@ -71,8 +71,10 @@ from .models import (
 from .oidc import (
     OidcLoginError,
     mark_oidc_login,
+    oidc_auth_mode,
     oidc_client,
     oidc_configured,
+    oidc_provider_name,
     resolve_oidc_user,
 )
 from .rate_limit import (
@@ -510,10 +512,10 @@ def csrf(request):
 def setup_status(_request):
     return JsonResponse(
         {
-            "authMode": settings.AUTH_MODE,
+            "authMode": oidc_auth_mode(),
             "localPasswordLoginEnabled": runtime_setting("local_password_login_enabled"),
             "oidcEnabled": oidc_configured(),
-            "oidcProviderName": settings.OIDC_PROVIDER_NAME or "OpenID Connect",
+            "oidcProviderName": oidc_provider_name(),
             "openRegistration": runtime_setting("open_registration"),
         }
     )
@@ -985,14 +987,14 @@ def session(request):
     auth_capabilities = {
         "localPasswordLoginEnabled": runtime_setting("local_password_login_enabled"),
         "oidcEnabled": oidc_configured(),
-        "oidcProviderName": settings.OIDC_PROVIDER_NAME or "OpenID Connect",
+        "oidcProviderName": oidc_provider_name(),
     }
     if not request.user.is_authenticated:
         return JsonResponse(
             {
                 "authenticated": False,
                 "user": None,
-                "authMode": settings.AUTH_MODE,
+                "authMode": oidc_auth_mode(),
                 "openRegistration": runtime_setting("open_registration"),
                 **auth_capabilities,
             }
@@ -1003,7 +1005,7 @@ def session(request):
             "authenticated": True,
             "user": user_payload(request.user),
             "activeWorkspace": active_workspace(request),
-            "authMode": settings.AUTH_MODE,
+            "authMode": oidc_auth_mode(),
             "openRegistration": runtime_setting("open_registration"),
             **auth_capabilities,
         }

@@ -4,6 +4,7 @@ import json
 import uuid
 from datetime import timedelta
 from typing import Any
+from urllib.parse import urlsplit
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -22,7 +23,7 @@ from apps.accounts.capabilities import has_author_workspace, has_editor_workspac
 from apps.accounts.email import send_templated_runtime_email
 from apps.accounts.lookups import audit_ip_lookup_q, email_lookup_q
 from apps.accounts.models import RegistrationCounter, TierActivityProgress
-from apps.accounts.oidc import oidc_status_payload
+from apps.accounts.oidc import oidc_auth_mode, oidc_configured, oidc_status_payload
 from apps.accounts.services import delete_account_data
 from apps.accounts.sessions import revoke_user_sessions
 from apps.accounts.tier_progression import (
@@ -325,8 +326,8 @@ def status(request):
                 "environment": settings.QUILLUM_ENVIRONMENT,
             },
             "auth": {
-                "mode": settings.AUTH_MODE,
-                "oidcEnabled": settings.OIDC_ENABLED,
+                "mode": oidc_auth_mode(),
+                "oidcEnabled": oidc_configured(),
             },
             "services": {
                 "database": database,
@@ -484,6 +485,36 @@ def service_settings(request):
             },
             status=400,
         )
+
+    if candidate_value("oidc_enabled"):
+        required_oidc_keys = [
+            "oidc_discovery_url",
+            "oidc_issuer",
+            "oidc_client_id",
+            "oidc_client_secret",
+        ]
+        missing_oidc_keys = [
+            key for key in required_oidc_keys if not str(candidate_value(key)).strip()
+        ]
+        if missing_oidc_keys:
+            return JsonResponse(
+                {
+                    "error": "oidc_configuration_incomplete",
+                    "keys": missing_oidc_keys,
+                },
+                status=400,
+            )
+        for key in ("oidc_discovery_url", "oidc_issuer"):
+            parsed = urlsplit(str(candidate_value(key)))
+            if (
+                parsed.scheme not in {"http", "https"}
+                or not parsed.netloc
+                or (settings.QUILLUM_ENVIRONMENT == "production" and parsed.scheme != "https")
+            ):
+                return JsonResponse(
+                    {"error": "oidc_url_invalid", "key": key},
+                    status=400,
+                )
 
     if (
         "audio_transcription_enabled" in changed_keys

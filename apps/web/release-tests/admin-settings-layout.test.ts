@@ -14,8 +14,10 @@ test('desktop admin settings share aligned columns across each section', async (
     ?.find((rule) => rule.includes('max-content'))
   const settingRow = adminCss.match(/\.adminSettingRow \{[\s\S]*?\}/g)
     ?.find((rule) => rule.includes('grid-template-columns: subgrid'))
+  const settingSource = adminCss.match(/\.adminSettingSource \{([\s\S]*?)\}/)?.[1]
 
   assert.match(settingsGrid ?? '', /grid-template-columns: minmax\(180px, 0\.55fr\) minmax\(0, 1fr\) max-content/)
   assert.match(settingRow ?? '', /grid-column: 1 \/ -1/)
   assert.match(settingRow ?? '', /grid-template-columns: subgrid/)
+  assert.match(settingSource ?? '', /text-align: center/)
 })

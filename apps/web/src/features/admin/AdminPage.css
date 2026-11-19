@@ -1968,6 +1968,45 @@
   border-radius: 8px;
 }
 
+.adminSettingInlineForm > .adminRateLimitInput {
+  width: 100%;
+}
+
+.adminRateLimitInput {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(44px, .65fr) auto minmax(44px, .65fr) minmax(86px, 1fr);
+  align-items: center;
+  gap: 6px;
+}
+
+.adminRateLimitInput > input {
+  width: 100%;
+  min-width: 0;
+  padding-right: 6px;
+  padding-left: 6px;
+  text-align: center;
+}
+
+.adminRateLimitSeparator {
+  color: var(--color-text-muted);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.adminRateLimitUnit button.customSelectButton {
+  grid-template-columns: minmax(0, 1fr) 16px;
+  gap: 4px;
+  padding-right: 6px;
+  padding-left: 8px;
+}
+
+.adminRateLimitUnit button.customSelectButton > svg {
+  width: 15px;
+  height: 15px;
+}
+
 .adminSettingInlineForm > .adminSettingToggle {
   min-height: 42px;
 }

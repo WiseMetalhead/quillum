@@ -73,11 +73,8 @@
 
   .authShell .brandMark,
   .authShell .brandMark img {
+    width: 30px;
     height: 30px;
-  }
-
-  .authShell .brandMark {
-    width: 15px;
   }
 
   .authWorkspace .workspaceInner,

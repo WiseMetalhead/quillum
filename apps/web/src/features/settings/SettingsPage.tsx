@@ -1,7 +1,9 @@
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Icon, type IconName } from '../../icons/Icon'
 import type { ServicePageMetadata, SettingsView, User } from '../../types'
 import { MobileSectionSelector } from '../shared/MobileSectionSelector'
+import { SectionSidebarToggle } from '../shared/SectionSidebarToggle'
 import { useSensitiveAction } from '../shared/useSensitiveAction'
 import { AccountTab } from './AccountTab'
 import { AuthorProfileTab } from './AuthorProfileTab'
@@ -54,6 +56,7 @@ export function SettingsPage({
   servicePages,
 }: SettingsPageProps) {
   const { t } = useTranslation()
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const visibleNavigation = user.authorWorkspaceEnabled
     ? settingsNavigation
     : settingsNavigation.filter((item) => ['account', 'editor', 'security', 'author'].includes(item.view))
@@ -69,7 +72,7 @@ export function SettingsPage({
   }
 
   return (
-    <div className="sidebarPage settingsPage">
+    <div className={`sidebarPage settingsPage collapsibleSidebarPage ${sidebarCollapsed ? 'sidebarCollapsed' : ''}`.trim()}>
       <MobileSectionSelector
         items={visibleNavigation.map((item) => ({
           id: item.view,
@@ -81,7 +84,7 @@ export function SettingsPage({
         onSelect={openSettingsView}
       />
 
-      <aside className="sectionSidebar settingsSidebar" aria-label={t('settings.navigation')}>
+      <aside className="sectionSidebar settingsSidebar collapsibleSectionSidebar" aria-label={t('settings.navigation')}>
         <nav className="sectionNavigation settingsNavigation" role="tablist" aria-label={t('settings.views')}>
           {visibleNavigation.map((item) => (
             <button
@@ -98,6 +101,12 @@ export function SettingsPage({
             </button>
           ))}
         </nav>
+        <SectionSidebarToggle
+          collapsed={sidebarCollapsed}
+          collapseLabel={t('common.collapseSidebar')}
+          expandLabel={t('common.expandSidebar')}
+          onToggle={() => setSidebarCollapsed((collapsed) => !collapsed)}
+        />
       </aside>
 
       <main className={`sectionBody settingsBody ${settingsView === 'account' ? 'accountSettingsBody' : ''}`}>

@@ -164,7 +164,7 @@ test('admin settings initial load does not render a premature section heading', 
   assert.ok(!loadingBranch.includes('adminSettingsSection'))
 })
 
-test('only Product Admin opts into the shared collapsible sidebar contract', async () => {
+test('Product Admin and user Settings opt into the shared collapsible sidebar contract', async () => {
   const [adminPage, settingsPage, feedPage, plannerPage, toggle, sharedCss, en, ru] = await Promise.all([
     read(webSourceRoot, 'features/admin/AdminPage.tsx'),
     read(webSourceRoot, 'features/settings/SettingsPage.tsx'),
@@ -179,7 +179,10 @@ test('only Product Admin opts into the shared collapsible sidebar contract', asy
   assert.ok(adminPage.includes('collapsibleSidebarPage'))
   assert.ok(adminPage.includes('collapsibleSectionSidebar'))
   assert.ok(adminPage.includes('<SectionSidebarToggle'))
-  for (const otherSidebar of [settingsPage, feedPage, plannerPage]) {
+  assert.ok(settingsPage.includes('collapsibleSidebarPage'))
+  assert.ok(settingsPage.includes('collapsibleSectionSidebar'))
+  assert.ok(settingsPage.includes('<SectionSidebarToggle'))
+  for (const otherSidebar of [feedPage, plannerPage]) {
     assert.ok(!otherSidebar.includes('collapsibleSidebarPage'))
     assert.ok(!otherSidebar.includes('SectionSidebarToggle'))
   }

@@ -108,6 +108,7 @@ test('desktop admin status uses a title card, scrollable service row, and detail
   assert.ok(adminCss.includes('.adminApplicationCard'))
   assert.ok(adminCss.includes('.adminServiceCarouselControl.forward'))
   assert.ok(adminCss.includes('scroll-snap-type: inline mandatory'))
+  assert.ok(adminCss.includes('grid-template-columns: auto minmax(0, 1fr)'))
   assert.ok(adminCss.includes('.adminStatusDialogDetails'))
   for (const locale of [en, ru]) {
     assert.ok(locale.includes('openServiceDetails:'))

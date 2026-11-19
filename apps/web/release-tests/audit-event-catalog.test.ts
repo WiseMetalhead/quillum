@@ -96,6 +96,28 @@ test('audit event list and localized catalogs stay aligned', () => {
   assert.deepEqual(flattenAuditEventCatalog(ru.admin.auditEventNames), listedCodes)
 })
 
+test('event log copy avoids internal audit terminology', () => {
+  const keys = [
+    'auditLog',
+    'openAuditLog',
+    'auditEvents',
+    'latestAuditEvent',
+    'auditFilters',
+    'noAuditEvents',
+    'auditLoadFailed',
+    'auditLoading',
+  ] as const
+
+  for (const key of keys) {
+    assert.doesNotMatch(en.admin[key], /audit/i)
+    assert.doesNotMatch(ru.admin[key], /аудит/i)
+  }
+  assert.doesNotMatch(en.admin.taskNames.purge_expired_audit_events, /audit/i)
+  assert.doesNotMatch(ru.admin.taskNames.purge_expired_audit_events, /аудит/i)
+  assert.doesNotMatch(en.adminSettings.labels.audit_retention_days, /audit/i)
+  assert.doesNotMatch(ru.adminSettings.labels.audit_retention_days, /аудит/i)
+})
+
 test('backend audit producers are covered by the localized event list', async () => {
   const files = await productionPythonFiles(new URL('../../api/apps/', import.meta.url))
   const sources = await Promise.all(files.map((file) => readFile(file, 'utf8')))

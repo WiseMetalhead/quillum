@@ -3822,3 +3822,34 @@ button.dangerButton.compact {
     grid-column: auto;
   }
 }
+
+@media (min-width: 521px) {
+  .settingsPage button:where(
+    :not(.sectionNavigationButton):not(.iconAction):not(.avatarUploadButton):not(.inputTrailButton):not(.customSelectButton):not(.securityToggle):not(.storageTile):not(.spaceButton)
+  ),
+  .settingsPage .accountExportDownload,
+  .settingsPage .tierPromotionButton {
+    height: 34px;
+    min-height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 8px 12px;
+    border-radius: 7px;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .settingsPage button:where(
+    :not(.sectionNavigationButton):not(.iconAction):not(.avatarUploadButton):not(.inputTrailButton):not(.customSelectButton):not(.securityToggle):not(.storageTile):not(.spaceButton)
+  ) svg,
+  .settingsPage .accountExportDownload svg,
+  .settingsPage .tierPromotionButton svg {
+    width: 17px;
+    height: 17px;
+  }
+}

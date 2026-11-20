@@ -26,6 +26,10 @@
   background: var(--color-surface-raised);
 }
 
+.manuscriptLibrarySidebarBody {
+  min-width: 0;
+}
+
 .manuscriptLibraryNavigation {
   display: grid;
   gap: 1px;
@@ -99,6 +103,67 @@ button.manuscriptLibraryDrawer:hover {
 
 button.manuscriptLibraryDrawer {
   grid-template-columns: 18px minmax(0, 1fr);
+}
+
+@media (min-width: 861px) {
+  .manuscriptLibrarySidebar.collapsibleSectionSidebar {
+    overflow: hidden;
+  }
+
+  .manuscriptLibraryNavigation button,
+  button.manuscriptLibraryDrawer,
+  .manuscriptLibraryNavigation small,
+  .manuscriptLibrarySidebar hr {
+    transition:
+      grid-template-columns 180ms ease,
+      gap 180ms ease,
+      padding 180ms ease,
+      width 180ms ease,
+      opacity 120ms ease;
+  }
+
+  .manuscriptsPage.sidebarCollapsed .manuscriptLibraryMain {
+    width: 100%;
+    max-width: none;
+  }
+
+  .manuscriptsPage.sidebarCollapsed .manuscriptLibraryNavigation button {
+    grid-template-columns: 18px 0 0;
+    justify-content: center;
+    gap: 0;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .manuscriptsPage.sidebarCollapsed .manuscriptLibraryNavigation small {
+    min-width: 0;
+    max-width: 0;
+    overflow: hidden;
+    padding-right: 0;
+    padding-left: 0;
+    opacity: 0;
+  }
+
+  .manuscriptsPage.sidebarCollapsed button.manuscriptLibraryDrawer {
+    grid-template-columns: 18px 0;
+    justify-content: center;
+    gap: 0;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .manuscriptsPage.sidebarCollapsed .manuscriptLibrarySidebar hr {
+    width: 28px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .manuscriptLibraryNavigation button,
+  button.manuscriptLibraryDrawer,
+  .manuscriptLibraryNavigation small,
+  .manuscriptLibrarySidebar hr {
+    transition: none;
+  }
 }
 
 .newManuscript {

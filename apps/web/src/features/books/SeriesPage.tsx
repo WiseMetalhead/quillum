@@ -61,6 +61,7 @@ export function SeriesPage({
   const [editorAccess, setEditorAccess] = useState<SeriesBook | null>(null)
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [libraryCounts, setLibraryCounts] = useState<ManuscriptLibraryCounts | null>(null)
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
 
   useEffect(() => {
     let active = true
@@ -199,12 +200,14 @@ export function SeriesPage({
   }
 
   return (
-    <div className="manuscriptsPage seriesPage">
+    <div className={`manuscriptsPage seriesPage sidebarPage collapsibleSidebarPage ${sidebarCollapsed ? 'sidebarCollapsed' : ''}`.trim()}>
       <ManuscriptLibrarySidebar
         activeSection="series"
         counts={libraryCounts}
         onSelectSection={onSelectSection}
         onOpenDrawer={() => setDrawerOpen(true)}
+        collapsed={sidebarCollapsed}
+        onToggle={() => setSidebarCollapsed((collapsed) => !collapsed)}
       />
       <main className="manuscriptPanel manuscriptLibraryMain" aria-labelledby="series-heading">
         <div className="manuscriptToolbar seriesToolbar">

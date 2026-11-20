@@ -4,6 +4,7 @@ import type { User } from '../../types'
 import { Icon, type IconName } from '../../icons/Icon'
 import { NewsFeed } from '../news/NewsPage'
 import { MobileSectionSelector } from '../shared/MobileSectionSelector'
+import { SectionSidebarToggle } from '../shared/SectionSidebarToggle'
 import { ContestFeed } from './ContestFeed'
 import './FeedPage.css'
 
@@ -16,6 +17,7 @@ type FeedPageProps = {
 
 export function FeedPage({ user, onError }: FeedPageProps) {
   const { t } = useTranslation()
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const sections: Array<{ id: FeedSection; label: string; icon: IconName }> = []
   if (user.newsEnabled) {
     sections.push({ id: 'news', label: t('news.title'), icon: 'cheque-light' })
@@ -33,7 +35,7 @@ export function FeedPage({ user, onError }: FeedPageProps) {
   if (!resolvedSection) return null
 
   return (
-    <div className="feedPage sidebarPage">
+    <div className={`feedPage sidebarPage collapsibleSidebarPage ${sidebarCollapsed ? 'sidebarCollapsed' : ''}`.trim()}>
       <MobileSectionSelector
         items={sections}
         activeId={resolvedSection}
@@ -41,7 +43,7 @@ export function FeedPage({ user, onError }: FeedPageProps) {
         onSelect={setActiveSection}
       />
 
-      <aside className="sectionSidebar feedSidebar" aria-label={t('feed.navigation')}>
+      <aside className="sectionSidebar feedSidebar collapsibleSectionSidebar" aria-label={t('feed.navigation')}>
         <nav className="sectionNavigation" aria-label={t('feed.categories')}>
           {sections.map((section) => (
             <button
@@ -57,6 +59,12 @@ export function FeedPage({ user, onError }: FeedPageProps) {
             </button>
           ))}
         </nav>
+        <SectionSidebarToggle
+          collapsed={sidebarCollapsed}
+          collapseLabel={t('common.collapseSidebar')}
+          expandLabel={t('common.expandSidebar')}
+          onToggle={() => setSidebarCollapsed((collapsed) => !collapsed)}
+        />
       </aside>
 
       <main className="feedBody">

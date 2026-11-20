@@ -72,6 +72,7 @@ export function ManuscriptsPage({
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [puttingInDrawerId, setPuttingInDrawerId] = useState<string | null>(null)
   const [editorAccess, setEditorAccess] = useState<Manuscript | null>(null)
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const mobileMenuRef = useRef<HTMLDivElement>(null)
 
@@ -302,12 +303,14 @@ export function ManuscriptsPage({
   }
 
   return (
-    <div className="manuscriptsPage">
+    <div className={`manuscriptsPage sidebarPage collapsibleSidebarPage ${sidebarCollapsed ? 'sidebarCollapsed' : ''}`.trim()}>
       <ManuscriptLibrarySidebar
         activeSection={activeSection}
         counts={filterCounts}
         onSelectSection={onSelectSection}
         onOpenDrawer={() => setDrawerOpen(true)}
+        collapsed={sidebarCollapsed}
+        onToggle={() => setSidebarCollapsed((collapsed) => !collapsed)}
         editorMode={editorMode}
       />
       <main className="manuscriptPanel manuscriptLibraryMain" aria-labelledby="manuscripts-heading">

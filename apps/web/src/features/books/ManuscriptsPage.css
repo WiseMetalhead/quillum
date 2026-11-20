@@ -112,8 +112,7 @@ button.manuscriptLibraryDrawer {
 
   .manuscriptLibraryNavigation button,
   button.manuscriptLibraryDrawer,
-  .manuscriptLibraryNavigation small,
-  .manuscriptLibrarySidebar hr {
+  .manuscriptLibraryNavigation small {
     transition:
       grid-template-columns 180ms ease,
       gap 180ms ease,
@@ -151,17 +150,12 @@ button.manuscriptLibraryDrawer {
     padding-right: 0;
     padding-left: 0;
   }
-
-  .manuscriptsPage.sidebarCollapsed .manuscriptLibrarySidebar hr {
-    width: 28px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .manuscriptLibraryNavigation button,
   button.manuscriptLibraryDrawer,
-  .manuscriptLibraryNavigation small,
-  .manuscriptLibrarySidebar hr {
+  .manuscriptLibraryNavigation small {
     transition: none;
   }
 }

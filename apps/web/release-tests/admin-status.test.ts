@@ -196,6 +196,8 @@ test('supported desktop sections opt into the shared collapsible sidebar contrac
   assert.ok(manuscriptSidebar.includes('collapsibleSectionSidebar'))
   assert.ok(manuscriptSidebar.includes('<SectionSidebarToggle'))
   assert.ok(manuscriptsCss.includes('.manuscriptsPage.sidebarCollapsed .manuscriptLibraryMain'))
+  assert.ok(manuscriptsCss.includes('.manuscriptLibrarySidebar hr {\n  width: 100%;'))
+  assert.ok(!manuscriptsCss.includes('.sidebarCollapsed .manuscriptLibrarySidebar hr'))
   assert.ok(!plannerPage.includes('collapsibleSidebarPage'))
   assert.ok(!plannerPage.includes('SectionSidebarToggle'))
   assert.ok(toggle.includes("collapsed ? 'arrow-right-1' : 'arrow-left-1'"))

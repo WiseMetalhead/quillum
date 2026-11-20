@@ -1066,8 +1066,13 @@ button.workspaceLinkPageButton.active {
 .headerWorkspaceSearchHost {
   width: clamp(150px, 22vw, 300px);
   min-width: 140px;
-  flex: 1 1 300px;
+  flex: 0 1 auto;
   margin-top: 0;
+  transition: width 220ms ease;
+}
+
+.headerWorkspaceSearchHost:focus-within {
+  width: clamp(240px, 32vw, 420px);
 }
 
 .headerWorkspaceSearchHost .workspaceSearch,
@@ -1243,6 +1248,7 @@ button.headerSearchMobileClose {
 
 @media (prefers-reduced-motion: reduce) {
   .headerSearchMobileOverlay { animation: none; }
+  .headerWorkspaceSearchHost { transition: none; }
 }
 
 @media (hover: hover) and (pointer: fine) {

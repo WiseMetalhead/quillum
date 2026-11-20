@@ -164,11 +164,16 @@ test('admin settings initial load does not render a premature section heading', 
   assert.ok(!loadingBranch.includes('adminSettingsSection'))
 })
 
-test('Product Admin and user Settings opt into the shared collapsible sidebar contract', async () => {
-  const [adminPage, settingsPage, feedPage, plannerPage, toggle, sharedCss, en, ru] = await Promise.all([
+test('supported desktop sections opt into the shared collapsible sidebar contract', async () => {
+  const [adminPage, settingsPage, feedPage, feedCss, manuscriptsPage, seriesPage, manuscriptSidebar, manuscriptsCss, plannerPage, toggle, sharedCss, en, ru] = await Promise.all([
     read(webSourceRoot, 'features/admin/AdminPage.tsx'),
     read(webSourceRoot, 'features/settings/SettingsPage.tsx'),
     read(webSourceRoot, 'features/feed/FeedPage.tsx'),
+    read(webSourceRoot, 'features/feed/FeedPage.css'),
+    read(webSourceRoot, 'features/books/ManuscriptsPage.tsx'),
+    read(webSourceRoot, 'features/books/SeriesPage.tsx'),
+    read(webSourceRoot, 'features/books/ManuscriptLibrarySidebar.tsx'),
+    read(webSourceRoot, 'features/books/ManuscriptsPage.css'),
     read(webSourceRoot, 'features/books/PlannerPage.tsx'),
     read(webSourceRoot, 'features/shared/SectionSidebarToggle.tsx'),
     read(webSourceRoot, 'styles/shared.css'),
@@ -182,10 +187,19 @@ test('Product Admin and user Settings opt into the shared collapsible sidebar co
   assert.ok(settingsPage.includes('collapsibleSidebarPage'))
   assert.ok(settingsPage.includes('collapsibleSectionSidebar'))
   assert.ok(settingsPage.includes('<SectionSidebarToggle'))
-  for (const otherSidebar of [feedPage, plannerPage]) {
-    assert.ok(!otherSidebar.includes('collapsibleSidebarPage'))
-    assert.ok(!otherSidebar.includes('SectionSidebarToggle'))
-  }
+  assert.ok(feedPage.includes('collapsibleSidebarPage'))
+  assert.ok(feedPage.includes('collapsibleSectionSidebar'))
+  assert.ok(feedPage.includes('<SectionSidebarToggle'))
+  assert.ok(feedCss.includes('.feedPage.sidebarCollapsed .feedSectionContent > *'))
+  assert.ok(manuscriptsPage.includes('collapsibleSidebarPage'))
+  assert.ok(seriesPage.includes('collapsibleSidebarPage'))
+  assert.ok(manuscriptSidebar.includes('collapsibleSectionSidebar'))
+  assert.ok(manuscriptSidebar.includes('<SectionSidebarToggle'))
+  assert.ok(manuscriptsCss.includes('.manuscriptsPage.sidebarCollapsed .manuscriptLibraryMain'))
+  assert.ok(manuscriptsCss.includes('.manuscriptLibrarySidebar hr {\n  width: 100%;'))
+  assert.ok(!manuscriptsCss.includes('.sidebarCollapsed .manuscriptLibrarySidebar hr'))
+  assert.ok(!plannerPage.includes('collapsibleSidebarPage'))
+  assert.ok(!plannerPage.includes('SectionSidebarToggle'))
   assert.ok(toggle.includes("collapsed ? 'arrow-right-1' : 'arrow-left-1'"))
   assert.ok(sharedCss.includes('@media (min-width: 861px)'))
   assert.ok(sharedCss.includes('.sidebarPage.collapsibleSidebarPage.sidebarCollapsed'))

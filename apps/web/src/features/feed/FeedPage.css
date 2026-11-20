@@ -51,6 +51,12 @@
   margin-left: auto;
 }
 
+@media (min-width: 861px) {
+  .feedPage.sidebarCollapsed .feedSectionContent > * {
+    width: 100%;
+  }
+}
+
 .feedFilters {
   display: flex;
   align-items: center;

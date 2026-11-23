@@ -5,6 +5,7 @@ import { Icon, type IconName } from '../../icons/Icon'
 import { NewsFeed } from '../news/NewsPage'
 import { MobileSectionSelector } from '../shared/MobileSectionSelector'
 import { SectionSidebarToggle } from '../shared/SectionSidebarToggle'
+import { usePersistentSidebarState } from '../shared/usePersistentSidebarState'
 import { ContestFeed } from './ContestFeed'
 import './FeedPage.css'
 
@@ -17,7 +18,7 @@ type FeedPageProps = {
 
 export function FeedPage({ user, onError }: FeedPageProps) {
   const { t } = useTranslation()
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [sidebarCollapsed, toggleSidebar] = usePersistentSidebarState()
   const sections: Array<{ id: FeedSection; label: string; icon: IconName }> = []
   if (user.newsEnabled) {
     sections.push({ id: 'news', label: t('news.title'), icon: 'cheque-light' })
@@ -63,7 +64,7 @@ export function FeedPage({ user, onError }: FeedPageProps) {
           collapsed={sidebarCollapsed}
           collapseLabel={t('common.collapseSidebar')}
           expandLabel={t('common.expandSidebar')}
-          onToggle={() => setSidebarCollapsed((collapsed) => !collapsed)}
+          onToggle={toggleSidebar}
         />
       </aside>
 

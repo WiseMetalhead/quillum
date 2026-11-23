@@ -1,9 +1,9 @@
-import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Icon, type IconName } from '../../icons/Icon'
 import type { ServicePageMetadata, SettingsView, User } from '../../types'
 import { MobileSectionSelector } from '../shared/MobileSectionSelector'
 import { SectionSidebarToggle } from '../shared/SectionSidebarToggle'
+import { usePersistentSidebarState } from '../shared/usePersistentSidebarState'
 import { useSensitiveAction } from '../shared/useSensitiveAction'
 import { AccountTab } from './AccountTab'
 import { AuthorProfileTab } from './AuthorProfileTab'
@@ -56,7 +56,7 @@ export function SettingsPage({
   servicePages,
 }: SettingsPageProps) {
   const { t } = useTranslation()
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [sidebarCollapsed, toggleSidebar] = usePersistentSidebarState()
   const visibleNavigation = user.authorWorkspaceEnabled
     ? settingsNavigation
     : settingsNavigation.filter((item) => ['account', 'editor', 'security', 'author'].includes(item.view))
@@ -105,7 +105,7 @@ export function SettingsPage({
           collapsed={sidebarCollapsed}
           collapseLabel={t('common.collapseSidebar')}
           expandLabel={t('common.expandSidebar')}
-          onToggle={() => setSidebarCollapsed((collapsed) => !collapsed)}
+          onToggle={toggleSidebar}
         />
       </aside>
 

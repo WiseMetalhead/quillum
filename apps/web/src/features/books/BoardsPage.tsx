@@ -10,7 +10,9 @@ import { ActionDialog } from '../shared/ActionDialog'
 import { AudioWaveform } from '../shared/AudioNotePlayer'
 import { PrivateImage } from '../shared/PrivateImage'
 import { TadpoleLoadingState } from '../shared/TadpoleLoadingState'
+import { SectionSidebarToggle } from '../shared/SectionSidebarToggle'
 import { useMobileDialogTransition } from '../shared/useMobileDialogTransition'
+import { usePersistentSidebarState } from '../shared/usePersistentSidebarState'
 import { NoteContentPreview } from './NoteContentPreview'
 import { BoardsSaveStatusIndicator } from './BoardsSaveStatusIndicator'
 import type { AudioNoteDraft, Board, BoardsSaveStatus, BoardsView, Note, NoteContextItem, NoteDraft, NoteTag } from './BoardsTypes'
@@ -40,6 +42,7 @@ const BoardsAudioNoteEditor = lazy(() => import('./BoardsAudioNoteEditor').then(
 
 export function BoardsPage({ manuscript, initialNoteId, onError }: Props) {
   const { t, i18n } = useTranslation()
+  const [sidebarCollapsed, toggleSidebar] = usePersistentSidebarState()
   const [view, setView] = useState<BoardsView>('boards')
   const [boards, setBoards] = useState<Board[]>([])
   const [tags, setTags] = useState<NoteTag[]>([])
@@ -558,22 +561,30 @@ export function BoardsPage({ manuscript, initialNoteId, onError }: Props) {
     element.scrollLeft += delta
   }
   return (
-    <div className={`boardsPage ${editorOpen ? 'editorOpen' : ''}`}>
-      <aside className={`boardsSidebar ${mobileSidebarOpen ? 'mobileOpen' : ''}`} aria-label={t('boards.navigation')}>
-        <nav className="boardsNavigation">
-          <SidebarButton active={view === 'boards'} dropActive={dragOverTarget === 'boards'} icon={<Icon name="widget-light" />} label={t('boards.boards')} onClick={() => selectView('boards')} onDragOver={(event) => allowNoteDrop('boards', event)} onDragLeave={() => setDragOverTarget(null)} onDrop={(event) => void dropNote('boards', event)} />
-          <SidebarButton active={view === 'favourites'} dropActive={dragOverTarget === 'favourites'} icon={<Icon name="star-light" />} label={t('boards.favourites')} onClick={() => selectView('favourites')} onDragOver={(event) => allowNoteDrop('favourites', event)} onDragLeave={() => setDragOverTarget(null)} onDrop={(event) => void dropNote('favourites', event)} />
-          <SidebarButton active={view === 'archive'} dropActive={dragOverTarget === 'archive'} icon={<Icon name="archive-light" />} label={t('boards.archive')} onClick={() => selectView('archive')} onDragOver={(event) => allowNoteDrop('archive', event)} onDragLeave={() => setDragOverTarget(null)} onDrop={(event) => void dropNote('archive', event)} />
-          <SidebarButton active={view === 'trash'} dropActive={dragOverTarget === 'trash'} icon={<Icon name="trash-bin-trash-light" />} label={t('boards.trash')} onClick={() => selectView('trash')} onDragOver={(event) => allowNoteDrop('trash', event)} onDragLeave={() => setDragOverTarget(null)} onDrop={(event) => void dropNote('trash', event)} />
-        </nav>
-        <section className="boardsTags" aria-labelledby="boards-tags-title" ref={tagSearchRef}>
-          <div className="boardsTagsHeader"><h2 id="boards-tags-title">{t('boards.tags')}</h2><button type="button" className={`spaceButton ${tagSearchOpen ? 'active' : ''}`} aria-label={t('boards.searchTags')} aria-pressed={tagSearchOpen} onClick={() => { setTagSearchOpen((open) => !open); if (tagSearchOpen) setTagSearch('') }}><Icon name="magnifer-outline" className="boardsMagniferIcon" /></button></div>
-          {tagSearchOpen && <input autoFocus className="boardsTagSearch" value={tagSearch} placeholder={t('boards.searchTags')} aria-label={t('boards.searchTags')} onChange={(event) => setTagSearch(event.target.value)} />}
-          <div className="boardsTagList">
-            {filteredTags.map((tag) => <button type="button" className={`spaceButton ${selectedTagId === tag.id ? 'active' : ''}`} key={tag.id} onClick={() => toggleTag(tag.id)}><span style={{ background: tag.color }} />{tag.name}</button>)}
-            {!tags.length && <div className="boardsTagEmpty">{t('boards.noTags')}</div>}
-          </div>
-        </section>
+    <div className={`boardsPage collapsibleSidebarPage ${sidebarCollapsed ? 'sidebarCollapsed' : ''} ${editorOpen ? 'editorOpen' : ''}`}>
+      <aside className={`boardsSidebar collapsibleSectionSidebar ${mobileSidebarOpen ? 'mobileOpen' : ''}`} aria-label={t('boards.navigation')}>
+        <div className="boardsSidebarBody">
+          <nav className="boardsNavigation">
+            <SidebarButton active={view === 'boards'} dropActive={dragOverTarget === 'boards'} icon={<Icon name="widget-light" />} label={t('boards.boards')} onClick={() => selectView('boards')} onDragOver={(event) => allowNoteDrop('boards', event)} onDragLeave={() => setDragOverTarget(null)} onDrop={(event) => void dropNote('boards', event)} />
+            <SidebarButton active={view === 'favourites'} dropActive={dragOverTarget === 'favourites'} icon={<Icon name="star-light" />} label={t('boards.favourites')} onClick={() => selectView('favourites')} onDragOver={(event) => allowNoteDrop('favourites', event)} onDragLeave={() => setDragOverTarget(null)} onDrop={(event) => void dropNote('favourites', event)} />
+            <SidebarButton active={view === 'archive'} dropActive={dragOverTarget === 'archive'} icon={<Icon name="archive-light" />} label={t('boards.archive')} onClick={() => selectView('archive')} onDragOver={(event) => allowNoteDrop('archive', event)} onDragLeave={() => setDragOverTarget(null)} onDrop={(event) => void dropNote('archive', event)} />
+            <SidebarButton active={view === 'trash'} dropActive={dragOverTarget === 'trash'} icon={<Icon name="trash-bin-trash-light" />} label={t('boards.trash')} onClick={() => selectView('trash')} onDragOver={(event) => allowNoteDrop('trash', event)} onDragLeave={() => setDragOverTarget(null)} onDrop={(event) => void dropNote('trash', event)} />
+          </nav>
+          <section className="boardsTags" aria-labelledby="boards-tags-title" ref={tagSearchRef}>
+            <div className="boardsTagsHeader"><h2 id="boards-tags-title">{t('boards.tags')}</h2><button type="button" className={`spaceButton ${tagSearchOpen ? 'active' : ''}`} aria-label={t('boards.searchTags')} aria-pressed={tagSearchOpen} onClick={() => { setTagSearchOpen((open) => !open); if (tagSearchOpen) setTagSearch('') }}><Icon name="magnifer-outline" className="boardsMagniferIcon" /></button></div>
+            {tagSearchOpen && <input autoFocus className="boardsTagSearch" value={tagSearch} placeholder={t('boards.searchTags')} aria-label={t('boards.searchTags')} onChange={(event) => setTagSearch(event.target.value)} />}
+            <div className="boardsTagList">
+              {filteredTags.map((tag) => <button type="button" className={`spaceButton ${selectedTagId === tag.id ? 'active' : ''}`} key={tag.id} onClick={() => toggleTag(tag.id)}><span style={{ background: tag.color }} />{tag.name}</button>)}
+              {!tags.length && <div className="boardsTagEmpty">{t('boards.noTags')}</div>}
+            </div>
+          </section>
+        </div>
+        <SectionSidebarToggle
+          collapsed={sidebarCollapsed}
+          collapseLabel={t('common.collapseSidebar')}
+          expandLabel={t('common.expandSidebar')}
+          onToggle={toggleSidebar}
+        />
         <button type="button" className="boardsMobileSidebarClose spaceButton" onClick={() => setMobileSidebarOpen(false)}>
           <Icon name="arrow-left-1" />
           <span>{t('boards.collapseSidebar')}</span>
@@ -882,7 +893,7 @@ function NoteCard({ note, active, selectable, selected, selectionMode, onOpen, o
 function SearchEmptyState({ query, onClear }: { query: string; onClear: () => void }) { const { t } = useTranslation(); return <section className="boardsEmptyState"><span className="boardsEmptyIcon"><SearchIcon /></span><h2>{t('boards.noMatches')}</h2><p>{t('boards.noMatchesLead', { query: query.trim() })}</p><button type="button" onClick={onClear}>{t('boards.clearSearchAction')}</button></section> }
 function NoteCardFlags({ note }: { note: Note }) { if (!note.pinned && !note.favourite) return <span className="boardsNoteFlags" />; return <span className="boardsNoteFlags">{note.pinned && <Icon name="pin-linear" className="boardsPinIcon" />}{note.favourite && <Icon name="star-light" />}</span> }
 function EmptyState({ view, onCreate }: { view: BoardsView; onCreate: () => void }) { const { t } = useTranslation(); const titleKeys = { boards: 'boards.empty.boardsTitle', favourites: 'boards.empty.favouritesTitle', archive: 'boards.empty.archiveTitle', trash: 'boards.empty.trashTitle' }; const leadKeys = { boards: 'boards.empty.boardsLead', favourites: 'boards.empty.favouritesLead', archive: 'boards.empty.archiveLead', trash: 'boards.empty.trashLead' }; return <section className="boardsEmptyState"><span className="boardsEmptyIcon"><Icon name={emptyViewIcons[view]} /></span><h2>{t(titleKeys[view])}</h2><p>{t(leadKeys[view])}</p>{view !== 'archive' && view !== 'trash' && <button type="button" className="boardsEmptyCreateButton booksButton" onClick={onCreate}><Icon name="boards-light" /> {t('boards.createNote')}</button>}</section> }
-function SidebarButton({ active, dropActive, icon, label, onClick, onDragOver, onDragLeave, onDrop }: { active: boolean; dropActive?: boolean; icon: ReactNode; label: string; onClick: () => void; onDragOver?: (event: DragEvent<HTMLButtonElement>) => void; onDragLeave?: () => void; onDrop?: (event: DragEvent<HTMLButtonElement>) => void }) { return <button type="button" className={`spaceButton ${active ? 'active' : ''} ${dropActive ? 'dropActive' : ''}`} onClick={onClick} onDragOver={onDragOver} onDragLeave={onDragLeave} onDrop={onDrop}>{icon}<span>{label}</span></button> }
+function SidebarButton({ active, dropActive, icon, label, onClick, onDragOver, onDragLeave, onDrop }: { active: boolean; dropActive?: boolean; icon: ReactNode; label: string; onClick: () => void; onDragOver?: (event: DragEvent<HTMLButtonElement>) => void; onDragLeave?: () => void; onDrop?: (event: DragEvent<HTMLButtonElement>) => void }) { return <button type="button" className={`sectionNavigationButton spaceButton ${active ? 'active' : ''} ${dropActive ? 'dropActive' : ''}`} title={label} onClick={onClick} onDragOver={onDragOver} onDragLeave={onDragLeave} onDrop={onDrop}>{icon}<span>{label}</span></button> }
 function noteSearchText(note: Note, locale: string, boardName: string) { return `${note.title} ${boardName} ${note.preview} ${note.tags.map((tag) => tag.name).join(' ')} ${note.associatedItems.map((item) => item.title).join(' ')} ${noteContentText(note.content)}`.toLocaleLowerCase(locale) }
 function noteContentText(node: JSONContent): string { return `${node.text ?? ''} ${(node.content ?? []).map(noteContentText).join(' ')}` }
 function firstNoteImage(node: JSONContent): { src: string; alt: string } | null {

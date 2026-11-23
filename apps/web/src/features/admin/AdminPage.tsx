@@ -4,6 +4,7 @@ import { Icon, type IconName } from '../../icons/Icon'
 import type { AdminView, User } from '../../types'
 import { MobileSectionSelector } from '../shared/MobileSectionSelector'
 import { SectionSidebarToggle } from '../shared/SectionSidebarToggle'
+import { usePersistentSidebarState } from '../shared/usePersistentSidebarState'
 import { useSensitiveAction } from '../shared/useSensitiveAction'
 import { AuditLogTab } from './AuditLogTab'
 import { MaintenanceTab } from './MaintenanceTab'
@@ -34,7 +35,7 @@ type AdminPageProps = {
 export function AdminPage({ user, onMessage, onError, onServicePagesChange }: AdminPageProps) {
   const { t } = useTranslation()
   const [adminView, setAdminView] = useState<AdminView>('status')
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [sidebarCollapsed, toggleSidebar] = usePersistentSidebarState()
   const { runSensitiveAction, reauthenticationDialog } = useSensitiveAction()
   const stackClass =
     adminView === 'notifications'
@@ -93,7 +94,7 @@ export function AdminPage({ user, onMessage, onError, onServicePagesChange }: Ad
           collapsed={sidebarCollapsed}
           collapseLabel={t('common.collapseSidebar')}
           expandLabel={t('common.expandSidebar')}
-          onToggle={() => setSidebarCollapsed((collapsed) => !collapsed)}
+          onToggle={toggleSidebar}
         />
       </aside>
 

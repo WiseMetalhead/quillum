@@ -20,6 +20,7 @@ import type { AvailableManuscript, LibraryItem, Manuscript, Series } from './Man
 import { ManuscriptStatusChip } from './ManuscriptStatusChip'
 import { MobileLibraryActionSheet } from '../shared/MobileLibraryActionSheet'
 import type { LibraryAction } from '../shared/MobileLibraryActionSheet'
+import { usePersistentSidebarState } from '../shared/usePersistentSidebarState'
 import { MobileLibraryQueryControls } from './MobileLibraryQueryControls'
 import { ManuscriptLibrarySidebar } from './ManuscriptLibrarySidebar'
 import {
@@ -72,7 +73,7 @@ export function ManuscriptsPage({
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [puttingInDrawerId, setPuttingInDrawerId] = useState<string | null>(null)
   const [editorAccess, setEditorAccess] = useState<Manuscript | null>(null)
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [sidebarCollapsed, toggleSidebar, sidebarPreviewProps] = usePersistentSidebarState()
   const menuRef = useRef<HTMLDivElement>(null)
   const mobileMenuRef = useRef<HTMLDivElement>(null)
 
@@ -310,7 +311,8 @@ export function ManuscriptsPage({
         onSelectSection={onSelectSection}
         onOpenDrawer={() => setDrawerOpen(true)}
         collapsed={sidebarCollapsed}
-        onToggle={() => setSidebarCollapsed((collapsed) => !collapsed)}
+        onToggle={toggleSidebar}
+        previewProps={sidebarPreviewProps}
         editorMode={editorMode}
       />
       <main className="manuscriptPanel manuscriptLibraryMain" aria-labelledby="manuscripts-heading">

@@ -7,9 +7,11 @@ import { Icon } from '../../icons/Icon'
 import type { StorageItem } from '../../types'
 import { ActionDialog } from '../shared/ActionDialog'
 import { PrivateImage } from '../shared/PrivateImage'
+import { SectionSidebarToggle } from '../shared/SectionSidebarToggle'
 import { StorageImagePickerDialog } from '../shared/StorageImagePickerDialog'
 import { TadpoleLoadingState } from '../shared/TadpoleLoadingState'
 import { useMobileDialogTransition } from '../shared/useMobileDialogTransition'
+import { usePersistentSidebarState } from '../shared/usePersistentSidebarState'
 import { GlossaryArticleDocument, type GlossaryArticleDocumentHandle } from './GlossaryArticleDocument'
 import {
   GlossaryArticleExportDialog,
@@ -361,6 +363,7 @@ export function GlossaryPage({ userId, manuscript, initialArticleId, onError }: 
   const [sort, setSort] = useState<GlossarySort>('az')
   const [search, setSearch] = useState('')
   const [initial, setInitial] = useState('')
+  const [sidebarCollapsed, toggleSidebar, sidebarPreviewProps] = usePersistentSidebarState()
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false)
   const [mobilePanel, setMobilePanel] = useState<'alphabet' | 'search' | 'sort' | null>(null)
   const [articlePage, setArticlePage] = useState<ArticlePage>({
@@ -1363,27 +1366,35 @@ export function GlossaryPage({ userId, manuscript, initialArticleId, onError }: 
   }
 
   return (
-    <section className="glossaryPage">
-      <aside className={`glossarySidebar ${mobileSidebarOpen ? 'mobileOpen' : ''}`} aria-label={t('glossary.navigation')}>
-        <button type="button" className={`spaceButton ${view === 'all' ? 'active' : ''}`} onClick={() => selectView('all')}><Icon name="notebook-light" /> {t('glossary.mainPage')}</button>
-        <div className="glossaryCategoryList">
-          {scope.categories.filter((category) => !category.hidden).map((category) => (
-            <div key={category.id} className={view === `category:${category.id}` ? 'active' : ''}>
-              <button type="button" className="spaceButton" onClick={() => selectView(`category:${category.id}`)}>
-                <GlossaryCategoryIcon category={category} /> {categoryLabel(category)}
-              </button>
-              <button type="button" className="categoryAction spaceButton" aria-label={category.systemKey ? t('glossary.hideCategory') : t('glossary.editCategory')} onClick={() => category.systemKey ? void toggleSystemCategory(category) : openEditCategory(category)}>
-                <Icon name={category.systemKey ? 'eye-light' : 'menu-dots-light'} />
-              </button>
-            </div>
-          ))}
+    <section className={`glossaryPage collapsibleSidebarPage ${sidebarCollapsed ? 'sidebarCollapsed' : ''}`}>
+      <aside {...sidebarPreviewProps} className={`glossarySidebar collapsibleSectionSidebar ${mobileSidebarOpen ? 'mobileOpen' : ''}`} aria-label={t('glossary.navigation')}>
+        <div className="glossarySidebarBody">
+          <button type="button" className={`sectionNavigationButton spaceButton ${view === 'all' ? 'active' : ''}`} title={t('glossary.mainPage')} onClick={() => selectView('all')}><Icon name="notebook-light" /> <span>{t('glossary.mainPage')}</span></button>
+          <div className="glossaryCategoryList">
+            {scope.categories.filter((category) => !category.hidden).map((category) => (
+              <div key={category.id} className={view === `category:${category.id}` ? 'active' : ''}>
+                <button type="button" className="sectionNavigationButton spaceButton" title={categoryLabel(category)} onClick={() => selectView(`category:${category.id}`)}>
+                  <GlossaryCategoryIcon category={category} /> <span>{categoryLabel(category)}</span>
+                </button>
+                <button type="button" className="categoryAction spaceButton" aria-label={category.systemKey ? t('glossary.hideCategory') : t('glossary.editCategory')} onClick={() => category.systemKey ? void toggleSystemCategory(category) : openEditCategory(category)}>
+                  <Icon name={category.systemKey ? 'eye-light' : 'menu-dots-light'} />
+                </button>
+              </div>
+            ))}
+          </div>
+          <button type="button" className="newCategory sectionNavigationButton spaceButton" title={t('glossary.newCategory')} onClick={openCreateCategory}><Icon name="sign-plus-light" /> <span>{t('glossary.newCategory')}</span></button>
+          <button type="button" className="manageCategories sectionNavigationButton spaceButton" title={t('glossary.manageCategories')} onClick={() => { setEditingCategory(null); setCategoryDialog('manage') }}><Icon name="settings-light" /> <span>{t('glossary.manageCategories')}</span></button>
+          <hr />
+          <small>{t('glossary.filters')}</small>
+          <button type="button" className={`sectionNavigationButton spaceButton ${view === 'favourites' ? 'active' : ''}`} title={t('glossary.favourites')} onClick={() => selectView('favourites')}><Icon name="star-light" /> <span>{t('glossary.favourites')}</span></button>
+          <button type="button" className={`sectionNavigationButton spaceButton ${view === 'recent' ? 'active' : ''}`} title={t('glossary.recentlyEdited')} onClick={() => selectView('recent')}><Icon name="history-light" /> <span>{t('glossary.recentlyEdited')}</span></button>
         </div>
-        <button type="button" className="newCategory spaceButton" onClick={openCreateCategory}><Icon name="sign-plus-light" /> {t('glossary.newCategory')}</button>
-        <button type="button" className="manageCategories spaceButton" onClick={() => { setEditingCategory(null); setCategoryDialog('manage') }}><Icon name="settings-light" /> {t('glossary.manageCategories')}</button>
-        <hr />
-        <small>{t('glossary.filters')}</small>
-        <button type="button" className={`spaceButton ${view === 'favourites' ? 'active' : ''}`} onClick={() => selectView('favourites')}><Icon name="star-light" /> {t('glossary.favourites')}</button>
-        <button type="button" className={`spaceButton ${view === 'recent' ? 'active' : ''}`} onClick={() => selectView('recent')}><Icon name="history-light" /> {t('glossary.recentlyEdited')}</button>
+        <SectionSidebarToggle
+          collapsed={sidebarCollapsed}
+          collapseLabel={t('common.collapseSidebar')}
+          expandLabel={t('common.expandSidebar')}
+          onToggle={toggleSidebar}
+        />
         <button type="button" className="glossaryMobileSidebarClose spaceButton" onClick={() => setMobileSidebarOpen(false)}>
           <Icon name="arrow-left-1" />
           <span>{t('glossary.collapseSidebar')}</span>

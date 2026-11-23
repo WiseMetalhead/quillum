@@ -1,9 +1,9 @@
-import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Icon, type IconName } from '../../icons/Icon'
 import type { ServicePageMetadata, SettingsView, User } from '../../types'
 import { MobileSectionSelector } from '../shared/MobileSectionSelector'
 import { SectionSidebarToggle } from '../shared/SectionSidebarToggle'
+import { usePersistentSidebarState } from '../shared/usePersistentSidebarState'
 import { useSensitiveAction } from '../shared/useSensitiveAction'
 import { AccountTab } from './AccountTab'
 import { AuthorProfileTab } from './AuthorProfileTab'
@@ -56,7 +56,7 @@ export function SettingsPage({
   servicePages,
 }: SettingsPageProps) {
   const { t } = useTranslation()
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [sidebarCollapsed, toggleSidebar, sidebarPreviewProps] = usePersistentSidebarState()
   const visibleNavigation = user.authorWorkspaceEnabled
     ? settingsNavigation
     : settingsNavigation.filter((item) => ['account', 'editor', 'security', 'author'].includes(item.view))
@@ -84,7 +84,7 @@ export function SettingsPage({
         onSelect={openSettingsView}
       />
 
-      <aside className="sectionSidebar settingsSidebar collapsibleSectionSidebar" aria-label={t('settings.navigation')}>
+      <aside {...sidebarPreviewProps} className="sectionSidebar settingsSidebar collapsibleSectionSidebar" aria-label={t('settings.navigation')}>
         <nav className="sectionNavigation settingsNavigation" role="tablist" aria-label={t('settings.views')}>
           {visibleNavigation.map((item) => (
             <button
@@ -105,7 +105,7 @@ export function SettingsPage({
           collapsed={sidebarCollapsed}
           collapseLabel={t('common.collapseSidebar')}
           expandLabel={t('common.expandSidebar')}
-          onToggle={() => setSidebarCollapsed((collapsed) => !collapsed)}
+          onToggle={toggleSidebar}
         />
       </aside>
 

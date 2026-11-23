@@ -165,7 +165,7 @@ test('admin settings initial load does not render a premature section heading', 
 })
 
 test('supported desktop sections opt into the shared collapsible sidebar contract', async () => {
-  const [adminPage, settingsPage, feedPage, feedCss, manuscriptsPage, seriesPage, manuscriptSidebar, manuscriptsCss, plannerPage, toggle, sharedCss, en, ru] = await Promise.all([
+  const [adminPage, settingsPage, feedPage, feedCss, manuscriptsPage, seriesPage, manuscriptSidebar, manuscriptsCss, plannerPage, boardsPage, glossaryPage, sidebarState, toggle, sharedCss, en, ru] = await Promise.all([
     read(webSourceRoot, 'features/admin/AdminPage.tsx'),
     read(webSourceRoot, 'features/settings/SettingsPage.tsx'),
     read(webSourceRoot, 'features/feed/FeedPage.tsx'),
@@ -175,6 +175,9 @@ test('supported desktop sections opt into the shared collapsible sidebar contrac
     read(webSourceRoot, 'features/books/ManuscriptLibrarySidebar.tsx'),
     read(webSourceRoot, 'features/books/ManuscriptsPage.css'),
     read(webSourceRoot, 'features/books/PlannerPage.tsx'),
+    read(webSourceRoot, 'features/books/BoardsPage.tsx'),
+    read(webSourceRoot, 'features/books/GlossaryPage.tsx'),
+    read(webSourceRoot, 'features/shared/usePersistentSidebarState.ts'),
     read(webSourceRoot, 'features/shared/SectionSidebarToggle.tsx'),
     read(webSourceRoot, 'styles/shared.css'),
     read(webSourceRoot, 'i18n/locales/en.ts'),
@@ -198,11 +201,19 @@ test('supported desktop sections opt into the shared collapsible sidebar contrac
   assert.ok(manuscriptsCss.includes('.manuscriptsPage.sidebarCollapsed .manuscriptLibraryMain'))
   assert.ok(manuscriptsCss.includes('.manuscriptLibrarySidebar hr {\n  width: 100%;'))
   assert.ok(!manuscriptsCss.includes('.sidebarCollapsed .manuscriptLibrarySidebar hr'))
-  assert.ok(!plannerPage.includes('collapsibleSidebarPage'))
-  assert.ok(!plannerPage.includes('SectionSidebarToggle'))
+  for (const source of [plannerPage, boardsPage, glossaryPage]) {
+    assert.ok(source.includes('collapsibleSidebarPage'))
+    assert.ok(source.includes('collapsibleSectionSidebar'))
+    assert.ok(source.includes('<SectionSidebarToggle'))
+    assert.ok(source.includes('sidebarPreviewProps'))
+  }
+  assert.ok(sidebarState.includes("const SIDEBAR_COLLAPSED_STORAGE_KEY = 'quillum.sidebar-collapsed'"))
+  assert.ok(sidebarState.includes("const SIDEBAR_PREVIEW_POINTER_QUERY = '(hover: hover) and (pointer: fine)'"))
+  assert.ok(sidebarState.includes("'data-sidebar-preview-expanded'"))
   assert.ok(toggle.includes("collapsed ? 'arrow-right-1' : 'arrow-left-1'"))
   assert.ok(sharedCss.includes('@media (min-width: 861px)'))
   assert.ok(sharedCss.includes('.sidebarPage.collapsibleSidebarPage.sidebarCollapsed'))
+  assert.ok(sharedCss.includes(".collapsibleSectionSidebar[data-sidebar-preview-expanded='true']"))
   assert.ok(sharedCss.includes('transition: grid-template-columns 180ms ease'))
   assert.ok(sharedCss.includes('@media (prefers-reduced-motion: reduce)'))
   for (const locale of [en, ru]) {

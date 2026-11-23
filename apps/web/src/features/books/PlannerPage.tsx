@@ -4,8 +4,10 @@ import type { TFunction } from 'i18next'
 import { useTranslation } from 'react-i18next'
 import { apiQuery, apiRequest } from '../../api/client'
 import { TadpoleLoadingState } from '../shared/TadpoleLoadingState'
+import { SectionSidebarToggle } from '../shared/SectionSidebarToggle'
 import { useMobileDialogTransition } from '../shared/useMobileDialogTransition'
 import { useMobileViewport } from '../shared/useMobileViewport'
+import { usePersistentSidebarState } from '../shared/usePersistentSidebarState'
 import { Icon, type IconName } from '../../icons/Icon'
 import type { Manuscript } from './ManuscriptTypes'
 import { PlannerCalendar } from './PlannerCalendar'
@@ -27,6 +29,7 @@ type PlannerSection = 'goals' | 'tasks' | 'calendar'
 export function PlannerPage({ manuscript, onManuscriptChange, onError, onOpenEditorDocument }: Props) {
   const { t, i18n } = useTranslation()
   const isMobile = useMobileViewport()
+  const [sidebarCollapsed, toggleSidebar, sidebarPreviewProps] = usePersistentSidebarState()
   const numberFormatter = new Intl.NumberFormat(i18n.resolvedLanguage)
   const [planner, setPlanner] = useState<PlannerData | null>(null)
   const [loading, setLoading] = useState(true)
@@ -136,8 +139,8 @@ export function PlannerPage({ manuscript, onManuscriptChange, onError, onOpenEdi
     calendar: 'planner.calendar',
   }
   return (
-    <div className={`plannerPage sidebarPage plannerSection-${activeSection} mobileSection-${activeSection} ${mobileActionsHidden ? 'mobileActionsHidden' : ''}`}>
-      <aside className="sectionSidebar plannerSectionSidebar" aria-label={t('planner.mobileSections')}>
+    <div className={`plannerPage sidebarPage collapsibleSidebarPage plannerSection-${activeSection} mobileSection-${activeSection} ${sidebarCollapsed ? 'sidebarCollapsed' : ''} ${mobileActionsHidden ? 'mobileActionsHidden' : ''}`}>
+      <aside {...sidebarPreviewProps} className="sectionSidebar plannerSectionSidebar collapsibleSectionSidebar" aria-label={t('planner.mobileSections')}>
         <nav className="sectionNavigation plannerSectionNavigation" aria-label={t('planner.mobileSections')}>
           {(Object.keys(sectionLabelKeys) as PlannerSection[]).map((section) => (
             <button
@@ -153,6 +156,12 @@ export function PlannerPage({ manuscript, onManuscriptChange, onError, onOpenEdi
             </button>
           ))}
         </nav>
+        <SectionSidebarToggle
+          collapsed={sidebarCollapsed}
+          collapseLabel={t('common.collapseSidebar')}
+          expandLabel={t('common.expandSidebar')}
+          onToggle={toggleSidebar}
+        />
       </aside>
 
       <main className="sectionBody plannerSectionBody" ref={plannerSectionBodyRef} onScroll={handleMobileScroll}>

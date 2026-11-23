@@ -22,6 +22,7 @@ import { ManuscriptStatusChip } from './ManuscriptStatusChip'
 import { MobileLibraryActionSheet } from '../shared/MobileLibraryActionSheet'
 import type { LibraryAction } from '../shared/MobileLibraryActionSheet'
 import { MobileLibraryQueryControls } from './MobileLibraryQueryControls'
+import { usePersistentSidebarState } from '../shared/usePersistentSidebarState'
 import { RemoveFromSeriesDialog } from './RemoveFromSeriesDialog'
 import './ManuscriptsPage.css'
 
@@ -61,7 +62,7 @@ export function SeriesPage({
   const [editorAccess, setEditorAccess] = useState<SeriesBook | null>(null)
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [libraryCounts, setLibraryCounts] = useState<ManuscriptLibraryCounts | null>(null)
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [sidebarCollapsed, toggleSidebar, sidebarPreviewProps] = usePersistentSidebarState()
 
   useEffect(() => {
     let active = true
@@ -207,7 +208,8 @@ export function SeriesPage({
         onSelectSection={onSelectSection}
         onOpenDrawer={() => setDrawerOpen(true)}
         collapsed={sidebarCollapsed}
-        onToggle={() => setSidebarCollapsed((collapsed) => !collapsed)}
+        onToggle={toggleSidebar}
+        previewProps={sidebarPreviewProps}
       />
       <main className="manuscriptPanel manuscriptLibraryMain" aria-labelledby="series-heading">
         <div className="manuscriptToolbar seriesToolbar">

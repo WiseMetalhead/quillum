@@ -42,7 +42,7 @@ const BoardsAudioNoteEditor = lazy(() => import('./BoardsAudioNoteEditor').then(
 
 export function BoardsPage({ manuscript, initialNoteId, onError }: Props) {
   const { t, i18n } = useTranslation()
-  const [sidebarCollapsed, toggleSidebar] = usePersistentSidebarState()
+  const [sidebarCollapsed, toggleSidebar, sidebarPreviewProps] = usePersistentSidebarState()
   const [view, setView] = useState<BoardsView>('boards')
   const [boards, setBoards] = useState<Board[]>([])
   const [tags, setTags] = useState<NoteTag[]>([])
@@ -562,7 +562,7 @@ export function BoardsPage({ manuscript, initialNoteId, onError }: Props) {
   }
   return (
     <div className={`boardsPage collapsibleSidebarPage ${sidebarCollapsed ? 'sidebarCollapsed' : ''} ${editorOpen ? 'editorOpen' : ''}`}>
-      <aside className={`boardsSidebar collapsibleSectionSidebar ${mobileSidebarOpen ? 'mobileOpen' : ''}`} aria-label={t('boards.navigation')}>
+      <aside {...sidebarPreviewProps} className={`boardsSidebar collapsibleSectionSidebar ${mobileSidebarOpen ? 'mobileOpen' : ''}`} aria-label={t('boards.navigation')}>
         <div className="boardsSidebarBody">
           <nav className="boardsNavigation">
             <SidebarButton active={view === 'boards'} dropActive={dragOverTarget === 'boards'} icon={<Icon name="widget-light" />} label={t('boards.boards')} onClick={() => selectView('boards')} onDragOver={(event) => allowNoteDrop('boards', event)} onDragLeave={() => setDragOverTarget(null)} onDrop={(event) => void dropNote('boards', event)} />

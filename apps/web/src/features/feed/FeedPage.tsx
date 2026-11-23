@@ -18,7 +18,7 @@ type FeedPageProps = {
 
 export function FeedPage({ user, onError }: FeedPageProps) {
   const { t } = useTranslation()
-  const [sidebarCollapsed, toggleSidebar] = usePersistentSidebarState()
+  const [sidebarCollapsed, toggleSidebar, sidebarPreviewProps] = usePersistentSidebarState()
   const sections: Array<{ id: FeedSection; label: string; icon: IconName }> = []
   if (user.newsEnabled) {
     sections.push({ id: 'news', label: t('news.title'), icon: 'cheque-light' })
@@ -44,7 +44,7 @@ export function FeedPage({ user, onError }: FeedPageProps) {
         onSelect={setActiveSection}
       />
 
-      <aside className="sectionSidebar feedSidebar collapsibleSectionSidebar" aria-label={t('feed.navigation')}>
+      <aside {...sidebarPreviewProps} className="sectionSidebar feedSidebar collapsibleSectionSidebar" aria-label={t('feed.navigation')}>
         <nav className="sectionNavigation" aria-label={t('feed.categories')}>
           {sections.map((section) => (
             <button

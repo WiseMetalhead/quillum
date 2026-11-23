@@ -62,7 +62,7 @@ export function SeriesPage({
   const [editorAccess, setEditorAccess] = useState<SeriesBook | null>(null)
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [libraryCounts, setLibraryCounts] = useState<ManuscriptLibraryCounts | null>(null)
-  const [sidebarCollapsed, toggleSidebar] = usePersistentSidebarState()
+  const [sidebarCollapsed, toggleSidebar, sidebarPreviewProps] = usePersistentSidebarState()
 
   useEffect(() => {
     let active = true
@@ -209,6 +209,7 @@ export function SeriesPage({
         onOpenDrawer={() => setDrawerOpen(true)}
         collapsed={sidebarCollapsed}
         onToggle={toggleSidebar}
+        previewProps={sidebarPreviewProps}
       />
       <main className="manuscriptPanel manuscriptLibraryMain" aria-labelledby="series-heading">
         <div className="manuscriptToolbar seriesToolbar">

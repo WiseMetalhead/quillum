@@ -150,6 +150,30 @@ button.manuscriptLibraryDrawer {
     padding-right: 0;
     padding-left: 0;
   }
+
+  .manuscriptsPage.sidebarCollapsed > .manuscriptLibrarySidebar[data-sidebar-preview-expanded='true'] .manuscriptLibraryNavigation button {
+    grid-template-columns: 18px minmax(0, 1fr) auto;
+    justify-content: stretch;
+    gap: 12px;
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .manuscriptsPage.sidebarCollapsed > .manuscriptLibrarySidebar[data-sidebar-preview-expanded='true'] .manuscriptLibraryNavigation small {
+    min-width: 22px;
+    max-width: none;
+    padding-right: 6px;
+    padding-left: 6px;
+    opacity: 1;
+  }
+
+  .manuscriptsPage.sidebarCollapsed > .manuscriptLibrarySidebar[data-sidebar-preview-expanded='true'] button.manuscriptLibraryDrawer {
+    grid-template-columns: 18px minmax(0, 1fr);
+    justify-content: stretch;
+    gap: 12px;
+    padding-right: 12px;
+    padding-left: 12px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1960,6 +1984,7 @@ button.seriesBookCardOpen {
 
 @media (max-width: 1180px) {
   .manuscriptsPage {
+    --collapsible-sidebar-expanded-width: 230px;
     grid-template-columns: 230px minmax(0, 1fr);
   }
 

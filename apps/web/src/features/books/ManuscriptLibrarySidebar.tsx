@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { Icon } from '../../icons/Icon'
 import { SectionSidebarToggle } from '../shared/SectionSidebarToggle'
+import type { SidebarPreviewProps } from '../shared/usePersistentSidebarState'
 import {
   manuscriptLibrarySectionIcon,
   editorManuscriptLibrarySections,
@@ -18,6 +19,7 @@ type Props = {
   onOpenDrawer: () => void
   collapsed: boolean
   onToggle: () => void
+  previewProps: SidebarPreviewProps
   editorMode?: boolean
 }
 
@@ -28,13 +30,14 @@ export function ManuscriptLibrarySidebar({
   onOpenDrawer,
   collapsed,
   onToggle,
+  previewProps,
   editorMode = false,
 }: Props) {
   const { t, i18n } = useTranslation()
   const numberFormatter = new Intl.NumberFormat(i18n.resolvedLanguage)
 
   return (
-    <aside className="manuscriptLibrarySidebar collapsibleSectionSidebar" aria-label={t(editorMode ? 'editorManuscripts.title' : 'app.manuscripts')}>
+    <aside {...previewProps} className="manuscriptLibrarySidebar collapsibleSectionSidebar" aria-label={t(editorMode ? 'editorManuscripts.title' : 'app.manuscripts')}>
       <div className="manuscriptLibrarySidebarBody sectionNavigation">
         <nav className="manuscriptLibraryNavigation">
           {(editorMode ? editorManuscriptLibrarySections : manuscriptLibrarySections).map(([section, labelKey]) => (

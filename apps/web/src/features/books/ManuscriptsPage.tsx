@@ -73,7 +73,7 @@ export function ManuscriptsPage({
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [puttingInDrawerId, setPuttingInDrawerId] = useState<string | null>(null)
   const [editorAccess, setEditorAccess] = useState<Manuscript | null>(null)
-  const [sidebarCollapsed, toggleSidebar] = usePersistentSidebarState()
+  const [sidebarCollapsed, toggleSidebar, sidebarPreviewProps] = usePersistentSidebarState()
   const menuRef = useRef<HTMLDivElement>(null)
   const mobileMenuRef = useRef<HTMLDivElement>(null)
 
@@ -312,6 +312,7 @@ export function ManuscriptsPage({
         onOpenDrawer={() => setDrawerOpen(true)}
         collapsed={sidebarCollapsed}
         onToggle={toggleSidebar}
+        previewProps={sidebarPreviewProps}
         editorMode={editorMode}
       />
       <main className="manuscriptPanel manuscriptLibraryMain" aria-labelledby="manuscripts-heading">

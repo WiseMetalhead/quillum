@@ -176,6 +176,23 @@
     display: none;
   }
 
+  .glossaryPage.sidebarCollapsed > .glossarySidebar[data-sidebar-preview-expanded='true'] {
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+
+  .glossaryPage.sidebarCollapsed > .glossarySidebar[data-sidebar-preview-expanded='true'] .glossaryCategoryList > div {
+    grid-template-columns: minmax(0, 1fr) 32px;
+  }
+
+  .glossaryPage.sidebarCollapsed > .glossarySidebar[data-sidebar-preview-expanded='true'] .glossaryCategoryList .categoryAction {
+    display: grid;
+  }
+
+  .glossaryPage.sidebarCollapsed > .glossarySidebar[data-sidebar-preview-expanded='true'] small {
+    display: block;
+  }
+
   .glossaryPage button.sectionSidebarToggle {
     font-size: 12px;
     font-weight: 600;

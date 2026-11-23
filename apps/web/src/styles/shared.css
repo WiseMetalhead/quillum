@@ -83,6 +83,10 @@
 }
 
 @media (min-width: 861px) {
+  .collapsibleSidebarPage {
+    --collapsible-sidebar-expanded-width: 280px;
+  }
+
   .sidebarPage.collapsibleSidebarPage {
     transition: grid-template-columns 180ms ease;
   }
@@ -92,10 +96,11 @@
   }
 
   .collapsibleSectionSidebar {
+    width: 100%;
     display: grid;
     grid-template-rows: minmax(0, 1fr) auto;
     overflow: hidden;
-    transition: padding 180ms ease;
+    transition: width 180ms ease, padding 180ms ease, box-shadow 180ms ease;
   }
 
   .collapsibleSectionSidebar > .sectionNavigation {
@@ -163,6 +168,16 @@
     padding-left: 10px;
   }
 
+  .sidebarCollapsed > .collapsibleSectionSidebar[data-sidebar-preview-expanded='true'] {
+    position: relative;
+    z-index: 30;
+    width: var(--collapsible-sidebar-expanded-width);
+    padding-right: 18px;
+    padding-left: 18px;
+    background: var(--color-surface-raised);
+    box-shadow: 14px 0 32px rgb(var(--color-shadow-rgb) / 16%);
+  }
+
   .sidebarCollapsed .sectionNavigationButton,
   .sidebarCollapsed .sectionSidebarToggle {
     justify-content: center;
@@ -175,6 +190,20 @@
   .sidebarCollapsed .sectionSidebarToggle > span {
     max-width: 0;
     opacity: 0;
+  }
+
+  .sidebarCollapsed > .collapsibleSectionSidebar[data-sidebar-preview-expanded='true'] .sectionNavigationButton,
+  .sidebarCollapsed > .collapsibleSectionSidebar[data-sidebar-preview-expanded='true'] .sectionSidebarToggle {
+    justify-content: flex-start;
+    gap: 12px;
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .sidebarCollapsed > .collapsibleSectionSidebar[data-sidebar-preview-expanded='true'] .sectionNavigationButton > span,
+  .sidebarCollapsed > .collapsibleSectionSidebar[data-sidebar-preview-expanded='true'] .sectionSidebarToggle > span {
+    max-width: 220px;
+    opacity: 1;
   }
 }
 

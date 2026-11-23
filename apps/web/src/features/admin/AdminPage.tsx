@@ -35,7 +35,7 @@ type AdminPageProps = {
 export function AdminPage({ user, onMessage, onError, onServicePagesChange }: AdminPageProps) {
   const { t } = useTranslation()
   const [adminView, setAdminView] = useState<AdminView>('status')
-  const [sidebarCollapsed, toggleSidebar] = usePersistentSidebarState()
+  const [sidebarCollapsed, toggleSidebar, sidebarPreviewProps] = usePersistentSidebarState()
   const { runSensitiveAction, reauthenticationDialog } = useSensitiveAction()
   const stackClass =
     adminView === 'notifications'
@@ -73,7 +73,7 @@ export function AdminPage({ user, onMessage, onError, onServicePagesChange }: Ad
         onSelect={setAdminView}
       />
 
-      <aside className="sectionSidebar adminSidebar collapsibleSectionSidebar" aria-label={t('admin.navigation')}>
+      <aside {...sidebarPreviewProps} className="sectionSidebar adminSidebar collapsibleSectionSidebar" aria-label={t('admin.navigation')}>
         <nav className="sectionNavigation adminNavigation" role="tablist" aria-label={t('admin.views')}>
           {adminNavigation.map((item) => (
             <button

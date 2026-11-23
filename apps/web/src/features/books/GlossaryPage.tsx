@@ -363,7 +363,7 @@ export function GlossaryPage({ userId, manuscript, initialArticleId, onError }: 
   const [sort, setSort] = useState<GlossarySort>('az')
   const [search, setSearch] = useState('')
   const [initial, setInitial] = useState('')
-  const [sidebarCollapsed, toggleSidebar] = usePersistentSidebarState()
+  const [sidebarCollapsed, toggleSidebar, sidebarPreviewProps] = usePersistentSidebarState()
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false)
   const [mobilePanel, setMobilePanel] = useState<'alphabet' | 'search' | 'sort' | null>(null)
   const [articlePage, setArticlePage] = useState<ArticlePage>({
@@ -1367,7 +1367,7 @@ export function GlossaryPage({ userId, manuscript, initialArticleId, onError }: 
 
   return (
     <section className={`glossaryPage collapsibleSidebarPage ${sidebarCollapsed ? 'sidebarCollapsed' : ''}`}>
-      <aside className={`glossarySidebar collapsibleSectionSidebar ${mobileSidebarOpen ? 'mobileOpen' : ''}`} aria-label={t('glossary.navigation')}>
+      <aside {...sidebarPreviewProps} className={`glossarySidebar collapsibleSectionSidebar ${mobileSidebarOpen ? 'mobileOpen' : ''}`} aria-label={t('glossary.navigation')}>
         <div className="glossarySidebarBody">
           <button type="button" className={`sectionNavigationButton spaceButton ${view === 'all' ? 'active' : ''}`} title={t('glossary.mainPage')} onClick={() => selectView('all')}><Icon name="notebook-light" /> <span>{t('glossary.mainPage')}</span></button>
           <div className="glossaryCategoryList">

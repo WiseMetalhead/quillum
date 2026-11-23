@@ -29,7 +29,7 @@ type PlannerSection = 'goals' | 'tasks' | 'calendar'
 export function PlannerPage({ manuscript, onManuscriptChange, onError, onOpenEditorDocument }: Props) {
   const { t, i18n } = useTranslation()
   const isMobile = useMobileViewport()
-  const [sidebarCollapsed, toggleSidebar] = usePersistentSidebarState()
+  const [sidebarCollapsed, toggleSidebar, sidebarPreviewProps] = usePersistentSidebarState()
   const numberFormatter = new Intl.NumberFormat(i18n.resolvedLanguage)
   const [planner, setPlanner] = useState<PlannerData | null>(null)
   const [loading, setLoading] = useState(true)
@@ -140,7 +140,7 @@ export function PlannerPage({ manuscript, onManuscriptChange, onError, onOpenEdi
   }
   return (
     <div className={`plannerPage sidebarPage collapsibleSidebarPage plannerSection-${activeSection} mobileSection-${activeSection} ${sidebarCollapsed ? 'sidebarCollapsed' : ''} ${mobileActionsHidden ? 'mobileActionsHidden' : ''}`}>
-      <aside className="sectionSidebar plannerSectionSidebar collapsibleSectionSidebar" aria-label={t('planner.mobileSections')}>
+      <aside {...sidebarPreviewProps} className="sectionSidebar plannerSectionSidebar collapsibleSectionSidebar" aria-label={t('planner.mobileSections')}>
         <nav className="sectionNavigation plannerSectionNavigation" aria-label={t('planner.mobileSections')}>
           {(Object.keys(sectionLabelKeys) as PlannerSection[]).map((section) => (
             <button

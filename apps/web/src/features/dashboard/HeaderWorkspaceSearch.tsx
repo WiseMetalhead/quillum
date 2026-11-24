@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Icon } from '../../icons/Icon'
 import type { WorkspaceSearchResult } from '../../types'
 import { useMobileViewport } from '../shared/useMobileViewport'
+import { useActiveContextualWorkspaceSearch } from './useContextualWorkspaceSearch'
 import { WorkspaceSearch } from './WorkspaceSearch'
 
 type Props = {
@@ -29,6 +30,7 @@ export function HeaderWorkspaceSearch({
 }: Props) {
   const { t } = useTranslation()
   const isMobile = useMobileViewport()
+  const contextualSearch = useActiveContextualWorkspaceSearch()
   const [mobileOpen, setMobileOpen] = useState(false)
   const triggerRef = useRef<HTMLButtonElement>(null)
   const overlayRef = useRef<HTMLElement>(null)
@@ -96,11 +98,13 @@ export function HeaderWorkspaceSearch({
   if (!isMobile) {
     return (
       <WorkspaceSearch
+        key={contextualSearch?.key ?? 'workspace'}
         endpoint={endpoint}
         kinds={kinds}
         placeholder={placeholder}
         emptyMessage={emptyMessage}
         onSelect={onSelect}
+        contextualSearch={contextualSearch}
         showAuthor={showAuthor}
         presentation="header"
         clearOnSelect

@@ -6,6 +6,8 @@ import { useTranslation } from 'react-i18next'
 import { API_BASE, apiQuery, apiRequest, apiUpload } from '../../api/client'
 import type { Manuscript } from './ManuscriptTypes'
 import { Icon, type IconName } from '../../icons/Icon'
+import { ContextualSearchFilterChip } from '../dashboard/ContextualSearchFilterChip'
+import { useContextualPageSearch } from '../dashboard/useContextualWorkspaceSearch'
 import { ActionDialog } from '../shared/ActionDialog'
 import { AudioWaveform } from '../shared/AudioNotePlayer'
 import { PrivateImage } from '../shared/PrivateImage'
@@ -52,7 +54,6 @@ export function BoardsPage({ manuscript, initialNoteId, onError }: Props) {
   const [selectedTagId, setSelectedTagId] = useState<string | null>(null)
   const [tagSearch, setTagSearch] = useState('')
   const [tagSearchOpen, setTagSearchOpen] = useState(false)
-  const [noteSearch, setNoteSearch] = useState('')
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false)
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false)
   const [mobileActionsOpen, setMobileActionsOpen] = useState(false)
@@ -526,6 +527,16 @@ export function BoardsPage({ manuscript, initialNoteId, onError }: Props) {
   const mobileHeaderTitle = view === 'boards'
     ? selectedBoard?.name ?? t('boards.allNotes')
     : t(viewLabelKeys[view])
+  const {
+    query: noteSearch,
+    setQuery: setNoteSearch,
+    publishResults: publishContextualSearchResults,
+  } = useContextualPageSearch({
+    key: `boards:${manuscript.id}`,
+    label: t('boards.contextSearchLabel', { scope: mobileHeaderTitle }),
+    placeholder: t('boards.contextSearchPlaceholder'),
+    emptyMessage: t('boards.noMatches'),
+  })
   const filteredTags = tags.filter((tag) => tag.name.toLocaleLowerCase(locale).includes(tagSearch.trim().toLocaleLowerCase(locale)))
   const filteredNotes = useMemo(() => {
     const query = noteSearch.trim().toLocaleLowerCase(locale)
@@ -533,6 +544,17 @@ export function BoardsPage({ manuscript, initialNoteId, onError }: Props) {
     const boardNames = new Map(boards.map((board) => [board.id, board.name]))
     return notes.filter((note) => noteSearchText(note, locale, note.boardId ? boardNames.get(note.boardId) ?? '' : '').includes(query))
   }, [boards, locale, noteSearch, notes])
+  const contextualSearchResults = useMemo(() => filteredNotes.slice(0, 5).map((note) => ({
+    key: `note:${note.id}`,
+    globalKey: `note:${note.id}`,
+    title: note.title,
+    meta: `${t(note.kind === 'audio' ? 'audioNotes.readOnly' : 'dashboard.searchKinds.note')} · ${mobileHeaderTitle}`,
+    icon: note.kind === 'audio' ? 'microphone-3-linear' as const : 'notes-light' as const,
+    onSelect: () => openNoteEditor(note),
+  })), [filteredNotes, mobileHeaderTitle, t])
+  useEffect(() => {
+    publishContextualSearchResults(contextualSearchResults, filteredNotes.length)
+  }, [contextualSearchResults, filteredNotes.length, publishContextualSearchResults])
   useEffect(() => {
     const element = notesGridRef.current
     if (!element) return
@@ -647,7 +669,7 @@ export function BoardsPage({ manuscript, initialNoteId, onError }: Props) {
               ) : <h1>{mobileHeaderTitle}</h1>}
             </div>
             <div className="boardsHeaderActions">
-              <label className="boardsNoteSearch"><SearchIcon /><input value={noteSearch} placeholder={t('boards.searchNotes')} aria-label={t('boards.searchNotes')} onChange={(event) => setNoteSearch(event.target.value)} />{noteSearch && <button type="button" className="spaceButton" aria-label={t('boards.clearSearch')} onClick={() => setNoteSearch('')}><Icon name="close-light" /></button>}</label>
+              <ContextualSearchFilterChip query={noteSearch} onClear={() => setNoteSearch('')} />
               {(view === 'boards' || view === 'favourites') && <button type="button" className="boardsNewAudioNote spaceButton" aria-label={t('audioNotes.newAudioNote')} title={t('audioNotes.newAudioNote')} onClick={openNewAudioNote}><Icon name="microphone-3-linear" /></button>}
               {(view === 'boards' || view === 'favourites') && <button type="button" className="boardsNewNote spaceButton" onClick={openNewNote}><PlusIcon /> {t('boards.newNote')}</button>}
               {view === 'archive' && <button type="button" className="boardsBulkAction spaceButton" disabled={!selectedNoteIds.size || bulkBusy} onClick={() => setConfirmAction({ kind: 'bulk-unarchive' })}><Icon name="archive-up-light" /> {t('boards.unarchive')}{selectedNoteIds.size ? ` (${selectedNoteIds.size})` : ''}</button>}

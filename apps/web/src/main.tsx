@@ -9,11 +9,14 @@ import './styles/tiptap.css'
 import './index.css'
 import './features/books/OfflineStorageCleanup'
 import App from './App.tsx'
+import { ContextualWorkspaceSearchProvider } from './features/dashboard/ContextualWorkspaceSearchProvider.tsx'
 import { registerPwa } from './pwa/registerPwa.ts'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <ContextualWorkspaceSearchProvider>
+      <App />
+    </ContextualWorkspaceSearchProvider>
   </StrictMode>,
 )
 

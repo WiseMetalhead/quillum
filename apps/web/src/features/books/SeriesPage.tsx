@@ -19,6 +19,8 @@ import type {
   ManuscriptLibrarySection,
 } from './manuscriptLibraryNavigation'
 import { ManuscriptStatusChip } from './ManuscriptStatusChip'
+import { ContextualSearchFilterChip } from '../dashboard/ContextualSearchFilterChip'
+import { useContextualPageSearch } from '../dashboard/useContextualWorkspaceSearch'
 import { MobileLibraryActionSheet } from '../shared/MobileLibraryActionSheet'
 import type { LibraryAction } from '../shared/MobileLibraryActionSheet'
 import { MobileLibraryQueryControls } from './MobileLibraryQueryControls'
@@ -51,7 +53,6 @@ export function SeriesPage({
   const [series, setSeries] = useState<Series | null>(null)
   const [books, setBooks] = useState<SeriesBook[]>([])
   const [loading, setLoading] = useState(true)
-  const [search, setSearch] = useState('')
   const [sortOrder, setSortOrder] = useState<SeriesSortOrder>('order')
   const [coverUploadLimitBytes, setCoverUploadLimitBytes] = useState<number | null>(null)
   const [createDialogOpen, setCreateDialogOpen] = useState(false)
@@ -63,6 +64,18 @@ export function SeriesPage({
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [libraryCounts, setLibraryCounts] = useState<ManuscriptLibraryCounts | null>(null)
   const [sidebarCollapsed, toggleSidebar, sidebarPreviewProps] = usePersistentSidebarState()
+  const {
+    query: search,
+    setQuery: setSearch,
+    publishResults: publishContextualSearchResults,
+  } = useContextualPageSearch({
+    key: `series:${seriesId}`,
+    label: t('series.contextSearchLabel', {
+      series: series?.title ?? t('manuscripts.series'),
+    }),
+    placeholder: t('series.contextSearchPlaceholder'),
+    emptyMessage: t('manuscripts.noMatches'),
+  })
 
   useEffect(() => {
     let active = true
@@ -153,6 +166,19 @@ export function SeriesPage({
     })
   }, [books, i18n.resolvedLanguage, search, sortOrder])
 
+  const contextualSearchResults = useMemo(() => visibleBooks.slice(0, 5).map((book) => ({
+    key: `book:${book.id}`,
+    globalKey: `manuscript:${book.id}`,
+    title: book.title,
+    meta: t('manuscripts.book'),
+    icon: 'books-light' as const,
+    onSelect: () => onOpenBook(book.id),
+  })), [onOpenBook, t, visibleBooks])
+
+  useEffect(() => {
+    publishContextualSearchResults(contextualSearchResults, visibleBooks.length)
+  }, [contextualSearchResults, publishContextualSearchResults, visibleBooks.length])
+
   const numberedBooks = visibleBooks.filter((book) => book.seriesPosition !== null)
   const unnumberedBooks = visibleBooks.filter((book) => book.seriesPosition === null)
   const nextPosition = useMemo(
@@ -222,16 +248,7 @@ export function SeriesPage({
           </div>
 
           <div className="manuscriptControls">
-            <label className="manuscriptSearch">
-              <span className="srOnly">{t('series.search')}</span>
-              <SearchIcon />
-              <input
-                type="search"
-                placeholder={t('series.searchPlaceholder')}
-                value={search}
-                onChange={(event) => setSearch(event.target.value)}
-              />
-            </label>
+            <ContextualSearchFilterChip query={search} onClear={() => setSearch('')} />
             <label className="manuscriptSort">
               <span className="srOnly">{t('series.sort')}</span>
               <CustomSelect
@@ -558,8 +575,4 @@ function SeriesBookCard({
 
 function formatDate(value: string, locale: string | undefined) {
   return new Intl.DateTimeFormat(locale, { dateStyle: 'medium' }).format(new Date(value))
-}
-
-function SearchIcon() {
-  return <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m16 16 4 4" /></svg>
 }

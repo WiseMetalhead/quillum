@@ -5,6 +5,8 @@ import TadpoleIcon from '~icons/svg-spinners/tadpole'
 import { API_BASE, ApiError, apiDownload, apiRequest, apiUpload } from '../../api/client'
 import { Icon } from '../../icons/Icon'
 import type { StorageItem } from '../../types'
+import { ContextualSearchFilterChip } from '../dashboard/ContextualSearchFilterChip'
+import { useContextualPageSearch } from '../dashboard/useContextualWorkspaceSearch'
 import { ActionDialog } from '../shared/ActionDialog'
 import { PrivateImage } from '../shared/PrivateImage'
 import { SectionSidebarToggle } from '../shared/SectionSidebarToggle'
@@ -361,7 +363,6 @@ export function GlossaryPage({ userId, manuscript, initialArticleId, onError }: 
   const [view, setView] = useState<GlossaryView>('all')
   const [layout, setLayout] = useState<GlossaryLayout>('grid')
   const [sort, setSort] = useState<GlossarySort>('az')
-  const [search, setSearch] = useState('')
   const [initial, setInitial] = useState('')
   const [sidebarCollapsed, toggleSidebar, sidebarPreviewProps] = usePersistentSidebarState()
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false)
@@ -434,7 +435,7 @@ export function GlossaryPage({ userId, manuscript, initialArticleId, onError }: 
   const mobileArticleInfoCloseRef = useRef<HTMLButtonElement>(null)
   const mobileArticleInfoReturnFocusRef = useRef<HTMLElement | null>(null)
   const routeArticleRef = useRef<string | null>(null)
-  const viewStateRef = useRef({ view, search, sort, initial, page: 1, scrollY: 0 })
+  const viewStateRef = useRef({ view, search: '', sort, initial, page: 1, scrollY: 0 })
 
   const categoryById = useMemo(
     () => new Map(scope?.categories.map((category) => [category.id, category]) ?? []),
@@ -471,6 +472,32 @@ export function GlossaryPage({ userId, manuscript, initialArticleId, onError }: 
   const selectedCategory = view.startsWith('category:')
     ? categoryById.get(view.slice('category:'.length)) ?? null
     : null
+  const title = selectedCategory
+    ? categoryLabel(selectedCategory)
+    : t(view === 'favourites'
+      ? 'glossary.favourites'
+      : view === 'recent'
+        ? 'glossary.recentlyEdited'
+        : 'glossary.mainPage')
+  const description = selectedCategory
+    ? categoryDescriptionFor(selectedCategory)
+    : t(view === 'favourites'
+      ? 'glossary.favouritesDescription'
+      : view === 'recent'
+        ? 'glossary.recentDescription'
+        : 'glossary.mainDescription')
+  const clearInitialForContextSearch = useCallback(() => setInitial(''), [])
+  const {
+    query: search,
+    setQuery: setSearch,
+    publishResults: publishContextualSearchResults,
+  } = useContextualPageSearch({
+    key: `glossary:${manuscript.id}`,
+    label: t('glossary.contextSearchLabel', { scope: title }),
+    placeholder: t('glossary.contextSearchPlaceholder'),
+    emptyMessage: t('glossary.contextNoMatches'),
+    onQueryChange: clearInitialForContextSearch,
+  })
 
   const loadScope = useCallback(async () => {
     const payload = await apiRequest<{ glossary: GlossaryScope }>(
@@ -688,7 +715,7 @@ export function GlossaryPage({ userId, manuscript, initialArticleId, onError }: 
     void openArticle(initialArticleId)
   }, [initialArticleId, openArticle])
 
-  function openArticleFromList(articleId: string) {
+  const openArticleFromList = useCallback((articleId: string) => {
     viewStateRef.current = {
       view,
       search,
@@ -698,7 +725,20 @@ export function GlossaryPage({ userId, manuscript, initialArticleId, onError }: 
       scrollY: mainScrollRef.current?.scrollTop ?? 0,
     }
     void openArticle(articleId)
-  }
+  }, [articlePage.page, initial, openArticle, search, sort, view])
+
+  const contextualSearchResults = useMemo(() => articlePage.items.slice(0, 5).map((article) => ({
+    key: `article:${article.id}`,
+    globalKey: `glossaryArticle:${article.id}`,
+    title: article.title,
+    meta: `${t('dashboard.searchKinds.glossaryArticle')} · ${title}`,
+    icon: 'notebook-light' as const,
+    onSelect: () => openArticleFromList(article.id),
+  })), [articlePage.items, openArticleFromList, t, title])
+
+  useEffect(() => {
+    publishContextualSearchResults(contextualSearchResults, articlePage.total)
+  }, [articlePage.total, contextualSearchResults, publishContextualSearchResults])
 
   function articleChanged(article: GlossaryArticle) {
     setActiveArticle(article)
@@ -1084,20 +1124,6 @@ export function GlossaryPage({ userId, manuscript, initialArticleId, onError }: 
     }
   }
 
-  const title = selectedCategory
-    ? categoryLabel(selectedCategory)
-    : t(view === 'favourites'
-      ? 'glossary.favourites'
-      : view === 'recent'
-        ? 'glossary.recentlyEdited'
-        : 'glossary.mainPage')
-  const description = selectedCategory
-    ? categoryDescriptionFor(selectedCategory)
-    : t(view === 'favourites'
-      ? 'glossary.favouritesDescription'
-      : view === 'recent'
-        ? 'glossary.recentDescription'
-        : 'glossary.mainDescription')
   const mobileAlphabetRanges = groupAlphabetInitials(articlePage.initials)
 
   if (loading && !scope) return <TadpoleLoadingState className="manuscriptPageState" label={t('glossary.loading')} />
@@ -1413,7 +1439,7 @@ export function GlossaryPage({ userId, manuscript, initialArticleId, onError }: 
             )}
           </div>
           <div className="glossaryHeaderActions">
-            <label className="glossarySearch"><Icon name="magnifer-outline" /><input value={search} placeholder={t('glossary.searchPlaceholder')} onChange={(event) => { setSearch(event.target.value); setInitial('') }} /></label>
+            <ContextualSearchFilterChip query={search} onClear={() => setSearch('')} />
             <CustomSelect value={sort} aria-label={t('glossary.sort')} onChange={(event) => setSort(event.target.value as GlossarySort)}>
               <option value="az">{t('glossary.sortAz')}</option>
               <option value="za">{t('glossary.sortZa')}</option>

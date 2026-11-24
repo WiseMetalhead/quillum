@@ -1092,6 +1092,79 @@ button.workspaceLinkPageButton.active {
   line-height: 1.35;
 }
 
+button.workspaceSearchShowContext {
+  width: 100%;
+  min-height: 36px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 18px;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 10px;
+  border: 0;
+  border-radius: 7px;
+  color: var(--color-action-primary);
+  background: transparent;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 650;
+  text-align: left;
+  cursor: pointer;
+}
+
+button.workspaceSearchShowContext:hover,
+button.workspaceSearchShowContext.active,
+button.workspaceSearchShowContext:focus-visible {
+  color: var(--color-action-primary-hover);
+  background: var(--color-action-surface);
+  outline: none;
+}
+
+.workspaceSearchShowContext svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+}
+
+button.contextualSearchFilterChip {
+  max-width: min(240px, 28vw);
+  min-height: 32px;
+  display: inline-grid;
+  grid-template-columns: minmax(0, 1fr) 16px;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 8px 5px 10px;
+  border: 1px solid var(--color-action-border-subtle);
+  border-radius: 7px;
+  color: var(--color-action-primary-hover);
+  background: var(--color-action-surface);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.contextualSearchFilterChip span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.contextualSearchFilterChip svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+}
+
+button.contextualSearchFilterChip:hover,
+button.contextualSearchFilterChip:focus-visible {
+  border-color: var(--color-action-border);
+  background: var(--color-action-surface-strong);
+  outline: none;
+}
+
 .headerWorkspaceSearchHost {
   width: clamp(150px, 22vw, 300px);
   min-width: 140px;

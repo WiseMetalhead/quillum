@@ -20,6 +20,8 @@ import type { AvailableManuscript, LibraryItem, Manuscript, Series } from './Man
 import { ManuscriptStatusChip } from './ManuscriptStatusChip'
 import { MobileLibraryActionSheet } from '../shared/MobileLibraryActionSheet'
 import type { LibraryAction } from '../shared/MobileLibraryActionSheet'
+import { ContextualSearchFilterChip } from '../dashboard/ContextualSearchFilterChip'
+import { useContextualPageSearch } from '../dashboard/useContextualWorkspaceSearch'
 import { usePersistentSidebarState } from '../shared/usePersistentSidebarState'
 import { MobileLibraryQueryControls } from './MobileLibraryQueryControls'
 import { ManuscriptLibrarySidebar } from './ManuscriptLibrarySidebar'
@@ -59,7 +61,6 @@ export function ManuscriptsPage({
   const editorMode = mode === 'editor'
   const [items, setItems] = useState<Array<LibraryItem | AvailableManuscript>>([])
   const [loading, setLoading] = useState(true)
-  const [search, setSearch] = useState('')
   const [sortOrder, setSortOrder] = useState<SortOrder>('updated')
   const [coverUploadLimitBytes, setCoverUploadLimitBytes] = useState<number | null>(null)
   const [newMenuOpen, setNewMenuOpen] = useState(false)
@@ -74,6 +75,18 @@ export function ManuscriptsPage({
   const [puttingInDrawerId, setPuttingInDrawerId] = useState<string | null>(null)
   const [editorAccess, setEditorAccess] = useState<Manuscript | null>(null)
   const [sidebarCollapsed, toggleSidebar, sidebarPreviewProps] = usePersistentSidebarState()
+  const {
+    query: search,
+    setQuery: setSearch,
+    publishResults: publishContextualSearchResults,
+  } = useContextualPageSearch({
+    key: `manuscripts:${mode}`,
+    label: t('manuscripts.contextSearchLabel', {
+      section: manuscriptLibrarySectionLabel(activeSection, t),
+    }),
+    placeholder: t('manuscripts.contextSearchPlaceholder'),
+    emptyMessage: t('manuscripts.noMatches'),
+  })
   const menuRef = useRef<HTMLDivElement>(null)
   const mobileMenuRef = useRef<HTMLDivElement>(null)
 
@@ -204,6 +217,19 @@ export function ManuscriptsPage({
     })
   }, [activeSection, i18n.resolvedLanguage, items, search, sortOrder])
 
+  const contextualSearchResults = useMemo(() => visibleItems.slice(0, 5).map((item) => ({
+    key: `${item.kind}:${item.id}`,
+    globalKey: item.kind === 'series' ? undefined : `manuscript:${item.id}`,
+    title: item.title,
+    meta: kindLabel(item, t),
+    icon: filterIcon(item.kind),
+    onSelect: () => item.kind === 'series' ? onOpenSeries(item.id) : onOpen(item.id),
+  })), [onOpen, onOpenSeries, t, visibleItems])
+
+  useEffect(() => {
+    publishContextualSearchResults(contextualSearchResults, visibleItems.length)
+  }, [contextualSearchResults, publishContextualSearchResults, visibleItems.length])
+
   const filterCounts = useMemo(() => ({
     all: items.length,
     oneshot: items.filter((item) => item.kind === 'oneshot').length,
@@ -324,16 +350,7 @@ export function ManuscriptsPage({
           </h1>
 
           <div className="manuscriptControls">
-            <label className="manuscriptSearch">
-              <span className="srOnly">{t('manuscripts.search')}</span>
-              <SearchIcon />
-              <input
-                type="search"
-                placeholder={t('manuscripts.searchPlaceholder')}
-                value={search}
-                onChange={(event) => setSearch(event.target.value)}
-              />
-            </label>
+            <ContextualSearchFilterChip query={search} onClear={() => setSearch('')} />
             <label className="manuscriptSort">
               <span className="srOnly">{t('manuscripts.sort')}</span>
               <CustomSelect
@@ -917,8 +934,4 @@ export function PlusIcon() {
 
 function ChevronIcon({ open }: { open: boolean }) {
   return <svg className={open ? 'open' : ''} viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5" /></svg>
-}
-
-function SearchIcon() {
-  return <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m16 16 4 4" /></svg>
 }

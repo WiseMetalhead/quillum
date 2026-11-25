@@ -10,7 +10,7 @@
     "packages/editor-schema"
   ],
   "devDependencies": {
-    "minimatch": "11.0.8"
+    "minimatch": "11.0.9"
   },
   "overrides": {
     "minimatch": "$minimatch"
